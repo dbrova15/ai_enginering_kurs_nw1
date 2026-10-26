@@ -1,0 +1,63 @@
+Today is a big day. Pre-orders for VENTUNO Q are open, and we couldn’t be more excited to share this with you. Our most advanced platform to date was
+
+Автори: Arduino Team
+
+Категорії: Arduino, Featured
+
+Плати: App Lab, VENTUNO Q
+
+ 
+
+Today is a big day. Pre-orders for VENTUNO Q are open, and we couldn’t be more excited to share this with you. Our most advanced platform to date was built with one clear ambition: to give developers, makers, educators, and engineers a board that   doesn’t just perceive the world, but interacts with it  . A board where AI takes action.
+
+> “ For twenty-one years, Arduino has taken complex technology and made it simple enough for anyone to build something real. VENTUNO Q is that same mission, applied to the most consequential technology of our time. With VENTUNO Q, we are giving every developer, educator and innovator the tools to build machines that don’t just think, but do. ” – Fabio Violante, VP &amp; GM, Arduino, Qualcomm Technologies, Inc.
+
+   What makes VENTUNO Q different
+
+Most edge AI boards stop at perception. VENTUNO Q goes further. Its dual-brain architecture pairs a Qualcomm Dragonwing™ IQ8 processor – delivering up to 40 dense TOPS of AI performance – with a dedicated STM32H5 real-time microcontroller, so the same board that runs a local LLM can also control a motor, communicate via CAN bus protocol, or trigger a physical response in milliseconds. Perception, decision, and action, unified on a single board, entirely offline.
+
+It ships with 16 GB LPDDR5 RAM and 64 GB of eMMC storage – expandable via an M.2 connector for NVMe Gen.4 – giving it the headroom to run concurrent AI inference, complex multitasking, and local data storage without compromise. It comes with pre-loaded Ubuntu, distributed by Canonical, and bundled with Ubuntu Pro license that delivers enterprise-grade security updates. Arduino® App Lab is your fastest path to a working prototype, but VENTUNO Q maintains full compatibility with VS Code, PyCharm, Jupyter, Docker, and native Linux tools. The Arduino Core runs on Zephyr RTOS on the MCU side for deterministic, real-time hardware control. No proprietary toolchain. No lock-in. Just a powerful, open platform you can build on your own terms.
+
+ 
+
+  VENTUNO Q is equipped for demanding real-world deployments  . On the connectivity side, it features Wi-Fi 6 tri-band (2.4/5/6 GHz) with onboard antenna, Bluetooth 5.3, and 2.5 Gb Ethernet. Video output is available via HDMI, DisplayPort over USB-C Alt mode, and MIPI DSI. For cameras, three MIPI CSI connectors are available alongside USB camera support. Audio I/O, USB-C with host/device and power role switching, two USB 3.0 Type-A ports, and additional USB 3.0 and power options on the JOMEGA header round out the interface set. For industrial applications, VENTUNO Q provides CAN-FD connectivity across multiple headers – including a CAN-FD PHY on a dedicated screw terminal – alongside I2C/I3C, SPI, PWM, and UART.
+
+  ROS 2 compatibility is built in, making VENTUNO Q a natural fit for robotics development from day one.   On the hardware compatibility side, VENTUNO Q works out of the box with Arduino® UNO™ shields and carriers, Arduino® Modulino™ nodes via the onboard Qwiic connector, and Raspberry Pi HATs. That’s how it ensures your existing ecosystem of sensors, actuators, and accessories carries forward without modification.
+
+       Build your way with Arduino  ®   App Lab    
+
+ 
+
+Whether you want to get started immediately, bring your own models, or train something custom, VENTUNO Q is the board for you. Out of the box, a growing library of NPU-optimized models is ready to run via Arduino App Lab powered by Qualcomm AI Hub – the current library includes: Qwen 3 4B LLM; Qwen 2.5 7B and 3 4B VLM; Gemma 4 E2B and E4B; Whisper ASR; Melo and Piper TTS; YoloX small object detection; and MediaPipe gesture recognition. Additional models and bricks are added continuously.
+
+You can also upload a GGUF-format model from Hugging Face directly into Arduino App Lab, or train your own with the integrated Edge Impulse Studio.
+
+   Scale from prototype to production
+
+One of the things we’re most excited about is the path VENTUNO Q opens beyond the prototype stage. Under the Works with Arduino™ program, SECO and Toradex – two leading providers of production-grade computing solutions – are among the first partners to offer production-certified SOMs based on the same Dragonwing IQ8 architecture. That means that the apps you prototype on VENTUNO Q with Arduino App Lab, you can scale without re-architecting your hardware stack. Your software, your models, your application logic – all carry forward.
+
+   Physical AI is more accessible than ever
+
+Arduino App Lab already features a library of 100+ examples available for VENTUNO Q, with more added regularly to always give you new starting points to explore physical AI out of the box. At launch, you already have everything you need to quickly develop applications with:
+
+- Large language models (LLM)
+- Vision-language models (VLM)
+- Automatic speech recognition (ASR)
+- Text-to-speech (TTS)
+- Gesture recognition
+
+And there’s more! Arduino App Lab 0.10.0 brings a wave of new features and improvements, including a new Agentic Mode experience.
+
+ 
+
+   Pre-order now to get free accessories included!
+
+Head to the Arduino Store to secure your VENTUNO Q today at its introductory price! Until September 30, 2026 (and while supplies last), you’ll see two freebies added automatically to your cart: the new Arduino® USB-C Power Supply (65W), and the Arduino® USB-C cable (24 pin). These are official accessories that together are designed to support the board in sustaining demanding AI workloads and connected peripherals without throttling.
+
+VENTUNO Q is also available through our official distribution partners: DigiKey, Farnell, Mouser, Robu.in, and RS.
+
+For full technical specs, use cases, and everything you need to know before ordering, read the full press note and visit the VENTUNO Q product page.
+
+We built this for you, and we can’t wait to see what you build with it.
+
+ Qualcomm branded products are products of Qualcomm Technologies, Inc. and/or its subsidiaries. Arduino and VENTUNO are trademarks or registered trademarks of Arduino S.r.l.

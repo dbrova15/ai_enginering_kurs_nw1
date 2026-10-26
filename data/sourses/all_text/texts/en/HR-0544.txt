@@ -1,0 +1,27 @@
+Nixie tubes require electricity in the range of 180VDC, making them challenging to work with. Maker Christine Thompson, however, decided to take Nixie art
+
+Автори: Arduino Team
+
+Категорії: Arduino, Clocks, Featured
+
+Плати: Mega
+
+ 
+
+Nixie tubes require electricity in the range of 180VDC, making them challenging to work with. Maker Christine Thompson, however, decided to take Nixie art to a new level, creating a clock with three different types of tubes!
+
+ 
+
+This clock, or perhaps more accurately “info display,” shows the time and date with six IN-18 tubes mounted on the top. In the front, six IN-12A and two IN-15A tubes are also available to show time, date, pressure, temperature, and humidity.
+
+A pair of Arduino Mega boards are used to control this retro-inspired contraption, along with an array of wiring, perf board, and other components, stuffed inside a very nice wooden enclosure.
+
+ 
+
+> This is my first Nixie styled clock I have constructed. The clock actually consists of two clocks, the first being a 6 x IN-18 tube clock which is mounted on the clock’s top and displays both time and date. The second clock, this time based on 6 x IN-12A and 2 x IN-15A nixie tubes displays at the front of the clock and can display, time, date, pressure (with units and trend), temperature (both Centigrade and Fahrenheit) and, humidity (with units and trend). The time and date are separated with two single neon lamp-based separators, while only one of these lamps is displayed, to represent a decimal point, when the pressure, humidity or temperature is displayed. Both these clocks use “Direct/Static Drive” to power the displays and are based on two Arduino Mega 2560 boards. The fourteen tubes are driven by 12V to 170V DC to DC boost power supplies and 14 x K155 IC chips. The clock also powers two sets of Neon Lamps which switch off while the clock goes through its cathode cleaning cycle which happens at 19, 39 and 55 minutes past each hour. This cathode cleaning cycle consists of all six tubes displaying the digits 0 through 9 in sequence 6 times.  
+>    
+> In addition the clock will sound a chime at 15, 30, 45 and 60 minutes. At the 60 minute chime the hour chime is also sounded. The chimes are standard MP3 files using a simple MP3 player controlled by the Arduino mega. In order to save on tube life all tubes are switched off automatically when the light level in the room dims to a predefined level, this is achieved using a LRD resistor located at the back of the clock. To help dissipate any heat build up both Arduino Mega ICs have copper heat fins attached and a 5V fan draws air out of the clock, cool air entering through a hole in the bottom plate.  
+>    
+> The user can adjust the time, date, chimes, and chimes volume using one of two 16×2 LCD displays, located at the back of the clock. The BME280 temperature, humidity, and pressure sensor is mounted on the back of the clock so as to not be affected by the clock’s internal temperature.
+
+A demo is seen in the video below, while more info and Arduino code can be found in the project’s write-up.

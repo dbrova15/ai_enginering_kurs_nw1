@@ -1,0 +1,39 @@
+Arduino IoT Cloud now makes it fast, easy, simple and secure to connect your devices and add wireless communication between them
+
+Автори: Arduino Team
+
+Категорії: App, Arduino, Featured, Hardware, Network, Projects, Wireless
+
+Плати: IoT Cloud
+
+There’s a brand new device-to-device communication feature now available in the Arduino IoT Cloud. It’s something we’ve been working on for a long time. So we’re excited to see how it’ll add a whole new connected dimension to your Arduino projects.
+
+ 
+
+     What is “device-to-device” communication?  
+
+Internally we’ve been looking at this feature as “device-to-device” communication. It will allow your Arduino devices to send wireless messages to each other, without writing a single line of code or spending time with radio modules and network protocols.
+
+Using this feature you can link variables of the same data type between two or more cloud-enabled devices. For example, one button could set three smart bulbs to the same color. Or you could turn on a heater when temperature sensors in your room or outside in your weather station drop below a certain level. Being able to sync variables gives you an intelligent way to control multiple devices very easily.
+
+-  
+-  
+-  
+
+Whether you use an Oplà IoT Kit, a MKR WiFi 1010, a Nano 33 IoT or an (upcoming!) Nano RP2040 Connect, you can configure everything from the web interface. After configuration, any changes you make to variables on one device will be reflected promptly on the other(s). This creates a seamless, powerful and secure two-way communication with almost no effort on your part, and no code required. The Arduino IoT Cloud handles authentication, security, network disruptions and any other tricky parts.
+
+     What does this mean for your projects and devices?  
+
+It means there are lots of options with thing-to-thing communication (also known as variable synchronization):
+
+- Collect sensor readings from remote devices.
+- Actuate devices remotely. For instance, pressing a button on one Arduino turns on an LED or motor on another.
+- Create a distributed algorithm where multiple devices collaborate with each other.
+
+Are you thinking about home automation? Interactive installations? Monitoring and controlling machines from a wireless panel? This powerful new feature makes all those things easy to achieve for makers of all abilities.
+
+ 
+
+Combined with IoT Cloud’s dashboards this delivers a powerful new way to build incredible automations with minimal (if any) changes. Furthermore, it gives you smartphone control of your connected boards via the existing Arduino IoT Remote iOS and Android apps.
+
+If you want to be one of the first to try it out, grab an   Arduino IoT Cloud subscription  . After that, just make sure you’re signed up to the   Arduino newsletter   to hear about other new features.

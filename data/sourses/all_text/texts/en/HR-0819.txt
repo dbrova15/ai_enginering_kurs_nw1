@@ -1,0 +1,61 @@
+There’s a handful of things we truly need in order to live, and food and water comfortably make the list. Unfortunately, our water and food sources are
+
+Автори: Arduino Team
+
+Категорії: Arduino
+
+Плати: Edge Control, MKR GSM 1400, Nano 33 BLE, Nano 33 IoT
+
+ 
+
+There’s a handful of things we truly  need  in order to live, and food and water comfortably make the list.
+
+Unfortunately, our water and food sources are not always safe. Throughout the world — even in developed countries — pollution, climate change, and poor management are damaging our access to clean water and food.
+
+And to make things even worse, some of the most common methods of cooking and treating food and water are wasteful and bad for the planet!
+
+Can technology help? We think so. In this article, we’ll explore three different ways Arduino can be used to drive cleaner, safer food and water in a more eco-friendly way.
+
+   Enable smart irrigation to optimize water use in agriculture
+
+Farming might look straightforward from afar, but the reality is incredibly complex and challenging.
+
+To grow crops at scale you have to deeply understand the conditions of your soil, master the science of crop rotation, and ensure your crops have all the water they need (but not too much!) at all times.
+
+To make this process easier and more effective, Challenge Agriculture developed Irriduo® leveraging the Arduino platform.
+
+The solution works using an Arduino Edge Control with the Arduino MKR GSM 1400 for connectivity and firmware, along with access to a dedicated Cloud. It relies on a technique called tensiometry, which uses sensors to measure the natural tension of water in soil.
+
+ 
+
+This allows farmers to gain deep, detailed insights into their soil and growing conditions. Sensors provide readings for six crop cycles of three to four months each, representing thousands of measurements that can be repeated for years.
+
+You can gain a better understanding of humidity, the way water moves within soil, water availability, and much more. Even more impressively, Irriduo® is able to react in real-time to changing soil conditions to save water and maximize efficiency.
+
+   Filter microplastics to clean water
+
+Plastic has allowed us to improve our quality of life and technology in countless ways, but it comes at a cost. When plastic degrades, it tends to break down into tiny pieces. Today, these microscopic pieces of plastic are everywhere — in our air, food, soil, and water.
+
+According to a study by Orb Media, microplastics showed up in 83% of water samples tested from metropolitan areas around the world. These plastics damage the environment and have been linked to concerning health risks.
+
+So how do we deal with this problem? One possible solution emerged during the 2022 Natural Robotics Contest, where student Eleanor Mackintosh designed a robotic fish with a built-in filter capable of sucking up microplastics the same way a whale gobbles krill.
+
+ 
+
+A prototype of this planet-saving fish, named “Gillbert,” was built based on Eleanor’s winning idea using an Arduino Nano 33 IoT board and some other components. Gillbert might not be able to eat all the microplastic in the world, or even in the local pond. However, testing revealed it is able to collect enough microplastic to be analyzed by experts, which can make a huge difference as we attempt to understand this problem and its risks more.
+
+As this is an open-source project, if you’d like to try your hand at creating your own, you have everything you need to get started!
+
+   Save energy when cooking, with a smart timer
+
+Preparing meals at home is a great way to save money and use more sustainable ingredients, but it can also rack up high energy bills and increase CO2 emissions if you’re not careful.
+
+To make eco-friendly cooking easier, Italian company Barilla created a food timer for pasta based on Arduino technology. It works by using “passive cooking”, where a device keeps track of the water temperature in your pot and issues alerts telling you when to add the pasta and when to turn off the heat for the most efficient possible use of energy.
+
+ 
+
+According to Barilla, this way of cooking can reduce CO2 emissions by up to 80% compared to traditional methods. The project uses an Arduino Nano 33 BLE and some basic components, and — best of all — it’s been released as open-source so everyone can access all the information they need to start cooking more efficiently at home.
+
+   Share your own eco-friendly projects!
+
+Have you made any energy-saving devices or projects of your own? If so, we’d love to hear about them. Share the details in the comments below or upload them to the Arduino Project Hub, where you’ll find many other examples to keep you inspired.

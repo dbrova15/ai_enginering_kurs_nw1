@@ -1,0 +1,941 @@
+Проєкт демонструє роботу з «розумними» світлодіодами. WS2812 випускаються в різних форм-факторах, один з...
+
+   Апаратна складова
+
+Плата Arduino Pro Mini. Перший макет збирався на платі UNO, після чого був перенесений на Pro Mini з контролером ATmega328 головним чином через невеликі розміри плати. В залежності від обраного корпусу можна замінити на Nano. В разі переносу на ATmega168 доведеться змінювати наведений нижче скетч, бо в такому вигляді він використовує забагато пам’яті.
+
+Діодне кільце WS2812. Мені в руки потрапив модуль на 16 діодів, але для цієї цілі краще підійде модуль на 12, 24 чи 60 світлодіодів, позаяк через округлення значень індикація буде не такою наочною.
+
+OLED дисплей I2C 128x32. Фізичні розміри цього дисплею дозволяють розташувати його всередині діодного кільця таким чином, що робоча область буде повністю видимою.
+
+Датчик температури й вологості DHT11. Далеко не найкращий варіант, але теж перше, що було під рукою. Якщо для вас важлива висока точність, зверніть увагу на більш дорогі датчики.
+
+Годинник реального часу DS1302 (може бути знайдений в цьому й цьому наборі). Один з найбільш доступних модулів. Крім часу, дозволяє одержати дату й день тижня. Отримує автономне живлення від батарейки, тому час не обнуляється навіть коли пристрій вимкнений.
+
+Три кнопки. Можна використати будь-які кнопки на ваш смак. Потрібні для встановлення дати й часу. Кнопка «SET» переводить пристрій в режим встановлення часу й перемикає підрежими (введення годин, хвилин і т.д.). Кнопки «+» та «-» призначені для зміни значення в кожному підрежимі.
+
+   Схема підключення
+
+Діодне кільце
+
+input → PIN11
+
+Живлення від 5В.
+
+OLED дисплей
+
+SCK → SCL (A5 на платі Pro)
+
+SDK → SDL (A4 на платі Pro)
+
+Живлення від 5В або 3,3В.
+
+Датчик DHT11
+
+Out → PIN8
+
+Живлення від 5В.
+
+Годинник реального часу DS1302
+
+RST → PIN10
+
+DAT → PIN12
+
+CLK → PIN13
+
+Живлення від 5В.
+
+Кнопки
+
+«-» → PIN4
+
+«+» → PIN3
+
+«SET» → PIN2
+
+Корпус
+
+Було використано корпус від старого китайського діодного ліхтарика. Дисплей закріплено всередені кільця за допомогою пластикової карти, пофарбованої в чорний колір для більш однорідного вигляду передньої панелі. Детальні фото монтажу не розміщую через те, що вони можуть травмувати естетичні почуття читача все залежить від того, який корпус буде у вас під рукою. Зверніть увагу, що бажано організувати виділене живлення для компонентів, а не підключати їх напряму до плати. Особливо це стосується світлодіодного кільця.
+
+    
+
+ 
+
+ 
+
+ 
+
+   Програмний код
+
+Останню версію програмного коду можна завантажити тут. Значна його частина призначена для створення анімації, що являє собою «хвилю» змінного кольору, та реалізації режиму встановлення часу.
+
+ include &lt;DS1302.h&gt; //бібліотека для роботи з DS1302
+
+ include &lt;FastLED.h&gt; //бібліотека для управління "розумними" діодами
+
+ include &lt;DHT.h&gt; //бібліотека для взаємодії з датчиком DHT11
+
+ include &lt;U8g2lib.h&gt; //бібліотека для виводу на OLED дисплей
+
+ define LED\ PIN 11 //пін піключення діодного кільця
+
+ define NUM\ LEDS 16 //кількість діодів у кільці
+
+ define BTNMINUS\ PIN 4 //пін кнопки "-"
+
+ define BTNPLUS\ PIN 3 //пін кнопки "+"
+
+ define BTNSET\ PIN 2 //пін кнопки "SET"
+
+ define DHT\ PIN 8 //пін датчика DHT11
+
+ define INACTIVE\ TIME 255 //Максимальна кількість ітерацій головного циклу бездіяльності користувача (якщо під час встановлення часу, користувач довго нічого не натискає, годинник переходить в основний режим)
+
+enum Modes {NORMAL, SETTIME}; //режими: основний та режим встановлення часу
+
+enum Submodes {SET\ HOUR, SET\ MIN, SET\ SEC, SET\ DAY, SET\ MON, SET\ YEAR, SET\ DOW}; //підрежимим режиму встановлення часу
+
+const char week[][19] = {"понеділок","вівторок","середа","четвер","п'ятниця","субота","неділя"}; //дні тижня для виводу на екрані
+
+U8G2\ SSD1306\ 128X32\ UNIVISION\ F\ HW\ I2C u8g2(U8G2\ R0); //об'єкт для управління дисплеєм
+
+DHT dht(DHT\ PIN, DHT11); //об'єкт для управління датчиком DHT11
+
+DS1302 rtc(10, 12, 13); //об'єкт для управління годинником реального часу
+
+CRGB leds[NUM\ LEDS]; //об'єкт для управління діодним кільцем
+
+// три масиви станів світлодіодів для відображення годин/хвилин/секунд (вони будуть впливати на різні кольорові канали)
+
+byte hour\ leds[NUM\ LEDS];
+
+byte min\ leds[NUM\ LEDS];
+
+byte sec\ leds[NUM\ LEDS];
+
+byte hour\ led, min\ led, sec\ led; //центри "стрілок"
+
+byte current\ hour, current\ min, current\ sec, current\ day, current\ mon, current\ year, current\ dow;//поточні значення, введені користувачем в режимі налаштування
+
+bool btnset\ state, btnplus\ state, btnminus\ state; //стани кнопок
+
+byte inactive\ time = INACTIVE\ TIME; //кількість ітерацій, протягом яких не була натиснена жодна кнопка
+
+enum Modes mode = NORMAL; //поточний режим
+
+enum Submodes submode = SET\ HOUR; //поточний підрежим
+
+Time t; //час
+
+unsigned char animation\ frame; //номер поточного "кадру" анімації
+
+unsigned int red, blue, animation\ speed; //значення кольорових каналів для створення анімації
+
+float temperature=0, humidity=0; //температура й вологість
+
+/ 
+
+  Оператор інкременту для зручного переключення підрежимів
+
+ /
+
+Submodes&amp; operator++(Submodes&amp; submode)
+
+{
+
+switch(submode) {
+
+case SET\ HOUR : return submode = SET\ MIN;
+
+case SET\ MIN : return submode = SET\ SEC;
+
+case SET\ SEC : return submode = SET\ DAY;
+
+case SET\ DAY : return submode = SET\ MON;
+
+case SET\ MON : return submode = SET\ YEAR;
+
+case SET\ YEAR : return submode = SET\ DOW;
+
+case SET\ DOW : return submode = SET\ HOUR;
+
+}
+
+}
+
+/ 
+
+  Екран виводу дня тижня
+
+ /
+
+void printDOW ()
+
+{
+
+if ((t.dow&lt;1)||(t.dow&gt;7))
+
+return;
+
+//виведення дати
+
+u8g2.setFont(u8g2\ font\ logisoso18\ tr);
+
+u8g2.drawStr(0,18,rtc.getDateStr());
+
+//і дня тижня
+
+u8g2.setFont(u8g2\ font\ unifont\ t\ cyrillic);
+
+u8g2.setCursor(0, 30);
+
+u8g2.print(week[t.dow-1]);
+
+u8g2.sendBuffer();
+
+}
+
+/ 
+
+  Екран виводу температури
+
+ /
+
+void printTemp ()
+
+{
+
+char line [] = "XXC YY%";
+
+//округлення значень температури й вологості
+
+int intTemp = (int)round(temperature);
+
+int intHum = (int)round(humidity);
+
+//конвериація цифр у ASCII коди
+
+line[0] = intTemp/10+48;
+
+line[1] = intTemp%10+48;
+
+line[4] = intHum/10+48;
+
+line[5] = intHum%10+48;
+
+//виведення на екран
+
+u8g2.setFont(u8g2\ font\ logisoso28\ tr);
+
+u8g2.drawStr(0,32,line);
+
+u8g2.sendBuffer();
+
+}
+
+/ 
+
+  Ініціалізація пристрою
+
+ /
+
+void setup() {
+
+mode = NORMAL; //одразу після запуску переходимо в головний режим
+
+rtc.halt(false); // запуск годинника реального часу
+
+pinMode(LED\ PIN, OUTPUT); //режим піну діодного кільця - виведення
+
+FastLED.addLeds&lt;WS2812, LED\ PIN, GRB&gt;(leds, NUM\ LEDS); //ініціалізація діодного кільця
+
+animation\ frame = 0; // стартовий "кадр" анімації
+
+red = 0; //стартове значення червогого каналу на початку анімації
+
+blue = 16; //стартове значення синього каналу на початку анімації
+
+animation\ speed = 1; //швидкість анімації
+
+//ініціалізація дисплея
+
+u8g2.begin();
+
+u8g2.enableUTF8Print();
+
+//ініціалізація пінів кнопок
+
+pinMode(BTNPLUS\ PIN, INPUT\ PULLUP);
+
+pinMode(BTNMINUS\ PIN, INPUT\ PULLUP);
+
+pinMode(BTNSET\ PIN, INPUT\ PULLUP);
+
+btnset\ state = false;
+
+inactive\ time = INACTIVE\ TIME; //кількість ітерацій неактивності користувача
+
+dht.begin(); //ініціалізація DHT11
+
+}
+
+/ 
+
+  Головний цикл
+
+ /
+
+void loop() {
+
+//Зчитування часу та обчислення, які світлодіоди слід активувати
+
+t = rtc.getTime();
+
+hour\ led = (NUM\ LEDS (t.hour%12)+NUM\ LEDS t.min/60)/12;
+
+min\ led = (NUM\ LEDS t.min+NUM\ LEDS t.sec/60)/60;
+
+sec\ led = (NUM\ LEDS t.sec)/60;
+
+/// -=Оновлення світлодіодного кільця=-
+
+//Заповнення масивів станів діодів
+
+//Більші значення відповідають більшій яскравості
+
+if(mode==NORMAL){
+
+for (byte i=0; i&lt;NUM\ LEDS; i++){
+
+if (i==hour\ led)
+
+hour\ leds[i] = 80;
+
+else
+
+hour\ leds[i] = 0;
+
+if (i==min\ led)
+
+min\ leds[i] = 40;
+
+else
+
+min\ leds[i] = 0;
+
+if (i==sec\ led &amp;&amp; (animation\ frame&lt;5))
+
+sec\ leds[i] = 20;
+
+else
+
+sec\ leds[i] = 0;
+
+}
+
+//Годинникова "стрілка" позначається трьома діодами, тому вмикаємо два сусідніх світлодіоди з меншою яскравістю
+
+if(hour\ led==0){
+
+hour\ leds[15] = 10;
+
+hour\ leds[1] = 10;
+
+}
+
+else if (hour\ led==15){
+
+hour\ leds[14] = 10;
+
+hour\ leds[0] = 10;
+
+}
+
+else{
+
+hour\ leds[hour\ led - 1] = 10;
+
+hour\ leds[hour\ led + 1] = 10;
+
+}
+
+//Оновлюємо стан світлодіодного кільця
+
+for (int i = 0; i&lt;NUM\ LEDS; i++)
+
+if (i&lt;=animation\ frame)
+
+leds[NUM\ LEDS-i-1] = CRGB((red&gt;&gt;(animation\ frame-i))+min\ leds[i], hour\ leds[i]+min\ leds[i]+sec\ leds[i] ,(blue&gt;&gt;(animation\ frame-i))+sec\ leds[i]);
+
+else
+
+leds[NUM\ LEDS-i-1] = CRGB(min\ leds[i], hour\ leds[i]+min\ leds[i]+sec\ leds[i], sec\ leds[i]);
+
+FastLED.show();
+
+/// -=Оновлення дисплею=-
+
+u8g2.clearBuffer(); // очистка внутрішнього буферу
+
+//Відображення одного з екранів
+
+switch (t.sec/6){
+
+case 2:
+
+case 6: {
+
+printDOW();//відображення екрану дня тижня
+
+break;
+
+case 4:
+
+case 8:
+
+printTemp();//відображення екрану клавіатури
+
+break;
+
+}
+
+default:{
+
+u8g2.setFont(u8g2\ font\ logisoso28\ tr);
+
+u8g2.drawStr(0,32,rtc.getTimeStr());//відображення екрану часу
+
+}
+
+}
+
+u8g2.sendBuffer(); // виведення внутрішнього буферу на дисплей
+
+}
+
+else{//Якщо активний режим - режим встановлення часу
+
+//-=Оновлення діодного кільця=-
+
+for (int i = 0; i&lt;NUM\ LEDS; i++)
+
+if (i&lt;=animation\ frame)
+
+leds[NUM\ LEDS-i-1] = CRGB((red&gt;&gt;(animation\ frame-i)), 0,(blue&gt;&gt;(animation\ frame-i)));
+
+else
+
+leds[NUM\ LEDS-i-1] = CRGB(0, 0, 0);
+
+FastLED.show();
+
+//-=Оновлення дисплею=-
+
+char line[19] = "HH:MM:SS";
+
+//три підрежими встановлення часу
+
+if((submode==SET\ HOUR)||(submode==SET\ MIN)||(submode==SET\ SEC)){
+
+//конвертація цифр у ASCII коди
+
+line[0] = current\ hour/10+48;
+
+line[1] = current\ hour%10+48;
+
+line[3] = current\ min/10+48;
+
+line[4] = current\ min%10+48;
+
+line[6] = current\ sec/10+48;
+
+line[7] = current\ sec%10+48;
+
+}
+
+//підрежими встановлення дати
+
+else if((submode==SET\ DAY)||(submode==SET\ MON)||(submode==SET\ YEAR))
+
+{
+
+//конвертація цифр у ASCII коди
+
+line[0] = current\ day/10+48;
+
+line[1] = current\ day%10+48;
+
+line[2] = '.';
+
+line[3] = current\ mon/10+48;
+
+line[4] = current\ mon%10+48;
+
+line[5] = '.';
+
+line[6] = current\ year/10+48;
+
+line[7] = current\ year%10+48;
+
+}
+
+else{
+
+strncpy(line,week[current\ dow-1],18);//підрежим встановлення дня тижня
+
+}
+
+//-=блимання числа, яке в даний момент встановлюється=-
+
+switch (submode){
+
+case SET\ HOUR:{
+
+if(animation\ frame%2){
+
+line[0] = ' ';
+
+line[1] = ' ';
+
+}
+
+break;
+
+}
+
+case SET\ MIN:{
+
+if(animation\ frame%2){
+
+line[3] = ' ';
+
+line[4] = ' ';
+
+}
+
+break;
+
+}
+
+case SET\ SEC:{
+
+if(animation\ frame%2){
+
+line[6] = ' ';
+
+line[7] = ' ';
+
+}
+
+break;
+
+}
+
+case SET\ DAY:{
+
+if(animation\ frame%2){
+
+line[0] = ' ';
+
+line[1] = ' ';
+
+}
+
+break;
+
+}
+
+case SET\ MON:{
+
+if(animation\ frame%2){
+
+line[3] = ' ';
+
+line[4] = ' ';
+
+}
+
+break;
+
+}
+
+case SET\ YEAR:{
+
+if(animation\ frame%2){
+
+line[6] = ' ';
+
+line[7] = ' ';
+
+}
+
+break;
+
+}
+
+case SET\ DOW:{
+
+if(animation\ frame%2){
+
+strcpy(line,"");
+
+}
+
+break;
+
+}
+
+}
+
+//виведення на дисплей
+
+u8g2.clearBuffer();
+
+if (submode==SET\ DOW){
+
+u8g2.setFont(u8g2\ font\ unifont\ t\ cyrillic);
+
+u8g2.setCursor(0, 24);
+
+u8g2.print(line);
+
+}
+
+else{
+
+u8g2.setFont(u8g2\ font\ logisoso28\ tr);
+
+u8g2.drawStr(0,32,line);
+
+}
+
+u8g2.sendBuffer();
+
+//-= Обробка натиснення кнопки "+" =-
+
+if (digitalRead(BTNPLUS\ PIN) == LOW)//кнопка натиснена, але не відпущена
+
+btnplus\ state = true;
+
+else if (btnplus\ state){
+
+inactive\ time = INACTIVE\ TIME;//скидання часу неактивності (кнопка щойно була натиснена)
+
+switch(submode){//Інкремент відповідного значення в залежності від підрежиму
+
+case SET\ HOUR:{
+
+current\ hour++;
+
+if (current\ hour&gt;23)
+
+current\ hour = 0;
+
+break;
+
+}
+
+case SET\ MIN:{
+
+current\ min++;
+
+if (current\ min&gt;59)
+
+current\ min = 0;
+
+break;
+
+}
+
+case SET\ SEC:{
+
+current\ sec++;
+
+if (current\ sec&gt;59)
+
+current\ sec = 0;
+
+break;
+
+}
+
+case SET\ DAY:{
+
+current\ day++;
+
+if (current\ day&gt;31)
+
+current\ day = 1;
+
+break;
+
+}
+
+case SET\ MON:{
+
+current\ mon++;
+
+if (current\ mon&gt;12)
+
+current\ mon = 1;
+
+break;
+
+}
+
+case SET\ YEAR:{
+
+current\ year++;
+
+if (current\ year&gt;99)
+
+current\ year = 1;
+
+break;
+
+}
+
+case SET\ DOW:{
+
+current\ dow++;
+
+if (current\ dow&gt;7)
+
+current\ dow = 1;
+
+break;
+
+}
+
+}
+
+btnplus\ state = false;
+
+}
+
+//-= Обробка натиснення кнопки "-" =-
+
+if (digitalRead(BTNMINUS\ PIN) == LOW)//кнопка натиснена, але не відпущена
+
+btnminus\ state = true;
+
+else if (btnminus\ state){
+
+inactive\ time = INACTIVE\ TIME;//скидання часу неактивності (кнопка щойно була натиснена)
+
+switch(submode){//Декремент відповідного значення в залежності від підрежиму
+
+case SET\ HOUR:{
+
+current\ hour--;
+
+if (current\ hour&gt;127)//від'ємні значення (представлення в доповняльному коді)
+
+current\ hour = 23;
+
+break;
+
+}
+
+case SET\ MIN:{
+
+current\ min--;
+
+if (current\ min&gt;127)//від'ємні значення (представлення в доповняльному коді)
+
+current\ min = 59;
+
+break;
+
+}
+
+case SET\ SEC:{
+
+current\ sec--;
+
+if (current\ sec&gt;127)//від'ємні значення (представлення в доповняльному коді)
+
+current\ sec = 59;
+
+break;
+
+}
+
+case SET\ DAY:{
+
+current\ day--;
+
+if (current\ day&lt;1)
+
+current\ day = 31;
+
+break;
+
+}
+
+case SET\ MON:{
+
+current\ mon--;
+
+if (current\ mon&lt;1)
+
+current\ mon = 12;
+
+break;
+
+}
+
+case SET\ YEAR:{
+
+current\ year--;
+
+if (current\ year&gt;127)//від'ємні значення (представлення в доповняльному коді)
+
+current\ year = 99;
+
+break;
+
+}
+
+case SET\ DOW:{
+
+current\ dow--;
+
+if (current\ dow&lt;1)
+
+current\ dow = 7;
+
+break;
+
+}
+
+}
+
+btnminus\ state = false;
+
+}
+
+inactive\ time--; //зменшення часу неактивності
+
+if (inactive\ time==0){//Якщо час неактивності сплив, перемикання в основний режим
+
+inactive\ time = INACTIVE\ TIME;
+
+mode = NORMAL;
+
+submode = SET\ HOUR;
+
+}
+
+}
+
+//Перерахунок анімації
+
+animation\ frame++;
+
+blue-=animation\ speed;
+
+red+=animation\ speed;
+
+if ((!red) || (!blue))
+
+animation\ speed = -animation\ speed;
+
+if (animation\ frame&gt;15)
+
+animation\ frame = 0;
+
+//-= Обробка натиснення кнопки "SET" =-
+
+if (digitalRead(BTNSET\ PIN) == LOW)//кнопка натиснена, але не відпущена
+
+btnset\ state = true;
+
+else if (btnset\ state){
+
+inactive\ time = INACTIVE\ TIME;//скидання часу неактивності (кнопка щойно була натиснена)
+
+if (mode==NORMAL){//Якщо кнопка натиснена в основному режимі, то перехід до режиму налаштування й копіювання поточних значень
+
+mode = SETTIME;
+
+submode = SET\ HOUR;
+
+current\ hour = t.hour;
+
+current\ min = t.min;
+
+current\ sec = t.sec;
+
+current\ day = t.date;
+
+current\ mon = t.mon;
+
+current\ year = t.year%100;
+
+current\ dow = t.dow;
+
+}
+
+else{
+
+submode++;//інакше перехід до наступного підрежиму
+
+if (submode==SET\ YEAR){//перевірка, що введена користувачем дата не перевищує максимальну дату для обраного місяця
+
+if ((current\ mon==2)&amp;&amp;(current\ day&gt;29))
+
+current\ day=29;
+
+if (((current\ mon==4)||(current\ mon==6)||(current\ mon==9)||(current\ mon==11)) &amp;&amp; (current\ day&gt;30))
+
+current\ day=30;
+
+}
+
+if ((submode==SET\ DOW)&amp;&amp;(current\ year%4)&amp;&amp;(current\ mon==2)&amp;&amp;(current\ day&gt;28))//перевірка для лютого невисокосного року
+
+current\ day=28;
+
+if(submode==SET\ HOUR){//Збереження дати й часу в годинник реального часу
+
+rtc.writeProtect(false);
+
+rtc.setDOW(current\ dow); // запис дня тижня
+
+rtc.setTime(current\ hour, current\ min, current\ sec); // запис часу
+
+rtc.setDate(current\ day, current\ mon, current\ year+2000); // запис дати
+
+rtc.writeProtect(true);
+
+mode = NORMAL; //перехід в основний режим
+
+}
+
+}
+
+btnset\ state = false;
+
+}
+
+//Зчитування з датчика значень температури й вологості
+
+if ((t.sec%10)==0){ ///!!!У цілях зневадження раз на 10 секунд. Змініть це значення для економії енергії
+
+temperature = dht.readTemperature();
+
+humidity = dht.readHumidity();
+
+}
+
+delay(15); //Пауза між кадрами анімації. Це значення не впливає на точність годинника, позаяк час зчитується з RTC
+
+}
+
+ 
+
+ 
+
+Загалом проєкт виявився працездатним. При розміщенні в невеликому корпусі світлодіодного кільця поряд з температурним датчиком останній може показувати дещо завищені значення температури. Можливим рішенням є використання більш компактного датчика й винесення його назовні. Проєкт зібраний нашвидкуруч протягом вихідних, тому можливими напрямками розвитку є вдосконалення ефективності енергоспоживання та оптимізація програмного коду. Це дозволило б портувати його на менш потужний мікроконтролер. Логічним продовженням видається також реалізація автоматичної синхронізації часу та індикація оповіщень, отриманих із зовнішнього пристрою.

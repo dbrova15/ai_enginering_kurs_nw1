@@ -1,0 +1,19 @@
+YouTuber James Bruton came up with a great design for a highly mobile robot platform that employs a novel wheel design to move in any direction.
+
+Автори: Arduino Team
+
+Категорії: 3D Printing, Arduino, Robots
+
+Плати: Mega
+
+ 
+
+Wheeled robots normally have wheels that move in a single axis and steer by using either differential speeds or by pivoting some kind of guide wheel. However, this leads to some drawbacks, the most obvious being an inability to move in really tight spaces. When presented with this challenge, YouTuber James Bruton came up with a great design for a highly mobile robot platform that employs a novel setup to move in any direction. Inspired by the work of researchers at Osaka University in Japan, the omni wheel uses a single drive shaft to spin, yet nearly every surface has a way to move along the ground.
+
+After designing his robot in Fusion 360 and 3D printing each part, Bruton assembled the wheels and added a pulley to each drive shaft which could be spun by a motor sitting directly above. An Arduino Mega is tasked with controlling each of the three BTS7960 motor drivers and it receives commands via an nRF24L01 radio module. All of the drive components are powered by a single 3-cell LiPo battery pack, while the main board is supplied current by a USB battery bank.
+
+By spinning certain wheels at the correct speed, straight line motion can be produced, as shown in the video below. Bruton tested his robot by driving over carpet, tile, aluminum extrusions, and even a plastic lid, which did very well across everything except the lid. This robot has countless potential uses, such as a garbage collection device for around the house.
+
+ 
+
+Code and design files for the project are available on GitHub.

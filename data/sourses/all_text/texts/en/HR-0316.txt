@@ -1,0 +1,17 @@
+Drone shows have become a big trend over the past few years, with some shows containing thousands of individual drones. Those shows are wildly expensive,
+
+Автори: Arduino Team
+
+Категорії: Arduino
+
+Плати: Mega
+
+ 
+
+Drone shows have become a big trend over the past few years, with some shows containing thousands of individual drones. Those shows are wildly expensive, because the drones can easily cost a couple thousand dollars each. A big part of the reason for their high cost is their onboard positioning systems, which need to be accurate within a couple of centimeters — far better than standard GPS can achieve. In search of a more affordable option, James Bruton developed  .
+
+Like most positioning systems, this relies on triangulation through time of flight measurements. Triangulation lets you find the position, on a 2D plane, of Point A by measuring its distance to both Point B and Point C and knowing the distance between Point B and Point C ahead of time. This is a triangle and you know the length of every side (the distance between points), so you can calculate the position of Point A. Time of flight is the time it takes a signal to travel between two points. When you know the signal’s rate of travel (which is typically statistic or close enough), you can calculate distance by simply measuring the time it takes the signal to leave Point A and reach Point B (or vice-versa).
+
+Bruton’s design takes advantage of those principles through simple, low-cost ultrasonic sensors. Normally, those measure the time it takes to emit a signal and receive the echo. But in this case, Bruton separated the two jobs so the system doesn’t require a reflective surface. One ultrasonic sensor on a central hub pulses a signal, and another ultrasonic sensor on the drone receives that. An infrared LED array helps to sync the two for precise timing. Arduino Mega 2560 boards on both sides (the hub side and the drone side) control the ultrasonic sensors.
+
+With two hubs (Point B and Point C), the drone (Point A) can use the ultrasonic distance measurements to triangulate its own position in real time. This works in 2D, but a third hub would allow for 3D positioning. This worked well in initial testing, but was susceptible to interference from the drone motors and rotors. Bruton plans to try another idea soon, but this ultrasonic positioning system would work well for other types of vehicles operating within a relatively small area.

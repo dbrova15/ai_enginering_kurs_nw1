@@ -1,0 +1,21 @@
+Smart locks are a highly convenient way to secure a house, and they can have their number of connectivity options expanded even further by connecting them
+
+Автори: Arduino Team
+
+Категорії: Arduino
+
+Плати: Arduino Cloud, Nano RP2040 Connect
+
+ 
+
+Smart locks are a highly convenient way to secure a house, and they can have their number of connectivity options expanded even further by connecting them to an IoT home assistant service such as Google Assistant or Amazon Alexa.
+
+Jithin Sanal’s project uses Amazon’s Alexa skill to automatically secure a custom door locking mechanism without the need for Bluetooth® or a fingerprint. It is based around a Nano RP2040 Connect, and due to its onboard connectivity suite, can talk with the Arduino Cloud. Other than the Nano, Sanal designed a simple PCB with pads for a buzzer, voltage regulator, and several LEDs for monitoring its current status. The circuit also includes a relay that applies power to a solenoid which acts as a deadbolt when power is applied.
+
+ 
+
+After receiving the bare PCB and soldering each component onto it, Sanal moved onto writing the code for his creation. In simple terms, the Arduino Cloud project contains a single variable for getting/setting the value of the lock. Then whenever this changes, a method is called in the firmware that sets the solenoid to this new state and makes a few beeps with the buzzer. The last step was associating the Arduino Alexa skill with the IoT device, thus letting someone set the lock as a dedicated device.
+
+[Voice Controlled Door Lock System using Arduino and Alexa | [Easier than you Think]]( 
+
+You can see more details on this project in Sanal’s Hackster.io write-up.

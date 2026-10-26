@@ -1,0 +1,23 @@
+Proper spindle speed control is necessary to get good CNC milling results. If your spindle speed is inconsistent, your speed and feed calculations will be
+
+Автори: Arduino Team
+
+Категорії: Arduino
+
+Плати: Mega, Uno
+
+ 
+
+Proper spindle speed control is necessary to get good CNC milling results. If your spindle speed is inconsistent, your speed and feed calculations will be wrong. That will lead to poor finishes and even broken end mills (and ruined parts) in extreme cases. But cheap CNC mills and routers often have insufficient spindle speed controllers. That’s why Joekutz’s Workbench built an improved spindle speed controller for his generic CNC 3040.
+
+This DIY spindle speed controller has two major improvements: more precise adjustment and closed-loop feedback.
+
+The original controller just had an imprecise potentiometer knob and dot markings, making it impossible to set to a specific speed. The new version lets the user set the spindle to a desired speed with a digital readout.
+
+It also has closed-loop feedback, so it can adjust power to the motor as necessary to maintain the set speed under load. Without that, even a light load could slow down the spindle and throw off the speed/feed balance.
+
+Joekutz’s Workbench achieved this using an Arduino UNO Rev3 board. It reads input from a rotary encoder to set the motor speed, then shows that speed on a seven-segment display. It controls the motor speed via PWM through a DIY optical isolator, a transistor, and a MOSFET. At the same time, it receives feedback on the real-world motor speed using an LED and photoresistor. That measures the reflectivity of the spinning spindle, which has a piece of aluminum foil tape in one area to increase reflectivity. That lets the Arduino detect a revolution of the motor and calculate the RPM.
+
+ 
+
+The CNC mill uses an Arduino Mega 2560 with GRBL for controlling the axes’ stepper motors. The Arduino Uno spindle controller can receive g-code speed commands from that, or the user can set the speed using the rotary encoder dial.

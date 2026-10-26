@@ -1,0 +1,21 @@
+As a maker, you probably have a third hand for your soldering station. They come in handy when you need to hold a component, PCB, solder, and soldering iron all at the same time. But an extra hand would be useful for a wide range of other everyday activities. That's why this team of researcher built a compact robotic third arm called AugLimb.
+
+Автори: Arduino Team
+
+Категорії: Arduino, Robots
+
+Плати: Mega
+
+ 
+
+As a maker, you probably have a third hand for your soldering station. They come in handy when you need to hold a component, PCB, solder, and soldering iron all at the same time. But an extra hand would be useful for a wide range of other everyday activities. That’s why this team of researchers created a compact robotic third arm called AugLimb.
+
+While robotic augmentations aren’t a new idea, they aren’t often as usable as AugLimb. This robotic arm is lightweight and compact, making it comfortable to wear. It can’t lift much weight, but it is very dexterous thanks to seven degrees of freedom and an extendable gripper. It attaches to the wearer’s bicep and folds up when not in use. When it is time for action, AugLimb unfolds and reaches further than the user’s own arm.
+
+An Arduino Mega board drives AugLimb’s various motors. Those include two shoulder servos, an elbow servo, two wrist servos, a scissor extension motor, and two gripper servos. The scissor extension increases reach by up to 250mm. At this time, a second human operator has to control AugLimb’s movement. But the team hopes to introduce control schemes that let the user operate the robotic limb on their own.
+
+ 
+
+AugLimb is a prototype, but Haoran Xie, a member of the team behind the project, said “We believe that AugLimb will be as popular as smart watches in the near future, as anyone from an elder to a child can comfortably wear it for the whole day.”
+
+ Image: Haoran Xie / Zeyu Ding

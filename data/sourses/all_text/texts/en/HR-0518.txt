@@ -1,0 +1,47 @@
+This article was written by César Garcia, researcher at La Hora Maker. This week, we will be exploring the Apollo Ventilator in detail! This project
+
+Автори: Arduino Team
+
+Категорії: Arduino, Featured
+
+Плати: Mega
+
+ This article was written by César Garcia, researcher at La Hora Maker .
+
+This week, we will be exploring the Apollo Ventilator in detail! This project emerged at Makespace Madrid two months ago. It was a response to the first news about the expected lack of ventilators in Spain because of COVID-19.
+
+Several members of the space decided to explore this problem. They joined Telegram groups and started participating in the coronavirus maker forum. In this group, they stumbled upon an initial design shared by a doctor, that would serve as a starting point for the ventilator project.
+
+ 
+
+Credits: Apollo Ventilator (Photo by Apollo Ventilator Team)
+
+To advance the project, a small but active group would join daily at “Makespace Virtual.” This virtual space used open-source video conferencing software Jitsi. Each one of the eight core members would contribute with their expertise in design, engineering, coding, etc. Due to the confinement measures in place, access to the space was quite limited. Everyone decided to work from home and a single person would merge all advances at the make space physically. A few weeks later doctors from La Paz Hospital in Madrid got in touch with the Apollo team, looking for ways to work together on the ventilator.
+
+One of the hardest challenges to overcome was the lack of medical materials. The global demand has disrupted supply chains everywhere! The team had to improvise with the means at their disposal. To regulate the flow of gases, they created a 3D-printed pinch, that would collapse a medical-grade silicone tube in the input. This mechanism is controlled using the same electronics used in 3D printers: an Arduino Mega 2560 board with a RAMPS shield!
+
+ 
+
+Credits: 3D-printed valve pinch (Photo by Apollo Ventilator Team)
+
+In respect of sensors, they decided to go for certified versions that could be sterilized in an autoclave. They looked everywhere without success. A few days later, they got support from a large electronics supplier to provide them an equivalent model suited for children or adults up to 80 kg.
+
+They decided to work on a shared repository to coordinate all the distributed efforts. This attracted new members and talents, doubling in size and sparking new lines of development. The Apollo Ventilator is an open-source project, meaning that new people can learn and create together new features.
+
+Based on their expertise sourcing components, they wanted Apollo to be flexible. Most other certified ventilators are too specific. But they want to become “the Marlin for ventilators!” Marlin is one of the most used firmware in the world to control 3D printers. This software can manage all kinds of boards and adapt to different configurations easily.
+
+In the case of the Apollo Ventilator, the initial setup runs on a single Arduino Mega board. It uses the attached computer as the display. Current code can be configured to use a secondary Arduino board connected by serial port as a display too. As for the interface, there are several alternatives using GTK and QT. It’s also possible to send this data using MQTT, so data from many ventilators can be centralized. Other alternative builds used even regular snorkeling pieces! The Apollo Ventilator aspires to serve as the basis for several new projects and initiatives where off the shelf solutions are not available. Another potential outcome would be low-cost ventilators for veterinary practice or education.
+
+ 
+
+Credits: Apollo Ventilator made out of snorkeling equipment (Photo by Apollo Ventilator Team)
+
+The Apollo Ventilator is currently under development. They plan to expand the tests on lung simulators right now. Next steps would involve working with hospitals and veterinary schools. They will tackle these phases once the medical services are less overwhelmed.
+
+The Apollo Ventilator takes its name from the famous Apollo missions to the moon. They managed to overcome all obstacles to take us where humanity had not been before. This project shares the same goals in regards to open-source ventilators. They are trying to overcome one of the biggest contemporary challenges, the COVID-19 pandemic.
+
+To learn more about the Apollo Ventilator, you can check out its repository. At   you can also find an interview (in Spanish) to Javi, Apollo Ventilator’s project leader.
+
+If you’d like to know more about Makespace Madrid, visit their website.
+
+ Arduino staff and Arduino community are strongly committed to support projects aimed at fighting and lessening the impact of COVID-19. Arduino products are essential for both R&amp;D and manufacturing purposes related to the global response to Covid-19, in building digital medical devices and manufacturing processes for medical equipment and PPE. However, all prototypes and projects aimed to fight COVID-19 using Arduino open-source electronics and digital fabrication do not create any liability to Arduino (company, community and Arduino staff members). Neither Arduino nor Arduino board, staff members and community will be responsible in any form and to any extent for losses or damages of whatever nature (direct, indirect, consequential, or other) which may arise related to Arduino prototypes, Arduino electronic equipment for critical medical devices, research operations, forum and blog discussions and in general Covid-19 Arduino-based pilot and non pilot projects, independently of the Arduino control on progress or involvement in the research, development, manufacturing and in general implementation phases.

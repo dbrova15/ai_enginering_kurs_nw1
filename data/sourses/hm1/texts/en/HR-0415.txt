@@ -1,0 +1,21 @@
+In order to create the ultimate off-road RC rig, “asrebro” designed his own six-wheeled vehicle, operated with the help of Arduino. To give it decent
+
+Автори: Arduino Team
+
+Категорії: Arduino, Featured
+
+Плати: Mega
+
+ 
+
+In order to create the ultimate off-road RC rig, “asrebro” designed his own six-wheeled vehicle, operated with the help of Arduino.
+
+To give it decent range and reliability, the hacker turned to a stock transmitter and receiver, but routed the PWM signals onboard to a Mega. The Arduino uses a pair of H-bridge boards to drive all six motors/wheels for tank-like movement.
+
+ 
+
+Since an Arduino is used, this opens up a wide range of manual and automatic control options, and could even be used to power robotic accessories like a gripper or gimbal with a camera.
+
+> I decided to build a bigger robot that will easily overcome various obstacles on its way and will be able to move with a load of at least a dozen kilos. I also assumed that the robot should be able to cope in difficult terrain such as sand, snow and rubble. To make it possible, I built a 6-wheel [aluminum and duralumin] chassis equipped with 6 motors of sufficient high power and suitable motor driver and power supply. I also wanted my robot to be controlled from a long distance (at least 200 meters) so I used a good quality 2.4GHz transmitter and receiver.
+
+You can see it in action below, traversing through a forest near Warsaw, Poland.

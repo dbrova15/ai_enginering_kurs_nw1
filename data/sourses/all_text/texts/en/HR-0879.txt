@@ -1,0 +1,23 @@
+Chess is a tricky game to learn, even before you get into various strategies and tactics. The simple act of memorizing the different piece's moves can be
+
+Автори: Arduino Team
+
+Категорії: Arduino
+
+Плати: Mega
+
+ 
+
+Chess is a tricky game to learn, even before you get into various strategies and tactics. The simple act of memorizing the different piece’s moves can be overwhelming to people new to the game. To make it easy to determine where pieces can go, Redditor Bakedbananas is building an illuminated chess board that displays a player’s possible moves.
+
+This is still a work in progress, but the short video does a great job of demonstrating the concept. The entire board is lit from underneath and normally shows the standard checkered pattern. But when a person lifts up a piece, the surrounding squares change color to indicate where the player can place that piece. The starting square is yellow, and squares the piece can move to are green. Red squares indicate positions that a piece would normally be able to go, but which are blocked by other pieces.
+
+Bakedbananas hasn’t posted many technical details yet, but some information is available. The pieces and board, including the translucent squares, are 3D-printed. An Arduino Mega 2560 board detects the presence of pieces on squares using Reed switches and magnets in the pieces’ bases. But the Arduino cannot identify each unique piece. For that reason, it must track every piece’s movement from its starting position in order to keep a running record of the type of piece located at each square.
+
+> Made some progress on the Chessboard this week  
+>  byu/Bakedbananas inarduino
+
+There is still work required to finish this project, but it is very promising and we can’t wait to see the final result in action!
+
+> Last update on the Chessboard before it’s (hopefully) complete  
+>  byu/Bakedbananas inarduino

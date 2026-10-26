@@ -1,0 +1,21 @@
+TechKiwiGadgets built a small device, which has several varieties of connectors on both ends that allow for a cable to be plugged in and subsequently tested.
+
+Автори: Arduino Team
+
+Категорії: Arduino
+
+Плати: Mega
+
+ 
+
+Cables come in a wide variety of styles and attempting to diagnose a potential fault in one of their tiny wires can be tricky, especially without access to fancy test equipment. To combat this problem, TechKiwiGadgets created a small device called the Touch Screen Cable Tracer, which has several varieties of connectors on both ends that allow for a USB or RJ45 cable to be plugged in and subsequently tested.
+
+The board selected for this project was an Arduino Mega due to its large amount of RAM and GPIO pins. Placed on top of this was an ILI9325 2.8” TFT screen, which shows the menu for the cable tracing device and the current state of the attached cable. TechKiwiGadgets also designed, fabricated, and assembled a custom cable tracer shield that snaps onto the Arduino and exposes a mirrored set of connectors on either end.
+
+ 
+
+After putting the Touch Screen Cable Tracer together and placing it into a custom enclosure, it was time to test it out. There are two modes (auto and manual) that can be used to select the type of cable being used. Once the cable has been detected, the Mega attempts to pass current through the wires and read it on the other end. If a fault has occurred, it shows up on the screen as a missing conductor.
+
+ 
+
+If this unit looks familiar, that’s because it was based on an earlier version previously covered on our blog. However, the Touch Screen Cable Tracer is 70% smaller than its predecessor and employs the custom shield and snap-together parts to eliminate meticulous soldering. More details on the device can be found in TechKiwiGadgets post here.

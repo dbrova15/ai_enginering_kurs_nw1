@@ -1,0 +1,98 @@
+Developing energy-efficient IoT and wearable devices is complex and time-consuming, yet it is essential for creating high-quality products that stand out
+
+Автори: Arduino Team
+
+Категорії: Arduino, Batteries, Featured
+
+Плати: Arduino Cloud, IoT Cloud, Portenta
+
+ 
+
+Developing energy-efficient IoT and wearable devices is complex and time-consuming, yet it is essential for creating high-quality products that stand out in today’s market. A key part in this process is   optimizing power consumption without sacrificing performance or functionality  . Fortunately, Arduino Pro modules help address this challenge by offering powerful chips and efficient regulators, enabling developers to fine-tune power settings and maximize efficiency for their specific needs.
+
+To further support these efforts, we’re excited to introduce   a powerful new power management library designed specifically for Arduino Pro modules  . The currently supported models are Arduino Portenta H7, Portenta C33, and Nicla Vision. With this library, you can easily   monitor battery usage and health, fine-tune charging parameters, toggle components to reduce power consumption, and even enable sleep and standby modes on supported devices  . In fact, when in deep sleep mode, some boards consume under 100 microamperes, enabling months or even years of continuous runtime on a single charge.
+
+Ready to optimize your IoT and wearable devices? Keep reading to learn how our new power management library for Arduino Pro modules can help you extend battery life and boost efficiency. Discover the tools to take control of your device’s power usage and try it for yourself!
+
+Here are some of the standout features that will help you maximize efficiency and extend battery life:
+
+-   Battery monitoring  : Keep track of vital battery metrics, including voltage, current, percentage, and temperature, in real-time.
+-   Battery health tracking  : Monitor battery health with detailed insights into temperature, and reported capacity.
+-   Charging control  : Take charge of your device’s battery management by monitoring and adjusting charging parameters.
+-   Sleep and Standby modes  : Save significant power by putting Portenta C33 or Portenta H7 into low-power Sleep and Standby modes. Support for Nicla Vision will be added in an upcoming update.
+-   Power rail control  : Fine-tune power usage by toggling and setting voltages on various power rails of the board.
+
+Managing your device’s battery health has never been easier. With the dedicated battery management class, you gain real-time insights into your battery’s usage and health, empowering you to optimize energy efficiency and prolong battery life. This powerful tool lets you track essential metrics such as current and average voltage, battery percentage, current draw, temperature, and even provides estimates for time-to-full and time-to-empty, allowing you to predict charging and discharging times with accuracy. By keeping a close eye on these parameters, you can   make informed decisions to maximize your device’s performance and longevity.  
+
+Monitoring battery health is crucial for ensuring the long-term reliability and efficiency of your devices. Poor battery health can lead to reduced performance, shorter runtimes, and even unexpected shutdowns, which can negatively impact user experience. By proactively tracking battery metrics, you can identify potential issues before they become critical, extend the lifespan of your batteries, and maintain optimal energy usage – whether your device is in constant use or running intermittently over long periods. Staying on top of battery health means fewer disruptions, lower maintenance costs, and more sustainable, high-performing products.
+
+These features are fully supported on the Arduino Portenta H7, Portenta C33, and Nicla Vision. Ready to put them to the test? Dive into our example sketch  .  
+
+Charging your LiPo battery effectively is key to maintaining long-term health and maximizing runtime. The power management library gives you control over your battery’s charging process by monitoring each stage and allowing you to adjust crucial parameters to suit your specific needs. With this tool, you can   confidently charge your devices, knowing you’re getting the most out of your batteries without risking damage or reduced lifespan  .
+
+    The three stages of charging
+
+LiPo batteries charge in three stages, each critical for ensuring the battery is properly and safely charged:
+
+  Pre-charge:   The first phase begins by charging the battery at a low current, gradually increasing until it reaches the appropriate charging level. This gentle start ensures that the battery is brought up to full charge safely.
+
+  Constant current:   In this stage, the battery charges at a consistent current until it reaches the designated “fully charged” voltage – typically 4.2 V for most LiPo batteries. This is where the bulk of the charging occurs.
+
+  Constant voltage  : Once the battery hits its target voltage, it transitions to constant voltage mode, where the current is gradually reduced. This final stage ensures that the battery is topped off and ready to go without overcharging.
+
+Understanding these stages helps you manage your battery more effectively and ensures optimal charging every time.
+
+    Why monitoring matters
+
+The library allows you to check what stage of charging your battery is in at any time. Knowing whether your battery is pre-charging, fast-charging, or maintaining its full charge can help you monitor its health and ensure it is not being overstressed.   The ability to monitor charging status also alerts you to potential issues like overvoltage, overheating, or timer faults  , so you can intervene and protect your system before any damage occurs.
+
+By giving you control over parameters such as charge voltage, charge current, and end-of-charge current,   the library ensures that your battery is charged in the safest and most efficient manner possible  . Whether you’re tweaking the current limit for a more gentle charge or adjusting the voltage for a custom battery, these settings help you get the best performance while extending battery life.
+
+  With this level of control, you’ll be able to keep your batteries healthy, your devices powered, and your projects running smoothly.  
+
+You can explore these advanced features on the Arduino Portenta H7, Portenta C33, and Nicla Vision. Try them out today with our example sketch.
+
+With modern IoT devices, power efficiency is critical, especially when running on battery for extended periods. That’s where sleep modes come in. The Renesas and ST chips supported by this library feature   two essential low-power states – Sleep and Standby – each optimized to help you manage power consumption without sacrificing functionality.  
+
+Whether you’re developing an energy-conscious wearable or a long-lasting sensor network, these modes help you strike the perfect balance between performance and efficiency.
+
+    Sleep mode: ready when you are
+
+In Sleep mode, your module significantly reduces its power consumption to about half of its normal usage. The best part? When it wakes up, it resumes execution right where it left off. This makes Sleep mode ideal for applications that need to remain responsive while conserving energy. Wake-up triggers can vary depending on your specific board, allowing you to customize how and when your device springs back to life.
+
+    Standby mode: for maximum power saving
+
+Standby mode takes energy conservation to the next level, dropping power consumption to as low as 50 uA to 300 uA when peripherals are turned off. This mode is perfect for long-term, battery-dependent applications where energy use is a major concern. Unlike Sleep mode, Standby resets the board upon waking, triggering the setup() function again. This full reset is well-suited for scenarios where occasional wake-ups are acceptable, such as data logging or remote monitoring.
+
+    Fine-tuning your sleep strategy
+
+Both the Portenta H7 and Portenta C33 offer flexible wake-up options. You can use a real-time clock alarm for scheduled wake-ups or external stimuli such as sensor input to trigger activity. On the Portenta C33, multiple pins can be configured as wake-up sources, allowing you to seamlessly integrate peripherals like motion sensors or buttons to bring your board out of sleep.
+
+For even more control, toggle your peripherals on and off as needed, ensuring that features like the ADC, RGB LED, Secure Element, Wi-Fi®, and Bluetooth® are only active when required. This granular level of power management means you can tailor your device’s behavior to its environment, making sure energy isn’t wasted.
+
+In both sleep modes,   managing your wake-up sources, peripherals, and configurations can significantly extend your device’s battery life, making it a key factor in creating sustainable, long-lasting IoT solutions  .
+
+    Mbed and Portenta H7: automated efficiency
+
+On Mbed-enabled STM32-based boards like the Portenta H7 and Nicla Vision, sleep management is automatic. The system enters a sleep-like state during idle periods, but you can enhance this by manually managing sleep locks – peripherals or processes that might prevent the module from sleeping. Unlocking these will ensure your board sleeps whenever possible, maximizing efficiency without compromising essential tasks. Check out this example from the underlying Arduino\ LowPowerPortentaH7 library for more information about sleep locks.
+
+    Power consumption comparison
+
+To give you a clear idea of how power consumption varies across different Arduino Portenta modules, here is a breakdown of current usage with and without power optimizations. This table highlights how effectively   sleep modes and peripheral management can reduce power draw, helping you extend battery life in your projects.  
+
+| Стовпець 1 | Стовпець 2 | Стовпець 3 | Стовпець 4 |
+| --- | --- | --- | --- |
+|  |   Arduino Portenta C33   |   Arduino Portenta H7 Lite   |   Arduino Portenta H7   |
+|   Without power optimizations   | 41.37 mA | 123.86 mA | 123.86 mA |
+|   Standby consumption with peripherals off   | 58.99 uA | 75.51 uA | 379 uA |
+|   Standby consumption with peripherals on   | 11.53 mA | 4.89 mA | 7.98 mA |
+|   Sleep consumption with peripherals off   | 7.02 mA | N/A | N/A |
+|   Sleep consumption with peripherals on   | 18.26 mA | N/A | N/A |
+
+  Note:   Sleep measurements are not available on the Portenta H7 modules because they go to sleep automatically when idling.
+
+  Note:   These measurements have been taken using a Nordic Power Profiler Kit II through the JST power connector of the Portenta boards. The numbers might be higher when powering through the VIN or 5V pin because it involves more power regulators that are not as efficient as the PF1550’s integrated regulators.
+
+Efficient power management is key to unlocking the full potential of your Arduino Pro projects! With advanced tools like customizable sleep modes, detailed battery monitoring, and flexible peripheral control, you can significantly extend battery life and optimize energy usage across your devices. Whether you’re working with the Portenta H7, Portenta C33, or Nicla Vision, these features allow you to   create smarter, more sustainable IoT and wearable solutions that stand the test of time  .
+
+Now it’s your turn to put these powerful features to work: elevate your designs, reduce energy consumption, and build products that last longer and perform better. And don’t forget to share your results on Project Hub or the Arduino Forum!

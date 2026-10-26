@@ -1,0 +1,19 @@
+A streamer known as CoCoaCoCi has created an inexpensive Elgato Stream Deck alternative using an Arduino Due, a 3.5” TFT LCD screen, and 20 buttons.
+
+Автори: Arduino Team
+
+Категорії: Arduino
+
+Плати: DUE
+
+ 
+
+Stream Decks have gained a great deal of popularity within recent years. However, increased demand and a limited supply of them has caused their prices to skyrocket and availability to dwindle, leading many to seek alternatives. The streamer known as   has created a DIY Stream Deck before, but this first iteration only had a 3.5” touchscreen that wouldn’t always pick up inputs. So, for his next project, CoCoaCoCi wanted to have some physical buttons along with a display that would only be used to navigate menus and actions.
+
+He started by quickly designing and 3D printing a case to house the Crumble Deck’s electronics, including an Arduino Due as the main processor, a 3.5” TFT LCD screen, and 20 buttons. All the buttons were wired together in a matrix that reduces the number of GPIO pins required to detect them. His code then polls each column and row to check which button is currently being pressed.
+
+ 
+
+As with the previous model of the Crumble Deck, this version also contains some very handy macros that can be used when streaming. Many of the buttons are dedicated to switching certain audio and video inputs on or off, while others can change which scene is selected. Some buttons can also automatically write and send small messages with the stream’s chat for quick interactions with viewers.
+
+The Crumble Deck is a great and cheap alternative to more expensive off-the-shelf solutions, and you can see more about how it was created below.

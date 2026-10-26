@@ -1,0 +1,55 @@
+The Arduino Nano RP2040 Connect offers the most feature packed, premium RP2040 experience available to makers. Let’s take a look.
+
+Автори: Arduino Team
+
+Категорії: Arduino, Featured
+
+Плати: Arduino Cloud, Nano RP2040 Connect
+
+ 
+
+It was back in January that we first introduced you to the Arduino Nano RP2040 Connect. The first Arduino board to include Raspberry Pi silicon. It’s been a roller coaster ride getting it to you, and enthusiasm during the wait has been incredibly encouraging. The wait, you’ll be glad to hear, is over.
+
+     The RP2040 Processor  
+
+Working with the Raspberry Pi Foundation is nothing short of a pleasure. The teams there make some incredible devices, and their first in-house silicon is no exception. These guys  get  it.
+
+This system-on-a-chip is a 32-bit dual-core Arm Cortex-M0+ microcontroller, clocked at 133MHz and is powerful enough to run TensorFlow Lite. It’s young, but proving to be incredibly popular with makers, as well as electronics manufacturers. It’s going to be incredibly exciting to see how the Arduino community reacts to it. We can only imagine what you guys can achieve with the extra features of the Nano RP2040 Connect board.
+
+     Welcome the Arduino Nano RP2040 Connect  
+
+So it was an easy choice for Arduino to put an RP2040 at the core of a new board. We felt so strongly about the excellence of this new chip that we knew it deserved a powerful, premium Nano board that is unrivalled in terms of features.
+
+First and foremost is the inclusion of the u-blox NINA-W102 WiFi and Bluetooth radio module. Nano users are probably quite familiar with this excellent module already.
+
+Coupled with a six-axis machine learning-capable IMU motion sensor, on-board microphone for sound and voice activation, an RGB LED and loads of multi-function GPIO pins, this is the project maker’s dream come true. And all on such a tiny board.
+
+     Nano     RP2040 Connect in the Cloud  
+
+Just like everything Arduino, the hardware of the Nano RP2040 Connect is only half the story.
+
+Right off the bat this device is fully compatible with the Arduino Cloud. It landed at just the right moment, as Arduino Cloud plans were given an overhaul. These offer a lot more on the free tier, while bringing in a new Entry Plan that really unlocks the power of the cloud.
+
+ 
+
+Because the Nano RP2040 Connect is a connected device, this opens up all kinds of possibilities. Not least of all over-the-air updates and programming. This alone can make a Cloud accompaniment to the board worthwhile. It gives you full, incredibly easy access to the hardware. This is true even after it’s been deployed, installed or buried in the guts of a project. If it’s got a WiFi signal, you can do everything as if it was plugged in by USB. Furthermore, it has the added bonus of smartphone control through the Arduino IoT Remote app.
+
+The Cloud even makes it super easy for your Nano RP2040 Connect to communicate wirelessly with other boards. Any devices connected to your Arduino Cloud can communicate, and we’re not just talking about official Arduino boards.
+
+     So Much Software  
+
+A couple of weeks ago we updated the official Arduino Mbed Core to provide native RP2040 support.
+
+The plug-and-play nature of the Arduino Core means you can use existing sketches you made for, say, a Nano 33 BLE Sense on your brand new Nano RP2040 Connect. So you can have this little workhorse up and running within minutes, if you’ve already been working on some project sketches. Plus, it’s compatible with the entire RP2040 software ecosystem, so if this is an upgrade for an existing RP2040 board, you’re good to go.
+
+If you’re just getting started on sketches for the device, it offers full support for MicroPython. There’s even a free OpenMV license bundled in, for any machine vision projects you might have planned.
+
+ 
+
+     Go Get Your Arduino Nano RP2040 Connect  
+
+Yes, there’s a limited supply at launch. We built as many as possible for the first run. But a lot have been sent out to our reseller partners. So head on over to the store right now if you want to be one of the first to get this premium RP2040 board.
+
+If you want to stay up to date on all things Arduino Nano RP2040 Connect, make sure you’re signed up to our email list. From there we’ll keep you advised on restocking, new updates, special offers and everything else to do with this tiny, but mighty, board.
+
+BUY   NANO RP2040 CONNECT

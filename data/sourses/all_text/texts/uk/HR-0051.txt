@@ -1,0 +1,196 @@
+Дана стаття являється прикладом підключення дисплея на контролері  ILI9325 до stm-ки по принципу звичайного...
+
+   Богдан Парфенюк   
+
+В проєкті використано:
+
+- 2.8" 320х240 TFT LCD Screen модуль (код: ASC188)
+- ITDB02 Shield переходник для TFT  (код: ASC110)
+
+Дана стаття являється прикладом підключення дисплея на контролері ILI9325 до stm-ки по принципу звичайного «ногодрига». Але маючи ці данні та приклад ініціалізації її можна легко переробити для підключення по FSMC (маючи приклад ініціалізації FSMC під рукою). Також, маючи викладений нижче алгоритм роботи, можна не прикладаючи багато зусиль (переписати лише ініціалізацію ніжок) підключити даний дисплей до будь-якого контролера stm32. У моєму випадку це stm32f103vet6.
+
+  Схема підключення:     
+ Для підключення я використовую шилд ITDB02. Теоретично дисплей мав би працювати і без нього так як логічною одиницею контролер дисплея вважає усе що більше 2V. Але без нього дисплей вмикається 1 раз з 25 та працює не стабільно. Повністю це питання я не досліджував.
+
+ 
+
+  GPIOE  
+
+(GPIO\ Pin\ 0 | GPIO\ Pin\ 1 | GPIO\ Pin\ 2 | GPIO\ Pin\ 3 | GPIO\ Pin\ 4 | GPIO\ Pin\ 5 | GPIO\ Pin\ 6 | GPIO\ Pin\ 7) è D0/D7
+
+  GPIOC  
+
+RS= &gt;GPIO\ Pin\ 1
+
+WR= &gt;GPIO\ Pin\ 2
+
+CS= &gt;GPIO\ Pin\ 3
+
+REST =&gt;GPIO\ Pin\ 5
+
+Живлення 5V.
+
+  Код програми:  
+
+Код прикладаю в архіві. Там цілий проект EmBits. Це найшвидший спосіб перевірити усе в діїі та застосувати. Для тесту можна використати MapleMini (знісши звідти завантажувач та використовуючи як звичайний stm32 демобоард. Але потрібно буде замінити map файл памяті в проекті на відповідний). Це IDE безкоштовне.
+
+LCD.cpp – функції роботи з дисплеєм, ініт пінів та дисплея  
+ LCD.h – хедер з дефайнами
+
+Mein.c – головний цикл програми
+
+Ініт дисплея виглядає так:  
+ RS\ LOW;
+
+CS\ LOW;
+
+WR\ LOW;
+
+REST\ LOW;
+
+delay(10);
+
+CS\ HIGH;
+
+WR\ HIGH;
+
+RS\ HIGH;
+
+REST\ HIGH;
+
+delay(15);
+
+sendCommand(0xE5); sendData(0x78F0); // set SRAM internal timing
+
+sendCommand(0x01); sendData(0x0100); // set SS and SM bit
+
+sendCommand(0x02); sendData(0x0700); // set 1 line inversion
+
+// TFT\ WR\ CMD\ DATA(0x0003, 0x1030); // вертикальная ориентация
+
+sendCommand(0x03); sendData(0x1018); // горизонтальная ориентация
+
+sendCommand(0x04); sendData(0x0000);
+
+sendCommand(0x08); sendData(0x0207);
+
+sendCommand(0x09); sendData(0x0000);
+
+sendCommand(0x0A); sendData(0x0000);
+
+sendCommand(0x0C); sendData(0x0000);//0001) 16-bit RGB interface (1 transfer/pixel), using internal system clock
+
+sendCommand(0x0D); sendData(0x0000);
+
+sendCommand(0x0F); sendData(0x0000);
+
+//             Power On sequence                 //
+
+sendCommand(0x10); sendData(0x0000);
+
+sendCommand(0x11); sendData(0x0007);
+
+sendCommand(0x12); sendData(0x0000);
+
+sendCommand(0x13); sendData(0x0000);
+
+sendCommand(0x07); sendData(0x0001);
+
+// delay(200,ms);
+
+delay(200); // Dis-charge capacitor power voltage
+
+sendCommand(0x10); sendData(0x1090); //1690
+
+sendCommand(0x11); sendData(0x0227);
+
+delay(50);// Delay 50ms
+
+sendCommand(0x12); sendData(0x001F);////////!!!!!!!!(009D) (0f,0d,12)
+
+delay(50);
+
+sendCommand(0x13); sendData(0x1200); //(1900)
+
+sendCommand(0x29); sendData(0x0025); //(0027)
+
+sendCommand(0x2B); sendData(0x000E); // ??Hz frame rate, internal resistor.
+
+delay(50);
+
+sendCommand(0x20); sendData(0x0000);
+
+sendCommand(0x21); sendData(0x0000);
+
+// ----------- Adjust the Gamma Curve ----------//
+
+sendCommand(0x30); sendData(0x0000);
+
+sendCommand(0x31); sendData(0x0707);
+
+sendCommand(0x32); sendData(0x0307);
+
+sendCommand(0x35); sendData(0x0200);
+
+sendCommand(0x36); sendData(0x0008);
+
+sendCommand(0x37); sendData(0x0004);
+
+sendCommand(0x38); sendData(0x0000);
+
+sendCommand(0x39); sendData(0x0707);
+
+sendCommand(0x3C); sendData(0x0002);//?? 0504
+
+sendCommand(0x3D); sendData(0x1D04);//?? 0808
+
+//------------------ Set GRAM area ---------------//
+
+sendCommand(0x50); sendData(0x0000);
+
+sendCommand(0x51); sendData(0x00EF);
+
+sendCommand(0x52); sendData(0x0000);
+
+sendCommand(0x53); sendData(0x013F);
+
+sendCommand(0x60); sendData(0xA700);
+
+sendCommand(0x61); sendData(0x0001);
+
+sendCommand(0x6A); sendData(0x0000);
+
+sendCommand(0x80); sendData(0x0000);
+
+sendCommand(0x81); sendData(0x0000);
+
+sendCommand(0x82); sendData(0x0000);
+
+sendCommand(0x83); sendData(0x0000);
+
+sendCommand(0x84); sendData(0x0000);
+
+sendCommand(0x85); sendData(0x0000);
+
+sendCommand(0x90); sendData(0x0310); //(0010)- dont work
+
+sendCommand(0x92); sendData(0x0600);
+
+sendCommand(0x07); sendData(0x013B); // 262K color and display ON
+
+Якщо вам потрібно поміняти орієнтацію дисплея це можна зробити таким чином:  
+ 1.спочатку викликаємо в головному циклі setOrientation() – передаємо 1 =&gt; вертикальна. Передаємо все крім одиниці =&gt; горизонтальна.
+
+2. наступним кроком ми розкоментовуємо потрібний дефайн в LCD.h.  
+ // define DISP\ ORIENTATION 0
+
+ define DISP\ ORIENTATION 90
+
+// define DISP\ ORIENTATION 180
+
+// define DISP\ ORIENTATION 270
+
+Ссылки проекта:
+
+- Код проекта
+- Литература: Даташит на контроллер (починаючи з 50 сторінки)

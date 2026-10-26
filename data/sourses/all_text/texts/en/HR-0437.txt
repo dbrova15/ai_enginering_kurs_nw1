@@ -1,0 +1,23 @@
+Cable-based robots are a common sight at sporting events as remote camera operators, but what about one for your living room? As spotted on Reddit,
+
+Автори: Arduino Team
+
+Категорії: Arduino, Featured
+
+Плати: Mega
+
+ 
+
+Cable-based robots are a common sight at sporting events as remote camera operators, but what about one for your living room? As spotted on Reddit, Nathaniel Nifong decided there was no reason not to have one of these devices, and made his own personal Skycam-like robot.
+
+The system uses four servo motors to wind cables attached to the ceiling around 3D-printed wheels, and can be controlled using a smartphone via Bluetooth and an Arduino Mega.
+
+ 
+
+The prototype—constructed using cardboard and what appears to be LEGO components—is seen moving around Nifong’s dwelling in the videos below, and the eventual goal is to let it move items around using a servo gripper assembly.
+
+> This is the first wireless movement demonstration of a robot I’m building. It’s based on parts from an XYZ 6-DOF robotic arm.
+>
+> The Bluetooth control is done by using Nordic toolbox to send commands to a an MDBT40 Bluetooth module that was reprogrammed with an ST-Link V2. The module forwards the command to the Arduino.
+>
+> Commands are to move 10 cm in any direction. It calculates what the change in rope lengths would be to achieve the new position.

@@ -1,0 +1,21 @@
+Earlier this year, artist Niklas Roy was invited to participate in the Drehmoment art festival that takes place in the south-west of Germany. The “catch”
+
+Автори: Arduino Team
+
+Категорії: Arduino, Featured
+
+Плати: Mega
+
+ 
+
+Earlier this year, artist Niklas Roy was invited to participate in the Drehmoment art festival that takes place in the south-west of Germany. The “catch” to this festival is that each artist was invited to team up with a local company to take advantage of their products and resources. Of these was cleaning equipment brand Kärcher, known for their pressure washers.
+
+With this company’s backing, Roy put together a musical water fountain powered by eight pressure washers, dubbing it the “Wasserorgel von Winnenden,” or “Water Organ of Winnenden”—the location of Kärcher’s headquarters.
+
+ 
+
+The installation is controlled by an Arduino Mega, along with supporting electronics including a Music Maker Shield and solid state relays to activate the pressure washers. During the festival, passerby were invited play some tunes using a 3D-printed keyboard made to withstand the elements and less-than-gentle interactions.
+
+> The brain of the Wasserorgel was an Arduino MEGA 2560, stacked with an Adafruit Music Maker Shield. The MIDI synthesizer of the shield generated the instrument sounds based on the input coming from a self-built, 3D-printed keyboard. The keyboard was designed solid enough to withstand weather and the misguided enthusiasm of drunk people at 3 ‘o clock at night. The program on the Arduino translated the keystrokes into water and light effects by switching 12V RGB LEDs via darlington transistors and the eight pressure sprayers via solid state relays. Five of the pressure sprayer fountains were installed on top of the main basin, one was installed on top of an existing fountain and two were installed on the roof of the Kronenplatz-building.
+
+You can find more information in Roy’s project write-up, and see it in action below!

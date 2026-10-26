@@ -1,0 +1,25 @@
+Do you enjoy mowing your lawn? No? Well, now you can ‘simply’ print a robot to do it for you, based on German mechanical engineer Philip Read’s design.
+
+Автори: Arduino Team
+
+Категорії: Arduino, Featured, Robots
+
+Плати: Mega, Uno
+
+ 
+
+Do you enjoy mowing your lawn? No? Well, now you can ‘simply’ print a robot to do it for you, based on German mechanical engineer Philip Read’s design. His Roomba-esque device uses a pair of gearmotors for movement, an array of three ultrasonic sensors for obstacle avoidance, and a perimeter wire/sensor to keep it within the designated boundary.
+
+ 
+
+An Arduino Mega is employed as the main processing unit for the robotic mower, however a separate Nano onboard helps measure battery voltage as well as current when charging. Meanwhile, an Arduino Uno along with a motor driver are used to control the perimeter wire setup.
+
+Extensive build info is available on the project’s write-up, and a short demo can be seen in the video below.
+
+ 
+
+> Fully autonomous robot lawn mower. The mower project includes the mower itself a boundary wire control station and an optional charging station. The mower navigates within the boundary wire which is positioned (pinned) around the perimeter of the garden. Once the mower senses the perimeter wire, it stops reverses and moves off in a new direction. The mower also has 3 sonar sensors to detect objects in the mowers path. Once the mowers battery is exhausted, the mower uses the boundary wire to navigate itself back to the charging station. All this can be customised in the Arduino software or completely re-written to your personal preferences.
+>
+> Commercial mowers with this specification cost upwards of 600€ ($680).
+
+ Obviously, you’ll want to use such a device in an area devoid of kids or pets

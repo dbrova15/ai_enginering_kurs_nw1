@@ -1,0 +1,29 @@
+If you want to create your own steampunk/mad scientist entertainment center, it would be hard to top this radio/clock setup by Christine Thompson.
+
+Автори: Arduino Team
+
+Категорії: Arduino, Clocks, Featured
+
+Плати: Mega
+
+ 
+
+If you want to create your own steampunk/mad scientist entertainment center, it would be hard to top this radio/clock setup by Christine Thompson.
+
+Her device displays the time and date on eight VFD tubes, arranged on top of another eight that show the radio frequency and volume, along with the ambient temperature and pressure read by a BMP280 sensor.
+
+ 
+
+A wide variety of lighting effects, motor-driven clockwork, coils, and even an automated Morse key cement its steampunk theme, and it’s nicely housed in a restored radio cabinet.
+
+ 
+
+The project is controlled by a pair of Arduino Mega boards linked together via I2C, and Thompson’s write-up has all sorts of tidbits for potential retro-display builders.
+
+ 
+
+> This project is without doubt the most complex I have undertaken, with sixteen IV-11 VFD tubes, two Arduino Mega cards, ten LED Neon light circuits, a servo, an electromagnet, two MAX6921AWI IC Chips, five DC power supplies, a HV power supply, two DC Volt meters, a DC Amp meter, FM stereo radio, 3W power amplifier, LCD screen, and keyboard. Apart from the above parts list, two software programs had to developed from scratch and finally the construction of the entire radio required about 200 hours of work.
+>
+> I decided to include this project onto the Instructables site not expecting members to reproduce this project in its entirety but rather to cherry pick the elements that where of interest to them. Two areas of particular interest to the site members may be the control of the 16 IV-11 VDF tubes using two MAX6921AWI chips and its associated wiring, and the communications between two Mega 2650 cards.
+>
+> The various components included into this project have been sourced locally, except the IV-11 tubes, and the MAX6921AWI chips both obtained on EBay. I wanted to bring back to life various items that would otherwise languish in boxes for years. All of the HF valves where sourced with the understanding that all where failed units.

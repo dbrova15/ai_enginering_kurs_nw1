@@ -1,0 +1,49 @@
+After-school workshops run by curious, driven students is where some of the most exciting engineering happens in the Arduino community! One of the most
+
+Автори: Arduino Team
+
+Категорії: Arduino
+
+Плати: GIGA R1 WiFi, UNO Q
+
+ 
+
+After-school workshops run by curious, driven students is where some of the most exciting engineering happens in the Arduino community! One of the most compelling examples of this is FermiLabs, the innovation hub at secondary school IIS “E. Fermi – R. Guttuso” in Giarre, Sicily, offering students afternoon lab sessions in robotics, automation, and experimental physics. The results speak for themselves: FermiLabs teams have earned multiple podium positions at RoboCupJunior Europe, one of the most demanding student robotics competitions in the world.
+
+RoboCupJunior Rescue, in particular, challenges teams to   design, build, and program fully autonomous robots capable of navigating disaster scenarios   – from following lines across obstacle-laden terrain to exploring multi-level mazes and assisting simulated victims. For the 2026 season, two FermiLabs teams are pushing the limits of what student-built robots can do, with Arduino at the core of both machines.
+
+   Team Tachyons: solving the maze with Arduino GIGA R1 WiFi
+
+The RoboCupJunior Rescue Maze requires a robot to autonomously explore a complex, multi-level labyrinth, identify victims, and deploy rescue kits with precision.   The 2026 rulebook raised the bar significantly with the introduction of “cognitive targets”   – five concentric colored circles that robots must decode in real-time to classify victim types. This shift from simple colored squares to dense visual patterns demands a substantial leap in processing power and sensor integration.
+
+ 
+
+Team Tachyons – who showcased their work during Arduino Days 2026 and are led by YouTuber and TEDx speaker   – met that challenge by centering their robot on the Arduino GIGA R1 WiFi, leveraging the board’s ability to handle complex, multi-threaded tasks with the reliability and low latency that competitive robotics demands.
+
+The robot’s intelligence lives in a custom-designed Arduino shield that acts as its central nervous system. Four dedicated stepper motor drivers deliver sub-millimeter positioning accuracy, while a six-axis IMU (Inertial Measurement Unit), fused with data from six ToF (Time-of-Flight) distance sensors, feeds a PID control loop that keeps the robot precisely centered within each tile – even on ramps and uneven terrain. On top of all this, the software builds a live 3D matrix to map the labyrinth in real-time, allowing the robot to backtrack and optimize its path autonomously.
+
+The mechanical design is equally thoughtful. Custom silicone wheels, molded in-house with an airless structure, maximize traction while minimizing weight and absorbing shocks. The rescue kit deployment mechanism uses a compliant mechanism and twin springs to fire rescue cubelets at high velocity – and the kits themselves are engineered with the lowest possible coefficient of restitution, so they drop dead in place when they reach a victim rather than bouncing away.
+
+After a successful showing at the regional selections in Catania, Team Tachyons placed second in the Italian Nationals with a new and improved model based on UNO Q 4GB boards… winning the chance to fly to Incheon, South Korea to compete with the best 3,000 robotics students in the world.
+
+   Team Yellow Radiators: vision-first line following with Arduino UNO Q
+
+The Rescue Line challenge tasks a fully autonomous robot with following a black line across a modular arena of tiles, overcoming obstacles, debris, and varying terrain – ultimately locating and rescuing simulated victims before navigating to an extraction zone.   Speed, reliability, and real-time visual processing are everything.  
+
+Team Yellow Radiators chose to abandon traditional line-following sensors entirely in favor of a vision-first architecture built around Arduino UNO Q. Rather than running high-level logic and low-level motor control on separate boards, this allowed them to unify both on a single platform.
+
+A Python layer running OpenCV processes real-time camera data to identify the line and read intersection markers, while the Arduino side simultaneously handles the high-frequency motor control loop and sensor integration. A custom communication bridge between the Python vision layer and the Arduino language hardware layer makes this seamless two-brain operation possible.
+
+For the competition, the team built a custom web control panel that transforms how the robot is calibrated on-site. Via a local Wi-Fi network, team members can view live camera buffers, toggle between different image masks to debug line detection in real-time, and adjust color calibration or sensor thresholds wirelessly using on-screen sliders – no code re-upload required. The dashboard even allows direct remote function calls to the Arduino core, so specific subsystems like the rescue kit grabber can be tested manually. In the variable lighting conditions of a competition arena, this kind of live debugging capability is a genuine competitive advantage.
+
+On the AI side, the team deployed a custom-trained YOLO object detection model using the NCNN runtime, optimized for the UNO Q Arm-based Qualcomm Technologies’ SoC. Their next milestone: enabling GPU passthrough to leverage Vulkan acceleration on the onboard Qualcomm Adreno GPU, further reducing inference latency. Development has been eased significantly by the full Debian OS running on the board, letting the team work directly from VS Code via Remote Development – a proper professional workflow on a compact edge device.
+
+ 
+
+   From Sicily to the world championship
+
+Both projects illustrate something FermiLabs has made a habit of demonstrating: that with the right tools, a secondary school team can engineer solutions that rival professional-grade systems. Arduino’s role in both robots isn’t incidental – it’s   the platform that makes rapid iteration, hardware control, and connectivity available to students who want to build things that actually work under pressure  .
+
+After multiple successes at the national level in Catania in April, FermiLabs is now gearing up to take two teams to the RoboCupJunior European Championships in Vienna, and two more to the RoboCup Federation Junior World Championships in South Korea. Follow fermilabs.it on LinkedIn to see their progress, or check out their call for partners to find out how you can support them.
+
+ Qualcomm branded products are products of Qualcomm Technologies, Inc. and/or its subsidiaries. Arduino, GIGA R1, and UNO are trademarks or registered trademarks of Arduino S.r.l.

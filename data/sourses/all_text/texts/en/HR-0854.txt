@@ -1,0 +1,19 @@
+In a previous video about controlling household appliances and lighting fixtures from the Arduino Cloud, Sachin Soni of the techiesms YouTube channel
+
+Автори: Arduino Team
+
+Категорії: Arduino, GIGA Display Shield
+
+Плати: GIGA R1 WiFi
+
+ 
+
+In a previous video about controlling household appliances and lighting fixtures from the Arduino Cloud, Sachin Soni of the techiesms YouTube channel designed a custom PCB that allows an Arduino Nano ESP32 to toggle a series of relays. But since then, he realized that his project needed a faster and more permanent method of getting to the controls, which led him to   using solely Arduino hardware.
+
+Soni opted for the new Arduino GIGA Display Shield since it contains a 3.97” RGB touchscreen with support for up to five simultaneous touch points and an array of sensors if the functionality were to ever be expanded. On the back, an Arduino GIGA R1 WiFi was attached to act as the display’s controller and leverage its Wi-Fi capabilities to communicate with the system’s Arduino Cloud variables.
+
+ 
+
+The final step in this project involved creating a software-defined graphical user interface (GUI) complete with toggleable buttons for the lights, dials to indicate temperature/humidity levels, and a way to select the fan’s speed from an array of values. Soni was able to finish most of the groundwork by utilizing the LVGL library and its highly customizable GUI components.
+
+After laying out the buttons and dials, synchronizing Cloud variables, and connecting their event handlers to value updates, Soni had a functional tablet that could wirelessly manage his appliances from anywhere.

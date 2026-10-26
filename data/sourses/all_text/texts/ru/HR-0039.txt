@@ -1,0 +1,263 @@
+На данном этапе жизни человечества беспроводное управление какими-то предметами есть неотъемлемой частью...
+
+   Maksim Ursan   
+
+На данном этапе жизни человечества беспроводное управление какими-то предметами есть неотъемлемой частью жизни, будь то телевизор, авто на радиоуправлении, или даже ворота. Имея пару Arduino и радио модули мы запросто можем создать беспроводное управление чего-либо. В моем исполнении были использованы самодельные Arduino на Atmega 8. Обмен информацией происходит с помощью радио модулей частота которых 433Мгц. Весь обмен между Arduino происходит через последовательный порт на скорости 2000 бит / с.
+
+  Детали:  
+
+- Две Arduino;
+- Две кнопки;
+- Два резистора номиналом 10кОм и два 150Ом;
+- Два светодиода;
+- Радио модули 433Мгц.
+
+ 
+
+Рисунок 1 – Принципиальная схема устройства
+
+За неимением модели радио модулей в Proteus, было принято решение соединить между собой передатчик и приемник проводником. Это показано на Рисунке 1, сверху находится передатчик, под ним приемник.
+
+ 
+
+Рисунок 2 - Радио модули
+
+Для использования радио модулей следует загрузить библиотеку "VirtualWire.h".
+
+Скетч передатчика:
+
+ include &lt;VirtualWire.h&gt;
+
+int switchPin = 4;
+
+int switchPin1 = 2;
+
+boolean lastButton = LOW;
+
+boolean currentButton = LOW;
+
+boolean lastButton1 = LOW;
+
+boolean currentButton1 = LOW;
+
+int check = 0;
+
+int check1 = 0;
+
+// Объявление переменных
+
+void setup() // Основные настройки работы мк
+
+{
+
+pinMode(switchPin, INPUT);
+
+pinMode(switchPin1, INPUT);
+
+vw\ setup(2000); // инициализация работы модуля передатчика установления скорости передачи
+
+}
+
+boolean debounce(boolean last) // Функции для отслеживания нажатия кнопок управления
+
+{
+
+boolean current = digitalRead(switchPin);
+
+if (last != current)
+
+{
+
+delay(5);
+
+current = digitalRead(switchPin);
+
+}
+
+return current;
+
+}
+
+boolean debounce1(boolean last) // Функции для отслеживания нажатия кнопок управления
+
+{
+
+boolean current = digitalRead(switchPin1);
+
+if (last != current)
+
+{
+
+delay(5);
+
+current = digitalRead(switchPin1);
+
+}
+
+return current;
+
+}
+
+void loop()
+
+{
+
+currentButton = debounce(lastButton);
+
+currentButton1 = debounce1(lastButton1);
+
+if (lastButton == LOW &amp;&amp; currentButton == HIGH &amp;&amp; check == 0)
+
+{
+
+send("0");
+
+delay(500);
+
+check = 1;
+
+}
+
+// Если кнопка 1 нажата круг для первого нагрузки разрывается else if (lastButton == LOW &amp;&amp; currentButton == HIGH &amp;&amp; check == 1)
+
+{
+
+send("1");
+
+delay(500);
+
+check = 0;
+
+}
+
+// Если кнопка 1 нажата круг для первого нагрузки замыкается
+
+else if (lastButton1 == LOW &amp;&amp; currentButton1 == HIGH &amp;&amp; check1 == 0)
+
+{
+
+send("2");
+
+delay(500);
+
+check1 = 1;
+
+}
+
+// Если кнопка 2 нажата круг для второй нагрузки замыкается
+
+else if (lastButton1 == LOW &amp;&amp; currentButton1 == HIGH &amp;&amp; check1 == 1)
+
+{
+
+send("3");
+
+delay(500);
+
+check1 = 0;
+
+}
+
+// Если кнопка 2 нажата круг для второй нагрузки замыкается}
+
+void send (char  message)
+
+{
+
+vw\ send((uint8\ t  )message, strlen(message// Кодирования сообщения для передачи
+
+vw\ wait\ tx(); // Ждем пока все сообщения отправить
+
+}
+
+// Функция реализации передачи информации
+
+Скетч для приемника:
+
+ include &lt;VirtualWire.h&gt;
+
+byte message[VW\ MAX\ MESSAGE\ LEN]; // Буфер для хранения полученных сообщений
+
+byte messageLength = VW\ MAX\ MESSAGE\ LEN; // Размер сообщения
+
+int relayPin = 4;
+
+int relayPin1 = 3;
+
+void setup()
+
+{
+
+pinMode(relayPin, OUTPUT);
+
+pinMode(relayPin1, OUTPUT);
+
+digitalWrite(relayPin, HIGH);
+
+digitalWrite(relayPin1, HIGH);
+
+vw\ setup(2000); //
+
+vw\ rx\ start(); //
+
+}
+
+void loop()
+
+{
+
+if (vw\ get\ message(message, &amp;messageLength))
+
+{
+
+for (int i = 0; i &lt; messageLength; i++)
+
+{
+
+char c = message[i];
+
+char o = '1';
+
+char f = '0';
+
+char on = '2';
+
+char of = '3';
+
+if(c == o)
+
+{
+
+digitalWrite(relayPin, HIGH);
+
+}
+
+if(c == f)
+
+{
+
+digitalWrite(relayPin, LOW);
+
+}
+
+if(c == on)
+
+{
+
+digitalWrite(relayPin1, HIGH);
+
+}
+
+if(c == of)
+
+{
+
+digitalWrite(relayPin1, LOW);
+
+}
+
+}
+
+}
+
+}

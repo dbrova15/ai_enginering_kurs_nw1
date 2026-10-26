@@ -1,0 +1,72 @@
+[
+  {
+    "id": "HR-0743",
+    "language": "en",
+    "text_path": "texts/en/HR-0743.txt",
+    "title": "Reduce power consumption in IoT and wearable devices with Arduino’s new power management library!",
+    "annotation_status": "not_labeled"
+  },
+  {
+    "id": "HR-0244",
+    "language": "uk",
+    "text_path": "texts/uk/HR-0244.txt",
+    "title": "Система моніторингу ваги філаменту для 3D принтера через Telegram",
+    "annotation_status": "not_labeled"
+  },
+  {
+    "id": "HR-0385",
+    "language": "en",
+    "text_path": "texts/en/HR-0385.txt",
+    "title": "Automatically monitor and irrigate your raised garden bed with the Arduino Cloud",
+    "annotation_status": "not_labeled"
+  },
+  {
+    "id": "HR-0068",
+    "language": "ru",
+    "text_path": "texts/ru/HR-0068.txt",
+    "title": "Модуль датчика наклона и вибрации SW-520D",
+    "annotation_status": "not_labeled"
+  },
+  {
+    "id": "HR-0254",
+    "language": "uk",
+    "text_path": "texts/uk/HR-0254.txt",
+    "title": "Мій перший крутий годинник на Arduino: як витиснути максимум з екрана 1602",
+    "annotation_status": "not_labeled"
+  },
+  {
+    "id": "HR-0212",
+    "language": "uk",
+    "text_path": "texts/uk/HR-0212.txt",
+    "title": "АВР для газового котла опалення",
+    "annotation_status": "not_labeled"
+  },
+  {
+    "id": "HR-0415",
+    "language": "en",
+    "text_path": "texts/en/HR-0415.txt",
+    "title": "Build a six-wheeled RC vehicle for any terrain",
+    "annotation_status": "not_labeled"
+  },
+  {
+    "id": "HR-0207",
+    "language": "uk",
+    "text_path": "texts/uk/HR-0207.txt",
+    "title": "Безперебійник для роутера 12В",
+    "annotation_status": "not_labeled"
+  },
+  {
+    "id": "HR-0227",
+    "language": "uk",
+    "text_path": "texts/uk/HR-0227.txt",
+    "title": "Простий фільтр Калмана \\(приклад з Arduino та BMP280\\)",
+    "annotation_status": "not_labeled"
+  },
+  {
+    "id": "HR-0187",
+    "language": "uk",
+    "text_path": "texts/uk/HR-0187.txt",
+    "title": "Автополив",
+    "annotation_status": "not_labeled"
+  }
+]

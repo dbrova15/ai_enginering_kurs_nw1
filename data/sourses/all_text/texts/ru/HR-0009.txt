@@ -1,0 +1,307 @@
+При практическом создании систем мониторинга температуры в множестве точек крупного объекта, если надо...
+
+ Игорь Дядюра,   pingchuk [at] gmail точка com
+
+В множестве источников с различной степенью подробности описано, каким образом с помощью микроконтроллера ARDUINO и датчиков температуры DS18B20 измерять температуру. Предполагается, что датчики соединяются «цепочкой» на одной общей шине, включаются параллельно либо по двухпроводной (линии «общий» и «сигнал») схеме, либо по трехпроводной (добавляется линия «+5В»). При этом особо подчеркивается, что для корректной работы требуется именно включение «цепочкой», включение «звездой» - недопустимо. Длина «цепочки» даже при использовании качественного кабеля ограничена 10-15 метрами. Программа измерений использует замечательные библиотеки OneWire и DallasTemperature, которые свободно доступны в Сети.
+
+Вместе с тем, при практическом создании систем мониторинга температуры в множестве точек крупного объекта, если надо измерять температуру на улице, в нескольких комнатах, в подвале, котельной, санузле, мерять температуру «обратки» в контуре отопительного котла – протянуть все это одной шиной, уложившись в 10-15 метров – непростая, а подчас и просто невыполнимая задача. Не говоря уже о том, что на одну шину даже с коротким кабелем не рекомендуется размещать более 5-7 датчиков (поломка любого из них – блокирует всю шину; да и просто конкуренция на общем сигнальном проводе множества датчиков – имеет разумный предел).
+
+Как же поступить в таком случае? Оказывается, можно просто создать несколько одновременных шин OneWire, подключив их к различным цифровым входам платы ARDUINO, и все они будут работать, не мешая друг другу. Одна шина от измерительного прибора отправится (например) через зал на первом этаже в котельную и далее на улицу и в подвал, вторая – через санузел на второй этаж в жилые комнаты. Каждая из шин при этом может содержать до 5 датчиков и иметь длину, как и требуется, до 10-15 метров.
+
+Для реализации такой схемы в программе надо объявить не один, а несколько экземпляров OneWire (используем цифровые линии 22 и 23 платы Arduino Mega2560, можно использовать любые другие):  
+  include &lt;onewire.h&gt;  
+  include &lt;dallastemperature.h&gt;  
+ ...  
+  define ONE\ WIRE\ BUS 22  
+  define ONE\ WIRE\ BUS\ 2 23  
+ ...  
+ OneWire oneWire(ONE\ WIRE\ BUS);  
+ OneWire oneWire\ 2 (ONE\ WIRE\ BUS\ 2);  
+ ...  
+ DallasTemperature sensors(&amp;amp;oneWire);  
+ DallasTemperature sensors2(&amp;amp;oneWire\ 2);  
+ ...
+
+В этом примере создано две шины с двумя наборами сенсоров. По аналогии можно точно так же создать и большее количество, если объект измерений требует этого. В программе работаем с каждой шиной отдельно и независимо. Инициализируем обе шины и оба набора датчиков в секции setup:
+
+   void setup () {   
+
+   Serial.begin(9600);   
+
+   Wire.begin();   
+
+   sensors.begin();   
+
+   sensors2.begin();   
+
+   delay(100);   
+
+   // OneWire Bus 1   
+
+   // number of Devices on Bus 1   
+
+   nT = sensors.getDeviceCount();   
+
+   Serial.print("DS18B20: Found ");   
+
+   Serial.print(nT,DEC);   
+
+   Serial.println(" Devices on OneWire Bus 1");   
+
+   // report parasite power requirements   
+
+   Serial.print("Parasite power on Bus 1 is: ");   
+
+   if (sensors.isParasitePowerMode()) Serial.println("ON");   
+
+   else Serial.println("OFF");   
+
+   // Loop through each device, print out address   
+
+   for(int i=0;i&lt;nT; i++)   
+
+   {   
+
+   // Search the wire for address   
+
+   if(sensors.getAddress(tempDeviceAddress, i))   
+
+   {   
+
+   Serial.print("Found device ");   
+
+   Serial.print(i, DEC);   
+
+   Serial.print(" with address: ");   
+
+   printAddress(tempDeviceAddress);   
+
+   Serial.println();   
+
+   // Serial.print("Setting resolution to ");   
+
+   delay(100);   
+
+   // set the resolution to 9 bit (Each Dallas/Maxim device is capable of several different resolutions)   
+
+   sensors.setResolution(tempDeviceAddress, TEMPERATURE\ PRECISION);   
+
+   }else{   
+
+   Serial.print("Found ghost device at ");   
+
+   Serial.print(i, DEC);   
+
+   Serial.println(" but could not detect address. Check power and cabling");   
+
+   }   
+
+   }   
+
+   sensors.requestTemperatures(); // Send the command to get temperatures   
+
+   for(int i=0;i&lt;nT; i++)   
+
+   {   
+
+   Serial.print("T(");   
+
+   Serial.print(i,DEC);   
+
+   Serial.print(")=");   
+
+   Serial.println (sensors.getTempCByIndex(i));   
+
+   }   
+
+   // OneWire Bus2   
+
+   // number of Devices on Bus 2   
+
+   nT2 = sensors2.getDeviceCount();   
+
+   Serial.print("DS18B20: Found ");   
+
+   Serial.print(nT2,DEC);   
+
+   Serial.println(" Devices on OneWire Bus 2");   
+
+   // report parasite power requirements   
+
+   Serial.print("Parasite power on Bus 2 is: ");   
+
+   if (sensors2.isParasitePowerMode())   
+
+   {   
+
+   Serial.println("ON");   
+
+   }   
+
+   else Serial.println("OFF");   
+
+   // Loop through each device, print out address   
+
+   for(int i=0;i&lt;nT2; i++)   
+
+   {   
+
+   // Search the wire for address   
+
+   if(sensors2.getAddress(tempDeviceAddress, i))   
+
+   {   
+
+   Serial.print("Found device ");   
+
+   Serial.print(i, DEC);   
+
+   Serial.print(" with address: ");   
+
+   printAddress(tempDeviceAddress);   
+
+   Serial.println();   
+
+   delay(100);   
+
+   // set the resolution to 9 bit (Each Dallas/Maxim device is capable of several different resolutions)   
+
+   sensors2.setResolution(tempDeviceAddress, TEMPERATURE\ PRECISION);   
+
+   }   
+
+   else   
+
+   {   
+
+   Serial.print("Found ghost device at ");   
+
+   Serial.print(i, DEC);   
+
+   Serial.println(" but could not detect address. Check power and cabling");   
+
+   }   
+
+   }   
+
+   sensors2.requestTemperatures(); // Send the command to get temperatures   
+
+   for(int i=0;i&lt;nT2; i++)   
+
+   {   
+
+   Serial.print("T(");   
+
+   Serial.print(i,DEC);   
+
+   Serial.print(")=");   
+
+   Serial.println (sensors2.getTempCByIndex(i));   
+
+   }   
+
+   }   
+
+При выполнении этого кода на терминале (подключенном через последовательный порт к ARDUINO) увидим:
+
+  DS18B20: Found 5 Devices on OneWire Bus 1  
+
+  Parasite power on Bus 1 is: OFF  
+
+  Found device 0 with address: 287C0CD002000094  
+
+  Found device 1 with address: 28414BD00200008B  
+
+  Found device 2 with address: 28E516AF030000EB  
+
+  Found device 3 with address: 288309AF03000089  
+
+  Found device 4 with address: 285727D002000052  
+
+  T(0)=21.50  
+
+  T(1)=21.50  
+
+  T(2)=21.50  
+
+  T(3)=21.50  
+
+  T(4)=22.50  
+
+  DS18B20: Found 3 Devices on OneWire Bus 2  
+
+  Parasite power on Bus 2 is: OFF  
+
+  Found device 0 with address: 28C630D0020000F9  
+
+  Found device 1 with address: 28C655580400002E  
+
+  Found device 2 with address: 28CB4CD0020000FF  
+
+  T(0)=21.50  
+
+  T(1)=22.00  
+
+  T(2)=22.00  
+
+В секции основного цикла измерение температуры поизодится аналогично, например:
+
+   void loop () {   
+
+   // get temperatures   
+
+   sensors.requestTemperatures(); // Send the command to get temperatures   
+
+   for(int i=0;i&lt;nT; i++)   
+
+   {   
+
+   Serial.print("TA(");   
+
+   Serial.print(i,DEC);   
+
+   Serial.print(")=");   
+
+   Serial.println (sensors.getTempCByIndex(i));   
+
+   }   
+
+   sensors2.requestTemperatures(); // Send the command to get temperatures   
+
+   for(int i=0;i&lt;nT2; i++)   
+
+   {   
+
+   Serial.print("TB(");   
+
+   Serial.print(i,DEC);   
+
+   Serial.print(")=");   
+
+   Serial.println (sensors2.getTempCByIndex(i));   
+
+   }   
+
+   delay(1000);   
+
+   }   
+
+Каждую секунду (примерно) терминал будет принимать от ARDUINO следующее:
+
+  TA(0)=18.50  
+
+  TA(1)=17.00  
+
+  TA(2)=20.50  
+
+  TA(3)=21.50  
+
+  TA(4)=22.50  
+
+  TB    (0)=12.50    (котельная не отапливается)
+
+  TB    (1)=62.00    («обратка» работающего котла)
+
+  TB    (2)=-12.00   (на улице)
+
+Завершая эту заметку, хочу дать еще пару практических советов по подключению датчиков DS18B20. Включайте их действительно «цепочкой». Если от шины делаете отводы – они должны быть минимальной длины, до 3-5 сантиметров максимум. То есть, если шина идет под плинтусом по полу, а датчик на высоте 1,5 метра от пола - правильно будет поднять всю шину вверх к датчику, очень коротким отводом подключить датчик, потом опустить шину опять на пол. Иначе переотражения от отводов - сделают шину совершенно неработоспособной. Второй совет – не жалейте провода, разводите шину двумя витыми парами (очень удобен кабель «третьей категории», как раз две витые пары). Одна витая пара – это «общий» и «+5В», вторая пара – тот же «общий» и «сигнальная линия». В месте подключения датчика добавьте по питанию (между «общим» и «+5В») конденсатор (хотя бы 47..68 нФ).

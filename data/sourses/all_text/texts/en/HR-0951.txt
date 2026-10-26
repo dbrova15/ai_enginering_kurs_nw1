@@ -1,0 +1,44 @@
+Over-the-air updates have been traditionally constrained only to Arduino boards. Now, this support is extended to ESP32 boards.
+
+Автори: Arduino Team
+
+Категорії: Arduino, ESP32, Featured, Projects
+
+Плати: Arduino Cloud, IoT Cloud
+
+ 
+
+Arduino Cloud is Arduino’s integrated platform to develop, deploy, monitor, and control IoT devices with minimal effort. It enables makers, IoT enthusiasts, and professionals to build easily connected projects based on a wide range of hardware including not only Arduino boards, but also ESP32 and ESP8266 boards. Arduino is committed to making all the Arduino Cloud features available to the widest range of hardware. As a result of this effort, Arduino Cloud now supports ESP32 family of chipsets for over-the-air (OTA) updates.
+
+   Arduino Cloud: Experience the Arduino IDE online
+
+Due to their low price, integration and high performance, ESP32-based devices are among the most widely used ones for hobbyists and developers who want to create their small home appliances.
+
+One of the facts that have contributed to this popularity is the ability to use the Arduino IDE to code and program the devices. You can find tons of resources describing how to get started. There are thousands of projects that will inspire you and help you create and develop your own ideas. You can reuse the code and sketches even if they have been originally developed for other ESP32 or Arduino boards. It is so easy to get started!
+
+But what if you want to go a step further and interact with your devices remotely? That’s what Arduino Cloud was designed for. It is an online IoT platform that enables you:
+
+- To develop your software online with the zero-touch Cloud Editor
+- To keep your sketches in the Cloud and share them with other users
+- To deploy and manage your devices seamlessly
+- To access your own dashboards remotely from your browser or the mobile app Arduino IoT Remote.
+
+All that with just an integrated unique platform and taking benefit from the rich collection of Arduino’s libraries, examples and tutorials that help developers get at speed with minimum effort.
+
+   No cables any more: Update over-the-air
+
+But programming the devices is still tedious work. You need to have the device at hand and connect a USB cable. This is acceptable for the first time you program the device, but it is really annoying when your device is already installed in a place with difficult accessibility. In those situations, you either have to remove the device from its place or bring your laptop as close as possible to its location.
+
+That’s where over-the-air (OTA) is a game-changer. This feature enables you to upload programs wirelessly to your boards. This way, as soon as you have a compatible board connected to a Wi-Fi network and configured to work with OTA, you won’t need to physically connect the board to the computer in order to upload new sketches to it. Instead, everything will work over-the-air.
+
+Over-the-air update is available on the Arduino Cloud Editor for IoT sketches, bound to a thing.
+
+   OTA for ESP32 now available in Arduino Cloud
+
+In the past, although many Arduino users adopted OTA in Arduino Cloud, this feature was only limited to to Arduino boards. Now, we’ve extended this support to ESP32 boards, which unifies the experience across the most popular platforms.
+
+There are plenty of ESP32 platforms available with different processors and memory sizes. This is an experimental feature that has been tested on the most popular ones, but there could be some limitations on some of the untested ones. We would be delighted to get your feedback.
+
+   Get started now
+
+Getting started with over-the-air updates is as simple as following the steps in the Uploading sketches over-the-air (OTA) tutorial. You can also find some useful tips and tricks in the cheat sheet. Give it a try, and share your experience with the community.

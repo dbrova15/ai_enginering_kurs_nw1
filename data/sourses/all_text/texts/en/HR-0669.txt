@@ -1,0 +1,15 @@
+Revolutionary new technologies tend to require small, incremental developments. For example, physicist Julius Edgar Lilienfeld filed a patent for a
+
+Автори: Arduino Team
+
+Категорії: Arduino
+
+Плати: DUE
+
+ 
+
+Revolutionary new technologies tend to require small, incremental developments. For example, physicist Julius Edgar Lilienfeld filed a patent for a transistor way back in 1925. But it wasn’t possible to actually build transistors until semiconductor production caught up in 1947 — something that took decades of “boring” materials research. Such research may seem trivial, but often turns out to be important to the bigger picture. That is likely the case with this burrowing mole crab robot, called EMBUR, built by UC Berkeley engineers.
+
+This Arduino Due-controlled robot can burrow into loose substrates like a mole crab in sand. In the wild, mole crabs can bury their bodies in sand within a few seconds. That is surprisingly hard to replicate, as wriggling robots tend to just push themselves up on top of the sand. The key to this robot’s burrowing ability is a special set of flexible legs. The Arduino spins motors that rotate a reciprocating mechanism to actuate legs covered in fabric. When the legs push forward into the substrate, the fabric folds to decrease resistance. Then when the legs move back, the fabric unfurls and creates resistance for propulsion.
+
+It may seem like a novelty, but this practical development actually has wide-ranging and important applications. Robots that can burrow through the ground have many uses, from subterranean data collection to space exploration. Asteroids, for instance, are often made of loose gravel-like rock held together by gravity. If a robot could dig its way through such asteroids, it could analyze the composition and determine if the material is suitable for mining. Here on Earth, a burrowing robot would be useful in agriculture, construction, and many scientific fields.

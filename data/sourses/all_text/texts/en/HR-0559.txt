@@ -1,0 +1,17 @@
+YouTuber “Science ‘n’ Stuff” wanted to try creating a modern version of a mechanical color TV that uses an Arduino to precisely adjust an LED’s color, rather than using an analog signal.
+
+Автори: Arduino Team
+
+Категорії: Arduino
+
+Плати: DUE
+
+ 
+
+Nearly everyone alive today has never the technical marvel that is the mechanical television. In short, the work by quickly strobing a light through a disc that has holes cut around its perimeter, with each hole being slightly lower than its predecessor. Combined with the persistence of vision effect, this gives the illusion of a still image with its number of rows being equal to the number of holes in the disc.   wanted to try   that uses a microcontroller to precisely adjust an LED’s color, rather than using an analog signal.
+
+The device has a single large plastic disc with 32 holes for a total of 32 rows in the image. It’s spun at 1500 RPM by a DC motor that’s driven via PWM, and because there can be some variance in the motor’s speed, the synchronization signal that’s produced on each full rotation is also used to carefully adjust the motor’s speed to keep it constant. Both images and sound are read from an onboard microSD card, with the images being converted into pulses of light and the sound being played on a mono speaker. All of this is controlled by an Arduino Due board.
+
+ 
+
+To learn more about how this project works, you can view its detailed explanation in the first video below and a simple demonstration of the TV in the second clip.

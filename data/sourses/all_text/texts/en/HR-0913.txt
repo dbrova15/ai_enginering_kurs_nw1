@@ -1,0 +1,17 @@
+We’re currently seeing something of a technological blitzkrieg as corporations and engineers attempt to solve the problem of tactility in virtual reality
+
+Автори: Arduino Team
+
+Категорії: Arduino
+
+Плати: Mega
+
+ 
+
+We’re currently seeing something of a technological blitzkrieg as corporations and engineers attempt to solve the problem of tactility in virtual reality (VR). Modern VR headsets provide quite realistic visual and auditory immersion, but that immersion falls apart when users find themselves unable to physically interact with virtual objects. Developed by a team of National Chengchi University researchers, ELAXO is an Arduino-controlled exoskeleton glove that enables complex force feedback for VR applications.
+
+ELAXO looks unwieldy — it is like an exoskeleton glove made up of 3D-printed struts and joints. In the demonstrated setup, ELAXO mounts to the user’s wrist and has force feedback structures attached to their thumb and first two fingers. Each finger receives four servo motors, four small DC motors, and one larger DC motor. Those motors attach to joints to create on-demand physical resistance to movement.
+
+For two fingers and a thumb, ELAXO requires a total of 12 servos, 12 small DC motors, and three large DC motors. Each finger also needs an infrared (IR) sensor, for a total of three. In addition, the large DC motors contain encoders that use two wires each. Controlling those takes a lot of I/O pins, which is why the ELAXO team chose an Arduino Mega board for their prototype. It controls the motors through eight dual TB6612FNG drivers.
+
+The Arduino powers the motors according to what happens in the VR world. For example, if a user tries to touch a stationary object, the motors on that finger might get full power to keep the joints from bending and to provide a feeling of solid resistance. Other actions, like rotating a knob, result in less resistance. By gaining granular control over the resistance of each joint, ELAXO can produce convincing force feedback.

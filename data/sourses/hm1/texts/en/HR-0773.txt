@@ -1,0 +1,21 @@
+Dale Thomas built an Arduino-based device that lets users send text messages through their ham radios.
+
+Автори: Arduino Team
+
+Категорії: Arduino
+
+Плати: Mega, Pro Mini
+
+ 
+
+Ham radio, or amateur radio, is a hobby enjoyed by millions of enthusiasts around the world. The FCC in the US and similar organizations in other countries provide amateur radio licenses that allow hobbyists to communicate on designated radio bands. Most ham radio operators communicate by voice, but ham radios can transmit other kinds of data. Dale Thomas built HamMessenger, which is a portable device that enables users to send text messages through their ham radios.
+
+If you remember the early days of the internet, you have heard for yourself that audio can carry digital data. Dial-up internet uses a modem to transmit that audio through standard phone lines. HamMessenger uses a similar methodology to encode a text message as audio. If someone listening on that frequency also has a HamMessenger device, they can decode the text message. Messages are not encrypted, so you shouldn’t use HamMessenger for sensitive information. But it’s a fun way to chat with your ham radio buddies.
+
+ 
+
+HamMessenger contains two Arduino development boards. An Arduino Mega handles most of the functionality and a separate Pro Mini acts as a MicroAPRS modem. A NEO-6M GPS radio module lets you send position information along with your text messages. The HamMessenger’s custom PCB has a small 0.96″ OLED screen to display the messages. You input text via an M5Stack CardKB keyboard. Power comes from a pair of 18650 lithium-ion battery cells. The output from the HamMessenger is an audio signal, which feeds into any ham radio — even a handheld model.
+
+ 
+
+Thomas has created a 3D-printed enclosure in Fusion 360, which can be found on GitHub, along with instructions to put the rest of the hardware together. You can also read more about the project in his IEEE Spectrum article here.

@@ -1,0 +1,17 @@
+Robotic arms are versatile machines and are great for learning about principles of robotics or even doing useful work for hobbyists. That work might be
+
+Автори: Arduino Team
+
+Категорії: Arduino
+
+Плати: DUE
+
+ 
+
+Robotic arms are versatile machines and are great for learning about principles of robotics or even doing useful work for hobbyists. That work might be picking and placing components on PCBs, packing boxes, or anything else you can imagine. But to perform that work well, the robotic arm needs more hardware than we tend to see in DIY projects. Pavel Surynek wanted a high-performance robotic arm and the result is RR1: Real Robot One, which features closed-loop feedback for accuracy and repeatability.
+
+In an open-loop robotic system, the controller only outputs positioning commands and doesn’t receive any feedback. Because it has no feedback, the controller doesn’t know if the position is accurate and can’t actively compensate for issues like backlash in the motors. Closed-loop feedback provides real-time, real-world position data to the controller, so it can ensure that results match commands. RR1 receives closed-loop feedback data from encoders on each of the six joints, which are driven by stepper motors through 3D-printed planetary gearboxes.
+
+ 
+
+An Arduino Due board controls the stepper motors through driver boards and monitors the encoders. It passes the encoder data to a computer dubbed RB1: Real Box One and receives control commands in return. The demonstrated end effector is a standard gripper and the rest of the arm is a combination of 3D-printed parts and aluminum extrusion. The current version of RR1 has a maximum reach of 80cm and can lift around 2kg. That’s already impressive, but Surynek plans to improve on it with an upcoming revision.

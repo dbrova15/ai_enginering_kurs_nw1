@@ -1,0 +1,17 @@
+Materials, when exposed to light, will reflect or absorb certain portions of the electromagnetic spectrum that can give valuable information about their
+
+Автори: Arduino Team
+
+Категорії: Arduino
+
+Плати: Mega
+
+ 
+
+Materials, when exposed to light, will reflect or absorb certain portions of the electromagnetic spectrum that can give valuable information about their chemical or physical compositions. Traditional setups use a single lamp to emit white light before it is split apart into a spectrum of colors via a system of prisms, mirrors, and lenses. After hitting the substance being tested, a sensor will gather this spectral color data for analysis.   realized that by leveraging several discrete. LEDs,   without the need for the more expensive/complicated optics.
+
+His project uses the AS7431 10-channel spectrometer sensor breakout board from Adafruit due to its adequate accuracy and compact footprint. Once it was attached to the clear sample chamber and wired to a connector, Marb got to work on the electromechanical portion of the system. Here, a stepper motor rotates a ring of six LEDs that are driven by a series of N-channel MOSFETs and a decade counter. Each component was then wired into a custom-designed control board, which acts as a shield when attached to the Arduino Mega 2560 below.
+
+ 
+
+The sketch running on the Mega allows for the user to select between photometer (single wavelength) and spectrometer (multiple wavelengths) modes when sampling the substance. Once the data is captured, the user can then choose one of three interpolation modes to get a smooth curve, as seen here when measuring this chlorophyl.

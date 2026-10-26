@@ -1,0 +1,77 @@
+Hospitality professionals are constantly looking for ways to offer guests an enhanced experience while improving operational efficiency and optimizing
+
+Автори: Arduino Team
+
+Категорії: Arduino, Featured, Home Automation, Opta
+
+Плати: Arduino Cloud, IoT Cloud, Pro
+
+ 
+
+Hospitality professionals are constantly looking for ways to offer guests an enhanced experience while improving operational efficiency and optimizing energy management. To achieve this, they require cost-effective solutions that are easy to install and maintain while also providing the scalability of future-ready systems – such as automating hotel rooms or B&amp;B rentals to increase safety, comfort, and energy savings.
+
+Indeed, automation can be integrated seamlessly in various aspects including climate control, lighting, security, and entertainment. Upgrading these functions allows guests to enjoy customization and convenience throughout their stay, and staff to efficiently manage room settings remotely. Moreover, hoteliers can   achieve substantial energy savings through optimized control and scheduling, contributing to sustainability goals  .
+
+Long-term scalability and future-proofing of automation systems, however, can be an issue. As hotels and rental properties undergo renovations or expansions, the ideal solution should accommodate changes without requiring substantial modifications or replacements. Adopting open and standardized protocols, as well as selecting flexible and modular automation projects, can help mitigate these challenges and provide a foundation for future enhancements.
+
+      Our solution  
+
+ 
+
+A comprehensive IoT automation solution can address these challenges effectively by aggregating sensor and user data and then intelligently managing lighting, cooling/heating and more – for a smart, connected experience. The elements required to achieve this kind of outcome are environmental sensors, a programmable logic controller (PLC), a human-machine interface (HMI), and cloud connectivity.
+
+ 
+
+     Programmable logic controller (PLC)  
+
+PLC-based automation systems are widely used due to their reliability, flexibility, and ability to handle complex tasks. Arduino Pro’s Opta microPLC can serve as the central control unit for hotel room automation by   connecting and monitoring various devices and subsystems   such as HVAC (heating, ventilation, and air conditioning), lighting, and door locks. The microPLC receives data from sensors and users and processes them to trigger appropriate actions or adjustments in the room.
+
+ 
+
+     Human-machine interface (HMI)  
+
+A touchscreen panel through which guests and staff can control various room parameters – such as lighting status, fan status, and door lock status – provides   a user-friendly and intuitive interface   to interact with the automation system. This HMI also communicates data to the microPLC for execution.
+
+ 
+
+     The Modbus communication protocol  
+
+The HMI and Opta PLC communicate via Modbus RTU over RS-485. Modbus RTU communication protocol is widely adopted in industrial applications due to its   reliability  , provided by the physical layer strength and by the cyclic redundancy check included in the data packets. It allows for multiple devices to be connected to the same bus, forming a multidrop network where each device has a unique address, used to identify the recipient of the transmitted data. The Arduino Opta can communicate with other Modbus devices, such as sensors, actuators, or traditional PLCs, by addressing them individually.
+
+ 
+
+     IoT Cloud solution  
+
+Cloud connectivity enables seamless communication between the hotel room or rental property’s automation system and the central management system. The Opta and HMI   connect to the cloud infrastructure, allowing remote access, monitoring, and control of multiple locations  . The solution also enables data logging and analytics for better energy management, predictive maintenance, and guest experience personalization.
+
+      Solving it with Arduino Pro  
+
+Let’s get into the details of how this solution can be put into action, and identify the hardware and software resources needed for deployment. Arduino Opta is a great option for deploying building automation solutions, as it offers   simple integration with current systems, real-time control capabilities, support for Over-The-Air (OTA) firmware updates, and hardware-to-cloud data security  . The Arduino Pro ecosystem allows users to benefit from easy integration, along with a range of scalable, secure, and professionally supported services.
+
+     Hardware requirements
+
+- Arduino Opta WiFi
+- Human-machine interface (HMI) – ePaper display
+- Temperature and humidity sensor
+- Light and motion (PIR) sensors
+- Electronic lock
+- Enclosure
+- Electrical outlets
+- 12 V power supply (for the electronic lock)
+- 5 V power supply (for the HMI and sensors)
+
+     Software requirements
+
+- Arduino IDE 2.0
+- Arduino Cloud account
+- Arduino Create Agent
+
+  The     Arduino IDE 2.0     can be used to program Opta using C/C++  . Opta acts as the main controller, communicating with the HMI via the Modbus RTU protocol. The HMI gathers data from various sensors – including light, temperature and humidity, and PIR (movement sensor) – as well as user inputs from its interface buttons related to room climate, lights, and door lock status. It then forwards this data to Opta, which controls the relay outputs that will activate the lights, thermostat or door lock.
+
+Opta also sends this data via Wi-Fi® to the Arduino IoT Cloud. After connecting it to the Arduino Cloud using the Arduino Create Agent, cloud variables corresponding to the sensor data being monitored can be defined.
+
+ 
+
+ 
+
+Arduino Pro’s Opta microPLC offers an ideal solution for the automation of hotel rooms and B&amp;Bs or rental properties. By leveraging   standard communication protocols, easy integration, real-time control capabilities, secure hardware-to-cloud data exchange, and remote access   to multiple rooms from a centralized location, Opta provides the cornerstone of a comprehensive platform for smart hospitality.

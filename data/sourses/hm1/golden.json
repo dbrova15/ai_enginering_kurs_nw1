@@ -1,0 +1,222 @@
+[
+  {
+    "document_id": "HR-0743",
+    "schema_version": "v2",
+    "annotation_status": "approved",
+    "rules_version": "schema-v2-mentions-v1",
+    "reviewer": "Автор проєкту (користувач сесії)",
+    "reviewed_at": "2026-10-26",
+    "source_sha256": "1c6cba5c855f08597ce46c99c725cb1cf36b732176bb8d739050c6a7de0b796a",
+    "expected": {
+      "language": "en",
+      "primary_topic": "power_batteries",
+      "mentioned_platforms": [
+        "arduino",
+        "stm32"
+      ],
+      "mentioned_interfaces": [
+        "wifi",
+        "bluetooth"
+      ],
+      "mentions_sensor": true,
+      "mentions_display": false,
+      "mentions_battery": true,
+      "mentions_motor": false
+    }
+  },
+  {
+    "document_id": "HR-0244",
+    "schema_version": "v2",
+    "annotation_status": "approved",
+    "rules_version": "schema-v2-mentions-v1",
+    "reviewer": "Автор проєкту (користувач сесії)",
+    "reviewed_at": "2026-10-26",
+    "source_sha256": "838b25bea3e8b1acfdda0805afe51191db1dfadd002a428a1febf27218e0b0dd",
+    "expected": {
+      "language": "uk",
+      "primary_topic": "sensors_measurements",
+      "mentioned_platforms": [
+        "esp8266"
+      ],
+      "mentioned_interfaces": [
+        "wifi",
+        "usb"
+      ],
+      "mentions_sensor": true,
+      "mentions_display": false,
+      "mentions_battery": false,
+      "mentions_motor": false
+    }
+  },
+  {
+    "document_id": "HR-0385",
+    "schema_version": "v2",
+    "annotation_status": "approved",
+    "rules_version": "schema-v2-mentions-v1",
+    "reviewer": "Автор проєкту (користувач сесії)",
+    "reviewed_at": "2026-10-26",
+    "source_sha256": "cf7951ec7c8589b0595caf4225c4ea936953adc69c16c14d37bfade497d1e92e",
+    "expected": {
+      "language": "en",
+      "primary_topic": "devices_automation",
+      "mentioned_platforms": [
+        "arduino"
+      ],
+      "mentioned_interfaces": [
+        "wifi"
+      ],
+      "mentions_sensor": true,
+      "mentions_display": false,
+      "mentions_battery": true,
+      "mentions_motor": false
+    }
+  },
+  {
+    "document_id": "HR-0068",
+    "schema_version": "v2",
+    "annotation_status": "approved",
+    "rules_version": "schema-v2-mentions-v1",
+    "reviewer": "Автор проєкту (користувач сесії)",
+    "reviewed_at": "2026-10-26",
+    "source_sha256": "d2586bad68a060a134e5ede793c94b93df7e1d784a6ea0874272bdcbf1445d68",
+    "expected": {
+      "language": "ru",
+      "primary_topic": "sensors_measurements",
+      "mentioned_platforms": [
+        "arduino"
+      ],
+      "mentioned_interfaces": [
+        "usb"
+      ],
+      "mentions_sensor": true,
+      "mentions_display": false,
+      "mentions_battery": false,
+      "mentions_motor": false
+    }
+  },
+  {
+    "document_id": "HR-0254",
+    "schema_version": "v2",
+    "annotation_status": "approved",
+    "rules_version": "schema-v2-mentions-v1",
+    "reviewer": "Автор проєкту (користувач сесії)",
+    "reviewed_at": "2026-10-26",
+    "source_sha256": "acc4cf45765a3444506216fa08324b92e100278e1743a503cb3ad9f5fcb95714",
+    "expected": {
+      "language": "uk",
+      "primary_topic": "displays_indicators",
+      "mentioned_platforms": [
+        "arduino"
+      ],
+      "mentioned_interfaces": [
+        "i2c"
+      ],
+      "mentions_sensor": false,
+      "mentions_display": true,
+      "mentions_battery": false,
+      "mentions_motor": false
+    }
+  },
+  {
+    "document_id": "HR-0212",
+    "schema_version": "v2",
+    "annotation_status": "approved",
+    "rules_version": "schema-v2-mentions-v1",
+    "reviewer": "Автор проєкту (користувач сесії)",
+    "reviewed_at": "2026-10-26",
+    "source_sha256": "40ce53b3c829be8c660abb1fdbc29b074f771152bce922b1df85a9da02030d03",
+    "expected": {
+      "language": "uk",
+      "primary_topic": "power_batteries",
+      "mentioned_platforms": [],
+      "mentioned_interfaces": [],
+      "mentions_sensor": true,
+      "mentions_display": false,
+      "mentions_battery": true,
+      "mentions_motor": false
+    }
+  },
+  {
+    "document_id": "HR-0415",
+    "schema_version": "v2",
+    "annotation_status": "approved",
+    "rules_version": "schema-v2-mentions-v1",
+    "reviewer": "Автор проєкту (користувач сесії)",
+    "reviewed_at": "2026-10-26",
+    "source_sha256": "5da9fb045c0892cd0852d21c8922391ae3e5a7f98d2866129667fa7866ff9602",
+    "expected": {
+      "language": "en",
+      "primary_topic": "robotics_actuators",
+      "mentioned_platforms": [
+        "arduino"
+      ],
+      "mentioned_interfaces": [],
+      "mentions_sensor": false,
+      "mentions_display": false,
+      "mentions_battery": false,
+      "mentions_motor": true
+    }
+  },
+  {
+    "document_id": "HR-0207",
+    "schema_version": "v2",
+    "annotation_status": "approved",
+    "rules_version": "schema-v2-mentions-v1",
+    "reviewer": "Автор проєкту (користувач сесії)",
+    "reviewed_at": "2026-10-26",
+    "source_sha256": "73346dfb6627121c20bfa5584aecd207a89bfe26e31b9cc77aa14b821debb25e",
+    "expected": {
+      "language": "uk",
+      "primary_topic": "power_batteries",
+      "mentioned_platforms": [],
+      "mentioned_interfaces": [],
+      "mentions_sensor": false,
+      "mentions_display": false,
+      "mentions_battery": true,
+      "mentions_motor": false
+    }
+  },
+  {
+    "document_id": "HR-0227",
+    "schema_version": "v2",
+    "annotation_status": "approved",
+    "rules_version": "schema-v2-mentions-v1",
+    "reviewer": "Автор проєкту (користувач сесії)",
+    "reviewed_at": "2026-10-26",
+    "source_sha256": "76e7c76e2d5848c99b434e0e50f4fc0d618f14ec11ccce50339eed117b5a391a",
+    "expected": {
+      "language": "uk",
+      "primary_topic": "sensors_measurements",
+      "mentioned_platforms": [
+        "arduino",
+        "raspberry_pi"
+      ],
+      "mentioned_interfaces": [],
+      "mentions_sensor": true,
+      "mentions_display": false,
+      "mentions_battery": false,
+      "mentions_motor": false
+    }
+  },
+  {
+    "document_id": "HR-0187",
+    "schema_version": "v2",
+    "annotation_status": "approved",
+    "rules_version": "schema-v2-mentions-v1",
+    "reviewer": "Автор проєкту (користувач сесії)",
+    "reviewed_at": "2026-10-26",
+    "source_sha256": "d771f1223e02817ebdbdbf2b4967d86de451c9a392a73ddb376b3b491858b2dd",
+    "expected": {
+      "language": "uk",
+      "primary_topic": "devices_automation",
+      "mentioned_platforms": [
+        "arduino"
+      ],
+      "mentioned_interfaces": [],
+      "mentions_sensor": true,
+      "mentions_display": false,
+      "mentions_battery": false,
+      "mentions_motor": false
+    }
+  }
+]

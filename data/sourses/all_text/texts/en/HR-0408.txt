@@ -1,0 +1,27 @@
+Bob Clagett likes making holiday decorations. This year, however, he wanted to create something that didn’t just look nice, but was also interactive. What
+
+Автори: Arduino Team
+
+Категорії: Arduino, Game, LED(s)
+
+Плати: Mega
+
+ 
+
+Bob Clagett likes making holiday decorations. This year, however, he wanted to create something that didn’t just look nice, but was also interactive. What he came up with is a giant Christmas tree that is actually a video game!
+
+ 
+
+His tree-shaped matrix uses seven rows of RGB LEDs attached to the top of the structure to drop simulated snowflakes, represented by white lights. The player moves a dot on the bottom right and left to dodge these falling flakes via a pair of large arcade-style buttons. When the controlling Arduino Mega sees that the player’s position is the same as a snowflake, the game ends.
+
+As Clagett’s community can attest, the project looks like a lot of fun! Code for the build is available on GitHub.
+
+ 
+
+ 
+
+> To make our Christmas tree game light up in the way that we intend, we have to be able to control each LED in an entire strand of lights. Traditional lights just have power run to colored bulbs, which blink or stay lit all together. We found a strand of individually addressable LEDs that are made for outdoor use. This means that each light has a small circuit board attached to each bulb that will receive power and a data signal from a micro-controller. I’m using an Arduino as the micro-controller to send out a signal to each specific light among the many strands.
+>
+> Our game is very simple, there is a “player” that is restrained to the lowest level of lights in our tree-shaped matrix. That “player” can move left or right to avoid falling “snow.” When the game is played, the player will move while white “snow” lights fall randomly from the top of the tree-shaped matrix. If the “player” and the “snow” occupy the same space on the matrix in the arduino code, you lose. When the game isn’t being played, I used a simple LED flash library to create a Christmasy-looking color series that flashes until someone activates the game.
+>
+> Now that the game code is working, the lights are blinking appropriately, and the control buttons are moving the “player” around, it’s time to make it look like a tree. To do this, Josh and I drilled holes at even space along some thin PVC material and fed in the lights. Covering those light boards with ping pong balls will help diffuse the LED light and give the whole tree a polished and clean look. These seven LED light boards are then connected to a hub at the top of a 10-foot metal pole. To keep the pole firmly planted on the ground, I poured a bucket of concrete and fixed a pole holder into it.

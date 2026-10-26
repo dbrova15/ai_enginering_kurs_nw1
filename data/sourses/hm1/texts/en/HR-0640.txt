@@ -1,0 +1,25 @@
+An important new feature is now available in the Arduino IoT Cloud — full support for LoRa® devices! LoRa® is one of our favorite emerging technologies
+
+Автори: Arduino Team
+
+Категорії: Arduino, Featured
+
+Плати: IoT Cloud, MKR WAN 1310
+
+ 
+
+An important new feature is now available in the Arduino IoT Cloud —   full support for LoRa® devices!  
+
+LoRa® is one of our favorite emerging technologies for IoT because it enables long-range and low power transmission of data without using cellular or WiFi connections. It’s a very powerful and promising technology but it comes with its own complexity. In our pursuit to make IoT easier, we’ve already released a few products that enable anyone to build a LoRa® device (or a fleet of LoRa® devices!). Thanks to the Arduino MKR WAN 1310 board, combined with the Arduino Pro Gateway, you can create your own LoRaWAN™ network. But we have decided to do more than that, and it’s time to release one more important piece…
+
+ 
+
+The Arduino IoT Cloud now provides an incredibly easy way to collect data sent by your LoRa® devices. With a few clicks, the IoT Cloud will generate a sketch template for the boards that you can adapt to read data from your sensors, pre-process it as you want, and then send it to the IoT Cloud. With a few more clicks (no coding required), you’ll be able to create a graphical dashboard that displays the collected data in real-time and lets users see their history through charts and other widgets. You will not need to worry about coding your own compression, serialization and queueing algorithm, as it will all be done under the hood in a smart way — you’ll be able to transmit multiple properties (more than five), pushing the boundary beyond the packet size limits of LoRaWAN™!
+
+This is our take on edge computing — you program the device to collect and prepare your data locally, and then we take care of shipping such data to a centralized place.
+
+ 
+
+Such a simplified tool for data collection is already quite innovative, but we decided to take it an important step further. All the available solutions for LoRa® currently focus on collecting data, but they do not address it from the other way round i.e. sending data from a centralized application to the LoRa® device(s). Arduino IoT Cloud now lets you do this — you’ll be able to control actuators connected to your device by sending messages via LoRa®, with no coding needed.
+
+Build and control your own LoRaWAN™ network with Arduino IoT Cloud, the Pro Gateway, and the new and improved MKR WAN 1310 board that features the latest low-power architecture to extend the battery life and enable the power consumption to go as low as 104uA.

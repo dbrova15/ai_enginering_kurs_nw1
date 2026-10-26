@@ -1,0 +1,17 @@
+While robots can get around on two legs (or even none), it is difficult to get a smooth and efficient gait. Moving up to four legs improves the situation
+
+Автори: Arduino Team
+
+Категорії: Arduino
+
+Плати: Mega, Uno
+
+ 
+
+While robots can get around on two legs (or even none), it is difficult to get a smooth and efficient gait. Moving up to four legs improves the situation a bit, but each of those legs will still need multiple joints and careful balance for the robot to move in a stable manner. Once you increase the leg count to six, you can achieve some very good gaits, which is why hexapod robots are so popular. To experiment with six legs, Aecert Robotics built this nimble DIY hexapod robot from scratch.
+
+As you can see in the detailed video, this robot is quite agile. If you watch carefully, you can see that three legs lift and three legs remain in contact with the ground for each step. That keeps the robot very stable, as it can balance easily on the tripod formed by the three legs touching the ground. Each leg has three joints: a “hip” joint that pivots the leg horizontally, a “knee” joint that pivots vertically, and an “ankle” joint that also pivots vertically. Servo motors directly actuate all of those joints, meaning there are 18 servos in total.
+
+ 
+
+To control those servo motors, Aecert Robotics used an Arduino Mega 2560 board. A custom PCB shield made the connections much easier and tidier. The hexapod’s body and all of the legs were 3D printed. Aecert Robotics can control the robot via radio, using a custom controller based on an Arduino Uno. The two Arduino boards communicate via nRF24L01 radio transceiver modules. With the controller, Aecert Robotics can move the robot forward, backwards, left, and right. But the controller will also let the operator extended all the legs simultaneously. That means that they can make the robot hop in place by rapidly extending all of the legs at the same time.

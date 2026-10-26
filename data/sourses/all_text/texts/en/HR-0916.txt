@@ -1,0 +1,21 @@
+A single microcontroller can interface with many other components and handle several different tasks — that’s kind of the whole point. But
+
+Автори: Arduino Team
+
+Категорії: Arduino
+
+Плати: Mega, Uno
+
+ 
+
+A single microcontroller can interface with many other components and handle several different tasks — that’s kind of the whole point. But microcontrollers do have limits and sometimes it makes sense to divvy up tasks to get a logical system architecture. That led Michael Rigsby to put a whopping 11 different Arduino boards into his trash-handling robot.
+
+This robot, called Zeno, responds to voice commands and can “see” its environment, all to accomplish the goal of collecting trash and depositing that trash into a specified receptacle. The user simply wakes Zeno with a voice command, then they can tell Zeno to follow them or grab trash from their hand.
+
+Zeno’s two DFRobot HuskyLens AI cameras enable it to recognize people and marked trash bins, while five VS53L0X ToF distance sensors help it avoid obstacles. It has two driven wheels actuated by geared DC motors, plus a pair of serial-controlled servo motors for the gripper. That gripper mounts on an arm that rotates on another servo and extends with a 10” linear actuator.
+
+ 
+
+That is a lot of hardware to control, but it could still be done with just a couple of Arduino UNO boards or maybe even a single Arduino Mega 2560 — if you were trying to optimize for efficiency/cost and made use of all of the available pins. Rigsby, however, chose to structure things differently. He dedicated an UNO Rev3 to each subsystem, with a Mega 2560 acting as a central controller. Each HuskyLens, for example, has its own UNO Rev3 that doesn’t do anything else.
+
+When space and cost aren’t an issue, this kind of architecture can be sensible. It let Rigsby keep the subsystems self-contained, so each Arduino’s sketch and wiring is simple and manageable. But when all of the Arduino boards work together, they can accomplish the complex behavior we see from Zeno.

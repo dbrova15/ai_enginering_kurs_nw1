@@ -1,0 +1,17 @@
+Do you really understand what is happening within the mysterious black packaging of a microcontroller or microprocessor? Most people don’t — we just learn
+
+Автори: Arduino Team
+
+Категорії: Arduino
+
+Плати: Mega, Uno
+
+ 
+
+Do you  really  understand what is happening within the mysterious black packaging of a microcontroller or microprocessor? Most people don’t — we just learn how to use them. That’s because they’re wildly complex circuits combining many different subsystems that are all abstracted away from the view of the user. To help students better understand these integrated circuits (ICs), Dr. Panayotis Papazoglou designed the Hardware-Oriented Microprocessor Simulator (HOMS).
+
+Dr. Papazoglou is an associate professor at the National and Kapodistrian University of Athens (NKUA), so he has a stake in creating an educational tool like this one. The goal of HOMS is to provide a visual and tactile demonstration of what happens inside an eight-bit microprocessor. For example, it will show a value moving from a counter to a memory register. That’s something that is difficult to visualize when using a microprocessor, even if you’re working close to “the metal” in assembly.
+
+HOMS is a modular system, so students can experiment with blocks that represent different subsystem circuits within a microprocessor. Each module has an Arduino UNO Rev3 board to control its own functions, with all of the modules working under the coordination of a central Arduino Mega 2560 controller. One module may, for instance, represent memory and will show the data “written” to it on a display. Another module may have buttons and switches to allow user input.
+
+There are software simulation tools that seek to illustrate computing fundamentals in a similar way, but many people learn better through physical interaction. For those people, HOMS could be very helpful.

@@ -1,0 +1,43 @@
+Build a compact home monitoring module with a Nano RP2040 Connect, and collect all the data in Arduino Cloud.
+
+Автори: Arduino Team
+
+Плати: Arduino Cloud, Nano RP2040 Connect
+
+ 
+
+Home  monitoring  is a big part of home  automation , but it’s often overshadowed. Our attention tends to get hijacked by cool projects that perform physical actions. Whether it’s turning the lights on, changing their color, running a robot vacuum cleaner, pulling on the blinds or watering the garden. All these actions are very cool and very visible. Which makes it easy to ignore the background tasks that are the backbone of great home automation.
+
+YouTuber and robotics maker RootSaid has been giving this a lot of thought. He’s put together an excellent tutorial on creating a self contained, real-time home  monitoring  module. It’s built around the excellent Nano RP2040 Connect, and sends everything to Arduino Cloud.
+
+   Home Monitoring for You, and Your Family
+
+His objective was to create a compact bundle of sensors to keep an eye on various conditions around the home. This battery powered system can then be positioned anywhere, and monitored from Arduino Cloud. His idea is to install the module in an elderly relative’s home. That way, he can keep an eye on their environment from anywhere.
+
+Of course, this doesn’t have to be used purely as a care system. That’s a great application for his environment monitoring platform, but it’s just as useful for your own home automation system. Too often, sensors (temperature, for example) are physically connected to other automation devices, like Wi-Fi mains switches. But chances are you want to know the temperature over by your sofa. Not down the back of the TV cabinet.
+
+RootSaid to the rescue.
+
+   A Compact Home Automation Sensor Module
+
+Let’s take a look at the sensors bundled into this compact package.
+
+He’s got an LDR in there to monitor the light levels. This is perfect for bigger home automation projects, as it can trigger lights all around the house. Even outdoor lighting, if you wanted.
+
+There’s a Bosch BME280 to keep an eye on the environment. This is becoming a popular device among the home automation crowd. It’s small, very low power, cheap, accurate, and gives you temperature, humidity and air pressure data.
+
+Finally we have a gas sensor, which is a really interesting addition. Especially as part of his original brief for monitoring an elderly relative’s environment. It keeps a check on air quality, but being able to get alerts for gas leaks or rising carbon monoxide levels could be life saving.
+
+ 
+
+   Home Monitoring in Arduino Cloud, for Free
+
+Finally he takes you through the Arduino Cloud set up, including a monitoring dashboard. Which is more good news, since all this is running from a single Nano RP2040 Connect. That means you’re only adding one Thing (with five variables), so the free tier is a practical option. If you want to begin comparing the data the module collects over time, you can then easily bump up to a subscription for longer data retention options.
+
+Because he’s collecting data through Arduino Cloud, he’s automatically got smartphone access to it, as well. Or, if he wanted to share the data with members of the family or household, it only takes a click.
+
+Although RootSaid is running his module from a 9V battery, there’s nothing to stop you using other power sources. The Nano RP2040 Connect will accept all kinds of voltage inputs. From USB to 12v PSUs, your power options are wide open here.
+
+This is a project that no home automation enthusiast should overlook. It’s small, simple and very easy to build. But it’s also the gateway to creating a great home automation system. If you’re only just getting started, this is the project to begin with. It’s the tiny module where all the important data comes from to make your home truly autonomous. RootSaid’s excellent tutorial also makes it easy to see how you can expand on the project in lots of ways.
+
+Check it out, and make sure you  .

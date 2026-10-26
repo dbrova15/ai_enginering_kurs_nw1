@@ -1,0 +1,25 @@
+If you want to create new guitar sounds without having to redo your pedal wiring every single time, the pedalSHIELD MEGA from ElectroSmash could be just
+
+Автори: Arduino Team
+
+Категорії: Arduino, Featured, Music
+
+Плати: Mega
+
+ 
+
+If you want to create new guitar sounds without having to redo your pedal wiring every single time, the pedalSHIELD MEGA from ElectroSmash could be just what you’re looking for.
+
+The pedalSHIELD MEGA takes input from a guitar via a standard ¼-inch cable, and uses an Arduino Mega to process the sounds to your liking. This new sound is then output using two PWM pins for a 16-bit resolution.
+
+The device, which is available in kit form or as a PCB, sits on top of the Mega as an amazing looking shield. In addition to a 3PDT true bypass footswitch, a toggle switch, and two pushbuttons, the pedalSHIELD MEGA features an OLED display for visual feedback. Once assembled, all you need to do for an entirely unique sound is program your own effects in the Arduino IDE!
+
+> This shield that is placed on top of an Arduino Mega has three parts:
+>
+>   •     Analog Input Stage:   The weak guitar signal is amplified and filtered, making it ready for the Arduino Mega ADC (Analog to Digital Converter).
+>
+>   •     Arduino Mega Board:   It takes the digitalized waveform from the ADC and does all the DSP (Digital Signal Processing) creating effects (distortion, fuzz, volume, delay, etc).
+>
+>   •     Output Stage:   Once the new effected waveform is created inside the Arduino Mega board, this last stage takes it and using two combined PWMs generates the analog output signal.
+
+You can find more details on the pedalSHIELD MEGA here, and see it in action below!

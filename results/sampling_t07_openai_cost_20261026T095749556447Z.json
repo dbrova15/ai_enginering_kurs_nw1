@@ -1,0 +1,497 @@
+{
+  "model": "gpt-4o-mini",
+  "sampling": {
+    "temperature": 0.7,
+    "top_p": 1.0
+  },
+  "approved_budget_usd": 0.15,
+  "pricing_checked_date": "2026-10-26",
+  "pricing_source": "https://developers.openai.com/api/docs/models/gpt-4o-mini",
+  "input_usd_per_million": 0.15,
+  "output_usd_per_million": 0.6,
+  "method": "Full input tariff, no cache discount; known usage estimated, missing usage conservatively reserved. Not a billing invoice.",
+  "requests": [
+    {
+      "index": 1,
+      "accounted_usd": 0.0001512,
+      "usage_known": true,
+      "http_status": 200,
+      "input_tokens": 760,
+      "output_tokens": 62
+    },
+    {
+      "index": 2,
+      "accounted_usd": 0.00013769999999999999,
+      "usage_known": true,
+      "http_status": 200,
+      "input_tokens": 674,
+      "output_tokens": 61
+    },
+    {
+      "index": 3,
+      "accounted_usd": 0.00012495,
+      "usage_known": true,
+      "http_status": 200,
+      "input_tokens": 649,
+      "output_tokens": 46
+    },
+    {
+      "index": 4,
+      "accounted_usd": 0.00024134999999999998,
+      "usage_known": true,
+      "http_status": 200,
+      "input_tokens": 1429,
+      "output_tokens": 45
+    },
+    {
+      "index": 5,
+      "accounted_usd": 0.0001701,
+      "usage_known": true,
+      "http_status": 200,
+      "input_tokens": 898,
+      "output_tokens": 59
+    },
+    {
+      "index": 6,
+      "accounted_usd": 0.00042689999999999997,
+      "usage_known": true,
+      "http_status": 200,
+      "input_tokens": 2610,
+      "output_tokens": 59
+    },
+    {
+      "index": 7,
+      "accounted_usd": 0.00012929999999999997,
+      "usage_known": true,
+      "http_status": 200,
+      "input_tokens": 654,
+      "output_tokens": 52
+    },
+    {
+      "index": 8,
+      "accounted_usd": 0.00014775,
+      "usage_known": true,
+      "http_status": 200,
+      "input_tokens": 725,
+      "output_tokens": 65
+    },
+    {
+      "index": 9,
+      "accounted_usd": 0.00042764999999999996,
+      "usage_known": true,
+      "http_status": 200,
+      "input_tokens": 2671,
+      "output_tokens": 45
+    },
+    {
+      "index": 10,
+      "accounted_usd": 0.001008,
+      "usage_known": true,
+      "http_status": 200,
+      "input_tokens": 6532,
+      "output_tokens": 47
+    },
+    {
+      "index": 11,
+      "accounted_usd": 0.0002583,
+      "usage_known": true,
+      "http_status": 200,
+      "input_tokens": 1506,
+      "output_tokens": 54
+    },
+    {
+      "index": 12,
+      "accounted_usd": 0.0001782,
+      "usage_known": true,
+      "http_status": 200,
+      "input_tokens": 984,
+      "output_tokens": 51
+    },
+    {
+      "index": 13,
+      "accounted_usd": 0.00040155000000000003,
+      "usage_known": true,
+      "http_status": 200,
+      "input_tokens": 2485,
+      "output_tokens": 48
+    },
+    {
+      "index": 14,
+      "accounted_usd": 0.00043559999999999996,
+      "usage_known": true,
+      "http_status": 200,
+      "input_tokens": 2704,
+      "output_tokens": 50
+    },
+    {
+      "index": 15,
+      "accounted_usd": 0.0007615499999999999,
+      "usage_known": true,
+      "http_status": 200,
+      "input_tokens": 4877,
+      "output_tokens": 50
+    },
+    {
+      "index": 16,
+      "accounted_usd": 0.00019455,
+      "usage_known": true,
+      "http_status": 200,
+      "input_tokens": 1105,
+      "output_tokens": 48
+    },
+    {
+      "index": 17,
+      "accounted_usd": 0.00032085,
+      "usage_known": true,
+      "http_status": 200,
+      "input_tokens": 1955,
+      "output_tokens": 46
+    },
+    {
+      "index": 18,
+      "accounted_usd": 0.00012165,
+      "usage_known": true,
+      "http_status": 200,
+      "input_tokens": 635,
+      "output_tokens": 44
+    },
+    {
+      "index": 19,
+      "accounted_usd": 0.00032849999999999996,
+      "usage_known": true,
+      "http_status": 200,
+      "input_tokens": 2014,
+      "output_tokens": 44
+    },
+    {
+      "index": 20,
+      "accounted_usd": 0.0001587,
+      "usage_known": true,
+      "http_status": 200,
+      "input_tokens": 886,
+      "output_tokens": 43
+    },
+    {
+      "index": 21,
+      "accounted_usd": 0.00039735,
+      "usage_known": true,
+      "http_status": 200,
+      "input_tokens": 2481,
+      "output_tokens": 42
+    },
+    {
+      "index": 22,
+      "accounted_usd": 0.00022125,
+      "usage_known": true,
+      "http_status": 200,
+      "input_tokens": 1259,
+      "output_tokens": 54
+    },
+    {
+      "index": 23,
+      "accounted_usd": 0.0002355,
+      "usage_known": true,
+      "http_status": 200,
+      "input_tokens": 1338,
+      "output_tokens": 58
+    },
+    {
+      "index": 24,
+      "accounted_usd": 0.00048195,
+      "usage_known": true,
+      "http_status": 200,
+      "input_tokens": 3009,
+      "output_tokens": 51
+    },
+    {
+      "index": 25,
+      "accounted_usd": 0.00050955,
+      "usage_known": true,
+      "http_status": 200,
+      "input_tokens": 3197,
+      "output_tokens": 50
+    },
+    {
+      "index": 26,
+      "accounted_usd": 0.00019784999999999998,
+      "usage_known": true,
+      "http_status": 200,
+      "input_tokens": 1147,
+      "output_tokens": 43
+    },
+    {
+      "index": 27,
+      "accounted_usd": 0.0004539,
+      "usage_known": true,
+      "http_status": 200,
+      "input_tokens": 2750,
+      "output_tokens": 69
+    },
+    {
+      "index": 28,
+      "accounted_usd": 0.00021375,
+      "usage_known": true,
+      "http_status": 200,
+      "input_tokens": 1233,
+      "output_tokens": 48
+    },
+    {
+      "index": 29,
+      "accounted_usd": 0.00026055,
+      "usage_known": true,
+      "http_status": 200,
+      "input_tokens": 1565,
+      "output_tokens": 43
+    },
+    {
+      "index": 30,
+      "accounted_usd": 0.00019094999999999998,
+      "usage_known": true,
+      "http_status": 200,
+      "input_tokens": 1069,
+      "output_tokens": 51
+    },
+    {
+      "index": 31,
+      "accounted_usd": 0.0002007,
+      "usage_known": true,
+      "http_status": 200,
+      "input_tokens": 1102,
+      "output_tokens": 59
+    },
+    {
+      "index": 32,
+      "accounted_usd": 0.00018659999999999998,
+      "usage_known": true,
+      "http_status": 200,
+      "input_tokens": 1016,
+      "output_tokens": 57
+    },
+    {
+      "index": 33,
+      "accounted_usd": 0.00017744999999999998,
+      "usage_known": true,
+      "http_status": 200,
+      "input_tokens": 991,
+      "output_tokens": 48
+    },
+    {
+      "index": 34,
+      "accounted_usd": 0.00029625,
+      "usage_known": true,
+      "http_status": 200,
+      "input_tokens": 1771,
+      "output_tokens": 51
+    },
+    {
+      "index": 35,
+      "accounted_usd": 0.00022140000000000001,
+      "usage_known": true,
+      "http_status": 200,
+      "input_tokens": 1240,
+      "output_tokens": 59
+    },
+    {
+      "index": 36,
+      "accounted_usd": 0.0004812,
+      "usage_known": true,
+      "http_status": 200,
+      "input_tokens": 2952,
+      "output_tokens": 64
+    },
+    {
+      "index": 37,
+      "accounted_usd": 0.0001872,
+      "usage_known": true,
+      "http_status": 200,
+      "input_tokens": 996,
+      "output_tokens": 63
+    },
+    {
+      "index": 38,
+      "accounted_usd": 0.00018884999999999996,
+      "usage_known": true,
+      "http_status": 200,
+      "input_tokens": 1067,
+      "output_tokens": 48
+    },
+    {
+      "index": 39,
+      "accounted_usd": 0.00048375,
+      "usage_known": true,
+      "http_status": 200,
+      "input_tokens": 3013,
+      "output_tokens": 53
+    },
+    {
+      "index": 40,
+      "accounted_usd": 0.0010605,
+      "usage_known": true,
+      "http_status": 200,
+      "input_tokens": 6874,
+      "output_tokens": 49
+    },
+    {
+      "index": 41,
+      "accounted_usd": 0.00030659999999999997,
+      "usage_known": true,
+      "http_status": 200,
+      "input_tokens": 1848,
+      "output_tokens": 49
+    },
+    {
+      "index": 42,
+      "accounted_usd": 0.0002319,
+      "usage_known": true,
+      "http_status": 200,
+      "input_tokens": 1326,
+      "output_tokens": 55
+    },
+    {
+      "index": 43,
+      "accounted_usd": 0.00045765000000000004,
+      "usage_known": true,
+      "http_status": 200,
+      "input_tokens": 2827,
+      "output_tokens": 56
+    },
+    {
+      "index": 44,
+      "accounted_usd": 0.0004898999999999999,
+      "usage_known": true,
+      "http_status": 200,
+      "input_tokens": 3046,
+      "output_tokens": 55
+    },
+    {
+      "index": 45,
+      "accounted_usd": 0.00081165,
+      "usage_known": true,
+      "http_status": 200,
+      "input_tokens": 5219,
+      "output_tokens": 48
+    },
+    {
+      "index": 46,
+      "accounted_usd": 0.00024344999999999998,
+      "usage_known": true,
+      "http_status": 200,
+      "input_tokens": 1447,
+      "output_tokens": 44
+    },
+    {
+      "index": 47,
+      "accounted_usd": 0.00037395,
+      "usage_known": true,
+      "http_status": 200,
+      "input_tokens": 2297,
+      "output_tokens": 49
+    },
+    {
+      "index": 48,
+      "accounted_usd": 0.00017414999999999998,
+      "usage_known": true,
+      "http_status": 200,
+      "input_tokens": 977,
+      "output_tokens": 46
+    },
+    {
+      "index": 49,
+      "accounted_usd": 0.00038579999999999995,
+      "usage_known": true,
+      "http_status": 200,
+      "input_tokens": 2356,
+      "output_tokens": 54
+    },
+    {
+      "index": 50,
+      "accounted_usd": 0.00021,
+      "usage_known": true,
+      "http_status": 200,
+      "input_tokens": 1228,
+      "output_tokens": 43
+    },
+    {
+      "index": 51,
+      "accounted_usd": 0.00044925,
+      "usage_known": true,
+      "http_status": 200,
+      "input_tokens": 2823,
+      "output_tokens": 43
+    },
+    {
+      "index": 52,
+      "accounted_usd": 0.00027254999999999993,
+      "usage_known": true,
+      "http_status": 200,
+      "input_tokens": 1601,
+      "output_tokens": 54
+    },
+    {
+      "index": 53,
+      "accounted_usd": 0.00028680000000000003,
+      "usage_known": true,
+      "http_status": 200,
+      "input_tokens": 1680,
+      "output_tokens": 58
+    },
+    {
+      "index": 54,
+      "accounted_usd": 0.00053265,
+      "usage_known": true,
+      "http_status": 200,
+      "input_tokens": 3351,
+      "output_tokens": 50
+    },
+    {
+      "index": 55,
+      "accounted_usd": 0.00056085,
+      "usage_known": true,
+      "http_status": 200,
+      "input_tokens": 3539,
+      "output_tokens": 50
+    },
+    {
+      "index": 56,
+      "accounted_usd": 0.00025095,
+      "usage_known": true,
+      "http_status": 200,
+      "input_tokens": 1489,
+      "output_tokens": 46
+    },
+    {
+      "index": 57,
+      "accounted_usd": 0.0004944,
+      "usage_known": true,
+      "http_status": 200,
+      "input_tokens": 3092,
+      "output_tokens": 51
+    },
+    {
+      "index": 58,
+      "accounted_usd": 0.00026685,
+      "usage_known": true,
+      "http_status": 200,
+      "input_tokens": 1575,
+      "output_tokens": 51
+    },
+    {
+      "index": 59,
+      "accounted_usd": 0.00031365,
+      "usage_known": true,
+      "http_status": 200,
+      "input_tokens": 1907,
+      "output_tokens": 46
+    },
+    {
+      "index": 60,
+      "accounted_usd": 0.00024225,
+      "usage_known": true,
+      "http_status": 200,
+      "input_tokens": 1411,
+      "output_tokens": 51
+    }
+  ],
+  "status": "completed",
+  "accounted_usd": 0.020126099999999997
+}

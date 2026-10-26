@@ -1,0 +1,21 @@
+If you want to build RC airplanes, you’ll need a way to make lightweight wings. 3D printing can work with foaming filament, but most 3D printers have
+
+Автори: Arduino Team
+
+Категорії: Arduino
+
+Плати: Mega
+
+ 
+
+If you want to build RC airplanes, you’ll need a way to make lightweight wings. 3D printing can work with foaming filament, but most 3D printers have limited build volume. A better method is to use a hot wire cutter to shape foam. Michael Rechtin’s CNC hot wire cutter automates that process across four axes, which is perfect for making large, high-quality airplane wings.
+
+Hot wire cutters are very simple and you can get basic handheld models for about $15. They work by passing current through a nichrome (nickel-chromium) wire, so resistive heating makes the wire hot. When the temperature is right, that wire will melt material (like Styrofoam) on contact, resulting is a straight cut with almost no force.
+
+Rechtin’s machine pulls the hot nichrome wire between two actuated assemblies, each with two axes. They move the ends of the nichrome wire independently, both horizontally and vertically. When the two sides move the same way, you get cuts straight across — a consistent cross section. If they move differently, the wire can stretch across at an angle, so more complex shapes are possible.
+
+Almost all of the parts of the machine are identical to what you’d find on a 3D printer: aluminum extrusion, stepper motors, a RAMPS 1.4 controller on an Arduino Mega 2560 board, and TMC2209 stepper drivers. That receives G-code created with an online tool called RC Airplane Wing Designer, which was built specifically for this kind of work.
+
+The only unique hardware is that used for the nichrome wire. A novel pulley mechanism keeps the wire under constant tension, regardless of machine position. Power comes from a variable DC power supply, so Rechtin can tune the voltage to achieve the right current and resistance to get the best wire temperature for performance. Then the wire physically extends between MIG welding tips, which are designed for feeding wire and passing current.
+
+The machine works great, giving Rechtin the ability to fabricate the perfect airfoils for his RC airplanes.

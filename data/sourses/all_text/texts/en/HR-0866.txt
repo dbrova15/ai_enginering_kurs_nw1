@@ -1,0 +1,23 @@
+When on stage, most guitarists will simply run a long cable from their guitar to the amp or mixer. But that cable can become tangled or get in the way,
+
+Автори: Arduino Team
+
+Категорії: Arduino
+
+Плати: GIGA R1 WiFi, Nano ESP32
+
+ 
+
+When on stage, most guitarists will simply run a long cable from their guitar to the amp or mixer. But that cable can become tangled or get in the way, which is a problem for some of the more animated musicians out there. Wireless transmitters exist for them to express themselves through physical movement, but those tend to be expensive. So, James Hardaker built his own digital wireless guitar transmitter system.
+
+In the early days of wireless audio transmission, systems sent audio as analog signals. In principle, they weren’t that different than FM radio transmitters or glorified walkie talkies. But those systems had a lot of disadvantages, including interference and noise. Imagine going to see your favorite band play live, only to hear a prankster transmitting nonsense on the guitar’s frequency.
+
+Today, most systems are digital and that’s the path Hardaker took. His system takes the signal from an electric guitar, turns it into digital data, transmits that data to a receiver, converts it back into an analog signal, and then feeds that to an amplifier.
+
+ 
+
+Hardaker accomplished that with two different Arduino boards: an Arduino Nano ESP32 for the transmitter and an Arduino GIGA R1 WiFi for the receiver. The two boards communicate with each other (to send audio data) through nRF24L01 radio transceivers, which allow for bandwidth up to 2Mbps.
+
+The transmitter has an external ADC (analog-to-digital converter) that Hardaker chose to keep noise down as a much as possible. At the other end, he took advantage of the GIGA R1 WiFi’s built-in DAC (digital-to-analog converter) to pump out audio through the onboard 3.5mm jack to the amp. He even programmed some digital filtering to clean up the signal.
+
+While it is a little rough around the edges — the transmitter’s enclosure is just a cardboard box with batteries taped on — it does seem to do the job.

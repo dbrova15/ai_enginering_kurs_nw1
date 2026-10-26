@@ -1,0 +1,17 @@
+Who doesn’t want to explore underwater? To take a journey beneath the surface of a lake or even the ocean? But a remotely operated vehicle (ROV), which is
+
+Автори: Arduino Team
+
+Категорії: Arduino
+
+Плати: Mega, Uno
+
+ 
+
+Who doesn’t want to explore underwater? To take a journey beneath the surface of a lake or even the ocean? But a remotely operated vehicle (ROV), which is the kind of robot you’d use for such an adventure, isn’t exactly the kind of thing you’ll find on the shelf at your local Walmart. You can, however, follow this guide from Ranuga Amarasinghe to build your own ROV for some aquatic fun.
+
+Amarasinghe is a 16-year-old Sri Lankan student and this is actually the second iteration of his ROV design. As such, he’s dubbed it “ROV2” and it appears to be quite capable. All of its electronics sit safely within a 450mm length of sealed PVC tube. That mounts onto the aluminum extrusion frame structure that also hosts the six thrusters powered by drone-style brushless DC motors.
+
+ROV2’s brain is an Arduino Mega 2560 board and it drives the BLDC motors through six electronic speed controllers (ESCs). It receives control commands from the surface via an umbilical. The operator holds a Flysky transmitter that sends radio signals to a receiver floating on the water. An Arduino UNO Rev3 reads those and then communicates the motor commands to the Mega through the tethered serial connection. That limits the maximum length of the tether to about 40 meters, which subsequently limits the maximum operating depth.
+
+With the specified lithium battery pack, ROV2 can traverse the depths for 30-45 minutes. And when equipped with the 720p FPV camera, pilots can see and record all of the underwater action.

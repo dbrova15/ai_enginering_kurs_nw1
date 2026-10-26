@@ -1,0 +1,480 @@
+В данной статье я кратко опишу, как сконфигурировать маршрутизатор основанный на одноплатном компьютере под...
+
+  Реализация маршрутизатора на одноплатном компьютере Orange Pi R1  
+
+  
+
+В данной статье я кратко опишу, как сконфигурировать маршрутизатор основанный на одноплатном компьютере под управлением полноценной операционной системы   GNU/Linux  . В качестве основной аппаратной платформы будет использоваться   Orange Pi R1  . Вполне резонно возникает вопрос, зачем нужно такое решение, если сейчас без каких либо проблем можно приобрести готовое устройство. Суть в том, что реализовать сложную систему маршрутизации трафика, полноценный firewall, шифрованную файловую систему, логи, VPN и т.д. на обычном заводском маршрутизаторе пользовательского сегмента невозможно. Конечно всегда остается вариант приобретения промышленного сетевого оборудования, но это не целесообразно для небольших сетей с точки зрения стоимости, его габаритов и такого не маловажного фактора как энергопотребление. С появлением одноплатных компьютеров и последующим стремительном их развитии, подобные задачи стали доступными для рядового пользователя. Сейчас существует огромное количество производителей (  Banana Pi  ,   SeedStudio  ,   NanoPi  ,   Orange Pi   и многие другие) предоставляющих в своем модельном ряду устройства различного класса предназначенные для решения задач маршрутизации.
+
+Почему я решил использовать   Orange Pi R1  , а не какой-либо другой одноплатный компьютер? Все очень просто, основная моя сеть состоит из двух стационарных компьютеров выступающих в роли рабочих систем общего назначения, одного удаленного сетевого хранилища предоставляющего доступ одновременно нескольким пользователям и одного WEB сервера. Устройства подключенные по WiFi я не учитываю ввиду того, что какой-либо ощутимой нагрузки на сеть они не дают. В более масштабных сетях я использую   Banana Pi R2  . Там она себя оправдывает на все сто процентов, но в данном случае это расточительство. Поскольку   Orange Pi   является одной из самых распространенных в наших широтах платформой, а ее продукция как нельзя лучше подходит под требования цены и качества, я решил остановить свой выбор на ней. Стоит отметить, что уже существует обновленная версия -   Orange Pi R1 Plus   и если есть возможность, то предпочтительней взять ее. Существует еще один интересный вариант в лице   NanoPi R1   (  В любом случае, независимо от того что вы выберете, суть конфигурации не изменится.
+
+  Примечание:   данную статью ни в коем случае не нужно рассматривать, как полноценное руководство! Всю дополнительную информацию, вы с легкостью найдете на страницах открытой (свободной) документации (  man  ).
+
+  Основное оборудование:  
+
+- Orange Pi R1 -  
+- Внешняя WiFi антенна -  
+- Карта памяти SanDisk Ultra microSDHC UHS-I 16Gb (или аналогичная) -  
+- Блок питания Sunny 5В 2.1A microUSB -  
+- Алюминиевые радиаторы (понадобится только основной - 14х14 мм для процессора) -  
+- Вентилятор 30х30х7мм 5В или 30х30х10мм 5В -   /  
+- Патч-корды (в моем случае 3м)-  
+- Стойки и корпус на DIN рейку:
+  
+  -  
+  -  
+  -  
+
+  Примечание:   центральный процессор   H2 Cortex-A7   (  Quad-core 32-bit  ), как ни странно оказался довольно-таки горячим парнем и даже при простое, находясь в помещении с температурой окружающей среды   23?С   стабильно имел температуру   56?С  . А при такой температуре он ощутимо начинал троттлить. И только после установки активного охлаждения троттлинг полностью пропал, а температура на нем стала в районе   25?С  . Категорически не рекомендую использовать данный одноплатный компьютер без активного охлаждения. Если вас по каким либо причинам такое решение не устраивает, то тогда стоит обратить внимание на   NanoPi R1  .
+
+  Дополнительное оборудование:  
+
+- В качестве сетевого коммутатора я использовал   Linksys SD205  . Если коммутатор нужен на большее количество портов, то можно взять например   Linksys LGS108   или любой другой, который вам подходит.
+
+  Операционная система:  
+
+- Armbian (Debian-Buster kernel 5.10.y) -  
+
+  Примечания:  
+
+- Конфигурацию беспроводной сети, я приведу в отдельном кратком руководстве.
+- Настоятельно не рекомендую использовать   Orange Pi ОС  , даже не сколько по причине безопасности, сколько по причине ее страшной корявости (как минимум для   Orange Pi R1  )!
+- Всю конфигурацию я производил на стационарном компьютере под управлением   Debian GNU/Linux   подключенном в мою локальную сеть, в нее же была подключена и   Orange Pi R1  . Вы можете использовать любую платформу, главное, что бы вы имели доступ к маршрутизатору, который будет присваивать   Orange Pi R1   IP адрес (в процессе настройки маршрутизатор может его изменять)!
+
+С вводной частью разобрались, переходим непосредственно к конфигурированию.
+
+  Конфигурация  
+
+Патч-корд от маршрутизатора (Ethernet порт LAN) подключаем к Ethernet порту Orange Pi R1 на котором находиться наклейка с   MAC адресом  , данный порт в последствии станет   WAN портом  . Подключаемся по   SSH   к Orange Pi R1, предварительно залогинившись как   root   пользователь.
+
+   root@64R3B:~  ssh root@192.168.1.11   
+
+  Примечание:    192.168.1.11  - IP адрес выданный Orange Pi R1 маршрутизатором к которому он подключен. Обязательно замените его на тот адрес, который был выдан вашим маршрутизатором!!!
+
+Для подтверждения логирования система запросит ввод пароля. Пароль по дефолту -   1234   После входа вам будет предложено сменить   пароль пользователя root  , ввести   имя пользователя user   и его   пароль  , а также выбрать   командную оболочку   и   locale   (локаль).
+
+  Примечание:   настоятельно рекомендую не устанавливать простых паролей, в качестве командной оболочки выберете   bash  , а   locale   установите в   дефолтное значение   ( Set user language based on your location? [Y/n]  - следует нажать   n  ).
+
+После предварительной настройки, перезагружаем ОС и подключаемся заново.
+
+   root@orangepi-r1:~  reboot   
+
+Как мы видим, система выводит сообщение:
+
+ -bash: warning: setlocale: LC\ ALL: cannot change locale (ru\ UA.UTF-8) 
+
+Что бы это сообщение больше не выводилось и локаль была правильно сконфигурирована, редактируем файл    locale    расположенный в директории    /etc/default   . Перед внесением новых параметров обязательно удаляем предыдущие!
+
+   root@orangepi-r1:~  nano /etc/default/locale   
+
+-    File generated by update-locale 
+-  LANG=en\ US.UTF-8 
+-  LANGUAGE=en\ US.UTF-8 
+-  LC\ ALL=en\ US.UTF-8 
+
+  Примечание:   для сохранения изменений в файле открытом в текстовом редакторе   nano  , нажмите сочетание клавиш   Ctrl+O  , а для выхода из текстового редактора нажмите сочетание клавиш   Ctrl+X  
+
+Проверяем наличие раскоментированной строки в файле    locale.gen    расположенном в    /etc   
+
+   root@orangepi-r1:~  nano /etc/locale.gen   
+
+-  en\ US.UTF-8 UTF-8 
+
+Конфигурируем локаль, после чего перезагружаем ОС и подключаемся заново.
+
+   root@orangepi-r1:~  locale-gen en\ US.UTF-8   
+
+-  Generating locales (this might take a while)... 
+-  en\ US.UTF-8... done 
+-  Generation complete. 
+
+   root@orangepi-r1:~  reboot   
+
+Сообщение:  -bash: warning: setlocale: LC\ ALL: cannot change locale (ru\ UA.UTF-8)  повторно не отобразилось, значит локаль сконфигурирована корректно. Перед тем как приступить к дальнейшей настройке, проверим параметры локали.
+
+   root@orangepi-r1:~  locale   
+
+-  LANG=en\ US.UTF-8 
+-  LANGUAGE=en\ US.UTF-8 
+-  LC\ CTYPE="en\ US.UTF-8" 
+-  LC\ NUMERIC="en\ US.UTF-8" 
+-  LC\ TIME="en\ US.UTF-8" 
+-  LC\ COLLATE="en\ US.UTF-8" 
+-  LC\ MONETARY="en\ US.UTF-8" 
+-  LC\ MESSAGES="en\ US.UTF-8" 
+-  LC\ PAPER="en\ US.UTF-8" 
+-  LC\ NAME="en\ US.UTF-8" 
+-  LC\ ADDRESS="en\ US.UTF-8" 
+-  LC\ TELEPHONE="en\ US.UTF-8" 
+-  LC\ MEASUREMENT="en\ US.UTF-8" 
+-  LC\ IDENTIFICATION="en\ US.UTF-8" 
+-  LC\ ALL=en\ US.UTF-8 
+
+   root@orangepi-r1:~  locale -a   
+
+-  C 
+-  C.UTF-8 
+-  en\ US.utf8 
+-  POSIX 
+
+Убедившись что локаль сконфигурирована корректно, приступаем к настройке сетевых интерфейсов. Первым делом, проверяем какие сетевые интерфейсы присутствуют в системе.
+
+   root@orangepi-r1:~  ifconfig   
+
+-  enxc0742bffb830: flags=4163&lt;UP,BROADCAST,RUNNING,MULTICAST&gt; mtu 1500 
+-  inet 192.168.1.11 netmask 255.255.255.0 broadcast 192.168.1.255 
+-  inet6 ????::????:????:????:???? prefixlen 64 scopeid 0x20&lt;link&gt; 
+-  ether ??:??:??:??:??:?? txqueuelen 1000 (Ethernet) 
+-  RX packets 248 bytes 20802 (20.3 KiB) 
+-  RX errors 0 dropped 0 overruns 0 frame 0 
+-  TX packets 220 bytes 22839 (22.3 KiB) 
+-  TX errors 0 dropped 0 overruns 0 carrier 0 collisions 0 
+- 
+-  eth0: flags=4099&lt;UP,BROADCAST,MULTICAST&gt; mtu 1500 
+-  ether ??:??:??:??:??:?? txqueuelen 1000 (Ethernet) 
+-  RX packets 0 bytes 0 (0.0 B) 
+-  RX errors 0 dropped 0 overruns 0 frame 0 
+-  TX packets 0 bytes 0 (0.0 B) 
+-  TX errors 0 dropped 0 overruns 0 carrier 0 collisions 0 
+-  device interrupt 46 
+- 
+-  lo: flags=73&lt;UP,LOOPBACK,RUNNING&gt; mtu 65536 
+-  inet 127.0.0.1 netmask 255.0.0.0 
+-  inet6 ::1 prefixlen 128 scopeid 0x10&lt;host&gt; 
+-  loop txqueuelen 1000 (Local Loopback) 
+-  RX packets 0 bytes 0 (0.0 B) 
+-  RX errors 0 dropped 0 overruns 0 frame 0 
+-  TX packets 0 bytes 0 (0.0 B) 
+-  TX errors 0 dropped 0 overruns 0 carrier 0 collisions 0 
+- 
+-  wlan0: flags=4099&lt;UP,BROADCAST,MULTICAST&gt; mtu 1500 
+-  ether ??:??:??:??:??:?? txqueuelen 1000 (Ethernet) 
+-  RX packets 0 bytes 0 (0.0 B) 
+-  RX errors 0 dropped 0 overruns 0 frame 0 
+-  TX packets 0 bytes 0 (0.0 B) 
+-  TX errors 0 dropped 0 overruns 0 carrier 0 collisions 0 
+
+Как мы видим, в системе присутствуют три интерфейса:  enxc0742bffb830 ,  eth0  и  wlan0 .  lo  является виртуальным сетевым интерфейсом и в данном руководстве мы не будем его рассматривать.
+
+1.  enxc0742bffb830  - Ethernet интерфейс, будет сконфигурирован, как   WAN  
+2.  eth0  - Ethernet интерфейс, будет сконфигурирован, как   LAN  
+3.  wlan0  - беспроводной интерфейс, будет сконфигурирован, как   AP   (  точка доступа WiFi  )
+
+Следующим шагом проверяем наличие связи с глобальной сетью.
+
+   root@orangepi-r1:~  ping -c3 google.com   
+
+-  PING google.com (???:???:???:???) 56(84) bytes of data. 
+-  64 bytes from waw02s14-in-f14.1e100.net (???:???:???:???): icmp\ seq=1 ttl=119 time=15.3 ms 
+-  64 bytes from waw02s14-in-f14.1e100.net (???:???:???:???): icmp\ seq=2 ttl=119 time=15.1 ms 
+-  64 bytes from waw02s14-in-f14.1e100.net (???:???:???:???): icmp\ seq=3 ttl=119 time=15.3 ms 
+- 
+-  --- google.com ping statistics --- 
+-  3 packets transmitted, 3 received, 0% packet loss, time 5ms 
+-  rtt min/avg/max/mdev = 15.065/15.225/15.313/0.182 ms 
+
+Отлично, связь с глобальной сетью присутствует. Для удобства изменяем имена сетевых интерфейсов на классические. Для этого в файл    armbianEnv.txt    расположенный в директории    /boot    добавляем параметр  extraargs=net.ifnames=0 
+
+   root@orangepi-r1:~  nano /boot/armbianEnv.txt   
+
+-  extraargs=net.ifnames=0 
+
+После завершения редактирования файла    armbianEnv.txt   , следует перезагрузить систему и подключится заново.
+
+   root@orangepi-r1:~  reboot   
+
+Проверяем применились ли изменения.
+
+   root@orangepi-r1:~  ifconfig   
+
+-  eth0: flags=4099&lt;UP,BROADCAST,MULTICAST&gt; mtu 1500 
+-  ether ??:??:??:??:??:?? txqueuelen 1000 (Ethernet) 
+-  RX packets 0 bytes 0 (0.0 B) 
+-  RX errors 0 dropped 0 overruns 0 frame 0 
+-  TX packets 0 bytes 0 (0.0 B) 
+-  TX errors 0 dropped 0 overruns 0 carrier 0 collisions 0 
+-  device interrupt 46 
+
+-  etx1: flags=4163&lt;UP,BROADCAST,RUNNING,MULTICAST&gt; mtu 1500 
+-  inet 192.168.1.11 netmask 255.255.255.0 broadcast 192.168.1.255 
+-  inet6 ????::????:????:????:???? prefixlen 64 scopeid 0x20&lt;link&gt; 
+-  ether ??:??:??:??:??:?? txqueuelen 1000 (Ethernet) 
+-  RX packets 88 bytes 10088 (9.8 KiB) 
+-  RX errors 0 dropped 0 overruns 0 frame 0 
+-  TX packets 89 bytes 11185 (10.9 KiB) 
+-  TX errors 0 dropped 0 overruns 0 carrier 0 collisions 0 
+- 
+-  lo: flags=73&lt;UP,LOOPBACK,RUNNING&gt; mtu 65536 
+-  inet 127.0.0.1 netmask 255.0.0.0 
+-  inet6 ::1 prefixlen 128 scopeid 0x10&lt;host&gt; 
+-  loop txqueuelen 1000 (Local Loopback) 
+-  RX packets 0 bytes 0 (0.0 B) 
+-  RX errors 0 dropped 0 overruns 0 frame 0 
+-  TX packets 0 bytes 0 (0.0 B) 
+-  TX errors 0 dropped 0 overruns 0 carrier 0 collisions 0 
+- 
+-  wlan0: flags=4099&lt;UP,BROADCAST,MULTICAST&gt; mtu 1500 
+-  ether ??:??:??:??:??:?? txqueuelen 1000 (Ethernet) 
+-  RX packets 0 bytes 0 (0.0 B) 
+-  RX errors 0 dropped 0 overruns 0 frame 0 
+-  TX packets 0 bytes 0 (0.0 B) 
+-  TX errors 0 dropped 0 overruns 0 carrier 0 collisions 0 
+
+Теперь, имя сетевого интерфейса  enxc0742bffb830  изменилось на  eth1 . Приступаем непосредственно к конфигурации сетевых интерфейсов. Для этого в файл    interfaces    расположенный в директории    /etc/network    вносим изменения.
+
+   root@orangepi-r1:~  nano /etc/network/interfaces   
+
+-  source /etc/network/interfaces.d/  
+-    Network is managed by Network manager 
+- 
+-    lo : The local network interface 
+-  auto lo 
+-  iface lo inet loopback 
+- 
+-    WAN : The primary network interface 
+-  auto eth1 
+-  allow-hotplug eth1 
+-  iface eth1 inet dhcp 
+-  hwaddress ether XX:XX:XX:XX:XX:XX 
+- 
+-    LAN: The secondary network interface 
+-  auto eth0 
+-  allow-hotplug eth0 
+-  iface eth0 inet static 
+-  address 101.101.80.1 
+-  network 101.101.80.0 
+-  netmask 255.255.255.0 
+-  broadcast 101.101.80.255 
+- 
+-    WLAN : The wireles network interface 
+-  auto wlan0 
+-  allow-hotplug wlan0 
+-  iface wlan0 inet static 
+-  address 101.101.90.1 
+-  network 101.101.90.0 
+-  netmask 255.255.255.0 
+-  broadcast 101.101.90.255 
+
+Примечание:  hwaddress ether  - этот параметр отвечает за   клонирование/изменение MAC   адреса сетевой карты. Если ваш провайдер привязывает выданный вам IP адрес к адресу сетевой карты, замените  XX:XX:XX:XX:XX:XX  адресом вашей сетевой. Если такой привязки не требуется, то просто закомментируйте данную строку.  address ,  network ,  netmask ,  broadcast  интерфейсов  eth0  и  wlan0  измените по своему усмотрению (приведенные параметры указаны чисто в целях примера). В случае, когда ваш провайдер раздает адреса не по   DHCP  , а использует   статику  , вам потребуется изменить настройки сетевого интерфейса  eth1  в соответствии с настройками выданными вашим провайдером.
+
+Пример:
+
+-    WAN : The primary network interface 
+-  auto eth1 
+-  iface eth1 inet static 
+-  address IP адрес выданный вашим провайдером 
+-  netmask маска вашего провайдера 
+-  gateway шлюз вашего провайдера 
+
+Для корректной работы с беспроводным интерфейсом, следует отключить   NetworkManager  . Если этого не сделать, то беспроводной интерфейс  wlan0  будет недоступен для конфигурации и использования. Убедимся что интерфейс  wlan0  отключен.
+
+   root@orangepi-r1:~  nmcli device status   
+
+- DEVICE TYPE STATE CONNECTION
+- eth1 ethernet connected Wired connection 2
+- wlan0 wifi disconnected --
+- eth0 ethernet unavailable --
+- lo loopback unmanaged --
+
+Видим, что интерфейс  wlan0  отключен, хотя ничего другого и не следовало ожидать :) Отключаем   NetworkManager   и убираем его из автозагрузки, после перезагружаем сеть. Если подключение по   SSH   не прервалось, то все настроено правильно. На всякий случай проверяем наличие связи с глобальной сетью, после чего перезагружаем систему и подключаемся заново.
+
+   root@orangepi-r1:~  systemctl stop NetworkManager   
+
+   root@orangepi-r1:~  systemctl disable NetworkManager   
+
+- Removed /etc/systemd/system/dbus-org.freedesktop.nm-dispatcher.service.
+- Removed /etc/systemd/system/multi-user.target.wants/NetworkManager.service.
+
+   root@orangepi-r1:~  systemctl restart networking   
+
+   root@orangepi-r1:~  ping -c3 google.com   
+
+-  PING google.com (???:???:???:???) 56(84) bytes of data. 
+-  64 bytes from waw02s14-in-f14.1e100.net (???:???:???:???): icmp\ seq=1 ttl=119 time=15.3 ms 
+-  64 bytes from waw02s14-in-f14.1e100.net (???:???:???:???): icmp\ seq=2 ttl=119 time=15.1 ms 
+-  64 bytes from waw02s14-in-f14.1e100.net (???:???:???:???): icmp\ seq=3 ttl=119 time=15.3 ms 
+-  --- google.com ping statistics --- 
+-  3 packets transmitted, 3 received, 0% packet loss, time 5ms 
+-  rtt min/avg/max/mdev = 15.065/15.225/15.313/0.182 ms 
+
+   root@orangepi-r1:~  reboot   
+
+Проверяем применились ли настройки к сетевым интерфейсам.
+
+   root@orangepi-r1:~  ifconfig   
+
+-  eth0: flags=4099&lt;UP,BROADCAST,MULTICAST&gt; mtu 1500 
+-  inet 101.101.80.1 netmask 255.255.255.0 broadcast 101.101.80.255 
+-  ether ??:??:??:??:??:?? txqueuelen 1000 (Ethernet) 
+-  RX packets 0 bytes 0 (0.0 B) 
+-  RX errors 0 dropped 0 overruns 0 frame 0 
+-  TX packets 0 bytes 0 (0.0 B) 
+-  TX errors 0 dropped 0 overruns 0 carrier 0 collisions 0 
+-  device interrupt 46 
+
+-  etx1: flags=4163&lt;UP,BROADCAST,RUNNING,MULTICAST&gt; mtu 1500 
+-  inet 192.168.1.11 netmask 255.255.255.0 broadcast 192.168.1.255 
+-  inet6 ????::????:????:????:???? prefixlen 64 scopeid 0x20&lt;link&gt; 
+-  ether ??:??:??:??:??:?? txqueuelen 1000 (Ethernet) 
+-  RX packets 1059 bytes 74797 (73.0 KiB) 
+-  RX errors 0 dropped 0 overruns 0 frame 0 
+-  TX packets 970 bytes 113264 (110.6 KiB) 
+-  TX errors 0 dropped 0 overruns 0 carrier 0 collisions 0 
+- 
+-  lo: flags=73&lt;UP,LOOPBACK,RUNNING&gt; mtu 65536 
+-  inet 127.0.0.1 netmask 255.0.0.0 
+-  inet6 ::1 prefixlen 128 scopeid 0x10&lt;host&gt; 
+-  loop txqueuelen 1000 (Local Loopback) 
+-  RX packets 0 bytes 0 (0.0 B) 
+-  RX errors 0 dropped 0 overruns 0 frame 0 
+-  TX packets 0 bytes 0 (0.0 B) 
+-  TX errors 0 dropped 0 overruns 0 carrier 0 collisions 0 
+- 
+-  wlan0: flags=4099&lt;UP,BROADCAST,MULTICAST&gt; mtu 1500 
+-  inet 101.101.90.1 netmask 255.255.255.0 broadcast 101.101.90.255 
+-  ether ??:??:??:??:??:?? txqueuelen 1000 (Ethernet) 
+-  RX packets 0 bytes 0 (0.0 B) 
+-  RX errors 0 dropped 0 overruns 0 frame 0 
+-  TX packets 0 bytes 0 (0.0 B) 
+-  TX errors 0 dropped 0 overruns 0 carrier 0 collisions 0 
+
+Далее открываем файл    hostname    располагающийся в директории    /etc    и изменяем дефолтное имя хоста. После изменения файла перезагружаем систему и подключаемся заново.
+
+   root@orangepi-r1:~  nano /etc/hostname   
+
+-  TEST0 
+
+   root@orangepi-r1:~  reboot   
+
+С первоначальной конфигурацией закончили. Перед тем как продолжить, следует обновить репозитории и систему в целом. Когда система завершит полное обновление, перезагружаем ее и подключаемся заново.
+
+   root@TEST0:~  apt-get update   
+
+   root@TEST0:~  apt-get upgrade   
+
+   root@TEST0:~  reboot   
+
+Устанавливаем dnsmasq
+
+   root@TEST0:~  apt-get install dnsmasq   
+
+Приступаем к конфигурации    dnsmasq.conf    расположенном в директории    /etc   . Открываем файл и прописываем настройки в самый конец файла, сохраняем изменения и перезагружаем   dnsmasq  
+
+   root@TEST0:~  cat /etc/dnsmasq.conf   
+
+-  server=88.54.0.251 
+-  server=8.8.8.8 
+- 
+-  domain-needed 
+-  bogus-priv 
+- 
+-  interface=lo 
+-  interface=eth0 
+-  interface=wlan0 
+-  bind-interfaces 
+- 
+-  cache-size=15000 
+- 
+-  dhcp-range=eth0,101.101.80.50,101.101.80.250 
+-  dhcp-range=wlan0,101.101.90.50,101.101.90.250 
+- 
+-  dhcp-option=eth0,3,101.101.80.1 
+-  dhcp-option=wlan0,3,101.101.90.1 
+- 
+-  dhcp-option=eth0,6,101.101.80.1 
+-  dhcp-option=wlan0,6,101.101.90.1 
+
+   root@TEST0:~  systemctl restart dnsmasq   
+
+  Примечание:   естественно все адреса вы вносите в соответствии с вашими настройками сетевых интерфейсов.  server=88.54.0.251  - это DNS моего провайдера, вы внесите DNS своего провайдера.  server=8.8.8.8  - это базовый DNS Google.
+
+Перед тем, как приступить к конфигурации   iptables  , следует включить маршрутизацию пакетов между сетевыми интерфейсами. Раскомментируем строку  net.ipv4.ip\ forward=1  в файле    sysctl.conf    располагающемся в директории    /etc   , сохраняем изменения и применяем их.
+
+   root@TEST0:~  nano /etc/sysctl.conf   
+
+-  net.ipv4.ip\ forward=1 
+
+   root@TEST0:~  sysctl -p   
+
+Остается только прописать правила   iptables   и сделать их исполняемыми на постоянной основе. Создаем файл    iptables.sh    в директории    /etc    и вносим в него нужные настройки.
+
+   root@TEST0:~  nano /etc/iptables.sh   
+
+-   !/bin/sh 
+- 
+-  export IPT="iptables" 
+- 
+-  $IPT -F 
+-  $IPT -X 
+-  $IPT -Z 
+- 
+-  $IPT -P INPUT DROP 
+-  $IPT -P OUTPUT DROP 
+-  $IPT -P FORWARD DROP 
+- 
+-  $IPT -A INPUT -i lo -j ACCEPT 
+-  $IPT -A OUTPUT -o lo -j ACCEPT 
+- 
+-  $IPT -A INPUT -i eth0 -j ACCEPT 
+-  $IPT -A OUTPUT -o eth0 -j ACCEPT 
+- 
+-  $IPT -A INPUT -i eth1 -j ACCEPT 
+-  $IPT -A OUTPUT -o eth1 -j ACCEPT 
+- 
+-  $IPT -A INPUT -i eth1 -m state --state INVALID -j DROP 
+-  $IPT -A FORWARD -i eth1 -m state --state INVALID -j DROP 
+- 
+-  $IPT -A INPUT -i eth1 -p tcp --tcp-flags ALL NONE -j DROP 
+- 
+-  $IPT -A FORWARD -i eth1 -o eth0 -j REJECT 
+-  $IPT -A FORWARD -i eth0 -o eth1 -j ACCEPT 
+-  $IPT -A FORWARD -i eth1 -o eth0 -m conntrack --ctstate ESTABLISHED,RELATED -j ACCEPT 
+- 
+-  $IPT -t nat -A POSTROUTING -o eth1 -j MASQUERADE 
+- 
+-  $IPT -A INPUT -i eth1 -p tcp --dport 22 -j ACCEPT 
+- 
+-  sh -c 'iptables-save &gt; /etc/iptables.rules' 
+
+Присваиваем права на исполнение файлу    iptables.sh   .  
+   root@TEST0:~  chmod +x /etc/iptables.sh   
+
+Перед применением правил   iptables   проверяем, что таблица правил чистая.
+
+   root@TEST0:~  iptables -L -v -n   
+
+-  Chain INPUT (policy ACCEPT 0 packets, 0 bytes) 
+-  pkts bytes target prot opt in out source destination 
+- 
+-  Chain FORWARD (policy ACCEPT 0 packets, 0 bytes) 
+-  pkts bytes target prot opt in out source destination 
+- 
+-  Chain OUTPUT (policy ACCEPT 0 packets, 0 bytes) 
+-  pkts bytes target prot opt in out source destination 
+
+Применяем правила.
+
+   root@TEST0:~  /etc/iptables.sh   
+
+Если соединение осталось активным, то вы все сделали правильно. :) Проверим еще раз   iptables  
+
+   root@TEST0:~  iptables -L -v -n   
+
+ 
+
+Теперь следует сделать так, чтобы данные правила применялись при каждой загрузке системы. Для этого создаем файл    iptables    в директории    /etc/network/if-pre-up.d   , вносим в него данные и присваиваем права на исполнение.
+
+   root@TEST0:~  /etc/network/if-pre-up.d/iptables   
+
+-   !/bin/sh 
+- 
+-  set -e 
+- 
+-  iptables-restore &lt; /etc/iptables.rules 
+-  exit 0 
+
+   root@TEST0:~  chmod +x /etc/network/if-pre-up.d/iptables   
+
+На этом базовая конфигурация маршрутизатора реализованного на одноплатном компьютере под управлением ОС   GNU/Linux   завершена. Подключаем кабель провайдера в сетевой интерфейс  eth1 , а сетевой интерфейс  eth0  соединяем со свитчем, в который подключаем все компьютеры локальной сети. Перезагружаем систему.
+
+  Примечание:   как вы заметили, я не вдавался в подробности вносимых изменений в конфигурационные файлы, если вы хотите разобраться за что отвечает та или иная строка - просто откройте требуемый man. Уточню только один момент -  $IPT -A FORWARD -i eth1 -o eth0 -j REJECT  (в файле    iptables.sh   ) отвечает за блокирование доступа из внешнего мира в локальную сеть. Таким образом, вы не сможете например обновить систему и т.д. Но поскольку    iptables.sh    был создан для удобной работы с   iptables  , вы с легкостью в любой момент можете добавить или убрать те или иные правила. Не забывайте после внесения каких-либо изменений перезагрузить   iptables   или саму ОС.

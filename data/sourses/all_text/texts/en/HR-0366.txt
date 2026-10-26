@@ -1,0 +1,23 @@
+Six-legged robots are nothing new, but if you’d like inspiration for your own, it would be hard to beat this 22 servo-driven, 3D-printed hexapod from
+
+Автори: Arduino Team
+
+Категорії: Arduino, Featured
+
+Плати: Mega
+
+ 
+
+Six-legged robots are nothing new, but if you’d like inspiration for your own, it would be hard to beat this 22 servo-driven, 3D-printed hexapod from Dejan at How To Mechatronics.
+
+The ant-inspired device features three metal geared servos per leg, as well as a pair to move the heat, another for the tail, and a micro servo to activate the mandibles.
+
+ 
+
+To control this large number of servos, Dejan turned to the Arduino Mega, along with a custom Android app and Bluetooth link for the user interface. While most movements are activated by the user, it does have a single ultrasonic sensor buried in its head as “eyes.” This allows it to lean backwards when approached by an unknown object or hand, then strike with its mandibles if the aggressor continues its advance.
+
+> As the name suggests, the hexapod has six legs but in addition to that, it also has a tail or abdomen, a head, antennas, mandibles and even functional eyes. All of this, makes the hexapod look like an ant, so therefore we can also call it an Arduino Ant Robot.
+>
+> For controlling the robot I made a custom-built Android application. The app has four buttons through which we can command the robot to move forward or backwards, as well as turn left or right. Along with these main functions, the robot can also move its head and tail, as well as it can bite, grab and drop things and even attack.
+
+You can see it in action and being assembled in the video below, and build files are available here.

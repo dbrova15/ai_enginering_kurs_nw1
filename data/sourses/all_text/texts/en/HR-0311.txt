@@ -1,0 +1,25 @@
+We are excited to announce that OpenTracker v2 by Tigal is our new partner in the Arduino At Heart Program and ready to be backed in an Indiegogo
+
+Автори: Zoe Romano
+
+Категорії: Arduino, Hardware
+
+Плати: Arduino AtHeart
+
+ 
+
+We are excited to announce that OpenTracker v2 by Tigal is our new partner in the Arduino At Heart Program and ready to be backed in an Indiegogo campaign.
+
+OpenTracker is a fully open source commercial grade GPS/GLONASS vehicle tracker that comes with a free web interface for tracking it on Googlemaps or OpenStreetMaps.
+
+The interface allows the tracking of a single vehicle or larger fleets simultaneously: currently it is possible to track the location, speed, altitude, heading, and address of the vehicle as well as save logs of location data for later use. With additional sensors it is also possible to track humidity, temperature and other parameters when desired.
+
+The OpenTracker v2 is the second version of the original OpenTracker with many improved features, and a significant reduction in price.
+
+ 
+
+Let’s have a look at some tech specs. The OpenTracker v2 is ready to run out-of-the-box and includes the same powerful 32-bit ATMEL SAM3A8C ARM controller as the Arduino Due, a Quectel M95 GSM/GPRS modem for wireless connectivity, a Quectel L76 GPS/GLONASS module with Assisted GPS, CAN-BUS, plenty of I/O options and a wide operating temperature range of -35°C to +80°C. The included CAN-BUS, plentiful I/O and on-board GSM/GPRS modem can be used to create many interesting applications such as CAN-BUS logger, SMS Gateway, SMS Remote Controller, and Weather Station with SMS notifications to name a few.
+
+The OpenTracker v2 is available as a complete bundle including the Board, High-Quality Aluminum Enclosure, Power and Programming Cable as well as a GSM/GPS Antenna, or as a stand-alone board for those interested in using the board as an enhanced Arduino Due. The free online tracking interface is available at opentracker.tigal.com.
+
+Support them on Indiegogo! (only a couple of days left but it’s flexible funding and going ahead with the manufacturing in any case!)

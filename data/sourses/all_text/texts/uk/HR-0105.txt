@@ -1,0 +1,727 @@
+Покрокове створення сайд-скролерної гри з використанням текстового LCD дисплею. Приклад розрахований на...
+
+    
+
+   Вступ
+
+Покрокове створення сайд-скролерної гри з використанням текстового LCD дисплею. Приклад розрахований на початківців і демонструє базову механіку скролерної гри та техніку створення власних символів для дисплею. Проєкт цікавий тим, що текстовий за своєю суттю дисплей використовується для виведення графіки.
+
+   Апаратна складова
+
+Будь-яка Arduino-сумісна плата (буде використано близько 5 кілобайтів флешпам'яті, два аналогових і два цифрових виводи). Наприклад, Arduino UNO.
+
+Текстовий LCD дисплей 16x2. Для більш зручного підключення рекомендується використовувати модуль I2C або взяти  дисплей зі встановленим I2C модулем.
+
+Дві кнопки. Можна використати кнопки будь-якого розміру й типу.
+
+Макетна плата й дроти-перемички
+
+   Схема підключення
+
+ 
+
+I2C (Inter-Integrated Circuit) — це послідовна шина, що дозволяє підключати велику кількість пристроїв, використовуючи всього два виводи мікроконтролера. У цьому прикладі дисплей підключатиметься за допомогою модуля I2C для спрощення збирання схеми.
+
+| I2C модуль | Arduino |
+| --- | --- |
+| GND | GND |
+| VCC | 5V |
+| SDA | A4 |
+| SDL | A5 |
+| Кнопки | Arduino |
+| Кнопка 1 | 2 |
+| Кнопка 2 | 3 |
+
+Додаткові резистори для кнопок не потрібні, позаяк будуть використовуватися вбудовані.
+
+Можна перевірити дисплей навіть без підключення до Adruino. Якщо на нього подано живлення, у першому рядку мають вивестися зафарбовані прямокутники. Якщо ви нічого не побачили, це ще не означає, що дисплей не працює. За допомогою маленької викрутки спробуйте обертати потенціометр на модулі I2C. Відрегулюйте яскравість так, щоб зображення комфортно сприймалося.
+
+ 
+
+   Крок 1
+
+Для Роботи з LCD дисплеєм слід установити бібліотеку LiquidCrystal\ I2C (якщо ви підключаєте дисплей напряму, використовуйте аналогічну бібліотеку LiquidCrystal). Її можна знайти у менеджері бібліотек.
+
+ 
+
+У запропонованій грі гравець керує космічним кораблем та повинен ухилятися від астероїдів. Хоча дисплей не призначений для виводу графіки, можна створити до восьми власних символів, які являють собою матриці нулів і одиниць (що відповідають незафарбованим і зафарбованим пікселям). Позаяк для гри використано дисплей 16x2 (2 рядки по 16 символів), було вирішено розділити кожен рядок навпіл, щоб у космічного корабля було хоча б чотири положення. Один прямокутник екрану має розміри 5x8 пікселів, таким чином, ігровий спрайт матиме розміри 5x4 пікселі. Для кожного ігрового об'єкта слід створити два спеціальні символи (що відповідають верхній і нижній частині прямокутника 5x8). Таким чином, знадобиться два символи для космічного корабля і два для астероїда. Відповідний програмний код наведено нижче.
+
+ 
+
+ include &lt;Wire.h&gt; // Бібліотека для роботи з I2C пристроями  
+  include &lt;LiquidCrystal\ I2C.h&gt; // бібліотека для роботи з LCD  
+ LiquidCrystal\ I2C lcd = LiquidCrystal\ I2C(0x27, 16, 2); //параметри дисплею: 16x2, адреса 0x27  
+ //Створення власних символів  
+ //1 - зафарбований піксель, 0 - незафарбований  
+ byte Ship1[] = {//Корабель положення 1  
+ B11110,  
+ B01101,  
+ B01101,  
+ B11110,  
+ B00000,  
+ B00000,  
+ B00000,  
+ B00000  
+ };  
+ byte Ship2[] = {//Корабель положення 2  
+ B00000,  
+ B00000,  
+ B00000,  
+ B00000,  
+ B11110,  
+ B01101,  
+ B01101,  
+ B11110  
+ };  
+ byte Asteroid1[] = {//Астероїд положення 1  
+ B00000,  
+ B01110,  
+ B01110,  
+ B00000,  
+ B00000,  
+ B00000,  
+ B00000,  
+ B00000  
+ };  
+ byte Asteroid2[] = {//Астероїд положення 1  
+ B00000,  
+ B00000,  
+ B00000,  
+ B00000,  
+ B00000,  
+ B01110,  
+ B01110,  
+ B00000  
+ };  
+ void setup() {  
+ lcd.init();// Ініціалізація LCD  
+ lcd.backlight();//Активація підсвітки  
+ //передача власних символів дисплею  
+ lcd.createChar(0, Ship1);  
+ lcd.createChar(1, Ship2);  
+ lcd.createChar(2, Asteroid1);  
+ lcd.createChar(3, Asteroid2);  
+ }  
+ void loop() {  
+ // виведення власних символів  
+ lcd.setCursor(0, 1);  
+ lcd.write(byte(0));  
+ lcd.setCursor(2, 1);  
+ lcd.write(byte(1));  
+ lcd.setCursor(4, 1);  
+ lcd.write(byte(2));  
+ lcd.setCursor(6, 1);  
+ lcd.write(byte(3));  
+ }
+
+   Крок 2
+
+Вводимо змінну shipY для позначення положення космічного корабля та в головному циклі виводимо корабель в потрібному положенні. Зверніть увагу на обчислення потрібного символу. shipY%2 дорівнює 0, якщо корабель у парній позиції (0, 2) і 1, якщо координата корабля непарна (1, 3). В залежності від цього виведеться потрібний символ. Коментарями позначено зміни в коді.
+
+ include &lt;Wire.h&gt; // Бібліотека для роботи з I2C пристроями  
+  include &lt;LiquidCrystal\ I2C.h&gt; // бібліотека для роботи з LCD  
+ LiquidCrystal\ I2C lcd = LiquidCrystal\ I2C(0x27, 16, 2);  
+ int shipY; //Положення корабля (від 0 до 3)  
+ byte Ship1[] = {  
+ B11110,  
+ B01101,  
+ B01101,  
+ B11110,  
+ B00000,  
+ B00000,  
+ B00000,  
+ B00000  
+ };  
+ byte Ship2[] = {  
+ B00000,  
+ B00000,  
+ B00000,  
+ B00000,  
+ B11110,  
+ B01101,  
+ B01101,  
+ B11110  
+ };  
+ byte Asteroid1[] = {  
+ B00000,  
+ B01110,  
+ B01110,  
+ B00000,  
+ B00000,  
+ B00000,  
+ B00000,  
+ B00000  
+ };  
+ byte Asteroid2[] = {  
+ B00000,  
+ B00000,  
+ B00000,  
+ B00000,  
+ B00000,  
+ B01110,  
+ B01110,  
+ B00000  
+ };  
+ void setup() {  
+ lcd.init();  
+ lcd.backlight();  
+ lcd.createChar(0, Ship1);  
+ lcd.createChar(1, Ship2);  
+ lcd.createChar(2, Asteroid1);  
+ lcd.createChar(3, Asteroid2);  
+ shipY = 0;//Початкове положення корабля  
+ }  
+ void loop() {  
+ // виведення корабля  
+ lcd.setCursor(0, shipY/2);  
+ lcd.write(byte(shipY%2));  
+ }
+
+    Крок 3
+
+Зчитуємо стан кнопок і змінюємо координату корабля.
+
+ include &lt;Wire.h&gt; // Бібліотека для роботи з I2C пристроями  
+  include &lt;LiquidCrystal\ I2C.h&gt; // бібліотека для роботи з LCD  
+ //Кнопки підключені до цифрових пінів 2 і 3  
+  define BTNUP 2  
+  define BTNDOWN 3  
+ LiquidCrystal\ I2C lcd = LiquidCrystal\ I2C(0x27, 16, 2); //параметри дисплею: 16x2, адреса 0x27  
+ int shipY;  
+ byte Ship1[] = {  
+ B11110,  
+ B01101,  
+ B01101,  
+ B11110,  
+ B00000,  
+ B00000,  
+ B00000,  
+ B00000  
+ };  
+ byte Ship2[] = {  
+ B00000,  
+ B00000,  
+ B00000,  
+ B00000,  
+ B11110,  
+ B01101,  
+ B01101,  
+ B11110  
+ };  
+ byte Asteroid1[] = {  
+ B00000,  
+ B01110,  
+ B01110,  
+ B00000,  
+ B00000,  
+ B00000,  
+ B00000,  
+ B00000  
+ };  
+ byte Asteroid2[] = {  
+ B00000,  
+ B00000,  
+ B00000,  
+ B00000,  
+ B00000,  
+ B01110,  
+ B01110,  
+ B00000  
+ };  
+ void setup() {  
+ lcd.init();// Ініціалізація LCD  
+ lcd.backlight();//Активація підсвітки  
+ //передача власних символів дисплею  
+ lcd.createChar(0, Ship1);  
+ lcd.createChar(1, Ship2);  
+ lcd.createChar(2, Asteroid1);  
+ lcd.createChar(3, Asteroid2);  
+ //ініціалізація кнопок (введення, активізація pullup резистора)  
+ pinMode(BTNUP, INPUT\ PULLUP);  
+ pinMode(BTNDOWN, INPUT\ PULLUP);  
+ shipY = 0;  
+ }  
+ void loop() {  
+ lcd.clear();  
+ lcd.setCursor(0, shipY/2);  
+ lcd.write(byte(shipY%2));  
+ if (LOW==digitalRead(BTNUP)){//Якщо натиснена кнопка "вниз"  
+ shipY--; //Переміщення корабля  
+ if (shipY&lt;0) //Перевірка виходу за границі поля  
+ shipY=0;  
+ }  
+ if (LOW==digitalRead(BTNDOWN)){//Якщо натиснена кнопка "вгору"  
+ shipY++; //Переміщення корабля  
+ if (shipY&gt;3) //Перевірка виходу за границі поля  
+ shipY=3;  
+ }  
+ delay(100);//Пауза, що впливає на швидкість гри  
+ }
+
+   Крок 4
+
+На першому рівні на екрані знаходиться одночасно один астероїд. Змінна asteroidsCount буде збільшуватися при переході на наступні рівні. Масив asteroidsX зберігає координати астероїдів, а asteroidsSpeed — швидкості. Звісно, можна було б створити клас Asteroid з відповідними полями, але це б ускладнило сприйняття прикладу людьми, що не знайомі з ООП. Астероїди з'являються у правій частині екрану (координата X дорівнює 15) і на кожному кроці їх координата зменшується на значення відповідної швидкості. Координата Y астероїдів обирається випадково й не змінюється, доки астероїд не досягне границі екрану. Вибір символу для виведення астероїда, як і для корабля, залежить від парності координати.
+
+ include &lt;Wire.h&gt; // Бібліотека для роботи з I2C пристроями  
+  include &lt;LiquidCrystal\ I2C.h&gt; // бібліотека для роботи з LCD  
+  define BTNUP 2  
+  define BTNDOWN 3  
+  define ASTEROIDS\ MAX 10//Максимальна кількість астероїдів  
+ LiquidCrystal\ I2C lcd = LiquidCrystal\ I2C(0x27, 16, 2); //параметри дисплею: 16x2, адреса 0x27  
+ int shipY;  
+ int asteroidsX[ASTEROIDS\ MAX];  
+ int asteroidsY[ASTEROIDS\ MAX];  
+ int asteroidsSpeed[ASTEROIDS\ MAX];  
+ int asteroidsCount;  
+ byte Ship1[] = {  
+ B11110,  
+ B01101,  
+ B01101,  
+ B11110,  
+ B00000,  
+ B00000,  
+ B00000,  
+ B00000  
+ };  
+ byte Ship2[] = {  
+ B00000,  
+ B00000,  
+ B00000,  
+ B00000,  
+ B11110,  
+ B01101,  
+ B01101,  
+ B11110  
+ };  
+ byte Asteroid1[] = {  
+ B00000,  
+ B01110,  
+ B01110,  
+ B00000,  
+ B00000,  
+ B00000,  
+ B00000,  
+ B00000  
+ };  
+ byte Asteroid2[] = {  
+ B00000,  
+ B00000,  
+ B00000,  
+ B00000,  
+ B00000,  
+ B01110,  
+ B01110,  
+ B00000  
+ };  
+ void setup() {  
+ lcd.init();// Ініціалізація LCD  
+ lcd.backlight();//Активація підсвітки  
+ //передача власних символів дисплею  
+ lcd.createChar(0, Ship1);  
+ lcd.createChar(1, Ship2);  
+ lcd.createChar(2, Asteroid1);  
+ lcd.createChar(3, Asteroid2);  
+ pinMode(BTNUP, INPUT\ PULLUP);  
+ pinMode(BTNDOWN, INPUT\ PULLUP);  
+ shipY = 0;  
+ randomSeed(analogRead(0));//Ініціалізація генератора випадкових чисел  
+ asteroidsCount = 1; //Початкова кількість астероїдів  
+ asteroidsX[0] = 15; //Початкове положення астероїда (правий край дисплея)  
+ asteroidsY[0] = random(4); //Початкове положення астероїда по Y (випадкове від 0 до 3)  
+ asteroidsSpeed[0] = random(2)+1;//Швидкість астероїда (1 або 2)  
+ }  
+ void loop() {  
+ if (LOW==digitalRead(BTNUP)){  
+ shipY--;  
+ if (shipY&lt;0)  
+ shipY=0;  
+ }  
+ if (LOW==digitalRead(BTNDOWN)){  
+ shipY++;  
+ if (shipY&gt;3)  
+   
+ shipY=3;  
+ }  
+ // виведення ігрового поля  
+ lcd.clear();  
+ lcd.setCursor(0, shipY/2);  
+ lcd.write(byte(shipY%2));  
+ for (int i = 0; i&lt;asteroidsCount; i++){//Цикл по всім астероїдам  
+ asteroidsX[i]-=asteroidsSpeed[i]; //Переміщення астероїду  
+ if (0&gt;=asteroidsX[i]){ //Якщо вийшов за ліву границю  
+ asteroidsX[i] = 16; //то повертається в праву частину  
+ asteroidsY[i] = random(4); //з випадковою позицією y  
+ asteroidsSpeed[i] = random(2)+1; //та випадковою швидкістю  
+ }  
+ //Виведення астероїда  
+ lcd.setCursor(asteroidsX[i], asteroidsY[i]/2);  
+ lcd.write(byte(2+asteroidsY[i]%2));  
+ }  
+ delay(100);  
+ }
+
+   Крок 5
+
+Додамо змінну score для накопичення ігрових очок. Щоразу, коли астероїд досягає краю екрану, гравцеві нараховується один бал.
+
+ include &lt;Wire.h&gt; // Бібліотека для роботи з I2C пристроями  
+  include &lt;LiquidCrystal\ I2C.h&gt; // бібліотека для роботи з LCD  
+  define BTNUP 2  
+  define BTNDOWN 3  
+  define ASTEROIDS\ MAX 10  
+ LiquidCrystal\ I2C lcd = LiquidCrystal\ I2C(0x27, 16, 2); //параметри дисплею: 16x2, адреса 0x27  
+ int shipY;  
+ int asteroidsX[ASTEROIDS\ MAX];  
+ int asteroidsY[ASTEROIDS\ MAX];  
+ int asteroidsSpeed[ASTEROIDS\ MAX];  
+ int asteroidsCount;  
+ int score; //Ігрові очки  
+ //Створення власних символів  
+ //1 - зафарбований піксель, 0 - незафарбований  
+ byte Ship1[] = {  
+ B11110,  
+ B01101,  
+ B01101,  
+ B11110,  
+ B00000,  
+ B00000,  
+ B00000,  
+ B00000  
+ };  
+ byte Ship2[] = {  
+ B00000,  
+ B00000,  
+ B00000,  
+ B00000,  
+ B11110,  
+ B01101,  
+ B01101,  
+ B11110  
+ };  
+ byte Asteroid1[] = {  
+ B00000,  
+ B01110,  
+ B01110,  
+ B00000,  
+ B00000,  
+ B00000,  
+ B00000,  
+ B00000  
+ };  
+ byte Asteroid2[] = {  
+ B00000,  
+ B00000,  
+ B00000,  
+ B00000,  
+ B00000,  
+ B01110,  
+ B01110,  
+ B00000  
+ };  
+ void setup() {  
+ lcd.init();// Ініціалізація LCD  
+ lcd.backlight();//Активація підсвітки  
+ //передача власних символів дисплею  
+ lcd.createChar(0, Ship1);  
+ lcd.createChar(1, Ship2);  
+ lcd.createChar(2, Asteroid1);  
+ lcd.createChar(3, Asteroid2);  
+ pinMode(BTNUP, INPUT\ PULLUP);  
+ pinMode(BTNDOWN, INPUT\ PULLUP);  
+ shipY = 0;  
+ randomSeed(analogRead(0));  
+ asteroidsCount = 1;  
+ asteroidsX[0] = 15;  
+ asteroidsY[0] = random(4);  
+ asteroidsSpeed[0] = random(2)+1;  
+ score = 0; //Обнулення ігрових очок  
+ }  
+ void loop() {  
+ if (LOW==digitalRead(BTNUP)){  
+ shipY--;  
+ if (shipY&lt;0)  
+ shipY=0;  
+   
+ }  
+ if (LOW==digitalRead(BTNDOWN)){  
+ shipY++;  
+ if (shipY&gt;3)  
+ shipY=3;  
+ }  
+ // виведення ігрового поля  
+ lcd.clear();  
+ lcd.setCursor(0, shipY/2);  
+ lcd.write(byte(shipY%2));  
+ lcd.setCursor(13,0);  
+ lcd.print(score);  
+ for (int i = 0; i&lt;asteroidsCount; i++){  
+ asteroidsX[i]-=asteroidsSpeed[i];  
+ if (0&gt;=asteroidsX[i]){  
+ asteroidsX[i] = 16;  
+ asteroidsY[i] = random(4);  
+ asteroidsSpeed[i] = random(2)+1;  
+ score++; //Нарахування 1 очка за кожен астероїд  
+ }  
+ lcd.setCursor(asteroidsX[i], asteroidsY[i]/2);  
+ lcd.write(byte(2+asteroidsY[i]%2));  
+ }  
+ delay(100);  
+ }
+
+   Крок 6
+
+Введемо логічну змінну gameover, яка дорівнює true, коли гру завершено. У цьому разі на екран виведеться текст «GAME OVER». Також додамо перевірку на зіткнення з астероїдом.
+
+ include &lt;Wire.h&gt; // Бібліотека для роботи з I2C пристроями  
+  include &lt;LiquidCrystal\ I2C.h&gt; // бібліотека для роботи з LCD  
+  define BTNUP 2  
+  define BTNDOWN 3  
+  define ASTEROIDS\ MAX 10  
+ LiquidCrystal\ I2C lcd = LiquidCrystal\ I2C(0x27, 16, 2); //параметри дисплею: 16x2, адреса 0x27  
+ int shipY;  
+ int asteroidsX[ASTEROIDS\ MAX];  
+ int asteroidsY[ASTEROIDS\ MAX];  
+ int asteroidsSpeed[ASTEROIDS\ MAX];  
+ int asteroidsCount;  
+ int score;  
+ bool gameover; //Ознака завершення гри  
+ //Створення власних символів  
+ //1 - зафарбований піксель, 0 - незафарбований  
+ byte Ship1[] = {  
+ B11110,  
+ B01101,  
+ B01101,  
+ B11110,  
+ B00000,  
+ B00000,  
+ B00000,  
+ B00000  
+ };  
+ byte Ship2[] = {  
+ B00000,  
+ B00000,  
+ B00000,  
+ B00000,  
+ B11110,  
+ B01101,  
+ B01101,  
+ B11110  
+ };  
+ byte Asteroid1[] = {  
+ B00000,  
+ B01110,  
+ B01110,  
+ B00000,  
+ B00000,  
+ B00000,  
+ B00000,  
+ B00000  
+ };  
+ byte Asteroid2[] = {  
+ B00000,  
+ B00000,  
+ B00000,  
+ B00000,  
+ B00000,  
+ B01110,  
+ B01110,  
+ B00000  
+ };  
+ void setup() {  
+ lcd.init();// Ініціалізація LCD  
+ lcd.backlight();//Активація підсвітки  
+ //передача власних символів дисплею  
+ lcd.createChar(0, Ship1);  
+ lcd.createChar(1, Ship2);  
+ lcd.createChar(2, Asteroid1);  
+ lcd.createChar(3, Asteroid2);  
+ pinMode(BTNUP, INPUT\ PULLUP);  
+ pinMode(BTNDOWN, INPUT\ PULLUP);  
+ shipY = 0;  
+ randomSeed(analogRead(0));  
+ asteroidsCount = 1;  
+ asteroidsX[0] = 15;  
+ asteroidsY[0] = random(4);  
+ asteroidsSpeed[0] = random(2)+1;  
+ score = 0;  
+ gameover = false; //Після запуску гра вважається розпочатою  
+ }  
+ void loop() {  
+ if(gameover){ //Якщо гру завершено  
+ lcd.setCursor(3,1);  
+   
+ lcd.print("GAME OVER"); //Виводиться повідомлення  
+ }  
+ else{ //Інакше опрацьовується черговий ігровий крок  
+ if (LOW==digitalRead(BTNUP)){  
+ shipY--;  
+ if (shipY&lt;0)  
+ shipY=0;  
+ }  
+ if (LOW==digitalRead(BTNDOWN)){  
+ shipY++;  
+ if (shipY&gt;3)  
+ shipY=3;  
+ }  
+ // виведення ігрового поля  
+ lcd.clear();  
+ lcd.setCursor(0, shipY/2);  
+ lcd.write(byte(shipY%2));  
+ lcd.setCursor(13,0);  
+ lcd.print(score);  
+ for (int i = 0; i &lt; asteroidsCount; i++){  
+ asteroidsX[i]-=asteroidsSpeed[i];  
+ if (0&gt;=asteroidsX[i]){  
+ if(asteroidsY[i]==shipY)  
+ gameover = true;  
+ asteroidsX[i] = 16;  
+ asteroidsY[i] = random(4);  
+ asteroidsSpeed[i] = random(2)+1;  
+ score++;  
+ }  
+ lcd.setCursor(asteroidsX[i], asteroidsY[i]/2);  
+ lcd.write(byte(2+asteroidsY[i]%2));  
+ }  
+ }  
+ delay(100);  
+ }
+
+   Крок 7
+
+Лишилося трохи ускладнити гру. Щоразу, як гравець упорався з десятьма астероїдами, змінна asteroidsCount збільшується на одиницю.
+
+ include &lt;Wire.h&gt; // Бібліотека для роботи з I2C пристроями  
+  include &lt;LiquidCrystal\ I2C.h&gt; // бібліотека для роботи з LCD  
+  define BTNUP 2  
+  define BTNDOWN 3  
+  define ASTEROIDS\ MAX 10  
+ LiquidCrystal\ I2C lcd = LiquidCrystal\ I2C(0x27, 16, 2); //параметри дисплею: 16x2, адреса 0x27  
+ int shipY;  
+ int asteroidsX[ASTEROIDS\ MAX];  
+ int asteroidsY[ASTEROIDS\ MAX];  
+ int asteroidsSpeed[ASTEROIDS\ MAX];  
+ int asteroidsCount;  
+ int score;  
+ bool gameover;  
+ //Створення власних символів  
+ //1 - зафарбований піксель, 0 - незафарбований  
+ byte Ship1[] = {  
+ B11110,  
+ B01101,  
+ B01101,  
+ B11110,  
+ B00000,  
+ B00000,  
+ B00000,  
+ B00000  
+ };  
+ byte Ship2[] = {  
+ B00000,  
+ B00000,  
+ B00000,  
+ B00000,  
+ B11110,  
+ B01101,  
+ B01101,  
+ B11110  
+ };  
+ byte Asteroid1[] = {  
+ B00000,  
+ B01110,  
+ B01110,  
+ B00000,  
+ B00000,  
+ B00000,  
+ B00000,  
+ B00000  
+ };  
+ byte Asteroid2[] = {  
+ B00000,  
+ B00000,  
+ B00000,  
+ B00000,  
+ B00000,  
+ B01110,  
+ B01110,  
+ B00000  
+ };  
+ void setup() {  
+ lcd.init();// Ініціалізація LCD  
+ lcd.backlight();//Активація підсвітки  
+ //передача власних символів дисплею  
+ lcd.createChar(0, Ship1);  
+ lcd.createChar(1, Ship2);  
+ lcd.createChar(2, Asteroid1);  
+ lcd.createChar(3, Asteroid2);  
+ pinMode(BTNUP, INPUT\ PULLUP);  
+ pinMode(BTNDOWN, INPUT\ PULLUP);  
+ shipY = 0;  
+ randomSeed(analogRead(0));  
+ asteroidsCount = 1;  
+ asteroidsX[0] = 15;  
+ asteroidsY[0] = random(4);  
+ asteroidsSpeed[0] = random(2)+1;  
+ score = 0;  
+ gameover = false;  
+ }  
+ void loop() {  
+ if(gameover){  
+ lcd.setCursor(13,0);  
+   
+ lcd.print(score);  
+ lcd.setCursor(3,1);  
+ lcd.print("GAME OVER");  
+ }  
+ else{  
+ if (LOW==digitalRead(BTNUP)){  
+ shipY--;  
+ if (shipY&lt;0)  
+ shipY=0;  
+ }  
+ if (LOW==digitalRead(BTNDOWN)){  
+ shipY++;  
+ if (shipY&gt;3)  
+ shipY=3;  
+ }  
+ // виведення ігрового поля  
+ lcd.clear();  
+ lcd.setCursor(0, shipY/2);  
+ lcd.write(byte(shipY%2));  
+ lcd.setCursor(13,0);  
+ lcd.print(score);  
+ for (int i = 0; i&lt;asteroidsCount; i++){  
+ asteroidsX[i]-=asteroidsSpeed[i];  
+ if (0&gt;=asteroidsX[i]){  
+ if(asteroidsY[i]==shipY)  
+ gameover = true;  
+ asteroidsX[i] = 16;  
+ asteroidsY[i] = random(4);  
+ asteroidsSpeed[i] = random(2)+1;  
+ score++;  
+ if ((0 == score %10)&amp;&amp;(asteroidsCount&lt;10)){// Якщо гравець набрав чергові 10 очок  
+ asteroidsCount++; //то кількість астероїдів на екрані збільшується  
+ asteroidsX[asteroidsCount-1] = 15; //Положення чергового астероїда по X  
+ asteroidsY[asteroidsCount-1] = random(4); // та по Y  
+ asteroidsSpeed[asteroidsCount-1] = random(2)+1; //Випадкова швидкість від 1 до 2  
+ }  
+ }  
+ lcd.setCursor(asteroidsX[i], asteroidsY[i]/2);  
+ lcd.write(byte(2+asteroidsY[i]%2));  
+ }  
+ }  
+ delay(100);  
+ }
+
+   Програмний код
+
+Останню версію програмного коду можна завантажити тут.
+
+   Що далі?
+
+Якщо вам сподобався приклад, ви можете його вдосконалити:
+
+- змініть зовнішній вигляд космічного корабля й астероїдів;
+- модифікуйте гру так, щоб збільшувалася не лише кількість астероїдів, а й швидкість гри;
+- змініть схему нарахування очок так, щоб за більш швидкі астероїди гравець отримував більше очок;
+- змініть гру таким чином, щоби при зіткненні корабель не знищувався, а зазнавав пошкоджень;
+- у алгоритмі відображення астероїдів є логічна помилка: дослідіть, що буде, якщо два астероїди знаходяться поряд у межах одного символу; придумайте спосіб вирішення цієї проблеми.

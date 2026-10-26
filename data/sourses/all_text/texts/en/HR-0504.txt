@@ -1,0 +1,17 @@
+While digital display technologies exist for just about every possible use case, sometimes you want the aesthetics that only electromechanical displays
+
+Автори: Arduino Team
+
+Категорії: Arduino
+
+Плати: Mega
+
+ 
+
+While digital display technologies exist for just about every possible use case, sometimes you want the aesthetics that only electromechanical displays provide. Many makers have built electromechanical seven-segment displays for this purpose, but they are usually driven by noisy servo motors. David McDaid wanted something quieter and created this silent electromechanical four-digit seven-segment display for use as a wall clock.
+
+Like most similar displays, this uses an individual motor for each segment of each digit. For four digits, that is a total of 28 motors. 28 servo motors get quite noisy, which is why McDaid employed stepper motors paired with silent drivers. Those are typically used for 3D printers in order to make those printers less annoying, but they work well for this project, too. Those stepper motors only need to tilt their respective segments by 90 degrees to “turn off” that segment, so little torque was required.
+
+ 
+
+McDaid implemented common 12V 28BYJ-48 steppers with BIGTREETECH TMC2208-V3.0 drivers. Because there are so many motors to drive, McDaid chose an Arduino Mega 2560 for control. It sends UART signals to the drivers through a series of chained shift registers on custom PCBs, so each set of seven segments go through a single PCB. A DS3231 RTC module keeps time. Five input buttons let McDaid set the time or switch between modes — including a mode that displays a random four letter word. McDaid 3D-printed the segments in a pleasant gold color, which contrasts well with the gray-painted back board.

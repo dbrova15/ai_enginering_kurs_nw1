@@ -1,0 +1,21 @@
+If you find yourself wondering whether your batteries are any good, build this Arduino-based analyzer to test them out.
+
+Автори: Arduino Team
+
+Категорії: Arduino
+
+Плати: Mega
+
+ 
+
+Your favorite device has just run out of juice, so you quickly take off the cover and reach into that old stash of alkaline batteries you have lying around. After trying countless combinations, you still cannot be sure they’re working properly, as each one has been slightly used. If only there were a way to know.
+
+In comes a maker named Moragor with his take on a battery analyzer. The one he built doesn’t just measure the voltage for a certain type of battery. Instead, users can select from three different types (alkaline, NiMh, or Li-on), along with the current from a sleek OLED display. Then, values get read, shown, and also logged to an SD card for more advanced analysis. The entire device is based on a custom PCB that acts as a shield for an Arduino Mega.
+
+ 
+
+Moragor might have gone a bit overboard, however, as he eventually got around to testing 25 different types of alkaline batteries! After measuring four batteries from each brand with discharge rates of 100mA and then 500mA, he was able to create this neat little chart that shows the energy loss from high current consumption. As seen below, there were a couple of standouts that lost nearly 60% of their energy at 500mA vs 100mA.
+
+ 
+
+You can check out Moragor‘s write-up for more information on exactly what components were used and how it was made, plus all the detailed battery analysis one could hope for.

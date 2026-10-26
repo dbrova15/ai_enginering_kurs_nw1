@@ -1,0 +1,19 @@
+The creation of conductive ink has enabled anyone with a brush to sit down and sketch out an entire circuit on a wide variety of surfaces, although this
+
+Автори: Arduino Team
+
+Категорії: Arduino
+
+Плати: Mega
+
+ 
+
+The creation of conductive ink has enabled anyone with a brush to sit down and sketch out an entire circuit on a wide variety of surfaces, although this process comes with a few large drawbacks. Compared to digital fabrication techniques, such as designing and manufacturing PCBs, the drawn traces are often inconsistent and messy, leading to unsightly and unreliable circuits. To fix this problem, a team from Saarland University in Saarbrücken, Germany came up with an intelligent handheld printer called Print-A-Sketch that can automatically correct user errors while also providing a wide range of tools for drawing incredible designs on anything.
+
+The unit is based around an Arduino Mega 2560, which collects movement data from an optical motion sensor and uses it to make small adjustments. From there, the piezoelectric printhead utilizes changes in current to control a matrix of ink-laying dots that can deposit ink at a steady pace depending on how fast the user is moving the device. Finally, a wide-angle RGB camera module, OLED screen, and joystick allow for a user to interact with the printer.
+
+ 
+
+Apart from merely drawing straight lines on a page, the printer can also deposit custom shapes, continue printing a line that had been drawn previously, and even scan components on-the-fly to print their footprints. All of these capabilities can be combined to create devices such as smart yoga mats, capacitive controls, and even flexible sensors across a wide range of surfaces.
+
+For more details on the Print-A-Sketch, you can read the team’s paper here and watch their CHI 2022 presentation below!

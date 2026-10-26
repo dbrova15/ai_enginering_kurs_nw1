@@ -1,0 +1,27 @@
+Seating charts at weddings and other formal events are usually handled by small place cards, but Gabrielle Martinfortier had other plans.  For her
+
+Автори: Arduino Team
+
+Категорії: Arduino, Featured
+
+Плати: Mega
+
+ 
+
+Seating charts at weddings and other formal events are usually handled by small place cards, but Gabrielle Martinfortier had other plans.
+
+For her big day, she along with help from her now-husband and friends constructed a seating arrangement on a 3’ x 4’ wood canvas, equipped with a 7” TFT display and an RFID reader. An Arduino Mega serves as the brains of the device, taking advantage of its expanded IO capabilities to control an LED assembly over each table on the chart.
+
+ 
+
+Wedding guests simply had to present the card they received with the invitation, then their proper table was lit. As seen in the video below, this eliminated seating confusion, and provided a bit of extra entertainment for those involved.
+
+> I wanted to make something special for my wedding tables chart, and I thought this was a good way of making it personal, as it reflects my love (addiction) for electronic projects.
+>
+> So the plan was to make a big wood panel with the plan of the room on it, including, of course, the tables and their names (they are plant names, in French). The guests received a card with an RFID sticker on it along with their invitation. On the back of the card was written (in French) something like “This card is of great importance, keep it safe and carry it on you at the wedding.” I didn’t want them to know what it was for until the wedding.
+>
+> The chart has several elements a TFT display, an RFID reader, a green LED and a red LED, a push button and one strip of 3 LEDs for each table. When the RFID tags are scanned, the green LED turns on if it is recognized, and a personalized message is displayed on the screen, including the name of the table where the guest is seated. In addition, the LED strip associated with the table is turned on, shedding light on the table on the room’s plan. If the card is misread or unrecognized, the red LED is turned on with an “access denied” message on the screen. The button is for those who did not succeed in not losing or forgetting the card. It displays a message on the screen, asking them to go to the bar and say something like “I am not reliable,” in exchange of which they get a backup chart to find their seat.
+>
+> I changed a few things along the way: I wanted to paint the wood panel but changed my mind because I was scared I’d make a mess and have to start over with a new panel. Since I have a circuit machine I decided to make the writings and drawings with vinyl.
+>
+> I also had a 20×04 character LCD screen in the beginning, but I upgraded to a 7″ TFT screen because it’s bigger and not as limiting in terms of message length.

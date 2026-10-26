@@ -1,0 +1,21 @@
+Back in early 2020, Samsung demonstrated their Ballie robot concept at CES, and although it never got off the ground, it inspired Derek Lieber to create his own version of a gyroscopically stabilized robot that moves with a pair of hemispherical “wheels” on each side.
+
+Автори: Arduino Team
+
+Категорії: Arduino, Robots
+
+Плати: Mega
+
+ 
+
+Back in early 2020, Samsung demonstrated their Ballie robot concept at CES, and although it never got off the ground, it inspired Derek Lieber to create his own version of a gyroscopically stabilized robot that moves with a pair of hemispherical “wheels” on each side.
+
+Lieber’s project, which he calls “Ballbot2”, is based around a single Arduino Mega connected to a set of two LM6234 drivers that take the incoming 5V PWM signals and boost them up to the 12V required by the motors. Speaking of motors, the ones for the Ballbot2 aren’t the typical geared DC or steppers, but rather gimbal motors that use copper coils surrounding a central magnet to turn it. Detecting the current orientation of the magnetic field is done by utilizing four Hall effect sensors to sense its position and then send it in a digitized format to the Arduino for further processing and feedback. He mounted an XBee module to a custom shield, along with the two driver ICs, before attaching it to the Mega. The XBee allows for the robot to be remotely operated with a secondary XBee module, which reads data from a joystick and transmits it wirelessly.
+
+ 
+
+With the components chosen and code finished, Lieber then constructed a body out of 3D-printed PLA filament in the shape of a wide ring, several smaller rings, and two hemispheres that flank either side of the robot and act as wheels. From there, he stuffed the battery pack, a few lead weights, and the electronics into the central portion of the robot before attaching the two sides.
+
+ 
+
+To see Lieber’s Ballbot2 project in action, you can view his demonstration video below and you can download the design files/code here in his blog post.

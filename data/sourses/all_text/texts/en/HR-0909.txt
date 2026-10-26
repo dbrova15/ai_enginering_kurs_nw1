@@ -1,0 +1,19 @@
+If a robot is rideable, is it still a robot or is it a vehicle? We would argue that if it rolls on standard automobile-style wheels or even tank tracks,
+
+Автори: Arduino Team
+
+Категорії: Arduino
+
+Плати: Mega
+
+ 
+
+If a robot is rideable, is it still a robot or is it a vehicle? We would argue that if it rolls on standard automobile-style wheels or even tank tracks, it is a vehicle. But James Bruton’s eight-wheeled robot snake bike is quite clearly something else. This “vehicle” started as a small functional model that everyone would call a robot. Now Bruton has finished the full-size rideable snake robot and it is something to behold.
+
+The robot consists of four caterpillar-like segments, each with a pair of wheels. Two of the segments have driven wheels, while the other two segments have free wheels. Each segment is able to pivot relative to its neighbor and can also tilt up/down. There are two reasons for the tilt actuation. The first is to compensate for the rider’s weight in order to keep all of the wheels on the ground. The second reason is to handle bumps and uneven terrain, similar to a car’s suspension. The rider sits on a motorcycle seat mounted to the third segment (which is driven), so their weight is roughly centered.
+
+ 
+
+This unusual setup requires a total of 10 motors: four Hoverboard-style hub motors, three steering motors, and three tilt motors. Coordinating the control of that many motors isn’t trivial, which is why Bruton used three Arduino Mega 2560 boards. Each Arduino sends signals through two stepper motor drivers to the steering and tilt motors. Two of the Arduinos control the hub motors through ESCs (electronic speed controllers). Power comes from several big LiPo battery packs and Bruton pilots the robot using the custom universal robot remote that he designed for projects like this.
+
+Riding the strange snake robot didn’t go quite as well as Bruton had hoped, as the odd steering geometry doesn’t allow for lean and that causes the rider to fall off in turns. But it is still really cool to see in action and we love experimental vehicles!

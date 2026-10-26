@@ -1,0 +1,54 @@
+If you’re looking for an ever faster, smoother, and more rewarding way to build your own IoT projects at home, the new MKR IoT Carrier Rev2 could be perfect for you.
+
+Автори: Arduino Team
+
+Категорії: Announcements, Arduino, Featured, IoT Bundle, MKR IoT Carrier rev2, New
+
+Плати: Arduino Cloud, IoT Cloud
+
+ 
+
+If you’re looking for an ever faster, smoother, and more rewarding way to build your own IoT projects at home, the new   MKR IoT Carrier Rev2   could be perfect for you.
+
+The new carrier can work with any board from the MKR family, giving you a wide choice of connectivity options to match the needs of your next IoT project. The MKR IoT Carrier Rev2 doesn’t require any additional components to get started, and you can create impressive and complete hassle-free projects this way.
+
+What does the carrier include? You’ll get all the sensors and actuators you need to develop IoT projects and connect them to the internet, taking your home automation journey to the next level.
+
+Let’s take a quick look at what you can build with the MKR IoT Carrier Rev2 and any board from the MKR family.
+
+-   Environment monitoring stations.   The new carrier comes with sensors that allow you to map and measure various things in the world around you — temperature, humidity, air quality, barometric pressure, and more. You can also track the movement of the board. For even more sensory awareness, you can connect analog or I2C grove compatible modules to the grove connectors. You can store the data you collect in the SD card or send it directly to the Arduino IoT Cloud.
+
+-   GUI IoT interface.   Visualizing your data is incredibly important — and the Rev2 comes with its own OLED color display, allowing you to create your own navigation menus. You can also use the included LEDs and buzzer for feedback.
+
+-   Connect to and control external devices.   The IoT is all about networks, and with the Rev2 you can control electronic devices up to 24 Volts using the two on-board relays. You can do this manually — like switching your reading lamp on or off via the Arduino IoT Cloud Remote app, or you can set the lamp to behave according to sensor data like the light levels in the room.
+
+ 
+
+   The MKR IoT Carrier vs the MKR IoT Carrier Rev2 — what’s the difference?
+
+There are a few key differences between the Rev2 and the previous version of the MKR IoT Carrier. Here are the main ones.
+
+Some sensors have changed:
+
+- The humidity sensor (HTS221) and barometric pressure sensor (LP22HB) has been replaced with the BME688 sensor.
+- The IMU (LSM6DS3) was replaced with LSM6DSOX.
+
+Following customer feedback some other components have been repositioned:
+
+- Addition of a handy reset button
+- 90° rotation of the relay connectors
+- Repositioning of the light sensor (APDS-9960)
+- Change of pins assigned to control the relays to pins 1 and 2
+- Change grove connector assignment from pin A5 to A6
+
+   Do I have to change my sketch if I have been using the first revision of the MKR IoT Carrier?
+
+No — the MKR IoT Carrier library works with both revisions of the carrier. Just make sure to use the latest version of the library to ensure everything goes smoothly.
+
+ 
+
+   Have more fun with the IoT
+
+The new MKR IoT Carrier Rev2 is the perfect tool to get started having fun with your own IoT projects, or to take your IoT tinkering to the next level. You don’t need a ton of experience, a bucket of expensive components, or endless hours of free time to build your own satisfying, useful IoT gadgets at home.
+
+Discover the MKR IoT Carrier Rev2

@@ -1,0 +1,41 @@
+The U of M Satellite project started in 2010 as a student group at the University of Manitoba with the goal of building a nano satellite (10 x 10 x 34 cm)
+
+Автори: Zoe Romano
+
+Категорії: Arduino, Education, Featured
+
+Плати: DUE
+
+ 
+
+The U of M Satellite project started in 2010 as a student group at the University of Manitoba with the goal of building a nano satellite (10 x 10 x 34 cm) and make space accessible to the public. We got in touch with Ahmad Byagowi, team lead of the project, who teaches robotics in the same university. Ahmad told us that U of M Satellite became soon very popular, in fact more than 300 students joined the group. In the first iteration the satellite’s goal was studying a micro animal (about 1 mm) called tardigrades and see its behaviour in space. The second iteration started in 2012, the same year of the launch of the Arduino Due and that’s why they designed everything based on it.
+
+We had a nice talk with Ahmad and asked a bit more about the project.
+
+  Why is space so important for research, and why it would be cool if more people could have access to it?  
+
+Space research is important because it challenges us to solve problems and find solutions which can translate to everyday life here on Earth. The products of space research and space technology are all around us today. From the ballpoint pen, all the way to GPS, special composite materials, special surgical equipment and satellite communication.
+
+For a while, only government and military had access to space. However, over the past decade there has been a rapid increase in commercial and public access to space. Private companies can take risks that the government and military can not, which leads to even bolder and newer technologies being developed.
+
+For the general public, there are many creative and dynamic thinkers in the world who may not be able to share their ideas through a government agency or company. Public access to space allows more people to innovate on their own terms, and with 7 billion people on this planet, surely there are a great deal of innovation to be found.
+
+With more people involved in researching space technologies, even more ideas can reach fruition, which can hopefully lead to technologies that will benefit life here on Earth even more.
+
+  There are other open source projects going to space (i.e. Ardusat), how’s U of M Student Satellite different or similar to others?  
+
+Ardusat is using Arduino as its payload (in fact, 16 of them) to run certain experiments in space and its main controller system is based on other processors and software. On the other hand, UMSATS’ satellite is going to be based on the Arduino Due architecture (the main controller) aided by the Arduino Zero and Arduino Uno’s design for payload and other controllers such as attitude determination and control system (ADCS) and power management as well as onboard image processing.
+
+  In which way open source is making exploration of space possible?  
+
+Open source makes things more accessible and helps a community work together to solve problems. If more open source platforms become available that can aid in space exploration, people can focus their efforts more on the next big problem using tools already developed, instead of resolving the same problems over and over again (reinventing the wheel). Plus, learning from watching other people’s work is a great way to learn things and apparently for some people like me or Massimo, this is best way to learn programming (based on Massimo’s TED talk).
+
+  Could you give us a bit more details on how you are using Arduino DUE ?  
+
+Our main Command and Data Handling (CDH) controller is based on the SAM3X8E and we are using Arduino Due’s bootloader and IDE for the software development. We added some more software layers as well as a scheduler and we aim to open source the entire software and hardware as soon as possible. In the picture of our motherboard below, you can clearly see the SAM3X8E and on the top right, there is a SMD version of the ATMEGA328P running and Arduino Uno core and acts as the beacon transmitter. This board encompasses the CDH, ADCS, Power and Communication of 2 meter and 70 cm bands (144.390MHz and 435MHz ham radio bands).
+
+ 
+
+  A famous quote of Massimo’s Banzi says: “You don’t need anyone’s permission to make something great” and in your TED talk you start saying “You can make big things using small tools”, what’s the relations between the two  ?
+
+There is no formula for greatness. We live in a time where anything is truly possible, and the way to achieve your goals is numerous. Nobody said we couldn’t do something big with our small satellite, and we didn’t ask if we could either. Instead, we try to do big things with small tools that are accessible to us.

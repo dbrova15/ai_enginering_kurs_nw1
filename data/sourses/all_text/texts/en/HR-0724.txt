@@ -1,0 +1,17 @@
+With the lack of people capable of turning written or spoken words into sign language in Belgium, University of Antwerp masters students Guy Fierens,
+
+Автори: Arduino Team
+
+Категорії: 3D Printing, Arduino, Featured, Robots
+
+Плати: DUE
+
+ 
+
+With the lack of people capable of turning written or spoken words into sign language in Belgium, University of Antwerp masters students Guy Fierens, Stijn Huys, and Jasper Slaets have decided to do something about it. They built a robot known as Aslan, or Antwerp’s Sign Language Actuating Node, that can translate text into finger-spelled letters and numbers.
+
+Project Aslan–now in the form of a single robotic arm and hand–is made from 25 3D-printed parts and uses an Arduino Due, 16 servos, and three motor controllers. Because of its 3D-printed nature and the availability of other components used, the low-cost design will be able to be produced locally.
+
+The robot works by receiving information from a local network, and checking for updated sign languages from all over the world. Users connected to the network can send messages, which then activate the hand, elbow, and finger joints to process the messages.
+
+Although it is one arm now, work will continue with future masters students, focusing on expanding to a two-arm design, implementing a face, and even integrating a webcam into the system. For more info, you can visit the project’s website here as well as its write-up on 3D Hubs.

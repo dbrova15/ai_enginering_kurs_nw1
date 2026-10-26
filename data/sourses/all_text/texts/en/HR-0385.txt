@@ -1,0 +1,17 @@
+As a part of his new raised garden bed project, Shawn Murphy was looking for ways to improve his backyard even further with intelligent IoT systems. Apart
+
+Автори: Arduino Team
+
+Категорії: MKR IoT Carrier rev2
+
+Плати: IoT Cloud, MKR WiFi 1010
+
+ 
+
+As a part of his new raised garden bed project, Shawn Murphy was looking for ways to improve his backyard even further with intelligent IoT systems. Apart from the existing 1800W solar panel array, he also wanted a device that could report current weather and soil conditions in real-time and even perform some watering tasks without the need for human intervention.
+
+Initially, Murphy had researched constructing a pump that could take water from a pair of rain storing barrels and deliver it to the garden bed. However, this would have been costly to build and maintain, so he instead went with a gravity-fed setup. In this configuration, gravity would move water down-slope to a solenoid valve attached to the Arduino IoT Explorer Kit’s 24V relay pin. Once wired together, he added a soil moisture sensor for measuring the water content of the soil, along with a 12V battery pack and solar charge controller for off-grid power.
+
+The resulting hardware was then loaded with a sketch that would continually read the moisture content of the soil, activate the solenoid valve if necessary, and even turn on a small fan if the enclosure were to get too hot. Best of all, the WiFi connectivity of the IoT Explorer Kit allowed Murphy to send the values remotely to an Arduino Cloud dashboard, complete with toggle switches for manually overriding the solenoid valve if necessary.
+
+For more information about this project, watch Murphy’s videos below and read his write-up on Hackster.io.

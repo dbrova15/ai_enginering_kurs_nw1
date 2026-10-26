@@ -1,0 +1,17 @@
+In theory, a Pirani gauge is a very simple device for measuring the pressure of a gas within a container, as it consists of a heated metal wire that loses
+
+Автори: Arduino Team
+
+Категорії: Arduino
+
+Плати: Mega
+
+ 
+
+In theory, a Pirani gauge is a very simple device for measuring the pressure of a gas within a container, as it consists of a heated metal wire that loses heat as the pressure increases internally. With this value now known, the electrical resistance can be measured and used to determine the precise pressure of a given gas. And although the sensors themselves are relatively inexpensive, the controllers they are often connected to can have a very high price, which is why   decided to  .
+
+The display uses an Arduino Mega to take in data from the sensor, convert it to a pressure level, and send it to a pair of LCDs. First, the Pirani gauge’s analog value is read with an ADS1115 ADC, which has 16 bits of resolution, and from there the value is converted to pressure using the calibration constant for air and a unit coefficient. The Mega then writes this information to the unit’s 16×2 character LCD module and plots points along a graph shown on a 3.5” TFT screen. Additionally, pressure data is sent via USB to a host machine where it can be read by an external program such as the Arduino Serial Plotter tool.
+
+ 
+
+This DIY controller is a great showcase of how one can build their own scientific equipment for far cheaper than is otherwise available. To see more about this project, watch Advanced Tinkering’s video below!

@@ -1,0 +1,175 @@
+У цьому маленькому туторіалі показано як без допомоги сторонніх бібліотек працювати на мові Python в OS...
+
+  Приклад використання датчика температури DS18B20 з Raspberry Pi за допомогою Python.  
+
+У цьому маленькому туторіалі показано як без допомоги сторонніх бібліотек працювати на мові   Python   в   OS Linux   на   Raspberry Pi   з датчиком температури   DS18B20   від   Maxim Integrated  , який працює на шині даних   1-Wire  .
+
+Усю потрібну інформацію по датчику Ви зможете знайти в офіційній документації. А тим людям які ніколи не стикалися з шиною даних 1-Wire дуже рекомендується ознайомитися з її специфікацією.
+
+  ПРИМІТКА:   Усі команди будуть виконуватися від звичайного користувача. Але треба враховувати налаштування    sudo   . Якщо у Вас якась команда заборонена на виконання від звичайного користувача вам треба залогинитися під  root . Для цього введіть команду  su  та пароль    root   . Таким чином Ви зможете виконувати усі команди від прав    root   , без потреби в команді    sudo   .
+
+Насамперед оновимо операційну систему та перезавантажимо її.
+
+  1 :: user@host:  sudo apt-get update   
+
+  2 :: user@host:  sudo apt-get upgrade   
+
+  3 :: user@host:  sudo apt-get clean   
+
+  4 :: user@host:  sudo reboot   
+
+Далі треба увімкнути шину   1-Wire  . Це можна зробити двома способами. Перший за допомогою    raspi-config    та її   TUI   інтерфейсу, а другий це звичайне редагування конфігураційного файлу    config.txt    який знаходиться в директорії    /boot   . Зробимо другим способом, для цього відкриємо    config.txt    та у самий кінець файлу в розділ   [all]   додамо строку -    dtoverlay=w1-gpio    .
+
+  5 :: user@host:  sudo nano /boot/config.txt   
+
+  :: Приблизно так виглядає кінець конфігураційного файлу    config.txt    .
+
+-   [pi4]  
+-    dtoverlay=vc4-fkms-v3d   
+-    max\ framebuffers=2   
+-    arm\ boost=1   
+- 
+-   [all]  
+-    dtoverlay=w1-gpio   
+
+Після того як потрібні данні будуть внесені та збережені треба перезавантажити систему.
+
+  6 :: user@host:  sudo reboot   
+
+Після перезавантаження перевіряємо наявність потрібних модулів у системі.
+
+  7 :: user@host:  lsmod | grep wire   
+
+  :: Якщо потрібні модулі присутні в системі, то у консолі Ви побачите наступні дві строки.
+
+-    wire 49152 2 w1\ gpio,w1\ therm   
+-    cn 20480 1 wire   
+
+  ПРИМІТКА:   Якщо через якусь причину потрібних модулів не буде, тоді треба їх запустити в ручному режимі. Для цього виконайте наступні команди, після чого треба повторно перевірити їх наявність.
+
+    :: user@host:  sudo modprobe w1-gpio   
+
+    :: user@host:  sudo modprobe w1-therm   
+
+Після усіх виконаних дій треба вимкнути комп’ютер та під'єднати датчик або датчики до   GPIO  .
+
+  8 :: user@host:  sudo shutdown -h now   
+
+  Зображення:  
+
+ 
+
+  Малюнок 1 ::   Витяг з офіційної документації - призначення контактів.
+
+| Стовпець 1 | Стовпець 2 |
+| --- | --- |
+| DS18B20 | Raspberry Pi (GPIO.BOARD) |
+| GND | GND |
+| DQ | 7 |
+| Vdd | +3.3В |
+
+ 
+
+  Малюнок 2 ::   Витяг з офіційної документації - схема підключення.
+
+Увага: обов'язково треба встановити між контактами   DQ   та   Vdd   резистор номіналом   4,7кОм  , та конденсатор номіналом   1uF   між контактами   Vdd   та   GND  .
+
+Усі підключені пристрої до шини   1-Wire   розташовується у директорії    /sys/bus/w1/devices    . Переходимо у неї та дивимося що в ній розташовано.
+
+  9 :: user@host:  cd /sys/bus/w1/devices   
+
+  10 :: user@host:  ls -lia   
+
+  :: Ви повинні побачити дві дерикторіїї, або більше якщо датчиків підключено більше.
+
+-    total 0   
+-    21184 drwxr-xr-x 2 root root 0 Apr 18 20:34 .   
+-    21182 drwxr-xr-x 4 root root 0 Apr 18 20:34 ..   
+-    21472 lrwxrwxrwx 1 root root 0 Apr 18 20:38 28-00000005ed05 -&gt; ../../../devices/w1\ bus\ master1/28-00000005ed05   
+-    21246 lrwxrwxrwx 1 root root 0 Apr 18 20:34 w1\ bus\ master1 -&gt; ../../../devices/w1\ bus\ master1   
+
+У данному випадку нас цікавить директорія    28-00000005ed05    . Назва цієї директорії і є індентифікатор датчику.
+
+  ПРИМІТКА:   На оригінальних датчиках у кожного буде свій унікальний ідентифікатор. Наприклад якщо ви під'єднаєте три чи більше датчиків, то у директоріїї ви побачите стільки директорій, скільки датчиків під'єднано до системи ( w1\ bus\ master1  - не рахується) та кожна буде мати унікальний номер (назву).
+
+Тепер подивимося, що знаходиться у директорії датчика.
+
+  11 :: user@host:  ls -lia 28-00000005ed05/   
+
+-    total 0   
+-    21467 drwxr-xr-x 4 root root 0 Apr 18 20:34 .   
+-    21244 drwxr-xr-x 4 root root 0 Apr 18 20:34 ..   
+-    21737 -rw-r--r-- 1 root root 4096 Apr 18 20:41 alarms   
+-    21738 -rw-r--r-- 1 root root 4096 Apr 18 20:41 conv\ time   
+-    21612 lrwxrwxrwx 1 root root 0 Apr 18 20:34 driver -&gt; ../../../bus/w1/drivers/w1\ slave\ driver   
+-    21736 --w------- 1 root root 4096 Apr 18 20:41 eeprom\ cmd   
+-    21734 -r--r--r-- 1 root root 4096 Apr 18 20:41 ext\ power   
+-    21739 -rw-r--r-- 1 root root 4096 Apr 18 20:41 features   
+-    21740 drwxr-xr-x 3 root root 0 Apr 18 20:34 hwmon   
+-    21470 -r--r--r-- 1 root root 4096 Apr 18 20:41 id   
+-    21469 -r--r--r-- 1 root root 4096 Apr 18 20:41 name   
+-    21476 drwxr-xr-x 2 root root 0 Apr 18 20:41 power   
+-    21735 -rw-r--r-- 1 root root 4096 Apr 18 20:41 resolution   
+-    21474 lrwxrwxrwx 1 root root 0 Apr 18 20:34 subsystem -&gt; ../../../bus/w1   
+-    21733 -r--r--r-- 1 root root 4096 Apr 18 20:41 temperature   
+-    21468 -rw-r--r-- 1 root root 4096 Apr 18 20:34 uevent   
+-    21732 -rw-r--r-- 1 root root 4096 Apr 18 20:41 w1\ slave   
+
+Розглядати за що відповідає кожний файл та кожне посилання ми не будемо. Нас цікавить зараз тільки один файл    w1\ slave    . Виводимо інформацію яка зберігається у ньому.
+
+  12 :: user@host:  cat /sys/bus/w1/devices/28-00000005ed05/w1\ slave   
+
+-    40 01 4b 46 7f ff 10 10 1d : crc=1d YES   
+-    40 01 4b 46 7f ff 10 10 1d t=20000   
+
+У кінці першого рядка знаходиться слово YES  яке відповідає за коректний опрос датчика. У кінці другого рядка знаходяться число    20000    яке являється даними температури.
+
+Ось з цим файлом і потрібно працювати. В якості приклада нижче приведений код написаний на мові Python для трьох під'єднаних датчиків.
+
+-     !/usr/bin/python3   
+- 
+-      sensor\ 01 - 28-00000005ed05   
+-      sensor\ 02 - 28-00000005fbef   
+-      sensor\ 03 - 28-000000060211   
+- 
+-    import time   
+- 
+-    if \ \ name\ \  == '\ \ main\ \ ':   
+-    try:   
+-    sensor\ DS18B20\ 01\ 5ed05 = '/sys/bus/w1/devices/28-00000005ed05/w1\ slave'   
+-    sensor\ DS18B20\ 02\ 5fbef = '/sys/bus/w1/devices/28-00000005fbef/w1\ slave'   
+-    sensor\ DS18B20\ 03\ 60211 = '/sys/bus/w1/devices/28-000000060211/w1\ slave'   
+- 
+-    sensor\ list = [sensor\ DS18B20\ 01\ 5ed05, sensor\ DS18B20\ 02\ 5fbef, sensor\ DS18B20\ 03\ 60211]   
+- 
+- 
+-    def read\ file\ values(file\ list):   
+-    count = 1   
+-    for sensor\ file in file\ list:   
+-    exam\ data = None   
+-    while not (exam\ data == 'YES'):   
+-    time.sleep(0.3)   
+-    with open(sensor\ file, 'r') as data:   
+-    file\ data = data.readlines()   
+-    if len(file\ data) == 2:   
+-    exam\ data = file\ data[0].strip()[-3:]   
+-    exam\ temp = file\ data[1].strip()[-5:]   
+-    if exam\ temp.isdigit():   
+-    temp\ c = float(file\ data[1].strip()[-5:]) / 1000.0   
+-    print(f"sensor\  {count} :: TEMP = {round(temp\ c, 1)}C")   
+-    count += 1   
+-    time.sleep(1.5)   
+-    else:   
+-    print(f"sensor\  {count} :: TEMP = ERR")   
+-    count += 1   
+-    time.sleep(1.5)   
+- 
+- 
+-    while True:   
+-    read\ file\ values(sensor\ list)   
+-    print()   
+-    time.sleep(900)   1h = 3600 / 30m = 1800 / 15m = 900   
+-    except KeyboardInterrupt:   
+-    print('\n^ SYS\ MSG &gt; PROGRAM CLOSED\n')   
+
+Наприкінці відзначимо, що дуже зручно працювати з різними датчиками (і не тільки з ними :) ) на мові   Python   використовуючи - потоки (   threading   ). Але це вже зовсім інша історія :)

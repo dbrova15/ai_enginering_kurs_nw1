@@ -1,0 +1,1264 @@
+[
+  {
+    "document_id": "HR-0743",
+    "annotation_status": "needs_human_review",
+    "expected": {
+      "document_type": "review",
+      "primary_topic": "power_batteries",
+      "main_subject": "Arduino Pro power management library",
+      "purpose": "Optimize power consumption and battery health of IoT and wearable devices through monitoring, charging control, and low-power modes",
+      "components": [
+        {
+          "name": "Arduino Portenta H7 board",
+          "model": "Portenta H7",
+          "manufacturer": "Arduino",
+          "role": "Supported board for power management and Sleep/Standby modes"
+        },
+        {
+          "name": "Arduino Portenta C33 board",
+          "model": "Portenta C33",
+          "manufacturer": "Arduino",
+          "role": "Supported board for power management and Sleep/Standby modes"
+        },
+        {
+          "name": "Arduino Nicla Vision board",
+          "model": "Nicla Vision",
+          "manufacturer": "Arduino",
+          "role": "Supported for battery management; Sleep/Standby support is planned for a later update"
+        },
+        {
+          "name": "Arduino Portenta H7 Lite board",
+          "model": "Portenta H7 Lite",
+          "manufacturer": "Arduino",
+          "role": "Board included in the current-consumption comparison"
+        },
+        {
+          "name": "LiPo battery",
+          "model": null,
+          "manufacturer": null,
+          "role": "Battery type discussed in the charging-control section"
+        },
+        {
+          "name": "Renesas chip",
+          "model": null,
+          "manufacturer": "Renesas",
+          "role": "Chip family discussed in relation to low-power states"
+        },
+        {
+          "name": "STM32 microcontroller",
+          "model": "STM32",
+          "manufacturer": null,
+          "role": "Microcontroller family of Mbed-enabled boards with automatic sleep handling"
+        },
+        {
+          "name": "Power measurement instrument",
+          "model": "Power Profiler Kit II",
+          "manufacturer": "Nordic",
+          "role": "Measures power consumption through the JST connector"
+        },
+        {
+          "name": "Power management IC",
+          "model": "PF1550",
+          "manufacturer": null,
+          "role": "Integrated voltage regulation discussed in the board power comparison"
+        }
+      ],
+      "technical_parameters": [
+        {
+          "subject": "Supported boards (models not specified)",
+          "name": "Deep-sleep current, general statement",
+          "value": "<100",
+          "unit": "microamperes"
+        },
+        {
+          "subject": "LiPo battery",
+          "name": "Typical fully charged voltage of most LiPo batteries",
+          "value": "4.2",
+          "unit": "V"
+        },
+        {
+          "subject": "Supported modules (models not specified)",
+          "name": "Power consumption in Sleep relative to normal operation",
+          "value": "about half",
+          "unit": null
+        },
+        {
+          "subject": "Supported modules (models not specified)",
+          "name": "Standby current with peripherals off, general description",
+          "value": "50–300",
+          "unit": "uA"
+        },
+        {
+          "subject": "Portenta C33",
+          "name": "Current without power optimizations",
+          "value": "41.37",
+          "unit": "mA"
+        },
+        {
+          "subject": "Portenta H7 Lite",
+          "name": "Current without power optimizations",
+          "value": "123.86",
+          "unit": "mA"
+        },
+        {
+          "subject": "Portenta H7",
+          "name": "Current without power optimizations",
+          "value": "123.86",
+          "unit": "mA"
+        },
+        {
+          "subject": "Portenta C33",
+          "name": "Standby current with peripherals off",
+          "value": "58.99",
+          "unit": "uA"
+        },
+        {
+          "subject": "Portenta H7 Lite",
+          "name": "Standby current with peripherals off",
+          "value": "75.51",
+          "unit": "uA"
+        },
+        {
+          "subject": "Portenta H7",
+          "name": "Standby current with peripherals off",
+          "value": "379",
+          "unit": "uA"
+        },
+        {
+          "subject": "Portenta C33",
+          "name": "Standby current with peripherals on",
+          "value": "11.53",
+          "unit": "mA"
+        },
+        {
+          "subject": "Portenta H7 Lite",
+          "name": "Standby current with peripherals on",
+          "value": "4.89",
+          "unit": "mA"
+        },
+        {
+          "subject": "Portenta H7",
+          "name": "Standby current with peripherals on",
+          "value": "7.98",
+          "unit": "mA"
+        },
+        {
+          "subject": "Portenta C33",
+          "name": "Sleep current with peripherals off",
+          "value": "7.02",
+          "unit": "mA"
+        },
+        {
+          "subject": "Portenta C33",
+          "name": "Sleep current with peripherals on",
+          "value": "18.26",
+          "unit": "mA"
+        }
+      ],
+      "interfaces_protocols": [
+        "Wi-Fi",
+        "Bluetooth"
+      ],
+      "software_tools": [
+        "Arduino Pro power management library",
+        "Arduino LowPowerPortentaH7",
+        "Mbed"
+      ]
+    }
+  },
+  {
+    "document_id": "HR-0244",
+    "annotation_status": "needs_human_review",
+    "expected": {
+      "document_type": "project",
+      "primary_topic": "devices_automation",
+      "main_subject": "Система моніторингу ваги філаменту з повідомленнями через Telegram",
+      "purpose": "Вимірювання залишку філаменту на котушці 3D-принтера та сповіщення про його нестачу",
+      "components": [
+        {
+          "name": "Транзистор PNP",
+          "model": "BD140",
+          "manufacturer": null,
+          "role": null
+        },
+        {
+          "name": "Плата контролера",
+          "model": "Wemos D1 mini",
+          "manufacturer": null,
+          "role": "Керування базою та вимірювальними пристроями"
+        },
+        {
+          "name": "Мікроконтролер",
+          "model": "ESP8266",
+          "manufacturer": null,
+          "role": "Основа плати Wemos D1 mini"
+        },
+        {
+          "name": "Кільце з адресних світлодіодів WS2812B",
+          "model": null,
+          "manufacturer": null,
+          "role": "Індикація стану вимірювальних пристроїв"
+        },
+        {
+          "name": "Сенсорна кнопка",
+          "model": "TTP223",
+          "manufacturer": null,
+          "role": "Керування, запит вимірювання та скидання налаштувань"
+        },
+        {
+          "name": "Тензодатчик",
+          "model": null,
+          "manufacturer": null,
+          "role": "Вимірювання ваги"
+        },
+        {
+          "name": "Корпус із PLA",
+          "model": null,
+          "manufacturer": null,
+          "role": "Розміщення вузлів бази"
+        },
+        {
+          "name": "Розсіювач із білого пластику",
+          "model": null,
+          "manufacturer": null,
+          "role": "Розсіювання світла індикатора"
+        },
+        {
+          "name": "Шурупи M2 довжиною 10 мм",
+          "model": null,
+          "manufacturer": null,
+          "role": "Збирання бази"
+        },
+        {
+          "name": "Шурупи M2 довжиною 5 мм",
+          "model": null,
+          "manufacturer": null,
+          "role": "Збирання бази"
+        },
+        {
+          "name": "Шурупи M2 довжиною 8 мм",
+          "model": null,
+          "manufacturer": null,
+          "role": "Збирання бази"
+        },
+        {
+          "name": "Болти та гайки М5",
+          "model": null,
+          "manufacturer": null,
+          "role": "Кріплення тензодатчика"
+        },
+        {
+          "name": "Болти та гайки М4",
+          "model": null,
+          "manufacturer": null,
+          "role": "Кріплення тензодатчика"
+        },
+        {
+          "name": "Штекер micro-USB",
+          "model": null,
+          "manufacturer": null,
+          "role": "З’єднання плати з роз’ємом Type-C для прошивання"
+        },
+        {
+          "name": "Роз’єм Type-C",
+          "model": null,
+          "manufacturer": null,
+          "role": "Підключення кабелю для прошивання пристрою"
+        }
+      ],
+      "technical_parameters": [
+        {
+          "subject": "Система",
+          "name": "Кількість баз",
+          "value": "1",
+          "unit": null
+        },
+        {
+          "subject": "Система",
+          "name": "Максимальна кількість вимірювальних пристроїв на базу",
+          "value": "4",
+          "unit": null
+        },
+        {
+          "subject": "Система сповіщень",
+          "name": "Приклад порогу сповіщення про залишок філаменту",
+          "value": "<50",
+          "unit": "г"
+        },
+        {
+          "subject": "Кільце з адресних світлодіодів WS2812B",
+          "name": "Кількість світлодіодів",
+          "value": "24",
+          "unit": null
+        },
+        {
+          "subject": "Шурупи M2 довжиною 10 мм",
+          "name": "Довжина",
+          "value": "10",
+          "unit": "мм"
+        },
+        {
+          "subject": "Шурупи M2 довжиною 10 мм",
+          "name": "Кількість",
+          "value": "2",
+          "unit": "шт."
+        },
+        {
+          "subject": "Шурупи M2 довжиною 5 мм",
+          "name": "Довжина",
+          "value": "5",
+          "unit": "мм"
+        },
+        {
+          "subject": "Шурупи M2 довжиною 5 мм",
+          "name": "Кількість",
+          "value": "4",
+          "unit": "шт."
+        },
+        {
+          "subject": "Шурупи M2 довжиною 8 мм",
+          "name": "Довжина",
+          "value": "8",
+          "unit": "мм"
+        },
+        {
+          "subject": "Шурупи M2 довжиною 8 мм",
+          "name": "Кількість",
+          "value": "4",
+          "unit": "шт."
+        },
+        {
+          "subject": "Сенсорна кнопка вимірювального пристрою",
+          "name": "Час утримання для скидання налаштувань",
+          "value": "10",
+          "unit": "секунд"
+        },
+        {
+          "subject": "Болти та гайки М5 та М4",
+          "name": "Кількість кожного типу за описом",
+          "value": "2",
+          "unit": "шт."
+        }
+      ],
+      "interfaces_protocols": [
+        "Wi-Fi",
+        "mDNS",
+        "micro-USB",
+        "USB Type-C"
+      ],
+      "software_tools": [
+        "Telegram",
+        "BotFather"
+      ]
+    }
+  },
+  {
+    "document_id": "HR-0385",
+    "annotation_status": "needs_human_review",
+    "expected": {
+      "document_type": "project",
+      "primary_topic": "devices_automation",
+      "main_subject": "Arduino-based raised garden bed monitoring and automatic watering system",
+      "purpose": "Remotely monitor weather and soil conditions and automatically water a raised garden bed",
+      "components": [
+        {
+          "name": "Solenoid valve",
+          "model": null,
+          "manufacturer": null,
+          "role": "Controls water flow to the garden bed"
+        },
+        {
+          "name": "Arduino IoT Explorer Kit",
+          "model": "IoT Explorer Kit",
+          "manufacturer": "Arduino",
+          "role": "Reads the sensor, controls the valve, and provides Wi-Fi connectivity"
+        },
+        {
+          "name": "Soil moisture sensor",
+          "model": null,
+          "manufacturer": null,
+          "role": "Measures water content in the soil"
+        },
+        {
+          "name": "Battery pack",
+          "model": null,
+          "manufacturer": null,
+          "role": "Powers the off-grid system"
+        },
+        {
+          "name": "Solar charge controller",
+          "model": null,
+          "manufacturer": null,
+          "role": "Provides solar battery charging"
+        },
+        {
+          "name": "Small fan",
+          "model": null,
+          "manufacturer": null,
+          "role": "Cools the enclosure if it gets too hot"
+        }
+      ],
+      "technical_parameters": [
+        {
+          "subject": "Relay pin on Arduino IoT Explorer Kit",
+          "name": "Voltage mentioned for the solenoid-valve relay connection",
+          "value": "24",
+          "unit": "V"
+        },
+        {
+          "subject": "Battery pack",
+          "name": "Voltage",
+          "value": "12",
+          "unit": "V"
+        }
+      ],
+      "interfaces_protocols": [
+        "Wi-Fi"
+      ],
+      "software_tools": [
+        "Arduino Cloud"
+      ]
+    }
+  },
+  {
+    "document_id": "HR-0068",
+    "annotation_status": "needs_human_review",
+    "expected": {
+      "document_type": "tutorial",
+      "primary_topic": "sensors_measurements",
+      "main_subject": "Модуль датчика наклона на SW-520D",
+      "purpose": "Обнаружение наклона, движения или вибрации и управление встроенным светодиодом Arduino",
+      "components": [
+        {
+          "name": "Модуль датчика наклона",
+          "model": null,
+          "manufacturer": null,
+          "role": "Выдаёт цифровой сигнал при изменении наклона"
+        },
+        {
+          "name": "Шариковый датчик наклона",
+          "model": "SW-520D",
+          "manufacturer": null,
+          "role": "Чувствительный элемент модуля"
+        },
+        {
+          "name": "Потенциометр",
+          "model": null,
+          "manufacturer": null,
+          "role": null
+        },
+        {
+          "name": "Компаратор напряжения",
+          "model": "LM393",
+          "manufacturer": null,
+          "role": "Компаратор сигнала в схеме модуля"
+        },
+        {
+          "name": "Усилитель сигнала",
+          "model": null,
+          "manufacturer": null,
+          "role": "Усиление сигнала датчика"
+        },
+        {
+          "name": "Разъём модуля",
+          "model": null,
+          "manufacturer": null,
+          "role": "Контакты для подключения модуля"
+        },
+        {
+          "name": "Индикатор питания модуля",
+          "model": null,
+          "manufacturer": null,
+          "role": "Сигнализирует о наличии питания"
+        },
+        {
+          "name": "Индикатор состояния модуля",
+          "model": null,
+          "manufacturer": null,
+          "role": "Сигнализирует о срабатывании датчика"
+        },
+        {
+          "name": "Плата Arduino UNO",
+          "model": "UNO rev.3",
+          "manufacturer": "Arduino",
+          "role": "Считывает сигнал датчика и управляет встроенным светодиодом"
+        },
+        {
+          "name": "Встроенный светодиод Arduino UNO",
+          "model": null,
+          "manufacturer": null,
+          "role": "Показывает состояние датчика в примере"
+        },
+        {
+          "name": "Перемычки",
+          "model": null,
+          "manufacturer": null,
+          "role": "Соединяют модуль с платой Arduino"
+        },
+        {
+          "name": "USB-кабель",
+          "model": null,
+          "manufacturer": null,
+          "role": "Соединяет Arduino с компьютером"
+        }
+      ],
+      "technical_parameters": [
+        {
+          "subject": "Модуль датчика наклона",
+          "name": "Рабочее напряжение",
+          "value": "5",
+          "unit": "В"
+        },
+        {
+          "subject": "Модуль датчика наклона",
+          "name": "Цифровые выходные уровни",
+          "value": "0 и 1",
+          "unit": null
+        },
+        {
+          "subject": "Печатная плата модуля",
+          "name": "Размеры платы",
+          "value": "3,2 × 1,4",
+          "unit": "см"
+        },
+        {
+          "subject": "Разъём модуля",
+          "name": "Количество контактов",
+          "value": "4",
+          "unit": null
+        },
+        {
+          "subject": "Модуль датчика наклона",
+          "name": "Диапазон порогового угла",
+          "value": "45–130",
+          "unit": "градусов"
+        },
+        {
+          "subject": "Встроенный светодиод Arduino UNO",
+          "name": "Номер пина Arduino",
+          "value": "13",
+          "unit": null
+        },
+        {
+          "subject": "Цифровой выход датчика",
+          "name": "Номер пина Arduino для подключения датчика",
+          "value": "2",
+          "unit": null
+        },
+        {
+          "subject": "Питание Arduino через DC IN (описанный вариант)",
+          "name": "Напряжение альтернативного питания постоянного тока",
+          "value": "9",
+          "unit": "В"
+        }
+      ],
+      "interfaces_protocols": [
+        "USB"
+      ],
+      "software_tools": [
+        "Arduino IDE 1.6.4+"
+      ]
+    }
+  },
+  {
+    "document_id": "HR-0254",
+    "annotation_status": "needs_human_review",
+    "expected": {
+      "document_type": "project",
+      "primary_topic": "displays_indicators",
+      "main_subject": "Настільний годинник на Arduino з великими цифрами на LCD 1602A",
+      "purpose": "Відображення часу великими цифрами на всю висоту дисплея для читання з відстані",
+      "components": [
+        {
+          "name": "Плата Arduino Uno",
+          "model": "Uno",
+          "manufacturer": "Arduino",
+          "role": "Керування годинником і дисплеєм"
+        },
+        {
+          "name": "LCD-дисплей",
+          "model": "1602A",
+          "manufacturer": null,
+          "role": "Відображення часу великими цифрами"
+        },
+        {
+          "name": "I2C-адаптер дисплея",
+          "model": null,
+          "manufacturer": null,
+          "role": "Підключення LCD зі зменшенням кількості зайнятих пінів"
+        },
+        {
+          "name": "Модуль годинника реального часу",
+          "model": "DS1302",
+          "manufacturer": null,
+          "role": "Ведення часу"
+        }
+      ],
+      "technical_parameters": [
+        {
+          "subject": "LCD 1602A",
+          "name": "Напруга живлення за схемою підключення",
+          "value": "5",
+          "unit": "V"
+        },
+        {
+          "subject": "RTC DS1302",
+          "name": "Напруга живлення за схемою підключення",
+          "value": "5",
+          "unit": "V"
+        },
+        {
+          "subject": "RTC DS1302",
+          "name": "Кількість пінів використаної версії",
+          "value": "5",
+          "unit": null
+        },
+        {
+          "subject": "LCD 1602A SDA",
+          "name": "Пін Arduino Uno",
+          "value": "A4",
+          "unit": null
+        },
+        {
+          "subject": "LCD 1602A SCL",
+          "name": "Пін Arduino Uno",
+          "value": "A5",
+          "unit": null
+        },
+        {
+          "subject": "RTC DS1302 CLK",
+          "name": "Номер піна Arduino Uno",
+          "value": "6",
+          "unit": null
+        },
+        {
+          "subject": "RTC DS1302 DAT",
+          "name": "Номер піна Arduino Uno",
+          "value": "7",
+          "unit": null
+        },
+        {
+          "subject": "RTC DS1302 RST",
+          "name": "Номер піна Arduino Uno",
+          "value": "8",
+          "unit": null
+        },
+        {
+          "subject": "LCD 1602",
+          "name": "Кількість рядків",
+          "value": "2",
+          "unit": null
+        },
+        {
+          "subject": "Функція createChar",
+          "name": "Максимальна кількість власних символів",
+          "value": "8",
+          "unit": null
+        },
+        {
+          "subject": "Великі цифри",
+          "name": "Розмір у символьних позиціях",
+          "value": "3x2",
+          "unit": null
+        },
+        {
+          "subject": "Набір сегментів великих цифр",
+          "name": "Кількість спроєктованих сегментів",
+          "value": "8",
+          "unit": null
+        }
+      ],
+      "interfaces_protocols": [
+        "I2C"
+      ],
+      "software_tools": [
+        "Arduino IDE",
+        "LiquidCrystal I2C",
+        "Ds1302 1.1.0"
+      ]
+    }
+  },
+  {
+    "document_id": "HR-0212",
+    "annotation_status": "needs_human_review",
+    "expected": {
+      "document_type": "project",
+      "primary_topic": "power_batteries",
+      "main_subject": "Автоматичне введення резерву для котла опалення",
+      "purpose": "Автоматичне перемикання живлення котла між мережею та інвертором з автомобільним акумулятором під час відключень",
+      "components": [
+        {
+          "name": "Котел опалення",
+          "model": null,
+          "manufacturer": null,
+          "role": "Навантаження системи резервного живлення"
+        },
+        {
+          "name": "Свинцево-кислотний автомобільний акумулятор",
+          "model": null,
+          "manufacturer": "WESTA",
+          "role": "Резервне джерело живлення"
+        },
+        {
+          "name": "Інвертор із правильною синусоїдою",
+          "model": null,
+          "manufacturer": "TATALІKEN",
+          "role": "Живлення котла від акумулятора"
+        },
+        {
+          "name": "Мікросхема компараторів",
+          "model": "LM393",
+          "manufacturer": null,
+          "role": "Контроль напруги та формування сигналів перемикання"
+        },
+        {
+          "name": "Реле керування інвертором К1",
+          "model": null,
+          "manufacturer": null,
+          "role": "Увімкнення та вимкнення інвертора"
+        },
+        {
+          "name": "Силове реле К2",
+          "model": null,
+          "manufacturer": null,
+          "role": "Перемикання виходу котла між мережею та інвертором"
+        },
+        {
+          "name": "Внутрішній блок живлення",
+          "model": null,
+          "manufacturer": null,
+          "role": "Живлення схеми АВР за наявності мережі"
+        },
+        {
+          "name": "Конденсатор С1",
+          "model": null,
+          "manufacturer": null,
+          "role": "Формування затримки перемикання"
+        },
+        {
+          "name": "Резистор R4",
+          "model": null,
+          "manufacturer": null,
+          "role": "Заряд конденсатора та регулювання затримки"
+        },
+        {
+          "name": "Резистор R13",
+          "model": null,
+          "manufacturer": null,
+          "role": "Примусовий розряд конденсатора С1"
+        },
+        {
+          "name": "Резистор R1",
+          "model": null,
+          "manufacturer": null,
+          "role": "Задання порогів спрацювання компараторів"
+        },
+        {
+          "name": "Резистор R2",
+          "model": null,
+          "manufacturer": null,
+          "role": "Задання порогів спрацювання компараторів"
+        },
+        {
+          "name": "Резистор R3",
+          "model": null,
+          "manufacturer": null,
+          "role": "Задання порогів спрацювання компараторів"
+        },
+        {
+          "name": "Резистор R11",
+          "model": null,
+          "manufacturer": null,
+          "role": "Живлення світлодіода оптрона в ланцюзі перемикання живлення"
+        },
+        {
+          "name": "Резистор R12",
+          "model": null,
+          "manufacturer": null,
+          "role": "Елемент ланцюга перемикання живлення між БЖ та АКБ"
+        },
+        {
+          "name": "Діод D3",
+          "model": null,
+          "manufacturer": null,
+          "role": "Живлення схеми керування від внутрішнього БЖ"
+        },
+        {
+          "name": "Діод D4",
+          "model": null,
+          "manufacturer": null,
+          "role": "Живлення схеми керування від АКБ"
+        },
+        {
+          "name": "Транзистор VT1",
+          "model": null,
+          "manufacturer": null,
+          "role": "Керування реле К1"
+        },
+        {
+          "name": "Транзистор VT2",
+          "model": null,
+          "manufacturer": null,
+          "role": "Керування реле К2"
+        },
+        {
+          "name": "Транзистор VT3",
+          "model": null,
+          "manufacturer": null,
+          "role": "Перемикання живлення схеми на АКБ"
+        },
+        {
+          "name": "Оптрон",
+          "model": "РС817",
+          "manufacturer": null,
+          "role": "Керування транзистором VT3 залежно від наявності живлення БЖ"
+        },
+        {
+          "name": "Зелений світлодіод",
+          "model": null,
+          "manufacturer": null,
+          "role": "Індикація роботи від мережі"
+        },
+        {
+          "name": "Жовтий світлодіод",
+          "model": null,
+          "manufacturer": null,
+          "role": "Індикація під’єднання до автомобільної АКБ"
+        },
+        {
+          "name": "Червоний світлодіод",
+          "model": null,
+          "manufacturer": null,
+          "role": "Індикація переходу від мережі на інвертор"
+        },
+        {
+          "name": "Стабілітрон",
+          "model": null,
+          "manufacturer": null,
+          "role": null
+        },
+        {
+          "name": "Автоматичний зарядний пристрій",
+          "model": null,
+          "manufacturer": null,
+          "role": "Заряджання АКБ з режимом десульфатації"
+        }
+      ],
+      "technical_parameters": [
+        {
+          "subject": "Акумулятор WESTA",
+          "name": "Ємність за написанням у джерелі",
+          "value": "60",
+          "unit": "А\\г"
+        },
+        {
+          "subject": "Акумулятор WESTA",
+          "name": "Пусковий струм за EN",
+          "value": "580",
+          "unit": "А"
+        },
+        {
+          "subject": "Інвертор TATALІKEN",
+          "name": "Заявлена номінальна потужність",
+          "value": "600",
+          "unit": "Вт"
+        },
+        {
+          "subject": "Інвертор TATALІKEN",
+          "name": "Заявлена пікова потужність",
+          "value": "1600",
+          "unit": "Вт"
+        },
+        {
+          "subject": "Доопрацьовані силові дроти інвертора",
+          "name": "Зменшення втрат напруги при навантаженні 200 Вт",
+          "value": "1",
+          "unit": "В"
+        },
+        {
+          "subject": "Інвертор під час перевірки доопрацювання",
+          "name": "Навантаження",
+          "value": "200",
+          "unit": "Вт"
+        },
+        {
+          "subject": "Система резервного живлення",
+          "name": "Мінімальний бажаний час роботи котла від АКБ",
+          "value": "не менше 4",
+          "unit": "години"
+        },
+        {
+          "subject": "Мережа живлення котла",
+          "name": "Напруга",
+          "value": "220",
+          "unit": "В"
+        },
+        {
+          "subject": "Внутрішній блок живлення",
+          "name": "Вихідна напруга",
+          "value": "12",
+          "unit": "В"
+        },
+        {
+          "subject": "LM393",
+          "name": "Кількість аналогових компараторів",
+          "value": "2",
+          "unit": null
+        },
+        {
+          "subject": "Увімкнення інвертора через компаратор ОР1.1",
+          "name": "Приблизна затримка за детальним описом",
+          "value": "близько 3",
+          "unit": "с"
+        }
+      ],
+      "interfaces_protocols": [],
+      "software_tools": []
+    }
+  },
+  {
+    "document_id": "HR-0415",
+    "annotation_status": "needs_human_review",
+    "expected": {
+      "document_type": "project",
+      "primary_topic": "robotics_actuators",
+      "main_subject": "Six-wheeled remote-controlled off-road robot built around Arduino Mega",
+      "purpose": "Build a remotely controlled six-wheeled vehicle intended to traverse difficult terrain and carry loads",
+      "components": [
+        {
+          "name": "Arduino Mega board",
+          "model": "Mega",
+          "manufacturer": "Arduino",
+          "role": "Receives PWM signals and controls all six motors"
+        },
+        {
+          "name": "Radio transmitter",
+          "model": null,
+          "manufacturer": null,
+          "role": "Sends remote-control commands"
+        },
+        {
+          "name": "Radio receiver",
+          "model": null,
+          "manufacturer": null,
+          "role": "Feeds PWM signals to the Arduino Mega"
+        },
+        {
+          "name": "H-bridge driver boards",
+          "model": null,
+          "manufacturer": null,
+          "role": "Two H-bridge boards drive six motors for tank-like motion"
+        },
+        {
+          "name": "Motors",
+          "model": null,
+          "manufacturer": null,
+          "role": "Drive the wheels"
+        },
+        {
+          "name": "Wheels",
+          "model": null,
+          "manufacturer": null,
+          "role": "Allow movement over rough terrain"
+        },
+        {
+          "name": "Aluminum and duralumin chassis",
+          "model": null,
+          "manufacturer": null,
+          "role": "Supporting frame of the vehicle"
+        },
+        {
+          "name": "Power supply",
+          "model": null,
+          "manufacturer": null,
+          "role": "Power source for the vehicle electronics and drive"
+        }
+      ],
+      "technical_parameters": [
+        {
+          "subject": "Six-wheeled robot",
+          "name": "Number of wheels",
+          "value": "6",
+          "unit": null
+        },
+        {
+          "subject": "Six-wheeled robot",
+          "name": "Number of motors",
+          "value": "6",
+          "unit": null
+        },
+        {
+          "subject": "H-bridge driver boards",
+          "name": "Number of H-bridge boards",
+          "value": "2",
+          "unit": null
+        },
+        {
+          "subject": "Vehicle",
+          "name": "Desired load-carrying capacity stated by the designer",
+          "value": "at least a dozen",
+          "unit": "kilos"
+        },
+        {
+          "subject": "Radio control",
+          "name": "Desired remote-control range stated by the designer",
+          "value": "at least 200",
+          "unit": "meters"
+        },
+        {
+          "subject": "Radio transmitter and receiver",
+          "name": "Radio frequency",
+          "value": "2.4",
+          "unit": "GHz"
+        }
+      ],
+      "interfaces_protocols": [
+        "PWM",
+        "2.4 GHz radio control"
+      ],
+      "software_tools": []
+    }
+  },
+  {
+    "document_id": "HR-0207",
+    "annotation_status": "needs_human_review",
+    "expected": {
+      "document_type": "project",
+      "primary_topic": "power_batteries",
+      "main_subject": "Система резервного живлення роутера на 12 В",
+      "purpose": "Автоматичне перемикання роутера на акумулятор без вимкнення під час зникнення мережевого живлення",
+      "components": [
+        {
+          "name": "Роутер",
+          "model": null,
+          "manufacturer": null,
+          "role": "Споживач резервного живлення"
+        },
+        {
+          "name": "Блок живлення роутера",
+          "model": null,
+          "manufacturer": null,
+          "role": "Основне живлення системи та реле"
+        },
+        {
+          "name": "Акумулятор LiFePO4",
+          "model": null,
+          "manufacturer": null,
+          "role": "Резервне живлення роутера"
+        },
+        {
+          "name": "Реле",
+          "model": null,
+          "manufacturer": null,
+          "role": "Автоматичне перемикання між блоком живлення та акумулятором"
+        },
+        {
+          "name": "Стабілізатор напруги керування реле",
+          "model": null,
+          "manufacturer": null,
+          "role": "Забезпечення напруги кола керування реле"
+        },
+        {
+          "name": "Стабілізатор напруги",
+          "model": "S13V25F12",
+          "manufacturer": "Plololu",
+          "role": "Підтримання напруги живлення роутера та компенсація падіння на діоді"
+        },
+        {
+          "name": "Конденсатор",
+          "model": null,
+          "manufacturer": null,
+          "role": "Підтримання живлення роутера під час перемикання реле"
+        },
+        {
+          "name": "Роз’єми",
+          "model": null,
+          "manufacturer": null,
+          "role": "Підключення живлення"
+        },
+        {
+          "name": "Діод Шотткі",
+          "model": "90SQ045 SG/IR",
+          "manufacturer": null,
+          "role": "Діод у зміненій схемі резервного живлення"
+        }
+      ],
+      "technical_parameters": [
+        {
+          "subject": "Блок живлення роутера",
+          "name": "Напруга",
+          "value": "12",
+          "unit": "В"
+        },
+        {
+          "subject": "Реле",
+          "name": "Потрібна напруга керуючого сигналу за описом документації",
+          "value": "5",
+          "unit": "В"
+        },
+        {
+          "subject": "Акумулятор LiFePO4",
+          "name": "Діапазон напруги",
+          "value": "10–14.6",
+          "unit": "В"
+        },
+        {
+          "subject": "Роутер",
+          "name": "Потрібна напруга живлення",
+          "value": "12",
+          "unit": "В"
+        },
+        {
+          "subject": "Стабілізатор S13V25F12",
+          "name": "Вихідна напруга",
+          "value": "12",
+          "unit": "В"
+        },
+        {
+          "subject": "Діод",
+          "name": "Падіння напруги",
+          "value": "0.3–0.5",
+          "unit": "В"
+        },
+        {
+          "subject": "Конденсатор",
+          "name": "Ємність",
+          "value": "15000",
+          "unit": "uF"
+        },
+        {
+          "subject": "Конденсатор",
+          "name": "Напруга за маркуванням",
+          "value": "16",
+          "unit": "V"
+        }
+      ],
+      "interfaces_protocols": [],
+      "software_tools": []
+    }
+  },
+  {
+    "document_id": "HR-0227",
+    "annotation_status": "needs_human_review",
+    "expected": {
+      "document_type": "theory",
+      "primary_topic": "controllers_programming",
+      "main_subject": "Простий фільтр Калмана та його реалізації на Python і C++ для Arduino",
+      "purpose": "Згладжування зашумлених вимірювань і зменшення впливу шуму для стабільніших оцінок стану системи",
+      "components": [
+        {
+          "name": "Плата Arduino",
+          "model": null,
+          "manufacturer": null,
+          "role": "Виконання фільтрації вимірювань у реальному часі"
+        },
+        {
+          "name": "Датчик атмосферного тиску",
+          "model": "BMP280",
+          "manufacturer": null,
+          "role": "Джерело виміряних даних для фільтрації"
+        }
+      ],
+      "technical_parameters": [
+        {
+          "subject": "Фільтр Калмана",
+          "name": "Діапазон протестованих значень швидкості реакції",
+          "value": "0.01–0.1",
+          "unit": null
+        },
+        {
+          "subject": "Масив випадкових тестових даних",
+          "name": "Кількість значень",
+          "value": "250",
+          "unit": null
+        },
+        {
+          "subject": "Масив випадкових тестових даних",
+          "name": "Діапазон значень",
+          "value": "10–40",
+          "unit": null
+        },
+        {
+          "subject": "Фільтр Калмана",
+          "name": "Швидкість реакції в першій візуалізації реальних вимірювань",
+          "value": "0.05",
+          "unit": null
+        },
+        {
+          "subject": "Фільтр Калмана з помаранчевим графіком",
+          "name": "Швидкість реакції",
+          "value": "0.01",
+          "unit": null
+        },
+        {
+          "subject": "Фільтр Калмана із зеленим графіком",
+          "name": "Швидкість реакції",
+          "value": "0.1",
+          "unit": null
+        }
+      ],
+      "interfaces_protocols": [],
+      "software_tools": [
+        "Python",
+        "JupyterLab",
+        "Anaconda",
+        "C++",
+        "Власна бібліотека фільтра Калмана",
+        "Власна бібліотека обчислення середнього відхилення",
+        "Послідовний плотер"
+      ]
+    }
+  },
+  {
+    "document_id": "HR-0187",
+    "annotation_status": "needs_human_review",
+    "expected": {
+      "document_type": "tutorial",
+      "primary_topic": "devices_automation",
+      "main_subject": "Система автополиву рослин на Arduino",
+      "purpose": "Автоматичний полив рослин за сигналом датчика вологості ґрунту",
+      "components": [
+        {
+          "name": "Arduino",
+          "model": null,
+          "manufacturer": null,
+          "role": "Зчитування сигналу датчика вологості ґрунту та керування помпою"
+        },
+        {
+          "name": "Цифровий датчик вологості ґрунту",
+          "model": null,
+          "manufacturer": null,
+          "role": "Визначення вологості ґрунту"
+        },
+        {
+          "name": "Помпа",
+          "model": null,
+          "manufacturer": null,
+          "role": "Подача води для поливу рослин"
+        },
+        {
+          "name": "Перемички",
+          "model": null,
+          "manufacturer": null,
+          "role": "З'єднання компонентів системи"
+        }
+      ],
+      "technical_parameters": [
+        {
+          "subject": "Цифровий датчик вологості ґрунту",
+          "name": "Номер цифрового піна Arduino для підключення датчика",
+          "value": "4",
+          "unit": null
+        },
+        {
+          "subject": "Помпа",
+          "name": "Номер цифрового піна Arduino для керування помпою",
+          "value": "7",
+          "unit": null
+        }
+      ],
+      "interfaces_protocols": [],
+      "software_tools": []
+    }
+  }
+]

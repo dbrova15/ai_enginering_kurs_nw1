@@ -1,0 +1,21 @@
+You’ve seen movies and TV shows with Geiger counters: handheld devices that click when they detect radiation — the faster the clicks, the stronger the
+
+Автори: Arduino Team
+
+Категорії: Arduino
+
+Плати: GIGA R1 WiFi
+
+ 
+
+You’ve seen movies and TV shows with Geiger counters: handheld devices that click when they detect radiation — the faster the clicks, the stronger the radiation. Those clicks are actually the result of inert gas briefly made conductive by bursts of energy released by ionizing radiation particles entering the sealed Geiger–Müller tube. YouTuber The Edison Union had the clever idea to use those clicks as triggers for generative music and turned to Arduino to make it happen.
+
+This is part of a larger project called The Cherenkov Effect, which seeks to explore Cold War-era anxieties related to nuclear power and nuclear weapons. The Cherenkov Effect does that through a combination of performance art and generative music. And what better way to generate that music than with radiation?
+
+In this case, that radiation comes from Strontium-90 and Polonium-210. While those are less dangerous to handle than many other radioactive materials, they still aren’t safe and you shouldn’t replicate this project if you don’t know the proper procedures.
+
+The Edison Union uses Ableton Live to produce the music for The Cherenkov Effect, but needed “seeds” for the generative processes that turn into audible notes. Those seeds come from five Geiger counter modules that connect to an Arduino GIGA R1 WiFi board through a Seeed Studio Grove Shield. The Arduino sketch counts radioactive pulses, then passes that data on to a Processing sketch that performs the generative music functions. The latter is where The Edison Union is able to get creative regarding the sound produced. Finally, Processing sends notes to Ableton Live to synthesize.
+
+ 
+
+Now when The Edison Union moves Strontium-90 or Polonium-210 around the array of Geiger counters, the device will generate and play music based on the radiation it receives.

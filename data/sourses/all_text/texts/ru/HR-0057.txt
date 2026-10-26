@@ -1,0 +1,325 @@
+В проекте используются Raspberry Pi 3 и OLED (SSD1306 128x64 I2C или SPI). Для корпуса используется...
+
+   Владимир Соколов   
+
+В проекте используются Raspberry Pi 3 и OLED (SSD1306 128x64 I2C или SPI). Для корпуса используется акриловый «сэндвич», так наглядней, и обычный 5-вольтовый источник питания силой тока около 0,5 А (этого вполне достаточно: устройство потребляет не более 350 мА даже на максимальных нагрузках канала).
+
+ 
+
+  Установка точки доступа  
+
+  1.   Установите Raspbian Jessie Lite на microSD карту с помощью Win32DiskImager (из-под Виндоус).
+
+  2.   Создайте файлик-семафор 'ssh' корневой директории на флешке.
+
+  3.   Подключите RPi к любому роутеру и найдите его IP (например, отлично себя рекомендовала программка ipscan24, которую можно запускать даже без инсталляции).
+
+  4.   С помощью Putty подключитесь к RPi по SSH с настройками по умолчанию:
+
+putty.exe pi@&lt;RPi IP&gt; -pw raspberry
+
+  5.   Смените пароль на более стойкий:
+
+sudo passwd pi
+
+  6.   Обновите систему:
+
+sudo apt-get update &amp;&amp; sudo apt-get upgrade
+
+  7.   Настройте сетевые интерфейсы в файле:
+
+sudo nano /etc/network/interfaces
+
+Добавьте строки:
+
+auto lo
+
+iface lo inet loopback
+
+auto eth0
+
+allow-hotplug eth0
+
+iface eth0 inet manual
+
+auto wlan1
+
+allow-hotplug wlan1
+
+iface wlan1 inet manual
+
+wpa-conf /etc/wpa\ supplicant/wpa\ supplicant.conf
+
+allow-hotplug wlan0
+
+iface wlan0 inet static
+
+address 10.0.0.1
+
+network 10.0.0.0
+
+netmask 255.255.255.0
+
+broadcast 255.0.0.0
+
+Для сохранения нажмите  Ctrl+O , а для выхода из файла —  Ctrl+X .
+
+  8.   Установите dnsmasq:
+
+sudo apt-get install dnsmasq
+
+  9.   Настройте DNS:
+
+sudo nano /etc/dnsmasq.conf
+
+Добавьте строки:
+
+no-resolv
+
+interface=wlan0
+
+except-interface=eth0
+
+dhcp-range=10.0.0.3,10.0.0.20,12h
+
+server=8.8.8.8
+
+server=8.8.4.4
+
+log-facility=/var/log/dnsmasq.log
+
+log-queries
+
+  10.   Enable packet forwarding:
+
+sudo nano /etc/sysctl.conf
+
+Добавьте строки:
+
+net.ipv4.ip\ forward=1
+
+net.ipv6.conf.all.forwarding=1
+
+  11.   Настройте NAT между wlan0 и eth0:
+
+sudo nano /etc/rc.local
+
+Добавьте строки:
+
+SOURCE=eth0
+
+DEST=wlan0
+
+iptables -t nat -A POSTROUTING -o $SOURCE -j MASQUERADE
+
+iptables -A FORWARD -i $SOURCE -o $DEST -m state --state RELATED,ESTABLISHED -j ACCEPT
+
+iptables -A FORWARD -i $DEST -o $SOURCE -j ACCEPT
+
+exit 0
+
+  12.   Установите hostapd:
+
+sudo apt-get install hostapd
+
+  13.   Добавьте путь к файлу настроек Wi-Fi карты в качестве точки доступа:
+
+sudo nano /etc/default/hostapd
+
+Добавьте строки:
+
+DAEMON\ CONF="/etc/hostapd/hostapd.conf"
+
+  14.   Настройте точку доступа:
+
+sudo nano /etc/hostapd/hostapd.conf
+
+Добавьте строки (измените пароль на свой):
+
+interface=wlan0
+
+driver=nl80211
+
+ssid=Pi3-AP
+
+hw\ mode=g
+
+channel=6
+
+ieee80211n=1
+
+wmm\ enabled=1
+
+ht\ capab=[HT40][SHORT-GI-20][DSSS\ CCK-40]
+
+macaddr\ acl=0
+
+auth\ algs=1
+
+ignore\ broadcast\ ssid=0
+
+wpa=2
+
+wpa\ key\ mgmt=WPA-PSK
+
+wpa\ passphrase=raspberry
+
+rsn\ pairwise=CCMP
+
+  15.   Перегрузите систему:
+
+sudo reboot
+
+  16.   Найдите точку доступа Pi3-AP и подключитесь к ней.
+
+  Добавление дисплея  
+
+  1.   Подключите OLED к RPi.
+
+ 
+
+  RPi (I2C OLED)  
+
+GPIO3 (5) - SCK
+
+GPIO2 (3) - SDA
+
+3V3 (1) - VCC
+
+GND (6) - GND
+
+  RPi (SPI OLED)  
+
+GPIO25 (22) - RES
+
+GPIO9 (21) - D/C
+
+GPIO10 (19) - DIN (SDA)
+
+GPIO8 (24) - CS
+
+GPIO11 (23) - CLK (SCK)
+
+3V3 (17) - VCC
+
+GND (20) - GND
+
+  2.   Активируйте SPI или I2C в системе:
+
+sudo raspi-config
+
+Выберите меню "5 Interfacing Options " и нужное подменю "P4 SPI" или/и "P5 I2C".
+
+И выйдите из программы.
+
+  3.   Установите пакеты для Python 3:
+
+sudo apt-get install build-essential python-dev python-pip python-imaging python-smbus git
+
+sudo apt-get install python3-pip python3-dev
+
+  4.   Установите библиотеку RPi.GPIO:
+
+sudo pip3 install RPi.GPIO
+
+  5.   Загрузите и соберите библиотеку для JPEG:
+
+wget  
+
+tar xvfz jpegsrc.v8c.tar.gz
+
+cd jpeg-8c
+
+./configure --enable-shared --prefix=$CONFIGURE\ PREFIX
+
+make
+
+sudo make install
+
+cd ..
+
+  6.   Перелинкуйте библиотеку:
+
+sudo ln -s /usr/lib/arm-linux-gnueabi/libjpeg.so /usr/lib
+
+sudo ln -s /usr/lib/arm-linux-gnueabi/libfreetype.so /usr/lib
+
+sudo ln -s /usr/lib/arm-linux-gnueabi/libz.so /usr/lib
+
+  7.   Установите оставшиеся библиотеки, такие как freetrype и zlib:
+
+sudo apt-get install libjpeg-dev libfreetype6 libfreetype6-dev zlib1g-dev
+
+  8.   Установите питоновские библиотеки для работы с изображениями и сбора системной информации:
+
+sudo pip3 install image
+
+sudo pip3 install psutil
+
+  9.   Установите шрифты:
+
+sudo apt-get install fontconfig
+
+  10.   Сделайте клон библитеки с Гитхаба и установите ее:
+
+git clone  
+
+cd Adafruit\ Python\ SSD1306/
+
+sudo python3 setup.py install
+
+  11.   Запустите пример (I2C или SPI):
+
+sudo python3 examples/statisticsI2C.py
+
+Или:
+
+sudo python3 examples/statisticsSPI.py
+
+Если все прошло успешно, то вы увидите в консоли нечто похожее:
+
+1 1485124450.46 | 0.39 0.50 0.23 119 tasks | Mem: 34.8MB SD: 18% | CPU: 39.7°C/103°F | SSID: Pi3-AP 2 clients | 10.0.0.1 6ch 31dBm | 109.162.126.180 43.0ms
+
+2 1485124451.71 | 0.39 0.50 0.23 119 tasks | Mem: 34.5MB SD: 18% | CPU: 39.7°C/103°F | SSID: Pi3-AP 2 clients | 10.0.0.1 6ch 31dBm | 109.162.126.180 43.0ms
+
+3 1485124452.96 | 0.39 0.50 0.23 119 tasks | Mem: 34.8MB SD: 18% | CPU: 39.7°C/103°F | SSID: Pi3-AP 2 clients | 10.0.0.1 6ch 31dBm | 109.162.126.180 43.1ms
+
+...
+
+А на экране будет отображать статистика.
+
+  12.   Установите автозапуска скрипта при старте системы:
+
+sudo nano /etc/rc.local
+
+Добавьте в конце файла строку (до "exit 0") для I2C дисплея:
+
+ python3 /home/pi/Adafruit\ Python\ SSD1306/examples/statisticsI2C.py 
+
+Или для SPI:
+
+ python3 /home/pi/Adafruit\ Python\ SSD1306/examples/statisticsSPI.py 
+
+  13.   Перегрузите систему:
+
+sudo reboot
+
+Устройство уже полтора месяца работает в домашних условьях (количество пользователей — до 5) и радует глаз.
+
+И за это время выявились несколько недостатков:
+
+– небольшой радиус действия (его можно увеличить, если использовать USB сетевую карту c внешней антенной);
+
+– так как есть лишь одна антенна, то MIMO недоступен;
+
+– торренты у одного абонента без ограничений по скорости могут захватить весь канал, а у остальных клиентов доступ может пропасть вовсе (по принципу кто первый встал, того и тапки).
+
+Раз в пять минут экран дисплея моргает. При передачи данных на экран может сбиваться его инициализация (особенно этим «славится» I2C протокол).
+
+Данный экранчик носит информационный характер, потому если и возникнет сбой передачи, то его последствия будут отображаться не более пяти минут. Изменить время можно в файлах примеров. Для этого увеличьте измените количество итераций (каждая занимает около 1,5 с) или удалите проверку вовсе:
+
+if times &gt;= 200:
+
+times = 0
+
+disp.begin()

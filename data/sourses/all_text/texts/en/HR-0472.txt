@@ -1,0 +1,102 @@
+We’re excited to announce the launch of the official Arduino Amazon Alexa skill.    You can now securely connect Alexa to your
+
+Автори: umbobaldi
+
+Категорії: Announcements, Arduino, Featured
+
+Плати: IoT Cloud
+
+We’re excited to announce the launch of the official   Arduino Amazon Alexa skill    .  
+
+ 
+
+You can now securely connect Alexa to your Arduino IoT Cloud projects with no additional coding required. You could use Alexa to turn on the lights in the living room, check the temperature in the bedroom, start the coffee machine, check on your plants, find out if your dog is sleeping in the doghouse… the only limit is your imagination!
+
+Below are some of the features that will be available:
+
+- Changing the color and the luminosity of lights
+- Retrieving temperature and detect motion activity from sensors
+- Using voice commands to trigger switches and smart plugs
+
+ 
+
+Being compatible with one of the most recognized cloud-based services on the market, bridges the communication gap between different applications and processes, and removes many tricky aspects that usually follows wireless connectivity and communication.
+
+Using Alexa is as simple as asking a question — just ask, and Alexa will respond instantly.
+
+Integrating Arduino with Alexa is as quick and easy as these four simple steps:
+
+1. Add the Arduino IoT Cloud Smart Home skill.
+
+2. Link your Arduino Create account with Alexa.
+
+3. Once linked, go to the device tab in the Alexa app and start searching for devices.
+
+4. The properties you created in the Arduino IoT Cloud now appear as devices!
+
+Boom — you can now start voice controlling your Arduino project with Alexa!
+
+ 
+
+      IoT – secure connections  
+
+The launch of the Arduino IoT Cloud and Alexa integration brings easy cross platform communication, customizable user interfaces and reduced complexity when it comes to programming. These features will allow many different types of users to benefit from this service, where they can create anything from voice controlled light dimmers to plant waterers.
+
+While creating IoT applications is a lot of fun, one of the main concerns regarding IoT is   data security  . Arduino IoT Cloud was designed to have security as a priority, so our compatible boards come with an   ECC508 crypto chip    ,   ensuring that your data and connections remain secure and private to the highest standard.
+
+ 
+
+The latest update to the Arduino IoT Cloud enables users with a Create Maker Plan subscription to use devices based on the popular ESP8266, such as NodeMCU and ESPduino. While these devices do not implement a crypto chip, the data transferred over SSL is still encrypted.
+
+      Getting started with this integration  
+
+In order to get started with Alexa, you need to go through a few simple steps to make things work smoothly:
+
+- Setting up your Arduino IoT Cloud workspace with your Arduino Create account
+- Getting an IoT Cloud compatible board
+- Installing the Arduino Alexa skill
+
+     Setting up the Arduino IoT Cloud workspace  
+
+Getting started with the Arduino IoT Cloud is fast and easy, and by following this tutorial you will get a detailed run through of the different functionalities and try out some of the examples! Please note, you will need an Arduino Create account in order to use the Arduino IoT Cloud and a compatible board.
+
+   Getting an IoT Cloud compatible board
+
+The Arduino IoT Cloud currently supports the following Arduino boards: MKR 1000, MKR WiFi 1010, MKR GSM 1400 and Nano 33 IoT. You can find and purchase these boards fromour store.
+
+The following properties in the Arduino IoT Cloud can currently be used with Alexa:
+
+- Light
+- Dimmable light
+- Colored light
+- Smart plug
+- Smart switch
+- Contact sensor
+- Temperature sensor
+- Motion sensor
+
+ 
+
+ 
+
+Any of these properties can be created in the Arduino IoT Cloud platform. A sketch will be generated automatically to read and set these properties.
+
+     Installing the Arduino Alexa skill  
+
+To install the Arduino Alexa skill, you will need to have an Amazon account and download the latest version of the Alexa app on a smartphone or tablet, or use the Amazon Web application. You can find the link to the Amazon Alexa app here. Once we are successfully logged into the app, it is time to make the magic happen.
+
+ 
+
+To integrate Alexa and Arduino IoT Cloud, you need to add the   Arduino skill  . Then link your Arduino Create account with Alexa. Once linked, select the device tab in the Alexa app and start discovering devices.
+
+The smart home properties already in existence in the Arduino IoT Cloud now appear as devices, and you can start controlling them with the Alexa app or your voice!
+
+For more information, please visit the Arduino Alexa skill.
+
+     Step-by-step guide to connecting Arduino IoT Cloud with Alexa  
+
+A simple and complete step-by-step guide showing you how to connect the Arduino IoT Cloud with Alexa is available via this tutorial.
+
+      Share your creativity with us!  
+
+Community is everything for Arduino, so we would love to see what you create! Make sure you document and share your amazing projects for example on Arduino Project Hub and use the    ArduinoAlexa   hashtag to make it discoverable by everyone!
