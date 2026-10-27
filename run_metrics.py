@@ -2,7 +2,7 @@
 
 import math
 
-from main import DevicePosting
+from schema_contracts import LEGACY_CONTRACT_VERSION, model_for_contract
 
 # Зафіксований тариф експерименту; він не оновлюється автоматично.
 MODEL_PRICING = {
@@ -67,7 +67,7 @@ def token_summary(results: list[dict], field: str) -> dict:
     }
 
 
-def cost_summary(model: str, count: int, input_usage: dict, output_usage: dict) -> dict:
+def cost_summary(model: str, count: int, input_usage: dict, output_usage: dict, *, provider: str | None = None) -> dict:
     """Оцінює API-вартість за токенами та зафіксованим тарифом моделі.
 
     Масштабує витрати до 1000 обробок за припущенням такої самої вибірки.
@@ -76,6 +76,12 @@ def cost_summary(model: str, count: int, input_usage: dict, output_usage: dict) 
     це не включає обладнання й електроенергію. Cached input не здешевлюється.
     """
     pricing = MODEL_PRICING.get(model)
+    if provider == "ollama":
+        pricing = {"assumed_provider": "ollama", "kind": "local", "currency": "USD",
+                   "source": "JSONL provider=ollama", "checked_date": "2026-10-26",
+                   "input_per_million": 0.0, "output_per_million": 0.0}
+    elif provider is not None and (pricing is None or pricing["assumed_provider"] != provider):
+        pricing = None
     cost = {"pricing": pricing, "complete": False, "estimated_api_usd": None,
             "estimated_api_usd_per_1000_documents": None, "known_usage_api_usd": None}
     if pricing is None:
@@ -95,7 +101,8 @@ def cost_summary(model: str, count: int, input_usage: dict, output_usage: dict) 
     return cost
 
 
-def summarize_results(results: list[dict], model: str) -> dict:
+def summarize_results(results: list[dict], model: str, *,
+                      contract_version: str = LEGACY_CONTRACT_VERSION, provider: str | None = None) -> dict:
     """Підсумовує обробки однієї конфігурації, не використовуючи golden.
 
     Валідність до repair бере з журналу; фінально успішні дані повторно
@@ -105,6 +112,7 @@ def summarize_results(results: list[dict], model: str) -> dict:
     """
     if not results:
         raise ValueError("Немає обробок для агрегації")
+    validation_model = model_for_contract(contract_version)
     first_valid = final_valid = repairs = repaired_valid = 0
     for result in results:
         if not isinstance(result, dict):
@@ -118,7 +126,7 @@ def summarize_results(results: list[dict], model: str) -> dict:
         if result["ok"] and not (result["first_attempt_valid"] or result["repair_attempted"]):
             raise ValueError("Успіх не пояснений первинною відповіддю або repair")
         if result["ok"]:
-            DevicePosting.model_validate(result.get("data"), strict=True)
+            validation_model.model_validate(result.get("data"), strict=True)
         first_valid += result["first_attempt_valid"]
         final_valid += result["ok"]
         repairs += result["repair_attempted"]
@@ -138,5 +146,5 @@ def summarize_results(results: list[dict], model: str) -> dict:
         "latency": {"first_attempt": latency_summary(results, "first_attempt_seconds"),
                     "pipeline": latency_summary(results, "seconds")},
         "usage": {"input_tokens": inputs, "output_tokens": outputs},
-        "cost": cost_summary(model, count, inputs, outputs),
+        "cost": cost_summary(model, count, inputs, outputs, provider=provider),
     }

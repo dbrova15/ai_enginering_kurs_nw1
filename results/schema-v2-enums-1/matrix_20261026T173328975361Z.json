@@ -1,0 +1,1500 @@
+{
+  "stage": "C",
+  "status": "completed",
+  "timestamp": "20261026T173328975361Z",
+  "authorization": "User approved 240 primary generations and API budget USD 0.25 after successful stage B",
+  "api_budget_usd": 0.25,
+  "estimated_api_usd": 0.044028,
+  "unknown_usage_reserved_usd": 0.0,
+  "contract_version": "schema-v2-enums-1",
+  "contract_sha256": "716c3e2eb27595c31177e4a6ea391c370a1e0bd8816940fc98e40ef47284a35f",
+  "primary_generations_planned": 240,
+  "sdk_retries": 0,
+  "timeout_seconds": 180,
+  "max_tokens": 512,
+  "top_p": 1,
+  "ollama_context_length": 16384,
+  "warmup_requests": 0,
+  "cold_start_policy": "First Ollama document may include model loading; no isolated cold/steady-state benchmark",
+  "order": "openai then ollama; v1/T0, v2/T0, v1/T0.7, v2/T0.7; en/ru/uk sorted IDs",
+  "pricing_snapshot": {
+    "date": "2026-10-26",
+    "input_per_million_usd": 0.15,
+    "output_per_million_usd": 0.6,
+    "cached_discount": false,
+    "source": "https://developers.openai.com/api/docs/models/gpt-4o-mini"
+  },
+  "inputs": [
+    {
+      "document_id": "HR-0297",
+      "source_sha256": "8cae5f66043c9307580a3c12bbb51e4982c1893cc881b735a776df3447195fa3",
+      "input_sha256": "ff3dc4847b772b487bea7e9b972a5489ed37f5c02c93f15dfbe32b7951f68da5"
+    },
+    {
+      "document_id": "HR-0385",
+      "source_sha256": "cf7951ec7c8589b0595caf4225c4ea936953adc69c16c14d37bfade497d1e92e",
+      "input_sha256": "fcfa7fa71480087658d4012b42c2a43fc2060b9892ed40b63020eca338d67b83"
+    },
+    {
+      "document_id": "HR-0415",
+      "source_sha256": "5da9fb045c0892cd0852d21c8922391ae3e5a7f98d2866129667fa7866ff9602",
+      "input_sha256": "47cc5f61e224f6b7f9ba573370d1ba98dbd779a34221b3049ae3c8fefe63d1a9"
+    },
+    {
+      "document_id": "HR-0463",
+      "source_sha256": "380f1c3f3f86ec30c9238efc6de2914834a8af1cd55ca88db731f754e957550e",
+      "input_sha256": "fb9ff9727239e009e9355c9f87090fa12c2d5371b97a461699b9bd43eb98b157"
+    },
+    {
+      "document_id": "HR-0640",
+      "source_sha256": "fe7fcaad5c66350bb0ac55c6ec5ba7bfc770ac3e1b34178b76bb0ed6edaf7f6f",
+      "input_sha256": "7d095b5e335751a5a0f2216cc175d9a45c7f483852a1b38bc84c09d3668851e4"
+    },
+    {
+      "document_id": "HR-0743",
+      "source_sha256": "1c6cba5c855f08597ce46c99c725cb1cf36b732176bb8d739050c6a7de0b796a",
+      "input_sha256": "fe0b4056f3b8775d07bfa50bea8a812926a3297daaa0953629312734d3fb432d"
+    },
+    {
+      "document_id": "HR-0768",
+      "source_sha256": "305985e647c36837d43e95b26829b9d4c5e65424d07c94d297676439090b86a3",
+      "input_sha256": "f45cbb042f0ed9c1e06ad55f531c62b22c14004ec8b8e346287013e3178a70ef"
+    },
+    {
+      "document_id": "HR-0773",
+      "source_sha256": "56b7bf183da1bdd4a61964fff401cdbdc6d045e4d2432263e0662f057980886a",
+      "input_sha256": "3d7a886eff24e99f0259565cb64eb7a391b978fc40f948de4921f7cdec474444"
+    },
+    {
+      "document_id": "HR-0982",
+      "source_sha256": "b5ae8e5875a12690504bd4a8b2dadcf5eefa44ec00f03d15d0947feee8b6432a",
+      "input_sha256": "0b5b55d6edd001877326f5c3cc8dbe8d2b033e60bfa7cccc5467e8513c636e3b"
+    },
+    {
+      "document_id": "HR-0001",
+      "source_sha256": "9e456a63e18abe535e2c4b492b76fac21d39b2dec82cea2c52d019b53baa28a2",
+      "input_sha256": "9e456a63e18abe535e2c4b492b76fac21d39b2dec82cea2c52d019b53baa28a2"
+    },
+    {
+      "document_id": "HR-0068",
+      "source_sha256": "d2586bad68a060a134e5ede793c94b93df7e1d784a6ea0874272bdcbf1445d68",
+      "input_sha256": "d2586bad68a060a134e5ede793c94b93df7e1d784a6ea0874272bdcbf1445d68"
+    },
+    {
+      "document_id": "HR-0109",
+      "source_sha256": "d06b491655f99a62fa83818a77181d58ba3b7d113f765fbe03eae73a4276d9ae",
+      "input_sha256": "d06b491655f99a62fa83818a77181d58ba3b7d113f765fbe03eae73a4276d9ae"
+    },
+    {
+      "document_id": "HR-0055",
+      "source_sha256": "fbe787544d8525bb6554f40eefb77cb1d24e59fafbb83979a96079fef6bf7b94",
+      "input_sha256": "fbe787544d8525bb6554f40eefb77cb1d24e59fafbb83979a96079fef6bf7b94"
+    },
+    {
+      "document_id": "HR-0056",
+      "source_sha256": "ccadabe05a03900397c56261ab8b5d7b7698d31825f5d7ec7b05a7f66c06fa4f",
+      "input_sha256": "ccadabe05a03900397c56261ab8b5d7b7698d31825f5d7ec7b05a7f66c06fa4f"
+    },
+    {
+      "document_id": "HR-0148",
+      "source_sha256": "1aa6fd4ceec300ffb7a303d98f54b3b86be41eff833038fac6c67a7a8443b022",
+      "input_sha256": "1aa6fd4ceec300ffb7a303d98f54b3b86be41eff833038fac6c67a7a8443b022"
+    },
+    {
+      "document_id": "HR-0164",
+      "source_sha256": "7a75572049b6abc7013cf43103ec64061b0f72a1989ad6e25d3ffcf86f4a25f8",
+      "input_sha256": "7a75572049b6abc7013cf43103ec64061b0f72a1989ad6e25d3ffcf86f4a25f8"
+    },
+    {
+      "document_id": "HR-0175",
+      "source_sha256": "f90bb827c6988b3860d52941b688d64e201c56aeb4f97e72f2de8014e2ddb573",
+      "input_sha256": "f90bb827c6988b3860d52941b688d64e201c56aeb4f97e72f2de8014e2ddb573"
+    },
+    {
+      "document_id": "HR-0187",
+      "source_sha256": "d771f1223e02817ebdbdbf2b4967d86de451c9a392a73ddb376b3b491858b2dd",
+      "input_sha256": "d771f1223e02817ebdbdbf2b4967d86de451c9a392a73ddb376b3b491858b2dd"
+    },
+    {
+      "document_id": "HR-0200",
+      "source_sha256": "1c6f5c08f09c6fc7af3598b61ea46d4716bc7817bf97c52ed26c7c253576f61e",
+      "input_sha256": "1c6f5c08f09c6fc7af3598b61ea46d4716bc7817bf97c52ed26c7c253576f61e"
+    },
+    {
+      "document_id": "HR-0207",
+      "source_sha256": "73346dfb6627121c20bfa5584aecd207a89bfe26e31b9cc77aa14b821debb25e",
+      "input_sha256": "73346dfb6627121c20bfa5584aecd207a89bfe26e31b9cc77aa14b821debb25e"
+    },
+    {
+      "document_id": "HR-0212",
+      "source_sha256": "40ce53b3c829be8c660abb1fdbc29b074f771152bce922b1df85a9da02030d03",
+      "input_sha256": "40ce53b3c829be8c660abb1fdbc29b074f771152bce922b1df85a9da02030d03"
+    },
+    {
+      "document_id": "HR-0213",
+      "source_sha256": "5c34f752b7c71e4ef5c6bd81fac8784c4db6ce3bb4638f8a1cf6e95aa59fcb38",
+      "input_sha256": "5c34f752b7c71e4ef5c6bd81fac8784c4db6ce3bb4638f8a1cf6e95aa59fcb38"
+    },
+    {
+      "document_id": "HR-0217",
+      "source_sha256": "949b043576a78a308ad9dd03734271efde8e59cf8b49759dbdb51f0aed9a6198",
+      "input_sha256": "949b043576a78a308ad9dd03734271efde8e59cf8b49759dbdb51f0aed9a6198"
+    },
+    {
+      "document_id": "HR-0221",
+      "source_sha256": "149b33d0f3a9be6b564b576d718685b9f4f5aac5a14e8de47bf0519bf46c7388",
+      "input_sha256": "149b33d0f3a9be6b564b576d718685b9f4f5aac5a14e8de47bf0519bf46c7388"
+    },
+    {
+      "document_id": "HR-0227",
+      "source_sha256": "76e7c76e2d5848c99b434e0e50f4fc0d618f14ec11ccce50339eed117b5a391a",
+      "input_sha256": "76e7c76e2d5848c99b434e0e50f4fc0d618f14ec11ccce50339eed117b5a391a"
+    },
+    {
+      "document_id": "HR-0228",
+      "source_sha256": "0d8eaf45a085228f1958946066d0b9e32b93445eeec5b5ac50503f2606c3f9fa",
+      "input_sha256": "0d8eaf45a085228f1958946066d0b9e32b93445eeec5b5ac50503f2606c3f9fa"
+    },
+    {
+      "document_id": "HR-0244",
+      "source_sha256": "838b25bea3e8b1acfdda0805afe51191db1dfadd002a428a1febf27218e0b0dd",
+      "input_sha256": "838b25bea3e8b1acfdda0805afe51191db1dfadd002a428a1febf27218e0b0dd"
+    },
+    {
+      "document_id": "HR-0245",
+      "source_sha256": "f5a91800e1928122249a9e9cbe1a21b28e20709e5a400c1d2825fdc3e3458334",
+      "input_sha256": "f5a91800e1928122249a9e9cbe1a21b28e20709e5a400c1d2825fdc3e3458334"
+    },
+    {
+      "document_id": "HR-0253",
+      "source_sha256": "4e30b52993dafb082b931a21cc530aaf3ccbb9c57c50123bcbf6a41afbd649e4",
+      "input_sha256": "4e30b52993dafb082b931a21cc530aaf3ccbb9c57c50123bcbf6a41afbd649e4"
+    },
+    {
+      "document_id": "HR-0254",
+      "source_sha256": "acc4cf45765a3444506216fa08324b92e100278e1743a503cb3ad9f5fcb95714",
+      "input_sha256": "acc4cf45765a3444506216fa08324b92e100278e1743a503cb3ad9f5fcb95714"
+    }
+  ],
+  "prompts": {
+    "v1": "7dc02d743950aa524fe4dc36f0804d433c88617672d2abe14b221fe358dfc5f5",
+    "v2": "3cb25d5767e00f28c924a8fd198d398b67e5c2ae751a35c3b4a6e3eef8ed8b54"
+  },
+  "api_calls": [
+    {
+      "sequence": 1,
+      "reservation_usd": 0.0021639,
+      "timestamp": "2026-10-26T17:33:29.667245+00:00",
+      "http_status": 200,
+      "input_tokens": 981,
+      "output_tokens": 49,
+      "estimated_api_usd": 0.00017655,
+      "actual_model": "gpt-4o-mini-2024-07-18"
+    },
+    {
+      "sequence": 2,
+      "reservation_usd": 0.0021276,
+      "timestamp": "2026-10-26T17:33:30.982022+00:00",
+      "http_status": 200,
+      "input_tokens": 895,
+      "output_tokens": 47,
+      "estimated_api_usd": 0.00016245,
+      "actual_model": "gpt-4o-mini-2024-07-18"
+    },
+    {
+      "sequence": 3,
+      "reservation_usd": 0.0020869499999999997,
+      "timestamp": "2026-10-26T17:33:32.623479+00:00",
+      "http_status": 200,
+      "input_tokens": 870,
+      "output_tokens": 47,
+      "estimated_api_usd": 0.00015869999999999998,
+      "actual_model": "gpt-4o-mini-2024-07-18"
+    },
+    {
+      "sequence": 4,
+      "reservation_usd": 0.0026636999999999997,
+      "timestamp": "2026-10-26T17:33:33.997650+00:00",
+      "http_status": 200,
+      "input_tokens": 1650,
+      "output_tokens": 47,
+      "estimated_api_usd": 0.0002757,
+      "actual_model": "gpt-4o-mini-2024-07-18"
+    },
+    {
+      "sequence": 5,
+      "reservation_usd": 0.0022749,
+      "timestamp": "2026-10-26T17:33:35.102049+00:00",
+      "http_status": 200,
+      "input_tokens": 1119,
+      "output_tokens": 48,
+      "estimated_api_usd": 0.00019664999999999998,
+      "actual_model": "gpt-4o-mini-2024-07-18"
+    },
+    {
+      "sequence": 6,
+      "reservation_usd": 0.0036277499999999995,
+      "timestamp": "2026-10-26T17:33:36.887027+00:00",
+      "http_status": 200,
+      "input_tokens": 2831,
+      "output_tokens": 46,
+      "estimated_api_usd": 0.00045225,
+      "actual_model": "gpt-4o-mini-2024-07-18"
+    },
+    {
+      "sequence": 7,
+      "reservation_usd": 0.00211815,
+      "timestamp": "2026-10-26T17:33:39.233837+00:00",
+      "http_status": 200,
+      "input_tokens": 875,
+      "output_tokens": 46,
+      "estimated_api_usd": 0.00015884999999999999,
+      "actual_model": "gpt-4o-mini-2024-07-18"
+    },
+    {
+      "sequence": 8,
+      "reservation_usd": 0.0021649499999999997,
+      "timestamp": "2026-10-26T17:33:40.669983+00:00",
+      "http_status": 200,
+      "input_tokens": 946,
+      "output_tokens": 45,
+      "estimated_api_usd": 0.0001689,
+      "actual_model": "gpt-4o-mini-2024-07-18"
+    },
+    {
+      "sequence": 9,
+      "reservation_usd": 0.0037232999999999997,
+      "timestamp": "2026-10-26T17:33:41.782998+00:00",
+      "http_status": 200,
+      "input_tokens": 2892,
+      "output_tokens": 53,
+      "estimated_api_usd": 0.00046560000000000004,
+      "actual_model": "gpt-4o-mini-2024-07-18"
+    },
+    {
+      "sequence": 10,
+      "reservation_usd": 0.00686835,
+      "timestamp": "2026-10-26T17:33:43.580897+00:00",
+      "http_status": 200,
+      "input_tokens": 6753,
+      "output_tokens": 47,
+      "estimated_api_usd": 0.0010411499999999998,
+      "actual_model": "gpt-4o-mini-2024-07-18"
+    },
+    {
+      "sequence": 11,
+      "reservation_usd": 0.0030359999999999996,
+      "timestamp": "2026-10-26T17:33:44.926938+00:00",
+      "http_status": 200,
+      "input_tokens": 1727,
+      "output_tokens": 46,
+      "estimated_api_usd": 0.00028665000000000006,
+      "actual_model": "gpt-4o-mini-2024-07-18"
+    },
+    {
+      "sequence": 12,
+      "reservation_usd": 0.0024786,
+      "timestamp": "2026-10-26T17:33:46.399114+00:00",
+      "http_status": 200,
+      "input_tokens": 1205,
+      "output_tokens": 51,
+      "estimated_api_usd": 0.00021135,
+      "actual_model": "gpt-4o-mini-2024-07-18"
+    },
+    {
+      "sequence": 13,
+      "reservation_usd": 0.0034176,
+      "timestamp": "2026-10-26T17:33:47.752672+00:00",
+      "http_status": 200,
+      "input_tokens": 2706,
+      "output_tokens": 48,
+      "estimated_api_usd": 0.0004347,
+      "actual_model": "gpt-4o-mini-2024-07-18"
+    },
+    {
+      "sequence": 14,
+      "reservation_usd": 0.0037286999999999997,
+      "timestamp": "2026-10-26T17:33:49.126267+00:00",
+      "http_status": 200,
+      "input_tokens": 2925,
+      "output_tokens": 46,
+      "estimated_api_usd": 0.00046635000000000003,
+      "actual_model": "gpt-4o-mini-2024-07-18"
+    },
+    {
+      "sequence": 15,
+      "reservation_usd": 0.00549495,
+      "timestamp": "2026-10-26T17:33:50.440719+00:00",
+      "http_status": 200,
+      "input_tokens": 5098,
+      "output_tokens": 47,
+      "estimated_api_usd": 0.0007929,
+      "actual_model": "gpt-4o-mini-2024-07-18"
+    },
+    {
+      "sequence": 16,
+      "reservation_usd": 0.0024955499999999996,
+      "timestamp": "2026-10-26T17:33:52.776693+00:00",
+      "http_status": 200,
+      "input_tokens": 1326,
+      "output_tokens": 47,
+      "estimated_api_usd": 0.0002271,
+      "actual_model": "gpt-4o-mini-2024-07-18"
+    },
+    {
+      "sequence": 17,
+      "reservation_usd": 0.0031004999999999995,
+      "timestamp": "2026-10-26T17:33:54.076744+00:00",
+      "http_status": 200,
+      "input_tokens": 2176,
+      "output_tokens": 45,
+      "estimated_api_usd": 0.00035339999999999997,
+      "actual_model": "gpt-4o-mini-2024-07-18"
+    },
+    {
+      "sequence": 18,
+      "reservation_usd": 0.0020905499999999996,
+      "timestamp": "2026-10-26T17:33:55.407827+00:00",
+      "http_status": 200,
+      "input_tokens": 856,
+      "output_tokens": 45,
+      "estimated_api_usd": 0.0001554,
+      "actual_model": "gpt-4o-mini-2024-07-18"
+    },
+    {
+      "sequence": 19,
+      "reservation_usd": 0.0032303999999999996,
+      "timestamp": "2026-10-26T17:33:56.515437+00:00",
+      "http_status": 200,
+      "input_tokens": 2235,
+      "output_tokens": 51,
+      "estimated_api_usd": 0.00036585000000000003,
+      "actual_model": "gpt-4o-mini-2024-07-18"
+    },
+    {
+      "sequence": 20,
+      "reservation_usd": 0.0022954499999999997,
+      "timestamp": "2026-10-26T17:33:58.065386+00:00",
+      "http_status": 200,
+      "input_tokens": 1107,
+      "output_tokens": 43,
+      "estimated_api_usd": 0.00019185,
+      "actual_model": "gpt-4o-mini-2024-07-18"
+    },
+    {
+      "sequence": 21,
+      "reservation_usd": 0.0035058,
+      "timestamp": "2026-10-26T17:33:59.174584+00:00",
+      "http_status": 200,
+      "input_tokens": 2702,
+      "output_tokens": 42,
+      "estimated_api_usd": 0.0004305,
+      "actual_model": "gpt-4o-mini-2024-07-18"
+    },
+    {
+      "sequence": 22,
+      "reservation_usd": 0.0025784999999999996,
+      "timestamp": "2026-10-26T17:34:00.331101+00:00",
+      "http_status": 200,
+      "input_tokens": 1480,
+      "output_tokens": 50,
+      "estimated_api_usd": 0.000252,
+      "actual_model": "gpt-4o-mini-2024-07-18"
+    },
+    {
+      "sequence": 23,
+      "reservation_usd": 0.0026920499999999997,
+      "timestamp": "2026-10-26T17:34:01.502340+00:00",
+      "http_status": 200,
+      "input_tokens": 1559,
+      "output_tokens": 50,
+      "estimated_api_usd": 0.00026385000000000004,
+      "actual_model": "gpt-4o-mini-2024-07-18"
+    },
+    {
+      "sequence": 24,
+      "reservation_usd": 0.0039456,
+      "timestamp": "2026-10-26T17:34:02.596396+00:00",
+      "http_status": 200,
+      "input_tokens": 3230,
+      "output_tokens": 49,
+      "estimated_api_usd": 0.0005139,
+      "actual_model": "gpt-4o-mini-2024-07-18"
+    },
+    {
+      "sequence": 25,
+      "reservation_usd": 0.004286099999999999,
+      "timestamp": "2026-10-26T17:34:04.429004+00:00",
+      "http_status": 200,
+      "input_tokens": 3418,
+      "output_tokens": 51,
+      "estimated_api_usd": 0.0005432999999999999,
+      "actual_model": "gpt-4o-mini-2024-07-18"
+    },
+    {
+      "sequence": 26,
+      "reservation_usd": 0.0024862499999999997,
+      "timestamp": "2026-10-26T17:34:06.177635+00:00",
+      "http_status": 200,
+      "input_tokens": 1368,
+      "output_tokens": 46,
+      "estimated_api_usd": 0.0002328,
+      "actual_model": "gpt-4o-mini-2024-07-18"
+    },
+    {
+      "sequence": 27,
+      "reservation_usd": 0.00372255,
+      "timestamp": "2026-10-26T17:34:07.494602+00:00",
+      "http_status": 200,
+      "input_tokens": 2971,
+      "output_tokens": 49,
+      "estimated_api_usd": 0.00047505,
+      "actual_model": "gpt-4o-mini-2024-07-18"
+    },
+    {
+      "sequence": 28,
+      "reservation_usd": 0.0025709999999999995,
+      "timestamp": "2026-10-26T17:34:08.548237+00:00",
+      "http_status": 200,
+      "input_tokens": 1454,
+      "output_tokens": 48,
+      "estimated_api_usd": 0.0002469,
+      "actual_model": "gpt-4o-mini-2024-07-18"
+    },
+    {
+      "sequence": 29,
+      "reservation_usd": 0.0027944999999999997,
+      "timestamp": "2026-10-26T17:34:09.586157+00:00",
+      "http_status": 200,
+      "input_tokens": 1786,
+      "output_tokens": 46,
+      "estimated_api_usd": 0.0002955,
+      "actual_model": "gpt-4o-mini-2024-07-18"
+    },
+    {
+      "sequence": 30,
+      "reservation_usd": 0.0023939999999999994,
+      "timestamp": "2026-10-26T17:34:11.466087+00:00",
+      "http_status": 200,
+      "input_tokens": 1290,
+      "output_tokens": 50,
+      "estimated_api_usd": 0.0002235,
+      "actual_model": "gpt-4o-mini-2024-07-18"
+    },
+    {
+      "sequence": 31,
+      "reservation_usd": 0.00243735,
+      "timestamp": "2026-10-26T17:34:12.888955+00:00",
+      "http_status": 200,
+      "input_tokens": 1323,
+      "output_tokens": 49,
+      "estimated_api_usd": 0.00022784999999999998,
+      "actual_model": "gpt-4o-mini-2024-07-18"
+    },
+    {
+      "sequence": 32,
+      "reservation_usd": 0.0024010499999999996,
+      "timestamp": "2026-10-26T17:34:14.342045+00:00",
+      "http_status": 200,
+      "input_tokens": 1237,
+      "output_tokens": 48,
+      "estimated_api_usd": 0.00021434999999999998,
+      "actual_model": "gpt-4o-mini-2024-07-18"
+    },
+    {
+      "sequence": 33,
+      "reservation_usd": 0.0023603999999999995,
+      "timestamp": "2026-10-26T17:34:15.738125+00:00",
+      "http_status": 200,
+      "input_tokens": 1212,
+      "output_tokens": 49,
+      "estimated_api_usd": 0.00021119999999999998,
+      "actual_model": "gpt-4o-mini-2024-07-18"
+    },
+    {
+      "sequence": 34,
+      "reservation_usd": 0.0029371499999999995,
+      "timestamp": "2026-10-26T17:34:16.802454+00:00",
+      "http_status": 200,
+      "input_tokens": 1992,
+      "output_tokens": 49,
+      "estimated_api_usd": 0.0003282,
+      "actual_model": "gpt-4o-mini-2024-07-18"
+    },
+    {
+      "sequence": 35,
+      "reservation_usd": 0.00254835,
+      "timestamp": "2026-10-26T17:34:18.115900+00:00",
+      "http_status": 200,
+      "input_tokens": 1461,
+      "output_tokens": 48,
+      "estimated_api_usd": 0.00024795,
+      "actual_model": "gpt-4o-mini-2024-07-18"
+    },
+    {
+      "sequence": 36,
+      "reservation_usd": 0.0039011999999999996,
+      "timestamp": "2026-10-26T17:34:19.684711+00:00",
+      "http_status": 200,
+      "input_tokens": 3173,
+      "output_tokens": 48,
+      "estimated_api_usd": 0.00050475,
+      "actual_model": "gpt-4o-mini-2024-07-18"
+    },
+    {
+      "sequence": 37,
+      "reservation_usd": 0.0023916,
+      "timestamp": "2026-10-26T17:34:20.846089+00:00",
+      "http_status": 200,
+      "input_tokens": 1217,
+      "output_tokens": 48,
+      "estimated_api_usd": 0.00021134999999999996,
+      "actual_model": "gpt-4o-mini-2024-07-18"
+    },
+    {
+      "sequence": 38,
+      "reservation_usd": 0.0024383999999999994,
+      "timestamp": "2026-10-26T17:34:22.177192+00:00",
+      "http_status": 200,
+      "input_tokens": 1288,
+      "output_tokens": 47,
+      "estimated_api_usd": 0.0002214,
+      "actual_model": "gpt-4o-mini-2024-07-18"
+    },
+    {
+      "sequence": 39,
+      "reservation_usd": 0.0039967499999999994,
+      "timestamp": "2026-10-26T17:34:23.616595+00:00",
+      "http_status": 200,
+      "input_tokens": 3234,
+      "output_tokens": 53,
+      "estimated_api_usd": 0.0005168999999999999,
+      "actual_model": "gpt-4o-mini-2024-07-18"
+    },
+    {
+      "sequence": 40,
+      "reservation_usd": 0.007141799999999999,
+      "timestamp": "2026-10-26T17:34:26.186807+00:00",
+      "http_status": 200,
+      "input_tokens": 7095,
+      "output_tokens": 49,
+      "estimated_api_usd": 0.00109365,
+      "actual_model": "gpt-4o-mini-2024-07-18"
+    },
+    {
+      "sequence": 41,
+      "reservation_usd": 0.00330945,
+      "timestamp": "2026-10-26T17:34:27.665245+00:00",
+      "http_status": 200,
+      "input_tokens": 2069,
+      "output_tokens": 46,
+      "estimated_api_usd": 0.00033795,
+      "actual_model": "gpt-4o-mini-2024-07-18"
+    },
+    {
+      "sequence": 42,
+      "reservation_usd": 0.00275205,
+      "timestamp": "2026-10-26T17:34:28.922610+00:00",
+      "http_status": 200,
+      "input_tokens": 1547,
+      "output_tokens": 53,
+      "estimated_api_usd": 0.00026385,
+      "actual_model": "gpt-4o-mini-2024-07-18"
+    },
+    {
+      "sequence": 43,
+      "reservation_usd": 0.0036910499999999995,
+      "timestamp": "2026-10-26T17:34:30.404287+00:00",
+      "http_status": 200,
+      "input_tokens": 3048,
+      "output_tokens": 48,
+      "estimated_api_usd": 0.000486,
+      "actual_model": "gpt-4o-mini-2024-07-18"
+    },
+    {
+      "sequence": 44,
+      "reservation_usd": 0.0040021499999999995,
+      "timestamp": "2026-10-26T17:34:31.549092+00:00",
+      "http_status": 200,
+      "input_tokens": 3267,
+      "output_tokens": 55,
+      "estimated_api_usd": 0.00052305,
+      "actual_model": "gpt-4o-mini-2024-07-18"
+    },
+    {
+      "sequence": 45,
+      "reservation_usd": 0.0057684,
+      "timestamp": "2026-10-26T17:34:33.057009+00:00",
+      "http_status": 200,
+      "input_tokens": 5440,
+      "output_tokens": 49,
+      "estimated_api_usd": 0.0008454,
+      "actual_model": "gpt-4o-mini-2024-07-18"
+    },
+    {
+      "sequence": 46,
+      "reservation_usd": 0.0027689999999999998,
+      "timestamp": "2026-10-26T17:34:34.609640+00:00",
+      "http_status": 200,
+      "input_tokens": 1668,
+      "output_tokens": 47,
+      "estimated_api_usd": 0.0002784,
+      "actual_model": "gpt-4o-mini-2024-07-18"
+    },
+    {
+      "sequence": 47,
+      "reservation_usd": 0.0033739499999999997,
+      "timestamp": "2026-10-26T17:34:35.638873+00:00",
+      "http_status": 200,
+      "input_tokens": 2518,
+      "output_tokens": 47,
+      "estimated_api_usd": 0.0004059,
+      "actual_model": "gpt-4o-mini-2024-07-18"
+    },
+    {
+      "sequence": 48,
+      "reservation_usd": 0.0023639999999999993,
+      "timestamp": "2026-10-26T17:34:36.811808+00:00",
+      "http_status": 200,
+      "input_tokens": 1198,
+      "output_tokens": 45,
+      "estimated_api_usd": 0.00020669999999999998,
+      "actual_model": "gpt-4o-mini-2024-07-18"
+    },
+    {
+      "sequence": 49,
+      "reservation_usd": 0.0035038499999999998,
+      "timestamp": "2026-10-26T17:34:37.998949+00:00",
+      "http_status": 200,
+      "input_tokens": 2577,
+      "output_tokens": 47,
+      "estimated_api_usd": 0.00041475,
+      "actual_model": "gpt-4o-mini-2024-07-18"
+    },
+    {
+      "sequence": 50,
+      "reservation_usd": 0.0025689,
+      "timestamp": "2026-10-26T17:34:39.686565+00:00",
+      "http_status": 200,
+      "input_tokens": 1449,
+      "output_tokens": 43,
+      "estimated_api_usd": 0.00024315,
+      "actual_model": "gpt-4o-mini-2024-07-18"
+    },
+    {
+      "sequence": 51,
+      "reservation_usd": 0.0037792499999999996,
+      "timestamp": "2026-10-26T17:34:40.877466+00:00",
+      "http_status": 200,
+      "input_tokens": 3044,
+      "output_tokens": 43,
+      "estimated_api_usd": 0.00048239999999999996,
+      "actual_model": "gpt-4o-mini-2024-07-18"
+    },
+    {
+      "sequence": 52,
+      "reservation_usd": 0.00285195,
+      "timestamp": "2026-10-26T17:34:42.027815+00:00",
+      "http_status": 200,
+      "input_tokens": 1822,
+      "output_tokens": 50,
+      "estimated_api_usd": 0.0003033,
+      "actual_model": "gpt-4o-mini-2024-07-18"
+    },
+    {
+      "sequence": 53,
+      "reservation_usd": 0.0029654999999999994,
+      "timestamp": "2026-10-26T17:34:43.126844+00:00",
+      "http_status": 200,
+      "input_tokens": 1901,
+      "output_tokens": 52,
+      "estimated_api_usd": 0.00031634999999999996,
+      "actual_model": "gpt-4o-mini-2024-07-18"
+    },
+    {
+      "sequence": 54,
+      "reservation_usd": 0.00421905,
+      "timestamp": "2026-10-26T17:34:44.345457+00:00",
+      "http_status": 200,
+      "input_tokens": 3572,
+      "output_tokens": 48,
+      "estimated_api_usd": 0.0005646,
+      "actual_model": "gpt-4o-mini-2024-07-18"
+    },
+    {
+      "sequence": 55,
+      "reservation_usd": 0.004559549999999999,
+      "timestamp": "2026-10-26T17:34:45.849611+00:00",
+      "http_status": 200,
+      "input_tokens": 3760,
+      "output_tokens": 51,
+      "estimated_api_usd": 0.0005946,
+      "actual_model": "gpt-4o-mini-2024-07-18"
+    },
+    {
+      "sequence": 56,
+      "reservation_usd": 0.0027597,
+      "timestamp": "2026-10-26T17:34:47.013465+00:00",
+      "http_status": 200,
+      "input_tokens": 1710,
+      "output_tokens": 43,
+      "estimated_api_usd": 0.00028230000000000003,
+      "actual_model": "gpt-4o-mini-2024-07-18"
+    },
+    {
+      "sequence": 57,
+      "reservation_usd": 0.0039959999999999996,
+      "timestamp": "2026-10-26T17:34:48.780119+00:00",
+      "http_status": 200,
+      "input_tokens": 3313,
+      "output_tokens": 49,
+      "estimated_api_usd": 0.00052635,
+      "actual_model": "gpt-4o-mini-2024-07-18"
+    },
+    {
+      "sequence": 58,
+      "reservation_usd": 0.0028444499999999997,
+      "timestamp": "2026-10-26T17:34:51.954528+00:00",
+      "http_status": 200,
+      "input_tokens": 1796,
+      "output_tokens": 48,
+      "estimated_api_usd": 0.0002982,
+      "actual_model": "gpt-4o-mini-2024-07-18"
+    },
+    {
+      "sequence": 59,
+      "reservation_usd": 0.00306795,
+      "timestamp": "2026-10-26T17:34:53.133383+00:00",
+      "http_status": 200,
+      "input_tokens": 2128,
+      "output_tokens": 46,
+      "estimated_api_usd": 0.0003468,
+      "actual_model": "gpt-4o-mini-2024-07-18"
+    },
+    {
+      "sequence": 60,
+      "reservation_usd": 0.00266745,
+      "timestamp": "2026-10-26T17:34:54.521623+00:00",
+      "http_status": 200,
+      "input_tokens": 1632,
+      "output_tokens": 50,
+      "estimated_api_usd": 0.00027479999999999996,
+      "actual_model": "gpt-4o-mini-2024-07-18"
+    },
+    {
+      "sequence": 61,
+      "reservation_usd": 0.0021639,
+      "timestamp": "2026-10-26T17:34:55.800172+00:00",
+      "http_status": 200,
+      "input_tokens": 981,
+      "output_tokens": 51,
+      "estimated_api_usd": 0.00017775,
+      "actual_model": "gpt-4o-mini-2024-07-18"
+    },
+    {
+      "sequence": 62,
+      "reservation_usd": 0.0021276,
+      "timestamp": "2026-10-26T17:34:57.029630+00:00",
+      "http_status": 200,
+      "input_tokens": 895,
+      "output_tokens": 47,
+      "estimated_api_usd": 0.00016245,
+      "actual_model": "gpt-4o-mini-2024-07-18"
+    },
+    {
+      "sequence": 63,
+      "reservation_usd": 0.0020869499999999997,
+      "timestamp": "2026-10-26T17:34:58.133431+00:00",
+      "http_status": 200,
+      "input_tokens": 870,
+      "output_tokens": 47,
+      "estimated_api_usd": 0.00015869999999999998,
+      "actual_model": "gpt-4o-mini-2024-07-18"
+    },
+    {
+      "sequence": 64,
+      "reservation_usd": 0.0026636999999999997,
+      "timestamp": "2026-10-26T17:34:59.196556+00:00",
+      "http_status": 200,
+      "input_tokens": 1650,
+      "output_tokens": 47,
+      "estimated_api_usd": 0.0002757,
+      "actual_model": "gpt-4o-mini-2024-07-18"
+    },
+    {
+      "sequence": 65,
+      "reservation_usd": 0.0022749,
+      "timestamp": "2026-10-26T17:35:00.376122+00:00",
+      "http_status": 200,
+      "input_tokens": 1119,
+      "output_tokens": 48,
+      "estimated_api_usd": 0.00019664999999999998,
+      "actual_model": "gpt-4o-mini-2024-07-18"
+    },
+    {
+      "sequence": 66,
+      "reservation_usd": 0.0036277499999999995,
+      "timestamp": "2026-10-26T17:35:01.563604+00:00",
+      "http_status": 200,
+      "input_tokens": 2831,
+      "output_tokens": 69,
+      "estimated_api_usd": 0.00046604999999999997,
+      "actual_model": "gpt-4o-mini-2024-07-18"
+    },
+    {
+      "sequence": 67,
+      "reservation_usd": 0.00211815,
+      "timestamp": "2026-10-26T17:35:02.911427+00:00",
+      "http_status": 200,
+      "input_tokens": 875,
+      "output_tokens": 46,
+      "estimated_api_usd": 0.00015884999999999999,
+      "actual_model": "gpt-4o-mini-2024-07-18"
+    },
+    {
+      "sequence": 68,
+      "reservation_usd": 0.0021649499999999997,
+      "timestamp": "2026-10-26T17:35:03.984609+00:00",
+      "http_status": 200,
+      "input_tokens": 946,
+      "output_tokens": 45,
+      "estimated_api_usd": 0.0001689,
+      "actual_model": "gpt-4o-mini-2024-07-18"
+    },
+    {
+      "sequence": 69,
+      "reservation_usd": 0.0037232999999999997,
+      "timestamp": "2026-10-26T17:35:05.002015+00:00",
+      "http_status": 200,
+      "input_tokens": 2892,
+      "output_tokens": 53,
+      "estimated_api_usd": 0.00046560000000000004,
+      "actual_model": "gpt-4o-mini-2024-07-18"
+    },
+    {
+      "sequence": 70,
+      "reservation_usd": 0.00686835,
+      "timestamp": "2026-10-26T17:35:06.375356+00:00",
+      "http_status": 200,
+      "input_tokens": 6753,
+      "output_tokens": 47,
+      "estimated_api_usd": 0.0010411499999999998,
+      "actual_model": "gpt-4o-mini-2024-07-18"
+    },
+    {
+      "sequence": 71,
+      "reservation_usd": 0.0030359999999999996,
+      "timestamp": "2026-10-26T17:35:07.523429+00:00",
+      "http_status": 200,
+      "input_tokens": 1727,
+      "output_tokens": 46,
+      "estimated_api_usd": 0.00028665000000000006,
+      "actual_model": "gpt-4o-mini-2024-07-18"
+    },
+    {
+      "sequence": 72,
+      "reservation_usd": 0.0024786,
+      "timestamp": "2026-10-26T17:35:08.743323+00:00",
+      "http_status": 200,
+      "input_tokens": 1205,
+      "output_tokens": 51,
+      "estimated_api_usd": 0.00021135,
+      "actual_model": "gpt-4o-mini-2024-07-18"
+    },
+    {
+      "sequence": 73,
+      "reservation_usd": 0.0034176,
+      "timestamp": "2026-10-26T17:35:10.012366+00:00",
+      "http_status": 200,
+      "input_tokens": 2706,
+      "output_tokens": 48,
+      "estimated_api_usd": 0.0004347,
+      "actual_model": "gpt-4o-mini-2024-07-18"
+    },
+    {
+      "sequence": 74,
+      "reservation_usd": 0.0037286999999999997,
+      "timestamp": "2026-10-26T17:35:11.122371+00:00",
+      "http_status": 200,
+      "input_tokens": 2925,
+      "output_tokens": 46,
+      "estimated_api_usd": 0.00046635000000000003,
+      "actual_model": "gpt-4o-mini-2024-07-18"
+    },
+    {
+      "sequence": 75,
+      "reservation_usd": 0.00549495,
+      "timestamp": "2026-10-26T17:35:12.232122+00:00",
+      "http_status": 200,
+      "input_tokens": 5098,
+      "output_tokens": 47,
+      "estimated_api_usd": 0.0007929,
+      "actual_model": "gpt-4o-mini-2024-07-18"
+    },
+    {
+      "sequence": 76,
+      "reservation_usd": 0.0024955499999999996,
+      "timestamp": "2026-10-26T17:35:13.548454+00:00",
+      "http_status": 200,
+      "input_tokens": 1326,
+      "output_tokens": 47,
+      "estimated_api_usd": 0.0002271,
+      "actual_model": "gpt-4o-mini-2024-07-18"
+    },
+    {
+      "sequence": 77,
+      "reservation_usd": 0.0031004999999999995,
+      "timestamp": "2026-10-26T17:35:14.935748+00:00",
+      "http_status": 200,
+      "input_tokens": 2176,
+      "output_tokens": 45,
+      "estimated_api_usd": 0.00035339999999999997,
+      "actual_model": "gpt-4o-mini-2024-07-18"
+    },
+    {
+      "sequence": 78,
+      "reservation_usd": 0.0020905499999999996,
+      "timestamp": "2026-10-26T17:35:16.074012+00:00",
+      "http_status": 200,
+      "input_tokens": 856,
+      "output_tokens": 45,
+      "estimated_api_usd": 0.0001554,
+      "actual_model": "gpt-4o-mini-2024-07-18"
+    },
+    {
+      "sequence": 79,
+      "reservation_usd": 0.0032303999999999996,
+      "timestamp": "2026-10-26T17:35:17.128923+00:00",
+      "http_status": 200,
+      "input_tokens": 2235,
+      "output_tokens": 51,
+      "estimated_api_usd": 0.00036585000000000003,
+      "actual_model": "gpt-4o-mini-2024-07-18"
+    },
+    {
+      "sequence": 80,
+      "reservation_usd": 0.0022954499999999997,
+      "timestamp": "2026-10-26T17:35:18.367969+00:00",
+      "http_status": 200,
+      "input_tokens": 1107,
+      "output_tokens": 43,
+      "estimated_api_usd": 0.00019185,
+      "actual_model": "gpt-4o-mini-2024-07-18"
+    },
+    {
+      "sequence": 81,
+      "reservation_usd": 0.0035058,
+      "timestamp": "2026-10-26T17:35:19.683235+00:00",
+      "http_status": 200,
+      "input_tokens": 2702,
+      "output_tokens": 42,
+      "estimated_api_usd": 0.0004305,
+      "actual_model": "gpt-4o-mini-2024-07-18"
+    },
+    {
+      "sequence": 82,
+      "reservation_usd": 0.0025784999999999996,
+      "timestamp": "2026-10-26T17:35:20.879122+00:00",
+      "http_status": 200,
+      "input_tokens": 1480,
+      "output_tokens": 50,
+      "estimated_api_usd": 0.000252,
+      "actual_model": "gpt-4o-mini-2024-07-18"
+    },
+    {
+      "sequence": 83,
+      "reservation_usd": 0.0026920499999999997,
+      "timestamp": "2026-10-26T17:35:22.063627+00:00",
+      "http_status": 200,
+      "input_tokens": 1559,
+      "output_tokens": 50,
+      "estimated_api_usd": 0.00026385000000000004,
+      "actual_model": "gpt-4o-mini-2024-07-18"
+    },
+    {
+      "sequence": 84,
+      "reservation_usd": 0.0039456,
+      "timestamp": "2026-10-26T17:35:23.290615+00:00",
+      "http_status": 200,
+      "input_tokens": 3230,
+      "output_tokens": 68,
+      "estimated_api_usd": 0.0005252999999999999,
+      "actual_model": "gpt-4o-mini-2024-07-18"
+    },
+    {
+      "sequence": 85,
+      "reservation_usd": 0.004286099999999999,
+      "timestamp": "2026-10-26T17:35:24.932517+00:00",
+      "http_status": 200,
+      "input_tokens": 3418,
+      "output_tokens": 51,
+      "estimated_api_usd": 0.0005432999999999999,
+      "actual_model": "gpt-4o-mini-2024-07-18"
+    },
+    {
+      "sequence": 86,
+      "reservation_usd": 0.0024862499999999997,
+      "timestamp": "2026-10-26T17:35:26.062714+00:00",
+      "http_status": 200,
+      "input_tokens": 1368,
+      "output_tokens": 46,
+      "estimated_api_usd": 0.0002328,
+      "actual_model": "gpt-4o-mini-2024-07-18"
+    },
+    {
+      "sequence": 87,
+      "reservation_usd": 0.00372255,
+      "timestamp": "2026-10-26T17:35:27.230567+00:00",
+      "http_status": 200,
+      "input_tokens": 2971,
+      "output_tokens": 49,
+      "estimated_api_usd": 0.00047505,
+      "actual_model": "gpt-4o-mini-2024-07-18"
+    },
+    {
+      "sequence": 88,
+      "reservation_usd": 0.0025709999999999995,
+      "timestamp": "2026-10-26T17:35:28.381517+00:00",
+      "http_status": 200,
+      "input_tokens": 1454,
+      "output_tokens": 48,
+      "estimated_api_usd": 0.0002469,
+      "actual_model": "gpt-4o-mini-2024-07-18"
+    },
+    {
+      "sequence": 89,
+      "reservation_usd": 0.0027944999999999997,
+      "timestamp": "2026-10-26T17:35:29.636593+00:00",
+      "http_status": 200,
+      "input_tokens": 1786,
+      "output_tokens": 46,
+      "estimated_api_usd": 0.0002955,
+      "actual_model": "gpt-4o-mini-2024-07-18"
+    },
+    {
+      "sequence": 90,
+      "reservation_usd": 0.0023939999999999994,
+      "timestamp": "2026-10-26T17:35:30.701807+00:00",
+      "http_status": 200,
+      "input_tokens": 1290,
+      "output_tokens": 50,
+      "estimated_api_usd": 0.0002235,
+      "actual_model": "gpt-4o-mini-2024-07-18"
+    },
+    {
+      "sequence": 91,
+      "reservation_usd": 0.00243735,
+      "timestamp": "2026-10-26T17:35:32.170552+00:00",
+      "http_status": 200,
+      "input_tokens": 1323,
+      "output_tokens": 49,
+      "estimated_api_usd": 0.00022784999999999998,
+      "actual_model": "gpt-4o-mini-2024-07-18"
+    },
+    {
+      "sequence": 92,
+      "reservation_usd": 0.0024010499999999996,
+      "timestamp": "2026-10-26T17:35:33.440569+00:00",
+      "http_status": 200,
+      "input_tokens": 1237,
+      "output_tokens": 47,
+      "estimated_api_usd": 0.00021374999999999996,
+      "actual_model": "gpt-4o-mini-2024-07-18"
+    },
+    {
+      "sequence": 93,
+      "reservation_usd": 0.0023603999999999995,
+      "timestamp": "2026-10-26T17:35:34.501599+00:00",
+      "http_status": 200,
+      "input_tokens": 1212,
+      "output_tokens": 49,
+      "estimated_api_usd": 0.00021119999999999998,
+      "actual_model": "gpt-4o-mini-2024-07-18"
+    },
+    {
+      "sequence": 94,
+      "reservation_usd": 0.0029371499999999995,
+      "timestamp": "2026-10-26T17:35:35.740520+00:00",
+      "http_status": 200,
+      "input_tokens": 1992,
+      "output_tokens": 49,
+      "estimated_api_usd": 0.0003282,
+      "actual_model": "gpt-4o-mini-2024-07-18"
+    },
+    {
+      "sequence": 95,
+      "reservation_usd": 0.00254835,
+      "timestamp": "2026-10-26T17:35:37.459631+00:00",
+      "http_status": 200,
+      "input_tokens": 1461,
+      "output_tokens": 48,
+      "estimated_api_usd": 0.00024795,
+      "actual_model": "gpt-4o-mini-2024-07-18"
+    },
+    {
+      "sequence": 96,
+      "reservation_usd": 0.0039011999999999996,
+      "timestamp": "2026-10-26T17:35:38.765374+00:00",
+      "http_status": 200,
+      "input_tokens": 3173,
+      "output_tokens": 51,
+      "estimated_api_usd": 0.00050655,
+      "actual_model": "gpt-4o-mini-2024-07-18"
+    },
+    {
+      "sequence": 97,
+      "reservation_usd": 0.0023916,
+      "timestamp": "2026-10-26T17:35:40.634730+00:00",
+      "http_status": 200,
+      "input_tokens": 1217,
+      "output_tokens": 48,
+      "estimated_api_usd": 0.00021134999999999996,
+      "actual_model": "gpt-4o-mini-2024-07-18"
+    },
+    {
+      "sequence": 98,
+      "reservation_usd": 0.0024383999999999994,
+      "timestamp": "2026-10-26T17:35:41.863047+00:00",
+      "http_status": 200,
+      "input_tokens": 1288,
+      "output_tokens": 47,
+      "estimated_api_usd": 0.0002214,
+      "actual_model": "gpt-4o-mini-2024-07-18"
+    },
+    {
+      "sequence": 99,
+      "reservation_usd": 0.0039967499999999994,
+      "timestamp": "2026-10-26T17:35:43.168272+00:00",
+      "http_status": 200,
+      "input_tokens": 3234,
+      "output_tokens": 53,
+      "estimated_api_usd": 0.0005168999999999999,
+      "actual_model": "gpt-4o-mini-2024-07-18"
+    },
+    {
+      "sequence": 100,
+      "reservation_usd": 0.007141799999999999,
+      "timestamp": "2026-10-26T17:35:44.644086+00:00",
+      "http_status": 200,
+      "input_tokens": 7095,
+      "output_tokens": 47,
+      "estimated_api_usd": 0.00109245,
+      "actual_model": "gpt-4o-mini-2024-07-18"
+    },
+    {
+      "sequence": 101,
+      "reservation_usd": 0.00330945,
+      "timestamp": "2026-10-26T17:35:46.732219+00:00",
+      "http_status": 200,
+      "input_tokens": 2069,
+      "output_tokens": 48,
+      "estimated_api_usd": 0.00033915,
+      "actual_model": "gpt-4o-mini-2024-07-18"
+    },
+    {
+      "sequence": 102,
+      "reservation_usd": 0.00275205,
+      "timestamp": "2026-10-26T17:35:48.232251+00:00",
+      "http_status": 200,
+      "input_tokens": 1547,
+      "output_tokens": 51,
+      "estimated_api_usd": 0.00026264999999999996,
+      "actual_model": "gpt-4o-mini-2024-07-18"
+    },
+    {
+      "sequence": 103,
+      "reservation_usd": 0.0036910499999999995,
+      "timestamp": "2026-10-26T17:35:49.538538+00:00",
+      "http_status": 200,
+      "input_tokens": 3048,
+      "output_tokens": 48,
+      "estimated_api_usd": 0.000486,
+      "actual_model": "gpt-4o-mini-2024-07-18"
+    },
+    {
+      "sequence": 104,
+      "reservation_usd": 0.0040021499999999995,
+      "timestamp": "2026-10-26T17:35:50.616894+00:00",
+      "http_status": 200,
+      "input_tokens": 3267,
+      "output_tokens": 55,
+      "estimated_api_usd": 0.00052305,
+      "actual_model": "gpt-4o-mini-2024-07-18"
+    },
+    {
+      "sequence": 105,
+      "reservation_usd": 0.0057684,
+      "timestamp": "2026-10-26T17:35:51.710315+00:00",
+      "http_status": 200,
+      "input_tokens": 5440,
+      "output_tokens": 49,
+      "estimated_api_usd": 0.0008454,
+      "actual_model": "gpt-4o-mini-2024-07-18"
+    },
+    {
+      "sequence": 106,
+      "reservation_usd": 0.0027689999999999998,
+      "timestamp": "2026-10-26T17:35:52.846250+00:00",
+      "http_status": 200,
+      "input_tokens": 1668,
+      "output_tokens": 47,
+      "estimated_api_usd": 0.0002784,
+      "actual_model": "gpt-4o-mini-2024-07-18"
+    },
+    {
+      "sequence": 107,
+      "reservation_usd": 0.0033739499999999997,
+      "timestamp": "2026-10-26T17:35:54.213007+00:00",
+      "http_status": 200,
+      "input_tokens": 2518,
+      "output_tokens": 47,
+      "estimated_api_usd": 0.0004059,
+      "actual_model": "gpt-4o-mini-2024-07-18"
+    },
+    {
+      "sequence": 108,
+      "reservation_usd": 0.0023639999999999993,
+      "timestamp": "2026-10-26T17:35:55.309281+00:00",
+      "http_status": 200,
+      "input_tokens": 1198,
+      "output_tokens": 45,
+      "estimated_api_usd": 0.00020669999999999998,
+      "actual_model": "gpt-4o-mini-2024-07-18"
+    },
+    {
+      "sequence": 109,
+      "reservation_usd": 0.0035038499999999998,
+      "timestamp": "2026-10-26T17:35:56.696651+00:00",
+      "http_status": 200,
+      "input_tokens": 2577,
+      "output_tokens": 47,
+      "estimated_api_usd": 0.00041475,
+      "actual_model": "gpt-4o-mini-2024-07-18"
+    },
+    {
+      "sequence": 110,
+      "reservation_usd": 0.0025689,
+      "timestamp": "2026-10-26T17:35:57.787776+00:00",
+      "http_status": 200,
+      "input_tokens": 1449,
+      "output_tokens": 43,
+      "estimated_api_usd": 0.00024315,
+      "actual_model": "gpt-4o-mini-2024-07-18"
+    },
+    {
+      "sequence": 111,
+      "reservation_usd": 0.0037792499999999996,
+      "timestamp": "2026-10-26T17:35:58.860340+00:00",
+      "http_status": 200,
+      "input_tokens": 3044,
+      "output_tokens": 43,
+      "estimated_api_usd": 0.00048239999999999996,
+      "actual_model": "gpt-4o-mini-2024-07-18"
+    },
+    {
+      "sequence": 112,
+      "reservation_usd": 0.00285195,
+      "timestamp": "2026-10-26T17:36:00.114299+00:00",
+      "http_status": 200,
+      "input_tokens": 1822,
+      "output_tokens": 50,
+      "estimated_api_usd": 0.0003033,
+      "actual_model": "gpt-4o-mini-2024-07-18"
+    },
+    {
+      "sequence": 113,
+      "reservation_usd": 0.0029654999999999994,
+      "timestamp": "2026-10-26T17:36:01.193989+00:00",
+      "http_status": 200,
+      "input_tokens": 1901,
+      "output_tokens": 52,
+      "estimated_api_usd": 0.00031634999999999996,
+      "actual_model": "gpt-4o-mini-2024-07-18"
+    },
+    {
+      "sequence": 114,
+      "reservation_usd": 0.00421905,
+      "timestamp": "2026-10-26T17:36:02.641188+00:00",
+      "http_status": 200,
+      "input_tokens": 3572,
+      "output_tokens": 75,
+      "estimated_api_usd": 0.0005807999999999999,
+      "actual_model": "gpt-4o-mini-2024-07-18"
+    },
+    {
+      "sequence": 115,
+      "reservation_usd": 0.004559549999999999,
+      "timestamp": "2026-10-26T17:36:04.221745+00:00",
+      "http_status": 200,
+      "input_tokens": 3760,
+      "output_tokens": 51,
+      "estimated_api_usd": 0.0005946,
+      "actual_model": "gpt-4o-mini-2024-07-18"
+    },
+    {
+      "sequence": 116,
+      "reservation_usd": 0.0027597,
+      "timestamp": "2026-10-26T17:36:05.521104+00:00",
+      "http_status": 200,
+      "input_tokens": 1710,
+      "output_tokens": 43,
+      "estimated_api_usd": 0.00028230000000000003,
+      "actual_model": "gpt-4o-mini-2024-07-18"
+    },
+    {
+      "sequence": 117,
+      "reservation_usd": 0.0039959999999999996,
+      "timestamp": "2026-10-26T17:36:07.221187+00:00",
+      "http_status": 200,
+      "input_tokens": 3313,
+      "output_tokens": 51,
+      "estimated_api_usd": 0.00052755,
+      "actual_model": "gpt-4o-mini-2024-07-18"
+    },
+    {
+      "sequence": 118,
+      "reservation_usd": 0.0028444499999999997,
+      "timestamp": "2026-10-26T17:36:08.324991+00:00",
+      "http_status": 200,
+      "input_tokens": 1796,
+      "output_tokens": 48,
+      "estimated_api_usd": 0.0002982,
+      "actual_model": "gpt-4o-mini-2024-07-18"
+    },
+    {
+      "sequence": 119,
+      "reservation_usd": 0.00306795,
+      "timestamp": "2026-10-26T17:36:09.549938+00:00",
+      "http_status": 200,
+      "input_tokens": 2128,
+      "output_tokens": 46,
+      "estimated_api_usd": 0.0003468,
+      "actual_model": "gpt-4o-mini-2024-07-18"
+    },
+    {
+      "sequence": 120,
+      "reservation_usd": 0.00266745,
+      "timestamp": "2026-10-26T17:36:10.772134+00:00",
+      "http_status": 200,
+      "input_tokens": 1632,
+      "output_tokens": 50,
+      "estimated_api_usd": 0.00027479999999999996,
+      "actual_model": "gpt-4o-mini-2024-07-18"
+    }
+  ],
+  "runs": [
+    {
+      "provider": "openai",
+      "model": "gpt-4o-mini",
+      "prompt_version": "v1",
+      "temperature": 0,
+      "top_p": 1,
+      "output_path": "D:\\PycharmProjects\\AiIngeneringKurs\\results\\schema-v2-enums-1\\prompt_v1_gpt-4o-mini_t0_20261026T173328975361Z.jsonl",
+      "status": "completed",
+      "records": 30,
+      "final_valid": 30,
+      "first_valid": 30,
+      "repairs": 0,
+      "output_sha256": "210b7fdfa598e497da042f9ad313c256fb6f0f299841cab1ca028b9f818120ec"
+    },
+    {
+      "provider": "openai",
+      "model": "gpt-4o-mini",
+      "prompt_version": "v2",
+      "temperature": 0,
+      "top_p": 1,
+      "output_path": "D:\\PycharmProjects\\AiIngeneringKurs\\results\\schema-v2-enums-1\\prompt_v2_gpt-4o-mini_t0_20261026T173328975361Z.jsonl",
+      "status": "completed",
+      "records": 30,
+      "final_valid": 30,
+      "first_valid": 30,
+      "repairs": 0,
+      "output_sha256": "bab7e291b422ad813a254662c8432153bf89402cb6a28236710244b3d4e19dba"
+    },
+    {
+      "provider": "openai",
+      "model": "gpt-4o-mini",
+      "prompt_version": "v1",
+      "temperature": 0.7,
+      "top_p": 1,
+      "output_path": "D:\\PycharmProjects\\AiIngeneringKurs\\results\\schema-v2-enums-1\\prompt_v1_gpt-4o-mini_t07_20261026T173328975361Z.jsonl",
+      "status": "completed",
+      "records": 30,
+      "final_valid": 30,
+      "first_valid": 30,
+      "repairs": 0,
+      "output_sha256": "047e7e0aa12ef056bc96b18290f7c70998c537b559c7926a304cc456c7ce17dc"
+    },
+    {
+      "provider": "openai",
+      "model": "gpt-4o-mini",
+      "prompt_version": "v2",
+      "temperature": 0.7,
+      "top_p": 1,
+      "output_path": "D:\\PycharmProjects\\AiIngeneringKurs\\results\\schema-v2-enums-1\\prompt_v2_gpt-4o-mini_t07_20261026T173328975361Z.jsonl",
+      "status": "completed",
+      "records": 30,
+      "final_valid": 30,
+      "first_valid": 30,
+      "repairs": 0,
+      "output_sha256": "3adfae4b566651a75930163a818f12a8a797291dcfe990c3df31d0e70d10ca74"
+    },
+    {
+      "provider": "ollama",
+      "model": "llama3.2:3b",
+      "prompt_version": "v1",
+      "temperature": 0,
+      "top_p": 1,
+      "output_path": "D:\\PycharmProjects\\AiIngeneringKurs\\results\\schema-v2-enums-1\\prompt_v1_llama3.2_3b_t0_20261026T173328975361Z.jsonl",
+      "status": "completed",
+      "records": 30,
+      "final_valid": 21,
+      "first_valid": 18,
+      "repairs": 4,
+      "output_sha256": "836c60884021f51aa68b56021e20f110523f8b11c23226be74e63481e47c9512"
+    },
+    {
+      "provider": "ollama",
+      "model": "llama3.2:3b",
+      "prompt_version": "v2",
+      "temperature": 0,
+      "top_p": 1,
+      "output_path": "D:\\PycharmProjects\\AiIngeneringKurs\\results\\schema-v2-enums-1\\prompt_v2_llama3.2_3b_t0_20261026T173328975361Z.jsonl",
+      "status": "completed",
+      "records": 30,
+      "final_valid": 22,
+      "first_valid": 15,
+      "repairs": 7,
+      "output_sha256": "91ebb93320caabb7d9260b8253a3c3f5618b0745821fa2c2f3bc0ef4e768bc4c"
+    },
+    {
+      "provider": "ollama",
+      "model": "llama3.2:3b",
+      "prompt_version": "v1",
+      "temperature": 0.7,
+      "top_p": 1,
+      "output_path": "D:\\PycharmProjects\\AiIngeneringKurs\\results\\schema-v2-enums-1\\prompt_v1_llama3.2_3b_t07_20261026T173328975361Z.jsonl",
+      "status": "completed",
+      "records": 30,
+      "final_valid": 30,
+      "first_valid": 15,
+      "repairs": 15,
+      "output_sha256": "e26466615d3ef3c0cd2d3a4b771101d7aeb35c4f10a1e7aabc218dd920d89328"
+    },
+    {
+      "provider": "ollama",
+      "model": "llama3.2:3b",
+      "prompt_version": "v2",
+      "temperature": 0.7,
+      "top_p": 1,
+      "output_path": "D:\\PycharmProjects\\AiIngeneringKurs\\results\\schema-v2-enums-1\\prompt_v2_llama3.2_3b_t07_20261026T173328975361Z.jsonl",
+      "status": "completed",
+      "records": 30,
+      "final_valid": 27,
+      "first_valid": 13,
+      "repairs": 16,
+      "output_sha256": "e136432610a09fdf4e4926557cf2c99a4d9675546a14394d301ddeaf522d8bbd"
+    }
+  ],
+  "completed_at": "2026-10-26T17:39:12.369559+00:00"
+}

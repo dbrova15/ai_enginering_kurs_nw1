@@ -6,11 +6,14 @@ import json
 from datetime import datetime, timezone
 from pathlib import Path
 
-from evaluator import index_records, load_run, run_configuration
+from evaluator import index_records, load_run, run_configuration, select_run_files
 from main import RESULTS
 from run_metrics import summarize_results
+from schema_contracts import (CONTRACT_VERSION, LEGACY_CONTRACT_VERSION, contract_hash, single_contract)
 
-AGGREGATOR_VERSION = "run-metrics-v1"
+LEGACY_AGGREGATOR_VERSION = "run-metrics-v1"
+AGGREGATOR_VERSION = "run-metrics-v2"
+SUPPORTED_AGGREGATOR_VERSIONS = (LEGACY_AGGREGATOR_VERSION, AGGREGATOR_VERSION)
 ASSUMPTIONS = [
     "Одиниця обліку — записана обробка статті; невдалі обробки входять у знаменники й latency.",
     "Першу валідність беремо з first_attempt_valid; фінальний успіх повторно перевіряємо за Schema v2.",
@@ -19,7 +22,7 @@ ASSUMPTIONS = [
     "Cold start не позначений у журналах і може входити в latency; це не steady-state benchmark.",
     "Токени сумуються за журналами разом із repair. Невідомий usage не замінюється нулем; приховані SDK-retry не відновлюються.",
     "API-вартість — оцінка за повним input-тарифом без кеш-знижки, не рахунок провайдера.",
-    "Провайдер у первинних JSONL не записаний: відповідність model ID тарифу/локальному запуску є явним припущенням MODEL_PRICING.",
+    "Лише legacy JSONL не містять provider: для них відповідність model ID тарифу є припущенням; нові витрати враховують явного provider.",
     "Вартість/1000 — екстраполяція з усіх записаних обробок за незмінних довжин, якості та частоти помилок.",
     "Для локальної моделі нульові лише зовнішні API-витрати; обладнання та електроенергія не оцінені.",
     "Повторні файли однієї конфігурації об'єднуються як повторні спостереження; run_count й unique_documents показують повторення.",
@@ -34,7 +37,7 @@ def aggregate_files(files: list[Path]) -> list[dict]:
     Відхиляє повторну передачу того самого файлу, дублікати ID всередині
     прогону та зміну тексту для одного ID. Зберігає джерела й їхні хеші.
     """
-    groups, seen_files, inputs = {}, set(), {}
+    groups, seen_files, inputs, versions = {}, set(), {}, set()
     for path in files:
         resolved = path.resolve()
         if resolved in seen_files:
@@ -43,6 +46,9 @@ def aggregate_files(files: list[Path]) -> list[dict]:
         records = load_run(path)
         index_records(records, str(path))
         configuration = run_configuration(records)
+        versions.add(single_contract(records))
+        if len(versions) != 1:
+            raise ValueError("Змішані контракти: агрегуйте їх окремо")
         key_configuration = dict(configuration)
         key_configuration["sampling"] = {
             field: float(value) if type(value) in (int, float) else value
@@ -64,7 +70,9 @@ def aggregate_files(files: list[Path]) -> list[dict]:
     summaries = []
     for key in sorted(groups):
         group = groups[key]
-        metrics = summarize_results([row.get("result") for row in group["records"]], group["configuration"]["model"])
+        metrics = summarize_results([row.get("result") for row in group["records"]], group["configuration"]["model"],
+                                    contract_version=single_contract(group["records"]),
+                                    provider=group["configuration"].get("provider"))
         metrics.update(configuration=group["configuration"], sources=group["sources"],
                        run_count=len(group["sources"]),
                        unique_documents=len({row["document_id"] for row in group["records"]}))
@@ -133,20 +141,20 @@ def parse_args(argv: list[str] | None = None) -> argparse.Namespace:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("files", nargs="*", type=Path, help="Типово всі results/*.jsonl")
     parser.add_argument("--output", type=Path, help="Новий .json; поряд створюється однойменний .md")
+    parser.add_argument("--contract", choices=(CONTRACT_VERSION, LEGACY_CONTRACT_VERSION))
     return parser.parse_args(argv)
 
 
 def main(argv: list[str] | None = None) -> None:
     """Агрегує вибрані файли та записує нові JSON і Markdown без перезапису."""
     args = parse_args(argv)
-    files = args.files or sorted(RESULTS.glob("*.jsonl"))
-    if not files:
-        raise ValueError("Не знайдено JSONL для агрегації")
+    files, version = select_run_files(args.files, args.contract)
     timestamp = datetime.now(timezone.utc)
     groups = aggregate_files(files)
     report = {"aggregator_version": AGGREGATOR_VERSION, "timestamp": timestamp.isoformat(),
+              "contract_version": version, "contract_sha256": contract_hash(version),
               "assumptions": ASSUMPTIONS, "groups": groups}
-    output = args.output or RESULTS / "metrics" / f"runs_{timestamp.strftime('%Y%m%dT%H%M%S%fZ')}.json"
+    output = args.output or RESULTS / "metrics" / version / f"runs_{timestamp.strftime('%Y%m%dT%H%M%S%fZ')}.json"
     if output.suffix.lower() != ".json":
         raise ValueError("--output має вказувати файл .json")
     markdown = output.with_suffix(".md")

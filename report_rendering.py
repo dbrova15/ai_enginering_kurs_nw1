@@ -8,6 +8,7 @@ from pathlib import Path
 from urllib.parse import quote
 
 from evaluator import FIELDS, LIST_FIELDS
+from schema_contracts import CONTRACT_VERSION, contract_hash, report_contract
 
 
 def cell(value) -> str:
@@ -57,8 +58,10 @@ def comparison_tables(combined: list[dict]) -> list[str]:
             times += " *неповні дані"
         summary.append(prefix + [f"{metrics['document_observations']} / {item['golden_observations']}",
                                  number(item["aggregate_accuracy"], percent=True),
+                                 number(item["content_accuracy"], percent=True),
                                  f"{number(validity['first_attempt_valid_rate'], percent=True)} / {number(validity['final_valid_rate'], percent=True)}",
                                  f"{validity['repair_attempted_count']} ({number(validity['repair_attempted_rate'], percent=True)})",
+                                 validity['failed_count'],
                                  times, number(metrics["cost"]["estimated_api_usd_per_1000_documents"])])
         fields.append(prefix + [number(item["field_accuracy"][field], percent=True) for field in FIELDS])
         for field in LIST_FIELDS:
@@ -70,7 +73,7 @@ def comparison_tables(combined: list[dict]) -> list[str]:
                                metrics["usage"]["input_tokens"]["total"], metrics["usage"]["output_tokens"]["total"]])
     base = ["Модель", "Промпт", "Sampling"]
     return ["## Порівняння конфігурацій", "",
-            *table(base + ["N обробок / golden-порівнянь", "Aggregate accuracy", "Валідні до / після repair", "Repair", "Повний p50 / p95, с", "API USD / 1000"], summary), "",
+            *table(base + ["N обробок / golden-порівнянь", "Aggregate accuracy (8)", "Content accuracy (7)", "Валідні до / після repair", "Repair", "Failed", "Повний p50 / p95, с", "API USD / 1000"], summary), "",
             "Валідність і час рахуються за всіма записаними обробками, accuracy — лише за golden. Для повторних прогонів знаменник включає повторні спостереження. Н/д означає невідоме, не нуль.", "",
             "### Accuracy окремих полів", "", *table(base + list(FIELDS), fields), "",
             "### Списки: micro precision / recall / F1", "",
@@ -111,14 +114,18 @@ def render_report(context: dict) -> str:
     """Збирає чернетку зі звірених метрик; не затверджує причини чи production-вибір."""
     evaluation, metrics, output = context["evaluation"], context["metrics"], context["output_path"]
     provisional = evaluation["provisional"]
+    version = report_contract(evaluation, historical=evaluation["evaluator_version"] == "schema-v2-exact-set-v1")
     lines = ["# HardwareResearch AI — порівняльний звіт (ЧЕРНЕТКА)", "",
              "Статус: потребує авторської перевірки причин помилок, production-вибору та умов його перегляду.", "",
              f"Згенеровано UTC: {context['timestamp']}", "",
              "## Дані й методика", "",
              f"Схема: v2. Golden: {len(context['golden'])} документів. Provisional: {str(provisional).lower()}.", "",
+             f"Контракт генерації: `{version}`, SHA-256 `{contract_hash(version)}`. Результати інших контрактів не включені. Content accuracy — середнє семи полів без language.", "",
              f"Еталон: {link('golden', Path(evaluation['golden_path']), output)}; SHA-256 `{evaluation['golden_sha256']}`.", "",
              "Метрики evaluator й агрегатора повторно звірено з первинними JSONL та їхніми хешами. Конфігурації зіставлено за моделлю, версією/хешем промпту, sampling, схемою, підготовкою та точним набором джерел.", "",
-             "Оцінюється фінальна відповідь після можливого repair. Скалярні поля порівнюються точно, списки — як множини без нормалізації; дублікати тегів не впливають на exact-set. Missing/failed/invalid дають нуль за всі вісім полів. Aggregate — середнє восьми field accuracy. Метрики списків — micro TP/FP/FN; невизначені частки — н/д.", ""]
+             "Оцінюється фінальна відповідь після можливого repair. Скалярні поля порівнюються точно, списки — як множини без нормалізації. Missing/failed/invalid дають нуль за всі вісім полів. Aggregate — середнє восьми field accuracy. Метрики списків — micro TP/FP/FN; невизначені частки — н/д.", "",
+             ("Новий контракт відхиляє невідомі enum і дублікати: така відповідь невалідна."
+              if version == CONTRACT_VERSION else "Legacy допускає довільні рядки й дублікати; повтори не впливають на exact-set."), ""]
     if provisional:
         lines.extend(["**Попередні оцінки:** не всі еталони затверджені людиною. Ця чернетка не змінює їхніх статусів.", ""])
     lines.extend(comparison_tables(context["combined"]))

@@ -1,0 +1,92 @@
+{
+  "stage": "B",
+  "timestamp": "20261026T172803893529Z",
+  "contract_version": "schema-v2-enums-1",
+  "contract_sha256": "716c3e2eb27595c31177e4a6ea391c370a1e0bd8816940fc98e40ef47284a35f",
+  "authorization": "User approved stage B: one short OpenAI and Ollama probe, API budget USD 0.02",
+  "api_budget_usd": 0.02,
+  "sdk_retries": 0,
+  "max_tokens_per_response": 512,
+  "synthetic_non_golden": true,
+  "source_path": "D:\\PycharmProjects\\AiIngeneringKurs\\results\\probes\\schema-v2-enums-1\\20261026T172803893529Z\\texts\\en\\PROBE-0001.txt",
+  "source_sha256": "342357dd5eb3bc2d318ac7304b0425abb5fb6cc131b86740e95b431a60512a52",
+  "expected_for_manual_probe_check": {
+    "language": "en",
+    "primary_topic": "communications_iot",
+    "mentioned_platforms": [
+      "esp32"
+    ],
+    "mentioned_interfaces": [
+      "wifi",
+      "i2c",
+      "usb"
+    ],
+    "mentions_sensor": true,
+    "mentions_display": false,
+    "mentions_battery": false,
+    "mentions_motor": false
+  },
+  "pricing_snapshot": {
+    "date": "2026-10-26",
+    "input_per_million_usd": 0.15,
+    "output_per_million_usd": 0.6,
+    "cached_discount": false,
+    "source": "https://developers.openai.com/api/docs/models/gpt-4o-mini"
+  },
+  "runs": [
+    {
+      "provider": "openai",
+      "requested_model": "gpt-4o-mini",
+      "actual_model": "gpt-4o-mini-2024-07-18",
+      "output_path": "D:\\PycharmProjects\\AiIngeneringKurs\\results\\probes\\schema-v2-enums-1\\20261026T172803893529Z\\prompt_v1_openai.jsonl",
+      "output_sha256": "3867d3cae05a87fe47d4c7f43206a11bf6a866b3d2b828120222c540896914a7",
+      "first_attempt_status": "valid",
+      "final_status": "success",
+      "repair_attempted": false,
+      "attempts": 1,
+      "input_tokens": 603,
+      "output_tokens": 54,
+      "seconds": 3.4564410001039505,
+      "estimated_api_usd": 0.00012285,
+      "synthetic_expected_field_matches": {
+        "language": true,
+        "primary_topic": false,
+        "mentioned_platforms": true,
+        "mentioned_interfaces": true,
+        "mentions_sensor": true,
+        "mentions_display": true,
+        "mentions_battery": true,
+        "mentions_motor": true
+      },
+      "error": null,
+      "cold_start_possible": false
+    },
+    {
+      "provider": "ollama",
+      "requested_model": "llama3.2:3b",
+      "actual_model": "llama3.2:3b",
+      "output_path": "D:\\PycharmProjects\\AiIngeneringKurs\\results\\probes\\schema-v2-enums-1\\20261026T172803893529Z\\prompt_v1_ollama.jsonl",
+      "output_sha256": "86109b750a1ce9e2586dcb6f1cf7696186bce468f47fb409a59c114b54ab9d6c",
+      "first_attempt_status": "invalid",
+      "final_status": "success",
+      "repair_attempted": true,
+      "attempts": 2,
+      "input_tokens": 561,
+      "output_tokens": 123,
+      "seconds": 7.409806599956937,
+      "estimated_api_usd": 0.0,
+      "synthetic_expected_field_matches": {
+        "language": true,
+        "primary_topic": false,
+        "mentioned_platforms": true,
+        "mentioned_interfaces": false,
+        "mentions_sensor": true,
+        "mentions_display": true,
+        "mentions_battery": true,
+        "mentions_motor": true
+      },
+      "error": null,
+      "cold_start_possible": true
+    }
+  ]
+}

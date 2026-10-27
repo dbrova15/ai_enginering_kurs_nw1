@@ -1,0 +1,2 @@
+Wireless sensor node
+This IoT project sends temperature readings from an ESP32 over Wi-Fi. The temperature sensor connects via I2C. The node receives power through USB.

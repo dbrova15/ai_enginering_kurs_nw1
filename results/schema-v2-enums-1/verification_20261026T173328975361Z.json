@@ -1,0 +1,16 @@
+{
+  "records": 240,
+  "configurations": 8,
+  "same_30_ids_source_input_hashes": true,
+  "contract_metadata_usage_validated": true,
+  "protected_historical_files_unchanged": 48,
+  "legacy_records_unchanged": 240,
+  "openai_http_requests": 120,
+  "estimated_api_usd": 0.044028,
+  "budget_usd": 0.25,
+  "unknown_usage_reserved_usd": 0.0,
+  "no_api_keys_in_primary_jsonl": true,
+  "first_valid": 181,
+  "final_valid": 220,
+  "repairs": 42
+}

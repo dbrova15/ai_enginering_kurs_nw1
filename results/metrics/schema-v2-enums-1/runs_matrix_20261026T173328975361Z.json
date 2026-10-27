@@ -1,0 +1,679 @@
+{
+  "aggregator_version": "run-metrics-v2",
+  "timestamp": "2026-10-26T17:39:24.828942+00:00",
+  "contract_version": "schema-v2-enums-1",
+  "contract_sha256": "716c3e2eb27595c31177e4a6ea391c370a1e0bd8816940fc98e40ef47284a35f",
+  "assumptions": [
+    "Одиниця обліку — записана обробка статті; невдалі обробки входять у знаменники й latency.",
+    "Першу валідність беремо з first_attempt_valid; фінальний успіх повторно перевіряємо за Schema v2.",
+    "Час у секундах; nearest rank: відсортоване значення з номером ceil(p*N). Неповні заміри позначені complete=false.",
+    "first_attempt_seconds включає retry першого виклику; seconds також включає repair й валідацію, без читання TXT та запису JSONL.",
+    "Cold start не позначений у журналах і може входити в latency; це не steady-state benchmark.",
+    "Токени сумуються за журналами разом із repair. Невідомий usage не замінюється нулем; приховані SDK-retry не відновлюються.",
+    "API-вартість — оцінка за повним input-тарифом без кеш-знижки, не рахунок провайдера.",
+    "Лише legacy JSONL не містять provider: для них відповідність model ID тарифу є припущенням; нові витрати враховують явного provider.",
+    "Вартість/1000 — екстраполяція з усіх записаних обробок за незмінних довжин, якості та частоти помилок.",
+    "Для локальної моделі нульові лише зовнішні API-витрати; обладнання та електроенергія не оцінені.",
+    "Повторні файли однієї конфігурації об'єднуються як повторні спостереження; run_count й unique_documents показують повторення.",
+    "Повністю відсутні в JSONL обробки невідомі: агрегатор не відновлює план експерименту чи перервані до запису запити.",
+    "Accuracy на golden обчислюється окремо через evaluator.py; ці метрики охоплюють усі статті прогону."
+  ],
+  "groups": [
+    {
+      "document_observations": 30,
+      "validity": {
+        "first_attempt_valid_count": 30,
+        "first_attempt_valid_rate": 1.0,
+        "final_valid_count": 30,
+        "final_valid_rate": 1.0,
+        "failed_count": 0,
+        "repair_attempted_count": 0,
+        "repair_attempted_rate": 0.0,
+        "repaired_valid_count": 0,
+        "repair_success_rate": null
+      },
+      "latency": {
+        "first_attempt": {
+          "samples": 30,
+          "missing": 0,
+          "complete": true,
+          "p50_seconds": 1.312888899934478,
+          "p95_seconds": 2.5705401999875903
+        },
+        "pipeline": {
+          "samples": 30,
+          "missing": 0,
+          "complete": true,
+          "p50_seconds": 1.3129312000237405,
+          "p95_seconds": 2.5705934000434354
+        }
+      },
+      "usage": {
+        "input_tokens": {
+          "total": 72691,
+          "known_total": 72691,
+          "missing_documents": 0
+        },
+        "output_tokens": {
+          "total": 1448,
+          "known_total": 1448,
+          "missing_documents": 0
+        }
+      },
+      "cost": {
+        "pricing": {
+          "assumed_provider": "openai",
+          "kind": "external_api",
+          "currency": "USD",
+          "checked_date": "2026-10-26",
+          "source": "https://developers.openai.com/api/docs/models/gpt-4o-mini",
+          "input_per_million": 0.15,
+          "output_per_million": 0.6
+        },
+        "complete": true,
+        "estimated_api_usd": 0.011772449999999999,
+        "estimated_api_usd_per_1000_documents": 0.39241499999999996,
+        "known_usage_api_usd": 0.011772449999999999
+      },
+      "configuration": {
+        "schema_version": "v2",
+        "model": "gpt-4o-mini",
+        "prompt_version": "v2",
+        "prompt_sha256": "3cb25d5767e00f28c924a8fd198d398b67e5c2ae751a35c3b4a6e3eef8ed8b54",
+        "sampling": {
+          "temperature": 0.0,
+          "top_p": 1.0,
+          "max_tokens": 512
+        },
+        "preparation_version": "schema-v2-initial-metadata-v1",
+        "contract_version": "schema-v2-enums-1",
+        "contract_sha256": "716c3e2eb27595c31177e4a6ea391c370a1e0bd8816940fc98e40ef47284a35f",
+        "provider": "openai",
+        "requested_model": "gpt-4o-mini"
+      },
+      "sources": [
+        {
+          "path": "D:\\PycharmProjects\\AiIngeneringKurs\\results\\schema-v2-enums-1\\prompt_v2_gpt-4o-mini_t0_20261026T173328975361Z.jsonl",
+          "records": 30,
+          "sha256": "bab7e291b422ad813a254662c8432153bf89402cb6a28236710244b3d4e19dba"
+        }
+      ],
+      "run_count": 1,
+      "unique_documents": 30
+    },
+    {
+      "document_observations": 30,
+      "validity": {
+        "first_attempt_valid_count": 30,
+        "first_attempt_valid_rate": 1.0,
+        "final_valid_count": 30,
+        "final_valid_rate": 1.0,
+        "failed_count": 0,
+        "repair_attempted_count": 0,
+        "repair_attempted_rate": 0.0,
+        "repaired_valid_count": 0,
+        "repair_success_rate": null
+      },
+      "latency": {
+        "first_attempt": {
+          "samples": 30,
+          "missing": 0,
+          "complete": true,
+          "p50_seconds": 1.269984900020063,
+          "p95_seconds": 1.8696178999962285
+        },
+        "pipeline": {
+          "samples": 30,
+          "missing": 0,
+          "complete": true,
+          "p50_seconds": 1.2700241999700665,
+          "p95_seconds": 1.8696597999660298
+        }
+      },
+      "usage": {
+        "input_tokens": {
+          "total": 72691,
+          "known_total": 72691,
+          "missing_documents": 0
+        },
+        "output_tokens": {
+          "total": 1477,
+          "known_total": 1477,
+          "missing_documents": 0
+        }
+      },
+      "cost": {
+        "pricing": {
+          "assumed_provider": "openai",
+          "kind": "external_api",
+          "currency": "USD",
+          "checked_date": "2026-10-26",
+          "source": "https://developers.openai.com/api/docs/models/gpt-4o-mini",
+          "input_per_million": 0.15,
+          "output_per_million": 0.6
+        },
+        "complete": true,
+        "estimated_api_usd": 0.011789850000000001,
+        "estimated_api_usd_per_1000_documents": 0.39299500000000004,
+        "known_usage_api_usd": 0.011789850000000001
+      },
+      "configuration": {
+        "schema_version": "v2",
+        "model": "gpt-4o-mini",
+        "prompt_version": "v2",
+        "prompt_sha256": "3cb25d5767e00f28c924a8fd198d398b67e5c2ae751a35c3b4a6e3eef8ed8b54",
+        "sampling": {
+          "temperature": 0.7,
+          "top_p": 1.0,
+          "max_tokens": 512
+        },
+        "preparation_version": "schema-v2-initial-metadata-v1",
+        "contract_version": "schema-v2-enums-1",
+        "contract_sha256": "716c3e2eb27595c31177e4a6ea391c370a1e0bd8816940fc98e40ef47284a35f",
+        "provider": "openai",
+        "requested_model": "gpt-4o-mini"
+      },
+      "sources": [
+        {
+          "path": "D:\\PycharmProjects\\AiIngeneringKurs\\results\\schema-v2-enums-1\\prompt_v2_gpt-4o-mini_t07_20261026T173328975361Z.jsonl",
+          "records": 30,
+          "sha256": "3adfae4b566651a75930163a818f12a8a797291dcfe990c3df31d0e70d10ca74"
+        }
+      ],
+      "run_count": 1,
+      "unique_documents": 30
+    },
+    {
+      "document_observations": 30,
+      "validity": {
+        "first_attempt_valid_count": 30,
+        "first_attempt_valid_rate": 1.0,
+        "final_valid_count": 30,
+        "final_valid_rate": 1.0,
+        "failed_count": 0,
+        "repair_attempted_count": 0,
+        "repair_attempted_rate": 0.0,
+        "repaired_valid_count": 0,
+        "repair_success_rate": null
+      },
+      "latency": {
+        "first_attempt": {
+          "samples": 30,
+          "missing": 0,
+          "complete": true,
+          "p50_seconds": 1.3457088998984545,
+          "p95_seconds": 2.3356078999349847
+        },
+        "pipeline": {
+          "samples": 30,
+          "missing": 0,
+          "complete": true,
+          "p50_seconds": 1.3457622999558225,
+          "p95_seconds": 2.3356538999360055
+        }
+      },
+      "usage": {
+        "input_tokens": {
+          "total": 62431,
+          "known_total": 62431,
+          "missing_documents": 0
+        },
+        "output_tokens": {
+          "total": 1425,
+          "known_total": 1425,
+          "missing_documents": 0
+        }
+      },
+      "cost": {
+        "pricing": {
+          "assumed_provider": "openai",
+          "kind": "external_api",
+          "currency": "USD",
+          "checked_date": "2026-10-26",
+          "source": "https://developers.openai.com/api/docs/models/gpt-4o-mini",
+          "input_per_million": 0.15,
+          "output_per_million": 0.6
+        },
+        "complete": true,
+        "estimated_api_usd": 0.01021965,
+        "estimated_api_usd_per_1000_documents": 0.340655,
+        "known_usage_api_usd": 0.01021965
+      },
+      "configuration": {
+        "schema_version": "v2",
+        "model": "gpt-4o-mini",
+        "prompt_version": "v1",
+        "prompt_sha256": "7dc02d743950aa524fe4dc36f0804d433c88617672d2abe14b221fe358dfc5f5",
+        "sampling": {
+          "temperature": 0.0,
+          "top_p": 1.0,
+          "max_tokens": 512
+        },
+        "preparation_version": "schema-v2-initial-metadata-v1",
+        "contract_version": "schema-v2-enums-1",
+        "contract_sha256": "716c3e2eb27595c31177e4a6ea391c370a1e0bd8816940fc98e40ef47284a35f",
+        "provider": "openai",
+        "requested_model": "gpt-4o-mini"
+      },
+      "sources": [
+        {
+          "path": "D:\\PycharmProjects\\AiIngeneringKurs\\results\\schema-v2-enums-1\\prompt_v1_gpt-4o-mini_t0_20261026T173328975361Z.jsonl",
+          "records": 30,
+          "sha256": "210b7fdfa598e497da042f9ad313c256fb6f0f299841cab1ca028b9f818120ec"
+        }
+      ],
+      "run_count": 1,
+      "unique_documents": 30
+    },
+    {
+      "document_observations": 30,
+      "validity": {
+        "first_attempt_valid_count": 30,
+        "first_attempt_valid_rate": 1.0,
+        "final_valid_count": 30,
+        "final_valid_rate": 1.0,
+        "failed_count": 0,
+        "repair_attempted_count": 0,
+        "repair_attempted_rate": 0.0,
+        "repaired_valid_count": 0,
+        "repair_success_rate": null
+      },
+      "latency": {
+        "first_attempt": {
+          "samples": 30,
+          "missing": 0,
+          "complete": true,
+          "p50_seconds": 1.1844489000504836,
+          "p95_seconds": 1.387117400066927
+        },
+        "pipeline": {
+          "samples": 30,
+          "missing": 0,
+          "complete": true,
+          "p50_seconds": 1.18449219991453,
+          "p95_seconds": 1.387155900010839
+        }
+      },
+      "usage": {
+        "input_tokens": {
+          "total": 62431,
+          "known_total": 62431,
+          "missing_documents": 0
+        },
+        "output_tokens": {
+          "total": 1469,
+          "known_total": 1469,
+          "missing_documents": 0
+        }
+      },
+      "cost": {
+        "pricing": {
+          "assumed_provider": "openai",
+          "kind": "external_api",
+          "currency": "USD",
+          "checked_date": "2026-10-26",
+          "source": "https://developers.openai.com/api/docs/models/gpt-4o-mini",
+          "input_per_million": 0.15,
+          "output_per_million": 0.6
+        },
+        "complete": true,
+        "estimated_api_usd": 0.01024605,
+        "estimated_api_usd_per_1000_documents": 0.341535,
+        "known_usage_api_usd": 0.01024605
+      },
+      "configuration": {
+        "schema_version": "v2",
+        "model": "gpt-4o-mini",
+        "prompt_version": "v1",
+        "prompt_sha256": "7dc02d743950aa524fe4dc36f0804d433c88617672d2abe14b221fe358dfc5f5",
+        "sampling": {
+          "temperature": 0.7,
+          "top_p": 1.0,
+          "max_tokens": 512
+        },
+        "preparation_version": "schema-v2-initial-metadata-v1",
+        "contract_version": "schema-v2-enums-1",
+        "contract_sha256": "716c3e2eb27595c31177e4a6ea391c370a1e0bd8816940fc98e40ef47284a35f",
+        "provider": "openai",
+        "requested_model": "gpt-4o-mini"
+      },
+      "sources": [
+        {
+          "path": "D:\\PycharmProjects\\AiIngeneringKurs\\results\\schema-v2-enums-1\\prompt_v1_gpt-4o-mini_t07_20261026T173328975361Z.jsonl",
+          "records": 30,
+          "sha256": "047e7e0aa12ef056bc96b18290f7c70998c537b559c7926a304cc456c7ce17dc"
+        }
+      ],
+      "run_count": 1,
+      "unique_documents": 30
+    },
+    {
+      "document_observations": 30,
+      "validity": {
+        "first_attempt_valid_count": 15,
+        "first_attempt_valid_rate": 0.5,
+        "final_valid_count": 22,
+        "final_valid_rate": 0.7333333333333333,
+        "failed_count": 8,
+        "repair_attempted_count": 7,
+        "repair_attempted_rate": 0.23333333333333334,
+        "repaired_valid_count": 7,
+        "repair_success_rate": 1.0
+      },
+      "latency": {
+        "first_attempt": {
+          "samples": 30,
+          "missing": 0,
+          "complete": true,
+          "p50_seconds": 0.8091206999961287,
+          "p95_seconds": 3.8354150999803096
+        },
+        "pipeline": {
+          "samples": 30,
+          "missing": 0,
+          "complete": true,
+          "p50_seconds": 1.0943383999401703,
+          "p95_seconds": 3.83542929997202
+        }
+      },
+      "usage": {
+        "input_tokens": {
+          "total": 75998,
+          "known_total": 75998,
+          "missing_documents": 0
+        },
+        "output_tokens": {
+          "total": 6023,
+          "known_total": 6023,
+          "missing_documents": 0
+        }
+      },
+      "cost": {
+        "pricing": {
+          "assumed_provider": "ollama",
+          "kind": "local",
+          "currency": "USD",
+          "source": "JSONL provider=ollama",
+          "checked_date": "2026-10-26",
+          "input_per_million": 0.0,
+          "output_per_million": 0.0
+        },
+        "complete": true,
+        "estimated_api_usd": 0.0,
+        "estimated_api_usd_per_1000_documents": 0.0,
+        "known_usage_api_usd": 0.0
+      },
+      "configuration": {
+        "schema_version": "v2",
+        "model": "llama3.2:3b",
+        "prompt_version": "v2",
+        "prompt_sha256": "3cb25d5767e00f28c924a8fd198d398b67e5c2ae751a35c3b4a6e3eef8ed8b54",
+        "sampling": {
+          "temperature": 0.0,
+          "top_p": 1.0,
+          "max_tokens": 512
+        },
+        "preparation_version": "schema-v2-initial-metadata-v1",
+        "contract_version": "schema-v2-enums-1",
+        "contract_sha256": "716c3e2eb27595c31177e4a6ea391c370a1e0bd8816940fc98e40ef47284a35f",
+        "provider": "ollama",
+        "requested_model": "llama3.2:3b"
+      },
+      "sources": [
+        {
+          "path": "D:\\PycharmProjects\\AiIngeneringKurs\\results\\schema-v2-enums-1\\prompt_v2_llama3.2_3b_t0_20261026T173328975361Z.jsonl",
+          "records": 30,
+          "sha256": "91ebb93320caabb7d9260b8253a3c3f5618b0745821fa2c2f3bc0ef4e768bc4c"
+        }
+      ],
+      "run_count": 1,
+      "unique_documents": 30
+    },
+    {
+      "document_observations": 30,
+      "validity": {
+        "first_attempt_valid_count": 13,
+        "first_attempt_valid_rate": 0.43333333333333335,
+        "final_valid_count": 27,
+        "final_valid_rate": 0.9,
+        "failed_count": 3,
+        "repair_attempted_count": 16,
+        "repair_attempted_rate": 0.5333333333333333,
+        "repaired_valid_count": 14,
+        "repair_success_rate": 0.875
+      },
+      "latency": {
+        "first_attempt": {
+          "samples": 30,
+          "missing": 0,
+          "complete": true,
+          "p50_seconds": 0.8014860999537632,
+          "p95_seconds": 2.9751792999450117
+        },
+        "pipeline": {
+          "samples": 30,
+          "missing": 0,
+          "complete": true,
+          "p50_seconds": 1.1458106999052688,
+          "p95_seconds": 3.365419599926099
+        }
+      },
+      "usage": {
+        "input_tokens": {
+          "total": 94825,
+          "known_total": 94825,
+          "missing_documents": 0
+        },
+        "output_tokens": {
+          "total": 4056,
+          "known_total": 4056,
+          "missing_documents": 0
+        }
+      },
+      "cost": {
+        "pricing": {
+          "assumed_provider": "ollama",
+          "kind": "local",
+          "currency": "USD",
+          "source": "JSONL provider=ollama",
+          "checked_date": "2026-10-26",
+          "input_per_million": 0.0,
+          "output_per_million": 0.0
+        },
+        "complete": true,
+        "estimated_api_usd": 0.0,
+        "estimated_api_usd_per_1000_documents": 0.0,
+        "known_usage_api_usd": 0.0
+      },
+      "configuration": {
+        "schema_version": "v2",
+        "model": "llama3.2:3b",
+        "prompt_version": "v2",
+        "prompt_sha256": "3cb25d5767e00f28c924a8fd198d398b67e5c2ae751a35c3b4a6e3eef8ed8b54",
+        "sampling": {
+          "temperature": 0.7,
+          "top_p": 1.0,
+          "max_tokens": 512
+        },
+        "preparation_version": "schema-v2-initial-metadata-v1",
+        "contract_version": "schema-v2-enums-1",
+        "contract_sha256": "716c3e2eb27595c31177e4a6ea391c370a1e0bd8816940fc98e40ef47284a35f",
+        "provider": "ollama",
+        "requested_model": "llama3.2:3b"
+      },
+      "sources": [
+        {
+          "path": "D:\\PycharmProjects\\AiIngeneringKurs\\results\\schema-v2-enums-1\\prompt_v2_llama3.2_3b_t07_20261026T173328975361Z.jsonl",
+          "records": 30,
+          "sha256": "e136432610a09fdf4e4926557cf2c99a4d9675546a14394d301ddeaf522d8bbd"
+        }
+      ],
+      "run_count": 1,
+      "unique_documents": 30
+    },
+    {
+      "document_observations": 30,
+      "validity": {
+        "first_attempt_valid_count": 18,
+        "first_attempt_valid_rate": 0.6,
+        "final_valid_count": 21,
+        "final_valid_rate": 0.7,
+        "failed_count": 9,
+        "repair_attempted_count": 4,
+        "repair_attempted_rate": 0.13333333333333333,
+        "repaired_valid_count": 3,
+        "repair_success_rate": 0.75
+      },
+      "latency": {
+        "first_attempt": {
+          "samples": 30,
+          "missing": 0,
+          "complete": true,
+          "p50_seconds": 0.8357397000072524,
+          "p95_seconds": 3.515014100004919
+        },
+        "pipeline": {
+          "samples": 30,
+          "missing": 0,
+          "complete": true,
+          "p50_seconds": 0.8881814000196755,
+          "p95_seconds": 3.5150273999897763
+        }
+      },
+      "usage": {
+        "input_tokens": {
+          "total": 57685,
+          "known_total": 57685,
+          "missing_documents": 0
+        },
+        "output_tokens": {
+          "total": 5800,
+          "known_total": 5800,
+          "missing_documents": 0
+        }
+      },
+      "cost": {
+        "pricing": {
+          "assumed_provider": "ollama",
+          "kind": "local",
+          "currency": "USD",
+          "source": "JSONL provider=ollama",
+          "checked_date": "2026-10-26",
+          "input_per_million": 0.0,
+          "output_per_million": 0.0
+        },
+        "complete": true,
+        "estimated_api_usd": 0.0,
+        "estimated_api_usd_per_1000_documents": 0.0,
+        "known_usage_api_usd": 0.0
+      },
+      "configuration": {
+        "schema_version": "v2",
+        "model": "llama3.2:3b",
+        "prompt_version": "v1",
+        "prompt_sha256": "7dc02d743950aa524fe4dc36f0804d433c88617672d2abe14b221fe358dfc5f5",
+        "sampling": {
+          "temperature": 0.0,
+          "top_p": 1.0,
+          "max_tokens": 512
+        },
+        "preparation_version": "schema-v2-initial-metadata-v1",
+        "contract_version": "schema-v2-enums-1",
+        "contract_sha256": "716c3e2eb27595c31177e4a6ea391c370a1e0bd8816940fc98e40ef47284a35f",
+        "provider": "ollama",
+        "requested_model": "llama3.2:3b"
+      },
+      "sources": [
+        {
+          "path": "D:\\PycharmProjects\\AiIngeneringKurs\\results\\schema-v2-enums-1\\prompt_v1_llama3.2_3b_t0_20261026T173328975361Z.jsonl",
+          "records": 30,
+          "sha256": "836c60884021f51aa68b56021e20f110523f8b11c23226be74e63481e47c9512"
+        }
+      ],
+      "run_count": 1,
+      "unique_documents": 30
+    },
+    {
+      "document_observations": 30,
+      "validity": {
+        "first_attempt_valid_count": 15,
+        "first_attempt_valid_rate": 0.5,
+        "final_valid_count": 30,
+        "final_valid_rate": 1.0,
+        "failed_count": 0,
+        "repair_attempted_count": 15,
+        "repair_attempted_rate": 0.5,
+        "repaired_valid_count": 15,
+        "repair_success_rate": 1.0
+      },
+      "latency": {
+        "first_attempt": {
+          "samples": 30,
+          "missing": 0,
+          "complete": true,
+          "p50_seconds": 0.8596028999891132,
+          "p95_seconds": 1.67979840002954
+        },
+        "pipeline": {
+          "samples": 30,
+          "missing": 0,
+          "complete": true,
+          "p50_seconds": 1.1430103000020608,
+          "p95_seconds": 1.6989246000302956
+        }
+      },
+      "usage": {
+        "input_tokens": {
+          "total": 71657,
+          "known_total": 71657,
+          "missing_documents": 0
+        },
+        "output_tokens": {
+          "total": 3052,
+          "known_total": 3052,
+          "missing_documents": 0
+        }
+      },
+      "cost": {
+        "pricing": {
+          "assumed_provider": "ollama",
+          "kind": "local",
+          "currency": "USD",
+          "source": "JSONL provider=ollama",
+          "checked_date": "2026-10-26",
+          "input_per_million": 0.0,
+          "output_per_million": 0.0
+        },
+        "complete": true,
+        "estimated_api_usd": 0.0,
+        "estimated_api_usd_per_1000_documents": 0.0,
+        "known_usage_api_usd": 0.0
+      },
+      "configuration": {
+        "schema_version": "v2",
+        "model": "llama3.2:3b",
+        "prompt_version": "v1",
+        "prompt_sha256": "7dc02d743950aa524fe4dc36f0804d433c88617672d2abe14b221fe358dfc5f5",
+        "sampling": {
+          "temperature": 0.7,
+          "top_p": 1.0,
+          "max_tokens": 512
+        },
+        "preparation_version": "schema-v2-initial-metadata-v1",
+        "contract_version": "schema-v2-enums-1",
+        "contract_sha256": "716c3e2eb27595c31177e4a6ea391c370a1e0bd8816940fc98e40ef47284a35f",
+        "provider": "ollama",
+        "requested_model": "llama3.2:3b"
+      },
+      "sources": [
+        {
+          "path": "D:\\PycharmProjects\\AiIngeneringKurs\\results\\schema-v2-enums-1\\prompt_v1_llama3.2_3b_t07_20261026T173328975361Z.jsonl",
+          "records": 30,
+          "sha256": "e26466615d3ef3c0cd2d3a4b771101d7aeb35c4f10a1e7aabc218dd920d89328"
+        }
+      ],
+      "run_count": 1,
+      "unique_documents": 30
+    }
+  ]
+}

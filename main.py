@@ -7,17 +7,16 @@ from pathlib import Path
 import json
 import time
 from datetime import datetime, timezone
-from typing import Literal
 
 from dotenv import load_dotenv
 from openai import OpenAI
-from pydantic import BaseModel, ConfigDict, ValidationError
+from pydantic import ValidationError
+
+from schema_contracts import DevicePosting, HardwarePlatform, Interface, CONTRACT_VERSION, CONTRACT_SHA256
 
 ROOT = Path(__file__).resolve().parent
 
 load_dotenv(ROOT / ".env")
-# Допустимі значення: openrouter, openai, ollama; типово openrouter
-LLM_PROVIDER = "openai"   # os.getenv("LLM_PROVIDER", "openrouter").strip().lower()
 PROMPTS = ROOT / "prompts"
 GOLDEN = ROOT / "data" / "sourses" / "hm1" / "golden.json"
 TEXTS = GOLDEN.parent / "texts"
@@ -52,27 +51,6 @@ def prepare_text(text: str) -> str:
         index += 1
     return "".join(lines[:start] + lines[index:])
 
-class DevicePosting(BaseModel):
-    model_config = ConfigDict(extra="forbid")
-
-    language: Literal["en", "ru", "uk"]
-    primary_topic: Literal[
-        "devices_automation",
-        "controllers_programming",
-        "robotics_actuators",
-        "sensors_measurements",
-        "displays_indicators",
-        "communications_iot",
-        "power_batteries",
-        "printing_mechanics",
-    ]
-    mentioned_platforms: list[str]
-    mentioned_interfaces: list[str]
-    mentions_sensor: bool
-    mentions_display: bool
-    mentions_battery: bool
-    mentions_motor: bool
-
 RESPONSE_FORMAT = {
     "type": "json_schema",
     "json_schema": {
@@ -90,12 +68,16 @@ def _response_record(response, seconds: float) -> dict:
     usage = response.usage
     return {
         "content": message.content if message else None,
+        "actual_model": getattr(response, "model", None),
         "refusal": getattr(message, "refusal", None),
         "finish_reason": choice.finish_reason if choice else None,
         "input_tokens": usage.prompt_tokens if usage else None,
         "output_tokens": usage.completion_tokens if usage else None,
         "seconds": seconds,
         "error": None,
+        "status": ("refused" if getattr(message, "refusal", None) else
+                   "incomplete" if not choice or choice.finish_reason != "stop" else
+                   "empty" if not message.content or not message.content.strip() else "received"),
     }
 
 
@@ -136,11 +118,13 @@ def extract(client: OpenAI, messages: list[dict], text: str, model: str,
                 **(sampling or {}),
             )
         except Exception as error:
-            result["error"] = f"{type(error).__name__}: {error}"
+            # Текст API-помилки може містити ключ чи приватну URL-адресу.
+            result["error"] = f"{type(error).__name__}; HTTP status={getattr(error, 'status_code', None)}"
             result["responses"].append({
                 "content": None, "input_tokens": None, "output_tokens": None,
                 "seconds": time.perf_counter() - attempt_start,
                 "error": result["error"],
+                "status": "api_error", "actual_model": None,
             })
             break
         record = _response_record(response, time.perf_counter() - attempt_start)
@@ -148,6 +132,7 @@ def extract(client: OpenAI, messages: list[dict], text: str, model: str,
         try:
             posting = _validate_extraction_response(record, text)
         except ValidationError as error:
+            record["status"] = "invalid"
             record["error"] = str(error)
             if attempt + 1 < MAX_EXTRACTION_ATTEMPTS:
                 repair_messages = repair_messages + [
@@ -161,6 +146,7 @@ def extract(client: OpenAI, messages: list[dict], text: str, model: str,
         except ValueError as error:
             record["error"] = str(error)
         else:
+            record["status"] = "valid"
             result.update(ok=True, status="success", data=posting.model_dump(),
                           first_attempt_valid=attempt == 0)
         result["error"] = record["error"]
@@ -170,27 +156,37 @@ def extract(client: OpenAI, messages: list[dict], text: str, model: str,
         result[field] = sum(values) if all(value is not None for value in values) else None
     result["first_attempt_seconds"] = result["responses"][0]["seconds"]
     result["seconds"] = time.perf_counter() - start
+    result["first_attempt_status"] = result["responses"][0]["status"]
+    result["actual_model"] = next((record["actual_model"] for record in reversed(result["responses"])
+                                   if record.get("actual_model")), None)
     return result
 
 
+def get_provider() -> str:
+    """Обирає провайдера з оточення/.env та перевіряє його до мережевого запиту."""
+    provider = os.getenv("LLM_PROVIDER", "openrouter").strip().lower()
+    if provider not in ("openai", "openrouter", "ollama"):
+        raise ValueError(f"Невідомий LLM_PROVIDER: {provider}")
+    return provider
+
+
 def load_model() -> tuple[str, str, str]:
-    if LLM_PROVIDER == "openrouter":
+    provider = get_provider()
+    if provider == "openrouter":
         base_url = "https://openrouter.ai/api/v1"
         api_key = os.getenv("OPENROUTER_API_KEY", "").strip()
         model = os.getenv("OPENROUTER_MODEL", "").strip() or "openai/gpt-4o-mini"
-    elif LLM_PROVIDER == "openai":
+    elif provider == "openai":
         base_url = "https://api.openai.com/v1"
         api_key = os.getenv("OPENAI_API_KEY", "").strip()
         model = os.getenv("OPENAI_MODEL", "").strip() or "gpt-4o-mini"
-    elif LLM_PROVIDER == "ollama":
+    elif provider == "ollama":
         server = os.getenv("OLLAMA_BASE_URL", "http://localhost:11434").strip().rstrip("/")
         base_url = server if server.endswith("/v1") else server + "/v1"
         api_key = "ollama"
         model = os.getenv("OLLAMA_MODEL", "").strip() or "llama3.2:3b"
-    else:
-        raise ValueError(f"Невідомий LLM_PROVIDER: {LLM_PROVIDER}")
     if not api_key:
-        raise ValueError(f"Не задано API-ключ для {LLM_PROVIDER}")
+        raise ValueError(f"Не задано API-ключ для {provider}")
     return base_url, api_key, model
 
 def load_prompt(version: str) -> tuple[str, str]:
@@ -218,6 +214,7 @@ def parse_args(argv: list[str] | None = None) -> argparse.Namespace:
 def main(argv: list[str] | None = None) -> None:
     args = parse_args(argv)
     base_url, api_key, model = load_model()
+    provider = get_provider()
     system, prompt_hash = load_prompt(args.prompt_version)
     paths = get_text_files()
 
@@ -237,7 +234,7 @@ def main(argv: list[str] | None = None) -> None:
             raise ValueError("MAX_TOKENS має бути додатним цілим числом")
     timestamp = datetime.now(timezone.utc).strftime("%Y%m%dT%H%M%S%fZ")
     model_name = re.sub(r"[^A-Za-z0-9._-]+", "_", model).strip("._") or "model"
-    output = args.output or RESULTS / f"prompt_{args.prompt_version}_{model_name}_{timestamp}.jsonl"
+    output = args.output or RESULTS / CONTRACT_VERSION / f"prompt_{args.prompt_version}_{model_name}_{timestamp}.jsonl"
     output.parent.mkdir(parents=True, exist_ok=True)
     valid = 0
     with output.open("x", encoding="utf-8") as destination, OpenAI(
@@ -253,6 +250,8 @@ def main(argv: list[str] | None = None) -> None:
             record = {
                 "document_id": path.stem, "source_path": str(path),
                 "schema_version": SCHEMA_VERSION, "model": model,
+                "contract_version": CONTRACT_VERSION, "contract_sha256": CONTRACT_SHA256,
+                "provider": provider, "requested_model": model, "actual_model": result["actual_model"],
                 "prompt_version": args.prompt_version, "prompt_sha256": prompt_hash,
                 "sampling": sampling, "timestamp": datetime.now(timezone.utc).isoformat(),
                 "source_sha256": hashlib.sha256(original.encode("utf-8")).hexdigest(),

@@ -28,16 +28,32 @@ class ConfigurationTests(unittest.TestCase):
              ("http://localhost:11434/v1", "ollama", "llama3.2:3b")),
         ]
         for environment, expected in cases:
-            with self.subTest(environment=environment), patch.dict(os.environ, environment, clear=True), \
-                    patch("main.LLM_PROVIDER", environment["LLM_PROVIDER"]):
+            with self.subTest(environment=environment), patch.dict(os.environ, environment, clear=True):
                 self.assertEqual(main.load_model(), expected)
 
     def test_missing_key_and_unknown_provider_fail_before_request(self):
         for environment in ({"LLM_PROVIDER": "openai"}, {"LLM_PROVIDER": "unknown"}):
-            with self.subTest(environment=environment), patch.dict(os.environ, environment, clear=True), \
-                    patch("main.LLM_PROVIDER", environment["LLM_PROVIDER"]):
+            with self.subTest(environment=environment), patch.dict(os.environ, environment, clear=True):
                 with self.assertRaises(ValueError):
                     main.load_model()
+
+    def test_provider_is_normalized_and_dotenv_can_select_it(self):
+        with tempfile.TemporaryDirectory() as directory:
+            env_file = Path(directory) / ".env"
+            env_file.write_text("LLM_PROVIDER=ollama\nOLLAMA_MODEL=local-test\n", encoding="utf-8")
+            with patch.dict(os.environ, {}, clear=True):
+                main.load_dotenv(env_file)
+                self.assertEqual(main.load_model()[2], "local-test")
+                self.assertEqual(main.get_provider(), "ollama")
+            with patch.dict(os.environ, {"LLM_PROVIDER": " OpenAI ", "OPENAI_API_KEY": "test"}, clear=True):
+                main.load_dotenv(env_file)
+                self.assertEqual(main.get_provider(), "openai")
+
+    def test_invalid_provider_never_opens_client(self):
+        with patch.dict(os.environ, {"LLM_PROVIDER": "unknown"}, clear=True), patch("main.OpenAI") as client:
+            with self.assertRaisesRegex(ValueError, "LLM_PROVIDER"):
+                main.main(["--limit", "1"])
+            client.assert_not_called()
 
     def test_real_paths_prompt_encoding_and_full_hash(self):
         self.assertEqual(main.ROOT, Path(main.__file__).resolve().parent)
@@ -96,23 +112,50 @@ class PipelineTests(unittest.TestCase):
             "usage": {"prompt_tokens": 10, "completion_tokens": 5, "total_tokens": 15},
         })
 
-    def run_pipeline(self, *arguments, environment=None):
+    def run_pipeline(self, *arguments, environment=None, default_output=False):
         client = OpenAI(api_key="test", base_url="https://unit.test/v1",
                         http_client=httpx.Client(transport=httpx.MockTransport(self.handle_request)))
         self.addCleanup(client.close)
         configuration = {"LLM_PROVIDER": "openai", "OPENAI_API_KEY": "test"}
         configuration.update(environment or {})
         with patch.dict(os.environ, configuration, clear=True), \
-                patch("main.LLM_PROVIDER", configuration["LLM_PROVIDER"].strip().lower()), \
                 patch("main.TEXTS", self.texts), patch("main.OpenAI", return_value=client), \
+                patch("main.RESULTS", self.root / "results"), \
                 redirect_stdout(io.StringIO()):
-            main.main(["v2", "--output", str(self.output), *arguments])
+            output_args = [] if default_output else ["--output", str(self.output)]
+            main.main(["v2", *output_args, *arguments])
+
+    def test_default_output_is_in_new_contract_directory(self):
+        self.run_pipeline("--limit", "1", default_output=True)
+        paths = list((self.root / "results" / main.CONTRACT_VERSION).glob("*.jsonl"))
+        self.assertEqual(len(paths), 1)
+        self.assertTrue(paths[0].name.startswith("prompt_v2_gpt-4o-mini_"))
+
+    def test_all_three_providers_receive_same_strict_schema_offline(self):
+        for provider in ("openai", "openrouter", "ollama"):
+            with self.subTest(provider=provider):
+                self.output = self.root / f"{provider}.jsonl"
+                self.run_pipeline("--limit", "1", environment={"LLM_PROVIDER": provider,
+                                  "OPENROUTER_API_KEY": "secret-do-not-log", "OPENAI_API_KEY": "secret-do-not-log"})
+                row = json.loads(self.output.read_text(encoding="utf-8"))
+                self.assertEqual(row["provider"], provider)
+                self.assertEqual(row["contract_version"], main.CONTRACT_VERSION)
+                schema = self.requests[-1]["response_format"]["json_schema"]["schema"]
+                self.assertIn("arduino", schema["properties"]["mentioned_platforms"]["items"]["enum"])
+                self.assertIn("usb", schema["properties"]["mentioned_interfaces"]["items"]["enum"])
+                self.assertNotIn("secret-do-not-log", json.dumps(row))
 
     def test_pipeline_saves_failure_then_success_without_leaking_metadata(self):
         self.run_pipeline()
         records = [json.loads(line) for line in self.output.read_text(encoding="utf-8").splitlines()]
         self.assertEqual([record["document_id"] for record in records], ["HR-1", "HR-2"])
         self.assertTrue(all(record["schema_version"] == "v2" for record in records))
+        self.assertTrue(all(record["contract_version"] == main.CONTRACT_VERSION for record in records))
+        self.assertTrue(all(record["contract_sha256"] == main.CONTRACT_SHA256 for record in records))
+        self.assertTrue(all(record["provider"] == "openai" for record in records))
+        self.assertTrue(all(record["requested_model"] == record["model"] for record in records))
+        self.assertTrue(all(record["actual_model"] == "test-model" for record in records))
+        self.assertEqual([record["result"]["first_attempt_status"] for record in records], ["refused", "valid"])
         self.assertEqual([record["result"]["ok"] for record in records], [False, True])
         self.assertEqual(records[0]["source_sha256"], hashlib.sha256(self.source).hexdigest())
         sent = self.requests[0]["messages"][-1]["content"]

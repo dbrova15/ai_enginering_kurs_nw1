@@ -6,10 +6,12 @@ import json
 from datetime import datetime, timezone
 from pathlib import Path
 
-from aggregate_runs import AGGREGATOR_VERSION, aggregate_files
-from evaluator import EVALUATOR_VERSION, FIELDS, LIST_FIELDS, evaluate_run, list_metrics, load_golden, load_run, verify_same_inputs
+from aggregate_runs import LEGACY_AGGREGATOR_VERSION, SUPPORTED_AGGREGATOR_VERSIONS, aggregate_files
+from evaluator import (LEGACY_EVALUATOR_VERSION, SUPPORTED_EVALUATOR_VERSIONS, FIELDS,
+                       CONTENT_FIELDS, LIST_FIELDS, evaluate_run, list_metrics, load_golden, load_run, verify_same_inputs)
 from main import ROOT
 from report_rendering import render_report
+from schema_contracts import record_contract, report_contract
 
 
 def digest(path: Path) -> str:
@@ -33,8 +35,10 @@ def validate_evaluation(report: dict) -> tuple[dict, dict, dict]:
     Повторно обчислює оцінки офлайн: застарілі хеші або змінені метрики
     зупиняють генерацію, а не переносяться до чернетки непомітно.
     """
-    if report.get("evaluator_version") != EVALUATOR_VERSION:
+    if report.get("evaluator_version") not in SUPPORTED_EVALUATOR_VERSIONS:
         raise ValueError("Непідтримувана версія evaluator-звіту")
+    historical = report["evaluator_version"] == LEGACY_EVALUATOR_VERSION
+    version = report_contract(report, historical=historical)
     golden_path = Path(report["golden_path"])
     if digest(golden_path) != report["golden_sha256"]:
         raise ValueError("Golden змінився після оцінювання; повторіть evaluator")
@@ -52,7 +56,9 @@ def validate_evaluation(report: dict) -> tuple[dict, dict, dict]:
         if digest(path) != run["source_sha256"]:
             raise ValueError(f"JSONL змінився після оцінювання: {path}")
         rows = load_run(path)
-        verified = evaluate_run(rows, golden)
+        if record_contract(rows[0]) != version:
+            raise ValueError("Контракт evaluator-звіту не відповідає його JSONL")
+        verified = evaluate_run(rows, golden, include_content=not historical)
         if any(run.get(field) != value for field, value in verified.items()):
             raise ValueError(f"Оцінки не відповідають первинним даним: {path}")
         indexed[path], records[path] = run, rows
@@ -67,8 +73,12 @@ def match_reports(evaluation: dict, metrics: dict) -> tuple[list[dict], dict, di
     за всіма їхніми golden-порівняннями, а не береться з першого файлу.
     """
     golden, quality, records = validate_evaluation(evaluation)
-    if metrics.get("aggregator_version") != AGGREGATOR_VERSION or not metrics.get("groups"):
+    if metrics.get("aggregator_version") not in SUPPORTED_AGGREGATOR_VERSIONS or not metrics.get("groups"):
         raise ValueError("Непідтримуваний або порожній звіт агрегатора")
+    quality_contract = report_contract(evaluation, historical=evaluation["evaluator_version"] == LEGACY_EVALUATOR_VERSION)
+    metrics_contract = report_contract(metrics, historical=metrics["aggregator_version"] == LEGACY_AGGREGATOR_VERSION)
+    if quality_contract != metrics_contract:
+        raise ValueError("Не можна поєднувати звіти різних контрактів")
     source_paths = [Path(source["path"]).resolve() for group in metrics["groups"] for source in group["sources"]]
     if set(source_paths) != set(quality):
         raise ValueError("Evaluator і агрегатор охоплюють різні JSONL; виберіть узгоджені звіти")
@@ -89,6 +99,7 @@ def match_reports(evaluation: dict, metrics: dict) -> tuple[list[dict], dict, di
         accuracy = {field: sum(doc["field_matches"][field] for doc in documents) / count for field in FIELDS}
         combined.append({"metrics": group, "golden_observations": count,
                          "field_accuracy": accuracy, "aggregate_accuracy": sum(accuracy.values()) / len(FIELDS),
+                         "content_accuracy": sum(accuracy[field] for field in CONTENT_FIELDS) / len(CONTENT_FIELDS),
                          "list_metrics": {field: list_metrics(documents, field) for field in LIST_FIELDS}})
     combined.sort(key=lambda item: (item["metrics"]["configuration"]["model"], item["metrics"]["configuration"]["prompt_version"],
                                     json.dumps(item["metrics"]["configuration"]["sampling"], sort_keys=True)))
@@ -136,7 +147,7 @@ def parse_args(argv: list[str] | None = None) -> argparse.Namespace:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--evaluation", type=Path, required=True, help="JSON evaluator")
     parser.add_argument("--metrics", type=Path, required=True, help="JSON aggregate_runs")
-    parser.add_argument("--output", type=Path, default=ROOT / "REPORT.draft.md")
+    parser.add_argument("--output", type=Path, help="Типово нова чернетка з ID контракту")
     parser.add_argument("--examples", type=int, choices=(3, 4, 5), default=5)
     return parser.parse_args(argv)
 
@@ -144,11 +155,15 @@ def parse_args(argv: list[str] | None = None) -> argparse.Namespace:
 def main(argv: list[str] | None = None) -> None:
     """Перевіряє дані та створює нову чернетку без мережі й перезапису файлів."""
     args = parse_args(argv)
-    if args.output.exists():
+    if args.output is not None and args.output.exists():
         raise FileExistsError(f"Чернетка вже існує: {args.output}")
     evaluation = json.loads(args.evaluation.read_text(encoding="utf-8"))
     metrics = json.loads(args.metrics.read_text(encoding="utf-8"))
     combined, golden, records = match_reports(evaluation, metrics)
+    version = report_contract(evaluation, historical=evaluation["evaluator_version"] == LEGACY_EVALUATOR_VERSION)
+    args.output = args.output or ROOT / f"REPORT.{version}.draft.md"
+    if args.output.exists():
+        raise FileExistsError(f"Чернетка вже існує: {args.output}")
     examples = select_examples(evaluation, records, args.examples)
     context = {"timestamp": datetime.now(timezone.utc).isoformat(), "evaluation": evaluation,
                "metrics": metrics, "combined": combined, "golden": golden, "examples": examples,

@@ -13,6 +13,7 @@ import aggregate_runs
 import evaluator
 import generate_report
 import report_rendering
+from schema_contracts import LEGACY_CONTRACT_VERSION, LEGACY_CONTRACT_SHA256
 from test_evaluator import golden_record
 from test_run_metrics import metric_record
 
@@ -54,11 +55,13 @@ class ReportTests(unittest.TestCase):
             runs.append(run)
         self.evaluation = {
             "evaluator_version": evaluator.EVALUATOR_VERSION,
+            "contract_version": LEGACY_CONTRACT_VERSION, "contract_sha256": LEGACY_CONTRACT_SHA256,
             "golden_path": str(self.golden_path), "golden_sha256": generate_report.digest(self.golden_path),
             "provisional": any(row["annotation_status"] != "approved" for row in self.golden.values()),
             "runs": runs,
         }
         self.metrics = {"aggregator_version": aggregate_runs.AGGREGATOR_VERSION,
+                        "contract_version": LEGACY_CONTRACT_VERSION, "contract_sha256": LEGACY_CONTRACT_SHA256,
                         "assumptions": aggregate_runs.ASSUMPTIONS,
                         "groups": aggregate_runs.aggregate_files(sources)}
 

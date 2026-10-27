@@ -1,0 +1,4044 @@
+{
+  "evaluator_version": "schema-v2-exact-set-v2",
+  "contract_version": "schema-v2-enums-1",
+  "contract_sha256": "716c3e2eb27595c31177e4a6ea391c370a1e0bd8816940fc98e40ef47284a35f",
+  "timestamp": "2026-10-26T17:39:24.759613+00:00",
+  "golden_path": "D:\\PycharmProjects\\AiIngeneringKurs\\data\\sourses\\hm1\\golden.json",
+  "golden_sha256": "9a3b831cee329deaf1a8175c0a1e581a0fc9e253d2807a27d08b4fab74c71a5a",
+  "provisional": false,
+  "method": {
+    "scalars": "exact",
+    "lists": "exact-set; order ignored; duplicates invalidate result",
+    "normalization": "none",
+    "aggregate": "macro mean of all 8 field accuracies",
+    "denominator": "all golden documents; missing/failed/invalid score zero for all fields",
+    "list_prf": "micro counts across golden; undefined ratios are null",
+    "prediction": "final result after optional repair",
+    "content_accuracy": "macro mean of 7 field accuracies, excluding language"
+  },
+  "runs": [
+    {
+      "configuration": {
+        "schema_version": "v2",
+        "model": "gpt-4o-mini",
+        "prompt_version": "v1",
+        "prompt_sha256": "7dc02d743950aa524fe4dc36f0804d433c88617672d2abe14b221fe358dfc5f5",
+        "sampling": {
+          "temperature": 0.0,
+          "top_p": 1.0,
+          "max_tokens": 512
+        },
+        "preparation_version": "schema-v2-initial-metadata-v1",
+        "contract_version": "schema-v2-enums-1",
+        "contract_sha256": "716c3e2eb27595c31177e4a6ea391c370a1e0bd8816940fc98e40ef47284a35f",
+        "provider": "openai",
+        "requested_model": "gpt-4o-mini"
+      },
+      "golden_documents": 10,
+      "present_golden_results": 10,
+      "ignored_non_golden_results": 20,
+      "document_status_counts": {
+        "valid": 10,
+        "missing": 0,
+        "failed": 0,
+        "invalid": 0
+      },
+      "field_correct": {
+        "language": 10,
+        "primary_topic": 9,
+        "mentioned_platforms": 9,
+        "mentioned_interfaces": 7,
+        "mentions_sensor": 8,
+        "mentions_display": 9,
+        "mentions_battery": 10,
+        "mentions_motor": 9
+      },
+      "field_accuracy": {
+        "language": 1.0,
+        "primary_topic": 0.9,
+        "mentioned_platforms": 0.9,
+        "mentioned_interfaces": 0.7,
+        "mentions_sensor": 0.8,
+        "mentions_display": 0.9,
+        "mentions_battery": 1.0,
+        "mentions_motor": 0.9
+      },
+      "aggregate_accuracy": 0.8875000000000001,
+      "list_metrics": {
+        "mentioned_platforms": {
+          "tp": 9,
+          "fp": 0,
+          "fn": 1,
+          "precision": 1.0,
+          "recall": 0.9,
+          "f1": 0.9473684210526315
+        },
+        "mentioned_interfaces": {
+          "tp": 3,
+          "fp": 0,
+          "fn": 4,
+          "precision": 1.0,
+          "recall": 0.42857142857142855,
+          "f1": 0.6
+        }
+      },
+      "documents": [
+        {
+          "document_id": "HR-0743",
+          "status": "valid",
+          "error": null,
+          "input_sha256": "fe0b4056f3b8775d07bfa50bea8a812926a3297daaa0953629312734d3fb432d",
+          "expected": {
+            "language": "en",
+            "primary_topic": "power_batteries",
+            "mentioned_platforms": [
+              "arduino",
+              "stm32"
+            ],
+            "mentioned_interfaces": [
+              "wifi",
+              "bluetooth"
+            ],
+            "mentions_sensor": true,
+            "mentions_display": false,
+            "mentions_battery": true,
+            "mentions_motor": false
+          },
+          "actual": {
+            "language": "en",
+            "primary_topic": "power_batteries",
+            "mentioned_platforms": [
+              "arduino"
+            ],
+            "mentioned_interfaces": [],
+            "mentions_sensor": false,
+            "mentions_display": false,
+            "mentions_battery": true,
+            "mentions_motor": false
+          },
+          "field_matches": {
+            "language": true,
+            "primary_topic": true,
+            "mentioned_platforms": false,
+            "mentioned_interfaces": false,
+            "mentions_sensor": false,
+            "mentions_display": true,
+            "mentions_battery": true,
+            "mentions_motor": true
+          },
+          "duplicate_list_values": {}
+        },
+        {
+          "document_id": "HR-0244",
+          "status": "valid",
+          "error": null,
+          "input_sha256": "838b25bea3e8b1acfdda0805afe51191db1dfadd002a428a1febf27218e0b0dd",
+          "expected": {
+            "language": "uk",
+            "primary_topic": "sensors_measurements",
+            "mentioned_platforms": [
+              "esp8266"
+            ],
+            "mentioned_interfaces": [
+              "wifi",
+              "usb"
+            ],
+            "mentions_sensor": true,
+            "mentions_display": false,
+            "mentions_battery": false,
+            "mentions_motor": false
+          },
+          "actual": {
+            "language": "uk",
+            "primary_topic": "sensors_measurements",
+            "mentioned_platforms": [
+              "esp8266"
+            ],
+            "mentioned_interfaces": [
+              "wifi"
+            ],
+            "mentions_sensor": true,
+            "mentions_display": false,
+            "mentions_battery": false,
+            "mentions_motor": false
+          },
+          "field_matches": {
+            "language": true,
+            "primary_topic": true,
+            "mentioned_platforms": true,
+            "mentioned_interfaces": false,
+            "mentions_sensor": true,
+            "mentions_display": true,
+            "mentions_battery": true,
+            "mentions_motor": true
+          },
+          "duplicate_list_values": {}
+        },
+        {
+          "document_id": "HR-0385",
+          "status": "valid",
+          "error": null,
+          "input_sha256": "fcfa7fa71480087658d4012b42c2a43fc2060b9892ed40b63020eca338d67b83",
+          "expected": {
+            "language": "en",
+            "primary_topic": "devices_automation",
+            "mentioned_platforms": [
+              "arduino"
+            ],
+            "mentioned_interfaces": [
+              "wifi"
+            ],
+            "mentions_sensor": true,
+            "mentions_display": false,
+            "mentions_battery": true,
+            "mentions_motor": false
+          },
+          "actual": {
+            "language": "en",
+            "primary_topic": "devices_automation",
+            "mentioned_platforms": [
+              "arduino"
+            ],
+            "mentioned_interfaces": [
+              "wifi"
+            ],
+            "mentions_sensor": true,
+            "mentions_display": false,
+            "mentions_battery": true,
+            "mentions_motor": false
+          },
+          "field_matches": {
+            "language": true,
+            "primary_topic": true,
+            "mentioned_platforms": true,
+            "mentioned_interfaces": true,
+            "mentions_sensor": true,
+            "mentions_display": true,
+            "mentions_battery": true,
+            "mentions_motor": true
+          },
+          "duplicate_list_values": {}
+        },
+        {
+          "document_id": "HR-0068",
+          "status": "valid",
+          "error": null,
+          "input_sha256": "d2586bad68a060a134e5ede793c94b93df7e1d784a6ea0874272bdcbf1445d68",
+          "expected": {
+            "language": "ru",
+            "primary_topic": "sensors_measurements",
+            "mentioned_platforms": [
+              "arduino"
+            ],
+            "mentioned_interfaces": [
+              "usb"
+            ],
+            "mentions_sensor": true,
+            "mentions_display": false,
+            "mentions_battery": false,
+            "mentions_motor": false
+          },
+          "actual": {
+            "language": "ru",
+            "primary_topic": "sensors_measurements",
+            "mentioned_platforms": [
+              "arduino"
+            ],
+            "mentioned_interfaces": [],
+            "mentions_sensor": true,
+            "mentions_display": false,
+            "mentions_battery": false,
+            "mentions_motor": false
+          },
+          "field_matches": {
+            "language": true,
+            "primary_topic": true,
+            "mentioned_platforms": true,
+            "mentioned_interfaces": false,
+            "mentions_sensor": true,
+            "mentions_display": true,
+            "mentions_battery": true,
+            "mentions_motor": true
+          },
+          "duplicate_list_values": {}
+        },
+        {
+          "document_id": "HR-0254",
+          "status": "valid",
+          "error": null,
+          "input_sha256": "acc4cf45765a3444506216fa08324b92e100278e1743a503cb3ad9f5fcb95714",
+          "expected": {
+            "language": "uk",
+            "primary_topic": "displays_indicators",
+            "mentioned_platforms": [
+              "arduino"
+            ],
+            "mentioned_interfaces": [
+              "i2c"
+            ],
+            "mentions_sensor": false,
+            "mentions_display": true,
+            "mentions_battery": false,
+            "mentions_motor": false
+          },
+          "actual": {
+            "language": "uk",
+            "primary_topic": "displays_indicators",
+            "mentioned_platforms": [
+              "arduino"
+            ],
+            "mentioned_interfaces": [
+              "i2c"
+            ],
+            "mentions_sensor": false,
+            "mentions_display": true,
+            "mentions_battery": false,
+            "mentions_motor": false
+          },
+          "field_matches": {
+            "language": true,
+            "primary_topic": true,
+            "mentioned_platforms": true,
+            "mentioned_interfaces": true,
+            "mentions_sensor": true,
+            "mentions_display": true,
+            "mentions_battery": true,
+            "mentions_motor": true
+          },
+          "duplicate_list_values": {}
+        },
+        {
+          "document_id": "HR-0212",
+          "status": "valid",
+          "error": null,
+          "input_sha256": "40ce53b3c829be8c660abb1fdbc29b074f771152bce922b1df85a9da02030d03",
+          "expected": {
+            "language": "uk",
+            "primary_topic": "power_batteries",
+            "mentioned_platforms": [],
+            "mentioned_interfaces": [],
+            "mentions_sensor": true,
+            "mentions_display": false,
+            "mentions_battery": true,
+            "mentions_motor": false
+          },
+          "actual": {
+            "language": "uk",
+            "primary_topic": "devices_automation",
+            "mentioned_platforms": [],
+            "mentioned_interfaces": [],
+            "mentions_sensor": false,
+            "mentions_display": true,
+            "mentions_battery": true,
+            "mentions_motor": false
+          },
+          "field_matches": {
+            "language": true,
+            "primary_topic": false,
+            "mentioned_platforms": true,
+            "mentioned_interfaces": true,
+            "mentions_sensor": false,
+            "mentions_display": false,
+            "mentions_battery": true,
+            "mentions_motor": true
+          },
+          "duplicate_list_values": {}
+        },
+        {
+          "document_id": "HR-0415",
+          "status": "valid",
+          "error": null,
+          "input_sha256": "47cc5f61e224f6b7f9ba573370d1ba98dbd779a34221b3049ae3c8fefe63d1a9",
+          "expected": {
+            "language": "en",
+            "primary_topic": "robotics_actuators",
+            "mentioned_platforms": [
+              "arduino"
+            ],
+            "mentioned_interfaces": [],
+            "mentions_sensor": false,
+            "mentions_display": false,
+            "mentions_battery": false,
+            "mentions_motor": true
+          },
+          "actual": {
+            "language": "en",
+            "primary_topic": "robotics_actuators",
+            "mentioned_platforms": [
+              "arduino"
+            ],
+            "mentioned_interfaces": [],
+            "mentions_sensor": false,
+            "mentions_display": false,
+            "mentions_battery": false,
+            "mentions_motor": true
+          },
+          "field_matches": {
+            "language": true,
+            "primary_topic": true,
+            "mentioned_platforms": true,
+            "mentioned_interfaces": true,
+            "mentions_sensor": true,
+            "mentions_display": true,
+            "mentions_battery": true,
+            "mentions_motor": true
+          },
+          "duplicate_list_values": {}
+        },
+        {
+          "document_id": "HR-0207",
+          "status": "valid",
+          "error": null,
+          "input_sha256": "73346dfb6627121c20bfa5584aecd207a89bfe26e31b9cc77aa14b821debb25e",
+          "expected": {
+            "language": "uk",
+            "primary_topic": "power_batteries",
+            "mentioned_platforms": [],
+            "mentioned_interfaces": [],
+            "mentions_sensor": false,
+            "mentions_display": false,
+            "mentions_battery": true,
+            "mentions_motor": false
+          },
+          "actual": {
+            "language": "uk",
+            "primary_topic": "power_batteries",
+            "mentioned_platforms": [],
+            "mentioned_interfaces": [],
+            "mentions_sensor": false,
+            "mentions_display": false,
+            "mentions_battery": true,
+            "mentions_motor": false
+          },
+          "field_matches": {
+            "language": true,
+            "primary_topic": true,
+            "mentioned_platforms": true,
+            "mentioned_interfaces": true,
+            "mentions_sensor": true,
+            "mentions_display": true,
+            "mentions_battery": true,
+            "mentions_motor": true
+          },
+          "duplicate_list_values": {}
+        },
+        {
+          "document_id": "HR-0227",
+          "status": "valid",
+          "error": null,
+          "input_sha256": "76e7c76e2d5848c99b434e0e50f4fc0d618f14ec11ccce50339eed117b5a391a",
+          "expected": {
+            "language": "uk",
+            "primary_topic": "sensors_measurements",
+            "mentioned_platforms": [
+              "arduino",
+              "raspberry_pi"
+            ],
+            "mentioned_interfaces": [],
+            "mentions_sensor": true,
+            "mentions_display": false,
+            "mentions_battery": false,
+            "mentions_motor": false
+          },
+          "actual": {
+            "language": "uk",
+            "primary_topic": "sensors_measurements",
+            "mentioned_platforms": [
+              "arduino",
+              "raspberry_pi"
+            ],
+            "mentioned_interfaces": [],
+            "mentions_sensor": true,
+            "mentions_display": false,
+            "mentions_battery": false,
+            "mentions_motor": false
+          },
+          "field_matches": {
+            "language": true,
+            "primary_topic": true,
+            "mentioned_platforms": true,
+            "mentioned_interfaces": true,
+            "mentions_sensor": true,
+            "mentions_display": true,
+            "mentions_battery": true,
+            "mentions_motor": true
+          },
+          "duplicate_list_values": {}
+        },
+        {
+          "document_id": "HR-0187",
+          "status": "valid",
+          "error": null,
+          "input_sha256": "d771f1223e02817ebdbdbf2b4967d86de451c9a392a73ddb376b3b491858b2dd",
+          "expected": {
+            "language": "uk",
+            "primary_topic": "devices_automation",
+            "mentioned_platforms": [
+              "arduino"
+            ],
+            "mentioned_interfaces": [],
+            "mentions_sensor": true,
+            "mentions_display": false,
+            "mentions_battery": false,
+            "mentions_motor": false
+          },
+          "actual": {
+            "language": "uk",
+            "primary_topic": "devices_automation",
+            "mentioned_platforms": [
+              "arduino"
+            ],
+            "mentioned_interfaces": [],
+            "mentions_sensor": true,
+            "mentions_display": false,
+            "mentions_battery": false,
+            "mentions_motor": true
+          },
+          "field_matches": {
+            "language": true,
+            "primary_topic": true,
+            "mentioned_platforms": true,
+            "mentioned_interfaces": true,
+            "mentions_sensor": true,
+            "mentions_display": true,
+            "mentions_battery": true,
+            "mentions_motor": false
+          },
+          "duplicate_list_values": {}
+        }
+      ],
+      "content_accuracy": 0.8714285714285716,
+      "content_field_accuracy": {
+        "primary_topic": 0.9,
+        "mentioned_platforms": 0.9,
+        "mentioned_interfaces": 0.7,
+        "mentions_sensor": 0.8,
+        "mentions_display": 0.9,
+        "mentions_battery": 1.0,
+        "mentions_motor": 0.9
+      },
+      "source_path": "D:\\PycharmProjects\\AiIngeneringKurs\\results\\schema-v2-enums-1\\prompt_v1_gpt-4o-mini_t0_20261026T173328975361Z.jsonl",
+      "source_sha256": "210b7fdfa598e497da042f9ad313c256fb6f0f299841cab1ca028b9f818120ec"
+    },
+    {
+      "configuration": {
+        "schema_version": "v2",
+        "model": "gpt-4o-mini",
+        "prompt_version": "v2",
+        "prompt_sha256": "3cb25d5767e00f28c924a8fd198d398b67e5c2ae751a35c3b4a6e3eef8ed8b54",
+        "sampling": {
+          "temperature": 0.0,
+          "top_p": 1.0,
+          "max_tokens": 512
+        },
+        "preparation_version": "schema-v2-initial-metadata-v1",
+        "contract_version": "schema-v2-enums-1",
+        "contract_sha256": "716c3e2eb27595c31177e4a6ea391c370a1e0bd8816940fc98e40ef47284a35f",
+        "provider": "openai",
+        "requested_model": "gpt-4o-mini"
+      },
+      "golden_documents": 10,
+      "present_golden_results": 10,
+      "ignored_non_golden_results": 20,
+      "document_status_counts": {
+        "valid": 10,
+        "missing": 0,
+        "failed": 0,
+        "invalid": 0
+      },
+      "field_correct": {
+        "language": 10,
+        "primary_topic": 9,
+        "mentioned_platforms": 9,
+        "mentioned_interfaces": 6,
+        "mentions_sensor": 8,
+        "mentions_display": 9,
+        "mentions_battery": 10,
+        "mentions_motor": 9
+      },
+      "field_accuracy": {
+        "language": 1.0,
+        "primary_topic": 0.9,
+        "mentioned_platforms": 0.9,
+        "mentioned_interfaces": 0.6,
+        "mentions_sensor": 0.8,
+        "mentions_display": 0.9,
+        "mentions_battery": 1.0,
+        "mentions_motor": 0.9
+      },
+      "aggregate_accuracy": 0.8750000000000001,
+      "list_metrics": {
+        "mentioned_platforms": {
+          "tp": 9,
+          "fp": 0,
+          "fn": 1,
+          "precision": 1.0,
+          "recall": 0.9,
+          "f1": 0.9473684210526315
+        },
+        "mentioned_interfaces": {
+          "tp": 3,
+          "fp": 2,
+          "fn": 4,
+          "precision": 0.6,
+          "recall": 0.42857142857142855,
+          "f1": 0.5
+        }
+      },
+      "documents": [
+        {
+          "document_id": "HR-0743",
+          "status": "valid",
+          "error": null,
+          "input_sha256": "fe0b4056f3b8775d07bfa50bea8a812926a3297daaa0953629312734d3fb432d",
+          "expected": {
+            "language": "en",
+            "primary_topic": "power_batteries",
+            "mentioned_platforms": [
+              "arduino",
+              "stm32"
+            ],
+            "mentioned_interfaces": [
+              "wifi",
+              "bluetooth"
+            ],
+            "mentions_sensor": true,
+            "mentions_display": false,
+            "mentions_battery": true,
+            "mentions_motor": false
+          },
+          "actual": {
+            "language": "en",
+            "primary_topic": "power_batteries",
+            "mentioned_platforms": [
+              "arduino"
+            ],
+            "mentioned_interfaces": [
+              "usb"
+            ],
+            "mentions_sensor": false,
+            "mentions_display": false,
+            "mentions_battery": true,
+            "mentions_motor": false
+          },
+          "field_matches": {
+            "language": true,
+            "primary_topic": true,
+            "mentioned_platforms": false,
+            "mentioned_interfaces": false,
+            "mentions_sensor": false,
+            "mentions_display": true,
+            "mentions_battery": true,
+            "mentions_motor": true
+          },
+          "duplicate_list_values": {}
+        },
+        {
+          "document_id": "HR-0244",
+          "status": "valid",
+          "error": null,
+          "input_sha256": "838b25bea3e8b1acfdda0805afe51191db1dfadd002a428a1febf27218e0b0dd",
+          "expected": {
+            "language": "uk",
+            "primary_topic": "sensors_measurements",
+            "mentioned_platforms": [
+              "esp8266"
+            ],
+            "mentioned_interfaces": [
+              "wifi",
+              "usb"
+            ],
+            "mentions_sensor": true,
+            "mentions_display": false,
+            "mentions_battery": false,
+            "mentions_motor": false
+          },
+          "actual": {
+            "language": "uk",
+            "primary_topic": "sensors_measurements",
+            "mentioned_platforms": [
+              "esp8266"
+            ],
+            "mentioned_interfaces": [
+              "wifi"
+            ],
+            "mentions_sensor": true,
+            "mentions_display": false,
+            "mentions_battery": false,
+            "mentions_motor": false
+          },
+          "field_matches": {
+            "language": true,
+            "primary_topic": true,
+            "mentioned_platforms": true,
+            "mentioned_interfaces": false,
+            "mentions_sensor": true,
+            "mentions_display": true,
+            "mentions_battery": true,
+            "mentions_motor": true
+          },
+          "duplicate_list_values": {}
+        },
+        {
+          "document_id": "HR-0385",
+          "status": "valid",
+          "error": null,
+          "input_sha256": "fcfa7fa71480087658d4012b42c2a43fc2060b9892ed40b63020eca338d67b83",
+          "expected": {
+            "language": "en",
+            "primary_topic": "devices_automation",
+            "mentioned_platforms": [
+              "arduino"
+            ],
+            "mentioned_interfaces": [
+              "wifi"
+            ],
+            "mentions_sensor": true,
+            "mentions_display": false,
+            "mentions_battery": true,
+            "mentions_motor": false
+          },
+          "actual": {
+            "language": "en",
+            "primary_topic": "sensors_measurements",
+            "mentioned_platforms": [
+              "arduino"
+            ],
+            "mentioned_interfaces": [
+              "wifi"
+            ],
+            "mentions_sensor": true,
+            "mentions_display": false,
+            "mentions_battery": true,
+            "mentions_motor": false
+          },
+          "field_matches": {
+            "language": true,
+            "primary_topic": false,
+            "mentioned_platforms": true,
+            "mentioned_interfaces": true,
+            "mentions_sensor": true,
+            "mentions_display": true,
+            "mentions_battery": true,
+            "mentions_motor": true
+          },
+          "duplicate_list_values": {}
+        },
+        {
+          "document_id": "HR-0068",
+          "status": "valid",
+          "error": null,
+          "input_sha256": "d2586bad68a060a134e5ede793c94b93df7e1d784a6ea0874272bdcbf1445d68",
+          "expected": {
+            "language": "ru",
+            "primary_topic": "sensors_measurements",
+            "mentioned_platforms": [
+              "arduino"
+            ],
+            "mentioned_interfaces": [
+              "usb"
+            ],
+            "mentions_sensor": true,
+            "mentions_display": false,
+            "mentions_battery": false,
+            "mentions_motor": false
+          },
+          "actual": {
+            "language": "ru",
+            "primary_topic": "sensors_measurements",
+            "mentioned_platforms": [
+              "arduino"
+            ],
+            "mentioned_interfaces": [],
+            "mentions_sensor": true,
+            "mentions_display": false,
+            "mentions_battery": false,
+            "mentions_motor": false
+          },
+          "field_matches": {
+            "language": true,
+            "primary_topic": true,
+            "mentioned_platforms": true,
+            "mentioned_interfaces": false,
+            "mentions_sensor": true,
+            "mentions_display": true,
+            "mentions_battery": true,
+            "mentions_motor": true
+          },
+          "duplicate_list_values": {}
+        },
+        {
+          "document_id": "HR-0254",
+          "status": "valid",
+          "error": null,
+          "input_sha256": "acc4cf45765a3444506216fa08324b92e100278e1743a503cb3ad9f5fcb95714",
+          "expected": {
+            "language": "uk",
+            "primary_topic": "displays_indicators",
+            "mentioned_platforms": [
+              "arduino"
+            ],
+            "mentioned_interfaces": [
+              "i2c"
+            ],
+            "mentions_sensor": false,
+            "mentions_display": true,
+            "mentions_battery": false,
+            "mentions_motor": false
+          },
+          "actual": {
+            "language": "uk",
+            "primary_topic": "displays_indicators",
+            "mentioned_platforms": [
+              "arduino"
+            ],
+            "mentioned_interfaces": [
+              "i2c"
+            ],
+            "mentions_sensor": false,
+            "mentions_display": true,
+            "mentions_battery": false,
+            "mentions_motor": false
+          },
+          "field_matches": {
+            "language": true,
+            "primary_topic": true,
+            "mentioned_platforms": true,
+            "mentioned_interfaces": true,
+            "mentions_sensor": true,
+            "mentions_display": true,
+            "mentions_battery": true,
+            "mentions_motor": true
+          },
+          "duplicate_list_values": {}
+        },
+        {
+          "document_id": "HR-0212",
+          "status": "valid",
+          "error": null,
+          "input_sha256": "40ce53b3c829be8c660abb1fdbc29b074f771152bce922b1df85a9da02030d03",
+          "expected": {
+            "language": "uk",
+            "primary_topic": "power_batteries",
+            "mentioned_platforms": [],
+            "mentioned_interfaces": [],
+            "mentions_sensor": true,
+            "mentions_display": false,
+            "mentions_battery": true,
+            "mentions_motor": false
+          },
+          "actual": {
+            "language": "uk",
+            "primary_topic": "power_batteries",
+            "mentioned_platforms": [],
+            "mentioned_interfaces": [],
+            "mentions_sensor": false,
+            "mentions_display": true,
+            "mentions_battery": true,
+            "mentions_motor": false
+          },
+          "field_matches": {
+            "language": true,
+            "primary_topic": true,
+            "mentioned_platforms": true,
+            "mentioned_interfaces": true,
+            "mentions_sensor": false,
+            "mentions_display": false,
+            "mentions_battery": true,
+            "mentions_motor": true
+          },
+          "duplicate_list_values": {}
+        },
+        {
+          "document_id": "HR-0415",
+          "status": "valid",
+          "error": null,
+          "input_sha256": "47cc5f61e224f6b7f9ba573370d1ba98dbd779a34221b3049ae3c8fefe63d1a9",
+          "expected": {
+            "language": "en",
+            "primary_topic": "robotics_actuators",
+            "mentioned_platforms": [
+              "arduino"
+            ],
+            "mentioned_interfaces": [],
+            "mentions_sensor": false,
+            "mentions_display": false,
+            "mentions_battery": false,
+            "mentions_motor": true
+          },
+          "actual": {
+            "language": "en",
+            "primary_topic": "robotics_actuators",
+            "mentioned_platforms": [
+              "arduino"
+            ],
+            "mentioned_interfaces": [
+              "wifi"
+            ],
+            "mentions_sensor": false,
+            "mentions_display": false,
+            "mentions_battery": false,
+            "mentions_motor": true
+          },
+          "field_matches": {
+            "language": true,
+            "primary_topic": true,
+            "mentioned_platforms": true,
+            "mentioned_interfaces": false,
+            "mentions_sensor": true,
+            "mentions_display": true,
+            "mentions_battery": true,
+            "mentions_motor": true
+          },
+          "duplicate_list_values": {}
+        },
+        {
+          "document_id": "HR-0207",
+          "status": "valid",
+          "error": null,
+          "input_sha256": "73346dfb6627121c20bfa5584aecd207a89bfe26e31b9cc77aa14b821debb25e",
+          "expected": {
+            "language": "uk",
+            "primary_topic": "power_batteries",
+            "mentioned_platforms": [],
+            "mentioned_interfaces": [],
+            "mentions_sensor": false,
+            "mentions_display": false,
+            "mentions_battery": true,
+            "mentions_motor": false
+          },
+          "actual": {
+            "language": "uk",
+            "primary_topic": "power_batteries",
+            "mentioned_platforms": [],
+            "mentioned_interfaces": [],
+            "mentions_sensor": false,
+            "mentions_display": false,
+            "mentions_battery": true,
+            "mentions_motor": false
+          },
+          "field_matches": {
+            "language": true,
+            "primary_topic": true,
+            "mentioned_platforms": true,
+            "mentioned_interfaces": true,
+            "mentions_sensor": true,
+            "mentions_display": true,
+            "mentions_battery": true,
+            "mentions_motor": true
+          },
+          "duplicate_list_values": {}
+        },
+        {
+          "document_id": "HR-0227",
+          "status": "valid",
+          "error": null,
+          "input_sha256": "76e7c76e2d5848c99b434e0e50f4fc0d618f14ec11ccce50339eed117b5a391a",
+          "expected": {
+            "language": "uk",
+            "primary_topic": "sensors_measurements",
+            "mentioned_platforms": [
+              "arduino",
+              "raspberry_pi"
+            ],
+            "mentioned_interfaces": [],
+            "mentions_sensor": true,
+            "mentions_display": false,
+            "mentions_battery": false,
+            "mentions_motor": false
+          },
+          "actual": {
+            "language": "uk",
+            "primary_topic": "sensors_measurements",
+            "mentioned_platforms": [
+              "arduino",
+              "raspberry_pi"
+            ],
+            "mentioned_interfaces": [],
+            "mentions_sensor": true,
+            "mentions_display": false,
+            "mentions_battery": false,
+            "mentions_motor": false
+          },
+          "field_matches": {
+            "language": true,
+            "primary_topic": true,
+            "mentioned_platforms": true,
+            "mentioned_interfaces": true,
+            "mentions_sensor": true,
+            "mentions_display": true,
+            "mentions_battery": true,
+            "mentions_motor": true
+          },
+          "duplicate_list_values": {}
+        },
+        {
+          "document_id": "HR-0187",
+          "status": "valid",
+          "error": null,
+          "input_sha256": "d771f1223e02817ebdbdbf2b4967d86de451c9a392a73ddb376b3b491858b2dd",
+          "expected": {
+            "language": "uk",
+            "primary_topic": "devices_automation",
+            "mentioned_platforms": [
+              "arduino"
+            ],
+            "mentioned_interfaces": [],
+            "mentions_sensor": true,
+            "mentions_display": false,
+            "mentions_battery": false,
+            "mentions_motor": false
+          },
+          "actual": {
+            "language": "uk",
+            "primary_topic": "devices_automation",
+            "mentioned_platforms": [
+              "arduino"
+            ],
+            "mentioned_interfaces": [],
+            "mentions_sensor": true,
+            "mentions_display": false,
+            "mentions_battery": false,
+            "mentions_motor": true
+          },
+          "field_matches": {
+            "language": true,
+            "primary_topic": true,
+            "mentioned_platforms": true,
+            "mentioned_interfaces": true,
+            "mentions_sensor": true,
+            "mentions_display": true,
+            "mentions_battery": true,
+            "mentions_motor": false
+          },
+          "duplicate_list_values": {}
+        }
+      ],
+      "content_accuracy": 0.8571428571428573,
+      "content_field_accuracy": {
+        "primary_topic": 0.9,
+        "mentioned_platforms": 0.9,
+        "mentioned_interfaces": 0.6,
+        "mentions_sensor": 0.8,
+        "mentions_display": 0.9,
+        "mentions_battery": 1.0,
+        "mentions_motor": 0.9
+      },
+      "source_path": "D:\\PycharmProjects\\AiIngeneringKurs\\results\\schema-v2-enums-1\\prompt_v2_gpt-4o-mini_t0_20261026T173328975361Z.jsonl",
+      "source_sha256": "bab7e291b422ad813a254662c8432153bf89402cb6a28236710244b3d4e19dba"
+    },
+    {
+      "configuration": {
+        "schema_version": "v2",
+        "model": "gpt-4o-mini",
+        "prompt_version": "v1",
+        "prompt_sha256": "7dc02d743950aa524fe4dc36f0804d433c88617672d2abe14b221fe358dfc5f5",
+        "sampling": {
+          "temperature": 0.7,
+          "top_p": 1.0,
+          "max_tokens": 512
+        },
+        "preparation_version": "schema-v2-initial-metadata-v1",
+        "contract_version": "schema-v2-enums-1",
+        "contract_sha256": "716c3e2eb27595c31177e4a6ea391c370a1e0bd8816940fc98e40ef47284a35f",
+        "provider": "openai",
+        "requested_model": "gpt-4o-mini"
+      },
+      "golden_documents": 10,
+      "present_golden_results": 10,
+      "ignored_non_golden_results": 20,
+      "document_status_counts": {
+        "valid": 10,
+        "missing": 0,
+        "failed": 0,
+        "invalid": 0
+      },
+      "field_correct": {
+        "language": 10,
+        "primary_topic": 9,
+        "mentioned_platforms": 9,
+        "mentioned_interfaces": 7,
+        "mentions_sensor": 10,
+        "mentions_display": 9,
+        "mentions_battery": 10,
+        "mentions_motor": 9
+      },
+      "field_accuracy": {
+        "language": 1.0,
+        "primary_topic": 0.9,
+        "mentioned_platforms": 0.9,
+        "mentioned_interfaces": 0.7,
+        "mentions_sensor": 1.0,
+        "mentions_display": 0.9,
+        "mentions_battery": 1.0,
+        "mentions_motor": 0.9
+      },
+      "aggregate_accuracy": 0.9125000000000001,
+      "list_metrics": {
+        "mentioned_platforms": {
+          "tp": 9,
+          "fp": 0,
+          "fn": 1,
+          "precision": 1.0,
+          "recall": 0.9,
+          "f1": 0.9473684210526315
+        },
+        "mentioned_interfaces": {
+          "tp": 3,
+          "fp": 0,
+          "fn": 4,
+          "precision": 1.0,
+          "recall": 0.42857142857142855,
+          "f1": 0.6
+        }
+      },
+      "documents": [
+        {
+          "document_id": "HR-0743",
+          "status": "valid",
+          "error": null,
+          "input_sha256": "fe0b4056f3b8775d07bfa50bea8a812926a3297daaa0953629312734d3fb432d",
+          "expected": {
+            "language": "en",
+            "primary_topic": "power_batteries",
+            "mentioned_platforms": [
+              "arduino",
+              "stm32"
+            ],
+            "mentioned_interfaces": [
+              "wifi",
+              "bluetooth"
+            ],
+            "mentions_sensor": true,
+            "mentions_display": false,
+            "mentions_battery": true,
+            "mentions_motor": false
+          },
+          "actual": {
+            "language": "en",
+            "primary_topic": "power_batteries",
+            "mentioned_platforms": [
+              "arduino"
+            ],
+            "mentioned_interfaces": [],
+            "mentions_sensor": true,
+            "mentions_display": false,
+            "mentions_battery": true,
+            "mentions_motor": false
+          },
+          "field_matches": {
+            "language": true,
+            "primary_topic": true,
+            "mentioned_platforms": false,
+            "mentioned_interfaces": false,
+            "mentions_sensor": true,
+            "mentions_display": true,
+            "mentions_battery": true,
+            "mentions_motor": true
+          },
+          "duplicate_list_values": {}
+        },
+        {
+          "document_id": "HR-0244",
+          "status": "valid",
+          "error": null,
+          "input_sha256": "838b25bea3e8b1acfdda0805afe51191db1dfadd002a428a1febf27218e0b0dd",
+          "expected": {
+            "language": "uk",
+            "primary_topic": "sensors_measurements",
+            "mentioned_platforms": [
+              "esp8266"
+            ],
+            "mentioned_interfaces": [
+              "wifi",
+              "usb"
+            ],
+            "mentions_sensor": true,
+            "mentions_display": false,
+            "mentions_battery": false,
+            "mentions_motor": false
+          },
+          "actual": {
+            "language": "uk",
+            "primary_topic": "sensors_measurements",
+            "mentioned_platforms": [
+              "esp8266"
+            ],
+            "mentioned_interfaces": [
+              "wifi"
+            ],
+            "mentions_sensor": true,
+            "mentions_display": false,
+            "mentions_battery": false,
+            "mentions_motor": false
+          },
+          "field_matches": {
+            "language": true,
+            "primary_topic": true,
+            "mentioned_platforms": true,
+            "mentioned_interfaces": false,
+            "mentions_sensor": true,
+            "mentions_display": true,
+            "mentions_battery": true,
+            "mentions_motor": true
+          },
+          "duplicate_list_values": {}
+        },
+        {
+          "document_id": "HR-0385",
+          "status": "valid",
+          "error": null,
+          "input_sha256": "fcfa7fa71480087658d4012b42c2a43fc2060b9892ed40b63020eca338d67b83",
+          "expected": {
+            "language": "en",
+            "primary_topic": "devices_automation",
+            "mentioned_platforms": [
+              "arduino"
+            ],
+            "mentioned_interfaces": [
+              "wifi"
+            ],
+            "mentions_sensor": true,
+            "mentions_display": false,
+            "mentions_battery": true,
+            "mentions_motor": false
+          },
+          "actual": {
+            "language": "en",
+            "primary_topic": "devices_automation",
+            "mentioned_platforms": [
+              "arduino"
+            ],
+            "mentioned_interfaces": [
+              "wifi"
+            ],
+            "mentions_sensor": true,
+            "mentions_display": false,
+            "mentions_battery": true,
+            "mentions_motor": false
+          },
+          "field_matches": {
+            "language": true,
+            "primary_topic": true,
+            "mentioned_platforms": true,
+            "mentioned_interfaces": true,
+            "mentions_sensor": true,
+            "mentions_display": true,
+            "mentions_battery": true,
+            "mentions_motor": true
+          },
+          "duplicate_list_values": {}
+        },
+        {
+          "document_id": "HR-0068",
+          "status": "valid",
+          "error": null,
+          "input_sha256": "d2586bad68a060a134e5ede793c94b93df7e1d784a6ea0874272bdcbf1445d68",
+          "expected": {
+            "language": "ru",
+            "primary_topic": "sensors_measurements",
+            "mentioned_platforms": [
+              "arduino"
+            ],
+            "mentioned_interfaces": [
+              "usb"
+            ],
+            "mentions_sensor": true,
+            "mentions_display": false,
+            "mentions_battery": false,
+            "mentions_motor": false
+          },
+          "actual": {
+            "language": "ru",
+            "primary_topic": "sensors_measurements",
+            "mentioned_platforms": [
+              "arduino"
+            ],
+            "mentioned_interfaces": [],
+            "mentions_sensor": true,
+            "mentions_display": false,
+            "mentions_battery": false,
+            "mentions_motor": false
+          },
+          "field_matches": {
+            "language": true,
+            "primary_topic": true,
+            "mentioned_platforms": true,
+            "mentioned_interfaces": false,
+            "mentions_sensor": true,
+            "mentions_display": true,
+            "mentions_battery": true,
+            "mentions_motor": true
+          },
+          "duplicate_list_values": {}
+        },
+        {
+          "document_id": "HR-0254",
+          "status": "valid",
+          "error": null,
+          "input_sha256": "acc4cf45765a3444506216fa08324b92e100278e1743a503cb3ad9f5fcb95714",
+          "expected": {
+            "language": "uk",
+            "primary_topic": "displays_indicators",
+            "mentioned_platforms": [
+              "arduino"
+            ],
+            "mentioned_interfaces": [
+              "i2c"
+            ],
+            "mentions_sensor": false,
+            "mentions_display": true,
+            "mentions_battery": false,
+            "mentions_motor": false
+          },
+          "actual": {
+            "language": "uk",
+            "primary_topic": "displays_indicators",
+            "mentioned_platforms": [
+              "arduino"
+            ],
+            "mentioned_interfaces": [
+              "i2c"
+            ],
+            "mentions_sensor": false,
+            "mentions_display": true,
+            "mentions_battery": false,
+            "mentions_motor": false
+          },
+          "field_matches": {
+            "language": true,
+            "primary_topic": true,
+            "mentioned_platforms": true,
+            "mentioned_interfaces": true,
+            "mentions_sensor": true,
+            "mentions_display": true,
+            "mentions_battery": true,
+            "mentions_motor": true
+          },
+          "duplicate_list_values": {}
+        },
+        {
+          "document_id": "HR-0212",
+          "status": "valid",
+          "error": null,
+          "input_sha256": "40ce53b3c829be8c660abb1fdbc29b074f771152bce922b1df85a9da02030d03",
+          "expected": {
+            "language": "uk",
+            "primary_topic": "power_batteries",
+            "mentioned_platforms": [],
+            "mentioned_interfaces": [],
+            "mentions_sensor": true,
+            "mentions_display": false,
+            "mentions_battery": true,
+            "mentions_motor": false
+          },
+          "actual": {
+            "language": "uk",
+            "primary_topic": "devices_automation",
+            "mentioned_platforms": [],
+            "mentioned_interfaces": [],
+            "mentions_sensor": true,
+            "mentions_display": true,
+            "mentions_battery": true,
+            "mentions_motor": false
+          },
+          "field_matches": {
+            "language": true,
+            "primary_topic": false,
+            "mentioned_platforms": true,
+            "mentioned_interfaces": true,
+            "mentions_sensor": true,
+            "mentions_display": false,
+            "mentions_battery": true,
+            "mentions_motor": true
+          },
+          "duplicate_list_values": {}
+        },
+        {
+          "document_id": "HR-0415",
+          "status": "valid",
+          "error": null,
+          "input_sha256": "47cc5f61e224f6b7f9ba573370d1ba98dbd779a34221b3049ae3c8fefe63d1a9",
+          "expected": {
+            "language": "en",
+            "primary_topic": "robotics_actuators",
+            "mentioned_platforms": [
+              "arduino"
+            ],
+            "mentioned_interfaces": [],
+            "mentions_sensor": false,
+            "mentions_display": false,
+            "mentions_battery": false,
+            "mentions_motor": true
+          },
+          "actual": {
+            "language": "en",
+            "primary_topic": "robotics_actuators",
+            "mentioned_platforms": [
+              "arduino"
+            ],
+            "mentioned_interfaces": [],
+            "mentions_sensor": false,
+            "mentions_display": false,
+            "mentions_battery": false,
+            "mentions_motor": true
+          },
+          "field_matches": {
+            "language": true,
+            "primary_topic": true,
+            "mentioned_platforms": true,
+            "mentioned_interfaces": true,
+            "mentions_sensor": true,
+            "mentions_display": true,
+            "mentions_battery": true,
+            "mentions_motor": true
+          },
+          "duplicate_list_values": {}
+        },
+        {
+          "document_id": "HR-0207",
+          "status": "valid",
+          "error": null,
+          "input_sha256": "73346dfb6627121c20bfa5584aecd207a89bfe26e31b9cc77aa14b821debb25e",
+          "expected": {
+            "language": "uk",
+            "primary_topic": "power_batteries",
+            "mentioned_platforms": [],
+            "mentioned_interfaces": [],
+            "mentions_sensor": false,
+            "mentions_display": false,
+            "mentions_battery": true,
+            "mentions_motor": false
+          },
+          "actual": {
+            "language": "uk",
+            "primary_topic": "power_batteries",
+            "mentioned_platforms": [],
+            "mentioned_interfaces": [],
+            "mentions_sensor": false,
+            "mentions_display": false,
+            "mentions_battery": true,
+            "mentions_motor": false
+          },
+          "field_matches": {
+            "language": true,
+            "primary_topic": true,
+            "mentioned_platforms": true,
+            "mentioned_interfaces": true,
+            "mentions_sensor": true,
+            "mentions_display": true,
+            "mentions_battery": true,
+            "mentions_motor": true
+          },
+          "duplicate_list_values": {}
+        },
+        {
+          "document_id": "HR-0227",
+          "status": "valid",
+          "error": null,
+          "input_sha256": "76e7c76e2d5848c99b434e0e50f4fc0d618f14ec11ccce50339eed117b5a391a",
+          "expected": {
+            "language": "uk",
+            "primary_topic": "sensors_measurements",
+            "mentioned_platforms": [
+              "arduino",
+              "raspberry_pi"
+            ],
+            "mentioned_interfaces": [],
+            "mentions_sensor": true,
+            "mentions_display": false,
+            "mentions_battery": false,
+            "mentions_motor": false
+          },
+          "actual": {
+            "language": "uk",
+            "primary_topic": "sensors_measurements",
+            "mentioned_platforms": [
+              "arduino",
+              "raspberry_pi"
+            ],
+            "mentioned_interfaces": [],
+            "mentions_sensor": true,
+            "mentions_display": false,
+            "mentions_battery": false,
+            "mentions_motor": false
+          },
+          "field_matches": {
+            "language": true,
+            "primary_topic": true,
+            "mentioned_platforms": true,
+            "mentioned_interfaces": true,
+            "mentions_sensor": true,
+            "mentions_display": true,
+            "mentions_battery": true,
+            "mentions_motor": true
+          },
+          "duplicate_list_values": {}
+        },
+        {
+          "document_id": "HR-0187",
+          "status": "valid",
+          "error": null,
+          "input_sha256": "d771f1223e02817ebdbdbf2b4967d86de451c9a392a73ddb376b3b491858b2dd",
+          "expected": {
+            "language": "uk",
+            "primary_topic": "devices_automation",
+            "mentioned_platforms": [
+              "arduino"
+            ],
+            "mentioned_interfaces": [],
+            "mentions_sensor": true,
+            "mentions_display": false,
+            "mentions_battery": false,
+            "mentions_motor": false
+          },
+          "actual": {
+            "language": "uk",
+            "primary_topic": "devices_automation",
+            "mentioned_platforms": [
+              "arduino"
+            ],
+            "mentioned_interfaces": [],
+            "mentions_sensor": true,
+            "mentions_display": false,
+            "mentions_battery": false,
+            "mentions_motor": true
+          },
+          "field_matches": {
+            "language": true,
+            "primary_topic": true,
+            "mentioned_platforms": true,
+            "mentioned_interfaces": true,
+            "mentions_sensor": true,
+            "mentions_display": true,
+            "mentions_battery": true,
+            "mentions_motor": false
+          },
+          "duplicate_list_values": {}
+        }
+      ],
+      "content_accuracy": 0.9000000000000001,
+      "content_field_accuracy": {
+        "primary_topic": 0.9,
+        "mentioned_platforms": 0.9,
+        "mentioned_interfaces": 0.7,
+        "mentions_sensor": 1.0,
+        "mentions_display": 0.9,
+        "mentions_battery": 1.0,
+        "mentions_motor": 0.9
+      },
+      "source_path": "D:\\PycharmProjects\\AiIngeneringKurs\\results\\schema-v2-enums-1\\prompt_v1_gpt-4o-mini_t07_20261026T173328975361Z.jsonl",
+      "source_sha256": "047e7e0aa12ef056bc96b18290f7c70998c537b559c7926a304cc456c7ce17dc"
+    },
+    {
+      "configuration": {
+        "schema_version": "v2",
+        "model": "gpt-4o-mini",
+        "prompt_version": "v2",
+        "prompt_sha256": "3cb25d5767e00f28c924a8fd198d398b67e5c2ae751a35c3b4a6e3eef8ed8b54",
+        "sampling": {
+          "temperature": 0.7,
+          "top_p": 1.0,
+          "max_tokens": 512
+        },
+        "preparation_version": "schema-v2-initial-metadata-v1",
+        "contract_version": "schema-v2-enums-1",
+        "contract_sha256": "716c3e2eb27595c31177e4a6ea391c370a1e0bd8816940fc98e40ef47284a35f",
+        "provider": "openai",
+        "requested_model": "gpt-4o-mini"
+      },
+      "golden_documents": 10,
+      "present_golden_results": 10,
+      "ignored_non_golden_results": 20,
+      "document_status_counts": {
+        "valid": 10,
+        "missing": 0,
+        "failed": 0,
+        "invalid": 0
+      },
+      "field_correct": {
+        "language": 10,
+        "primary_topic": 10,
+        "mentioned_platforms": 9,
+        "mentioned_interfaces": 9,
+        "mentions_sensor": 8,
+        "mentions_display": 9,
+        "mentions_battery": 10,
+        "mentions_motor": 9
+      },
+      "field_accuracy": {
+        "language": 1.0,
+        "primary_topic": 1.0,
+        "mentioned_platforms": 0.9,
+        "mentioned_interfaces": 0.9,
+        "mentions_sensor": 0.8,
+        "mentions_display": 0.9,
+        "mentions_battery": 1.0,
+        "mentions_motor": 0.9
+      },
+      "aggregate_accuracy": 0.925,
+      "list_metrics": {
+        "mentioned_platforms": {
+          "tp": 9,
+          "fp": 0,
+          "fn": 1,
+          "precision": 1.0,
+          "recall": 0.9,
+          "f1": 0.9473684210526315
+        },
+        "mentioned_interfaces": {
+          "tp": 7,
+          "fp": 1,
+          "fn": 0,
+          "precision": 0.875,
+          "recall": 1.0,
+          "f1": 0.9333333333333333
+        }
+      },
+      "documents": [
+        {
+          "document_id": "HR-0743",
+          "status": "valid",
+          "error": null,
+          "input_sha256": "fe0b4056f3b8775d07bfa50bea8a812926a3297daaa0953629312734d3fb432d",
+          "expected": {
+            "language": "en",
+            "primary_topic": "power_batteries",
+            "mentioned_platforms": [
+              "arduino",
+              "stm32"
+            ],
+            "mentioned_interfaces": [
+              "wifi",
+              "bluetooth"
+            ],
+            "mentions_sensor": true,
+            "mentions_display": false,
+            "mentions_battery": true,
+            "mentions_motor": false
+          },
+          "actual": {
+            "language": "en",
+            "primary_topic": "power_batteries",
+            "mentioned_platforms": [
+              "arduino"
+            ],
+            "mentioned_interfaces": [
+              "wifi",
+              "bluetooth"
+            ],
+            "mentions_sensor": false,
+            "mentions_display": false,
+            "mentions_battery": true,
+            "mentions_motor": false
+          },
+          "field_matches": {
+            "language": true,
+            "primary_topic": true,
+            "mentioned_platforms": false,
+            "mentioned_interfaces": true,
+            "mentions_sensor": false,
+            "mentions_display": true,
+            "mentions_battery": true,
+            "mentions_motor": true
+          },
+          "duplicate_list_values": {}
+        },
+        {
+          "document_id": "HR-0244",
+          "status": "valid",
+          "error": null,
+          "input_sha256": "838b25bea3e8b1acfdda0805afe51191db1dfadd002a428a1febf27218e0b0dd",
+          "expected": {
+            "language": "uk",
+            "primary_topic": "sensors_measurements",
+            "mentioned_platforms": [
+              "esp8266"
+            ],
+            "mentioned_interfaces": [
+              "wifi",
+              "usb"
+            ],
+            "mentions_sensor": true,
+            "mentions_display": false,
+            "mentions_battery": false,
+            "mentions_motor": false
+          },
+          "actual": {
+            "language": "uk",
+            "primary_topic": "sensors_measurements",
+            "mentioned_platforms": [
+              "esp8266"
+            ],
+            "mentioned_interfaces": [
+              "wifi",
+              "usb"
+            ],
+            "mentions_sensor": true,
+            "mentions_display": false,
+            "mentions_battery": false,
+            "mentions_motor": false
+          },
+          "field_matches": {
+            "language": true,
+            "primary_topic": true,
+            "mentioned_platforms": true,
+            "mentioned_interfaces": true,
+            "mentions_sensor": true,
+            "mentions_display": true,
+            "mentions_battery": true,
+            "mentions_motor": true
+          },
+          "duplicate_list_values": {}
+        },
+        {
+          "document_id": "HR-0385",
+          "status": "valid",
+          "error": null,
+          "input_sha256": "fcfa7fa71480087658d4012b42c2a43fc2060b9892ed40b63020eca338d67b83",
+          "expected": {
+            "language": "en",
+            "primary_topic": "devices_automation",
+            "mentioned_platforms": [
+              "arduino"
+            ],
+            "mentioned_interfaces": [
+              "wifi"
+            ],
+            "mentions_sensor": true,
+            "mentions_display": false,
+            "mentions_battery": true,
+            "mentions_motor": false
+          },
+          "actual": {
+            "language": "en",
+            "primary_topic": "devices_automation",
+            "mentioned_platforms": [
+              "arduino"
+            ],
+            "mentioned_interfaces": [
+              "wifi"
+            ],
+            "mentions_sensor": true,
+            "mentions_display": false,
+            "mentions_battery": true,
+            "mentions_motor": false
+          },
+          "field_matches": {
+            "language": true,
+            "primary_topic": true,
+            "mentioned_platforms": true,
+            "mentioned_interfaces": true,
+            "mentions_sensor": true,
+            "mentions_display": true,
+            "mentions_battery": true,
+            "mentions_motor": true
+          },
+          "duplicate_list_values": {}
+        },
+        {
+          "document_id": "HR-0068",
+          "status": "valid",
+          "error": null,
+          "input_sha256": "d2586bad68a060a134e5ede793c94b93df7e1d784a6ea0874272bdcbf1445d68",
+          "expected": {
+            "language": "ru",
+            "primary_topic": "sensors_measurements",
+            "mentioned_platforms": [
+              "arduino"
+            ],
+            "mentioned_interfaces": [
+              "usb"
+            ],
+            "mentions_sensor": true,
+            "mentions_display": false,
+            "mentions_battery": false,
+            "mentions_motor": false
+          },
+          "actual": {
+            "language": "ru",
+            "primary_topic": "sensors_measurements",
+            "mentioned_platforms": [
+              "arduino"
+            ],
+            "mentioned_interfaces": [
+              "usb"
+            ],
+            "mentions_sensor": true,
+            "mentions_display": false,
+            "mentions_battery": false,
+            "mentions_motor": false
+          },
+          "field_matches": {
+            "language": true,
+            "primary_topic": true,
+            "mentioned_platforms": true,
+            "mentioned_interfaces": true,
+            "mentions_sensor": true,
+            "mentions_display": true,
+            "mentions_battery": true,
+            "mentions_motor": true
+          },
+          "duplicate_list_values": {}
+        },
+        {
+          "document_id": "HR-0254",
+          "status": "valid",
+          "error": null,
+          "input_sha256": "acc4cf45765a3444506216fa08324b92e100278e1743a503cb3ad9f5fcb95714",
+          "expected": {
+            "language": "uk",
+            "primary_topic": "displays_indicators",
+            "mentioned_platforms": [
+              "arduino"
+            ],
+            "mentioned_interfaces": [
+              "i2c"
+            ],
+            "mentions_sensor": false,
+            "mentions_display": true,
+            "mentions_battery": false,
+            "mentions_motor": false
+          },
+          "actual": {
+            "language": "uk",
+            "primary_topic": "displays_indicators",
+            "mentioned_platforms": [
+              "arduino"
+            ],
+            "mentioned_interfaces": [
+              "i2c"
+            ],
+            "mentions_sensor": false,
+            "mentions_display": true,
+            "mentions_battery": false,
+            "mentions_motor": false
+          },
+          "field_matches": {
+            "language": true,
+            "primary_topic": true,
+            "mentioned_platforms": true,
+            "mentioned_interfaces": true,
+            "mentions_sensor": true,
+            "mentions_display": true,
+            "mentions_battery": true,
+            "mentions_motor": true
+          },
+          "duplicate_list_values": {}
+        },
+        {
+          "document_id": "HR-0212",
+          "status": "valid",
+          "error": null,
+          "input_sha256": "40ce53b3c829be8c660abb1fdbc29b074f771152bce922b1df85a9da02030d03",
+          "expected": {
+            "language": "uk",
+            "primary_topic": "power_batteries",
+            "mentioned_platforms": [],
+            "mentioned_interfaces": [],
+            "mentions_sensor": true,
+            "mentions_display": false,
+            "mentions_battery": true,
+            "mentions_motor": false
+          },
+          "actual": {
+            "language": "uk",
+            "primary_topic": "power_batteries",
+            "mentioned_platforms": [],
+            "mentioned_interfaces": [],
+            "mentions_sensor": false,
+            "mentions_display": true,
+            "mentions_battery": true,
+            "mentions_motor": false
+          },
+          "field_matches": {
+            "language": true,
+            "primary_topic": true,
+            "mentioned_platforms": true,
+            "mentioned_interfaces": true,
+            "mentions_sensor": false,
+            "mentions_display": false,
+            "mentions_battery": true,
+            "mentions_motor": true
+          },
+          "duplicate_list_values": {}
+        },
+        {
+          "document_id": "HR-0415",
+          "status": "valid",
+          "error": null,
+          "input_sha256": "47cc5f61e224f6b7f9ba573370d1ba98dbd779a34221b3049ae3c8fefe63d1a9",
+          "expected": {
+            "language": "en",
+            "primary_topic": "robotics_actuators",
+            "mentioned_platforms": [
+              "arduino"
+            ],
+            "mentioned_interfaces": [],
+            "mentions_sensor": false,
+            "mentions_display": false,
+            "mentions_battery": false,
+            "mentions_motor": true
+          },
+          "actual": {
+            "language": "en",
+            "primary_topic": "robotics_actuators",
+            "mentioned_platforms": [
+              "arduino"
+            ],
+            "mentioned_interfaces": [
+              "wifi"
+            ],
+            "mentions_sensor": false,
+            "mentions_display": false,
+            "mentions_battery": false,
+            "mentions_motor": true
+          },
+          "field_matches": {
+            "language": true,
+            "primary_topic": true,
+            "mentioned_platforms": true,
+            "mentioned_interfaces": false,
+            "mentions_sensor": true,
+            "mentions_display": true,
+            "mentions_battery": true,
+            "mentions_motor": true
+          },
+          "duplicate_list_values": {}
+        },
+        {
+          "document_id": "HR-0207",
+          "status": "valid",
+          "error": null,
+          "input_sha256": "73346dfb6627121c20bfa5584aecd207a89bfe26e31b9cc77aa14b821debb25e",
+          "expected": {
+            "language": "uk",
+            "primary_topic": "power_batteries",
+            "mentioned_platforms": [],
+            "mentioned_interfaces": [],
+            "mentions_sensor": false,
+            "mentions_display": false,
+            "mentions_battery": true,
+            "mentions_motor": false
+          },
+          "actual": {
+            "language": "uk",
+            "primary_topic": "power_batteries",
+            "mentioned_platforms": [],
+            "mentioned_interfaces": [],
+            "mentions_sensor": false,
+            "mentions_display": false,
+            "mentions_battery": true,
+            "mentions_motor": false
+          },
+          "field_matches": {
+            "language": true,
+            "primary_topic": true,
+            "mentioned_platforms": true,
+            "mentioned_interfaces": true,
+            "mentions_sensor": true,
+            "mentions_display": true,
+            "mentions_battery": true,
+            "mentions_motor": true
+          },
+          "duplicate_list_values": {}
+        },
+        {
+          "document_id": "HR-0227",
+          "status": "valid",
+          "error": null,
+          "input_sha256": "76e7c76e2d5848c99b434e0e50f4fc0d618f14ec11ccce50339eed117b5a391a",
+          "expected": {
+            "language": "uk",
+            "primary_topic": "sensors_measurements",
+            "mentioned_platforms": [
+              "arduino",
+              "raspberry_pi"
+            ],
+            "mentioned_interfaces": [],
+            "mentions_sensor": true,
+            "mentions_display": false,
+            "mentions_battery": false,
+            "mentions_motor": false
+          },
+          "actual": {
+            "language": "uk",
+            "primary_topic": "sensors_measurements",
+            "mentioned_platforms": [
+              "arduino",
+              "raspberry_pi"
+            ],
+            "mentioned_interfaces": [],
+            "mentions_sensor": true,
+            "mentions_display": false,
+            "mentions_battery": false,
+            "mentions_motor": false
+          },
+          "field_matches": {
+            "language": true,
+            "primary_topic": true,
+            "mentioned_platforms": true,
+            "mentioned_interfaces": true,
+            "mentions_sensor": true,
+            "mentions_display": true,
+            "mentions_battery": true,
+            "mentions_motor": true
+          },
+          "duplicate_list_values": {}
+        },
+        {
+          "document_id": "HR-0187",
+          "status": "valid",
+          "error": null,
+          "input_sha256": "d771f1223e02817ebdbdbf2b4967d86de451c9a392a73ddb376b3b491858b2dd",
+          "expected": {
+            "language": "uk",
+            "primary_topic": "devices_automation",
+            "mentioned_platforms": [
+              "arduino"
+            ],
+            "mentioned_interfaces": [],
+            "mentions_sensor": true,
+            "mentions_display": false,
+            "mentions_battery": false,
+            "mentions_motor": false
+          },
+          "actual": {
+            "language": "uk",
+            "primary_topic": "devices_automation",
+            "mentioned_platforms": [
+              "arduino"
+            ],
+            "mentioned_interfaces": [],
+            "mentions_sensor": true,
+            "mentions_display": false,
+            "mentions_battery": false,
+            "mentions_motor": true
+          },
+          "field_matches": {
+            "language": true,
+            "primary_topic": true,
+            "mentioned_platforms": true,
+            "mentioned_interfaces": true,
+            "mentions_sensor": true,
+            "mentions_display": true,
+            "mentions_battery": true,
+            "mentions_motor": false
+          },
+          "duplicate_list_values": {}
+        }
+      ],
+      "content_accuracy": 0.9142857142857144,
+      "content_field_accuracy": {
+        "primary_topic": 1.0,
+        "mentioned_platforms": 0.9,
+        "mentioned_interfaces": 0.9,
+        "mentions_sensor": 0.8,
+        "mentions_display": 0.9,
+        "mentions_battery": 1.0,
+        "mentions_motor": 0.9
+      },
+      "source_path": "D:\\PycharmProjects\\AiIngeneringKurs\\results\\schema-v2-enums-1\\prompt_v2_gpt-4o-mini_t07_20261026T173328975361Z.jsonl",
+      "source_sha256": "3adfae4b566651a75930163a818f12a8a797291dcfe990c3df31d0e70d10ca74"
+    },
+    {
+      "configuration": {
+        "schema_version": "v2",
+        "model": "llama3.2:3b",
+        "prompt_version": "v1",
+        "prompt_sha256": "7dc02d743950aa524fe4dc36f0804d433c88617672d2abe14b221fe358dfc5f5",
+        "sampling": {
+          "temperature": 0.0,
+          "top_p": 1.0,
+          "max_tokens": 512
+        },
+        "preparation_version": "schema-v2-initial-metadata-v1",
+        "contract_version": "schema-v2-enums-1",
+        "contract_sha256": "716c3e2eb27595c31177e4a6ea391c370a1e0bd8816940fc98e40ef47284a35f",
+        "provider": "ollama",
+        "requested_model": "llama3.2:3b"
+      },
+      "golden_documents": 10,
+      "present_golden_results": 10,
+      "ignored_non_golden_results": 20,
+      "document_status_counts": {
+        "valid": 7,
+        "missing": 0,
+        "failed": 3,
+        "invalid": 0
+      },
+      "field_correct": {
+        "language": 7,
+        "primary_topic": 3,
+        "mentioned_platforms": 3,
+        "mentioned_interfaces": 4,
+        "mentions_sensor": 4,
+        "mentions_display": 6,
+        "mentions_battery": 4,
+        "mentions_motor": 5
+      },
+      "field_accuracy": {
+        "language": 0.7,
+        "primary_topic": 0.3,
+        "mentioned_platforms": 0.3,
+        "mentioned_interfaces": 0.4,
+        "mentions_sensor": 0.4,
+        "mentions_display": 0.6,
+        "mentions_battery": 0.4,
+        "mentions_motor": 0.5
+      },
+      "aggregate_accuracy": 0.45,
+      "list_metrics": {
+        "mentioned_platforms": {
+          "tp": 5,
+          "fp": 2,
+          "fn": 5,
+          "precision": 0.7142857142857143,
+          "recall": 0.5,
+          "f1": 0.5882352941176471
+        },
+        "mentioned_interfaces": {
+          "tp": 5,
+          "fp": 5,
+          "fn": 2,
+          "precision": 0.5,
+          "recall": 0.7142857142857143,
+          "f1": 0.5882352941176471
+        }
+      },
+      "documents": [
+        {
+          "document_id": "HR-0743",
+          "status": "valid",
+          "error": null,
+          "input_sha256": "fe0b4056f3b8775d07bfa50bea8a812926a3297daaa0953629312734d3fb432d",
+          "expected": {
+            "language": "en",
+            "primary_topic": "power_batteries",
+            "mentioned_platforms": [
+              "arduino",
+              "stm32"
+            ],
+            "mentioned_interfaces": [
+              "wifi",
+              "bluetooth"
+            ],
+            "mentions_sensor": true,
+            "mentions_display": false,
+            "mentions_battery": true,
+            "mentions_motor": false
+          },
+          "actual": {
+            "language": "en",
+            "primary_topic": "power_batteries",
+            "mentioned_platforms": [
+              "arduino"
+            ],
+            "mentioned_interfaces": [
+              "wifi",
+              "bluetooth"
+            ],
+            "mentions_sensor": false,
+            "mentions_display": false,
+            "mentions_battery": true,
+            "mentions_motor": false
+          },
+          "field_matches": {
+            "language": true,
+            "primary_topic": true,
+            "mentioned_platforms": false,
+            "mentioned_interfaces": true,
+            "mentions_sensor": false,
+            "mentions_display": true,
+            "mentions_battery": true,
+            "mentions_motor": true
+          },
+          "duplicate_list_values": {}
+        },
+        {
+          "document_id": "HR-0244",
+          "status": "valid",
+          "error": null,
+          "input_sha256": "838b25bea3e8b1acfdda0805afe51191db1dfadd002a428a1febf27218e0b0dd",
+          "expected": {
+            "language": "uk",
+            "primary_topic": "sensors_measurements",
+            "mentioned_platforms": [
+              "esp8266"
+            ],
+            "mentioned_interfaces": [
+              "wifi",
+              "usb"
+            ],
+            "mentions_sensor": true,
+            "mentions_display": false,
+            "mentions_battery": false,
+            "mentions_motor": false
+          },
+          "actual": {
+            "language": "uk",
+            "primary_topic": "sensors_measurements",
+            "mentioned_platforms": [
+              "esp8266",
+              "esp32"
+            ],
+            "mentioned_interfaces": [
+              "wifi",
+              "usb"
+            ],
+            "mentions_sensor": true,
+            "mentions_display": true,
+            "mentions_battery": true,
+            "mentions_motor": true
+          },
+          "field_matches": {
+            "language": true,
+            "primary_topic": true,
+            "mentioned_platforms": false,
+            "mentioned_interfaces": true,
+            "mentions_sensor": true,
+            "mentions_display": false,
+            "mentions_battery": false,
+            "mentions_motor": false
+          },
+          "duplicate_list_values": {}
+        },
+        {
+          "document_id": "HR-0385",
+          "status": "failed",
+          "error": null,
+          "input_sha256": "fcfa7fa71480087658d4012b42c2a43fc2060b9892ed40b63020eca338d67b83",
+          "expected": {
+            "language": "en",
+            "primary_topic": "devices_automation",
+            "mentioned_platforms": [
+              "arduino"
+            ],
+            "mentioned_interfaces": [
+              "wifi"
+            ],
+            "mentions_sensor": true,
+            "mentions_display": false,
+            "mentions_battery": true,
+            "mentions_motor": false
+          },
+          "actual": null,
+          "field_matches": {
+            "language": false,
+            "primary_topic": false,
+            "mentioned_platforms": false,
+            "mentioned_interfaces": false,
+            "mentions_sensor": false,
+            "mentions_display": false,
+            "mentions_battery": false,
+            "mentions_motor": false
+          },
+          "duplicate_list_values": {}
+        },
+        {
+          "document_id": "HR-0068",
+          "status": "valid",
+          "error": null,
+          "input_sha256": "d2586bad68a060a134e5ede793c94b93df7e1d784a6ea0874272bdcbf1445d68",
+          "expected": {
+            "language": "ru",
+            "primary_topic": "sensors_measurements",
+            "mentioned_platforms": [
+              "arduino"
+            ],
+            "mentioned_interfaces": [
+              "usb"
+            ],
+            "mentions_sensor": true,
+            "mentions_display": false,
+            "mentions_battery": false,
+            "mentions_motor": false
+          },
+          "actual": {
+            "language": "ru",
+            "primary_topic": "sensors_measurements",
+            "mentioned_platforms": [
+              "arduino"
+            ],
+            "mentioned_interfaces": [
+              "usb",
+              "lora"
+            ],
+            "mentions_sensor": true,
+            "mentions_display": false,
+            "mentions_battery": false,
+            "mentions_motor": false
+          },
+          "field_matches": {
+            "language": true,
+            "primary_topic": true,
+            "mentioned_platforms": true,
+            "mentioned_interfaces": false,
+            "mentions_sensor": true,
+            "mentions_display": true,
+            "mentions_battery": true,
+            "mentions_motor": true
+          },
+          "duplicate_list_values": {}
+        },
+        {
+          "document_id": "HR-0254",
+          "status": "failed",
+          "error": null,
+          "input_sha256": "acc4cf45765a3444506216fa08324b92e100278e1743a503cb3ad9f5fcb95714",
+          "expected": {
+            "language": "uk",
+            "primary_topic": "displays_indicators",
+            "mentioned_platforms": [
+              "arduino"
+            ],
+            "mentioned_interfaces": [
+              "i2c"
+            ],
+            "mentions_sensor": false,
+            "mentions_display": true,
+            "mentions_battery": false,
+            "mentions_motor": false
+          },
+          "actual": null,
+          "field_matches": {
+            "language": false,
+            "primary_topic": false,
+            "mentioned_platforms": false,
+            "mentioned_interfaces": false,
+            "mentions_sensor": false,
+            "mentions_display": false,
+            "mentions_battery": false,
+            "mentions_motor": false
+          },
+          "duplicate_list_values": {}
+        },
+        {
+          "document_id": "HR-0212",
+          "status": "valid",
+          "error": null,
+          "input_sha256": "40ce53b3c829be8c660abb1fdbc29b074f771152bce922b1df85a9da02030d03",
+          "expected": {
+            "language": "uk",
+            "primary_topic": "power_batteries",
+            "mentioned_platforms": [],
+            "mentioned_interfaces": [],
+            "mentions_sensor": true,
+            "mentions_display": false,
+            "mentions_battery": true,
+            "mentions_motor": false
+          },
+          "actual": {
+            "language": "uk",
+            "primary_topic": "robotics_actuators",
+            "mentioned_platforms": [
+              "esp32"
+            ],
+            "mentioned_interfaces": [
+              "i2c",
+              "spi"
+            ],
+            "mentions_sensor": false,
+            "mentions_display": false,
+            "mentions_battery": false,
+            "mentions_motor": false
+          },
+          "field_matches": {
+            "language": true,
+            "primary_topic": false,
+            "mentioned_platforms": false,
+            "mentioned_interfaces": false,
+            "mentions_sensor": false,
+            "mentions_display": true,
+            "mentions_battery": false,
+            "mentions_motor": true
+          },
+          "duplicate_list_values": {}
+        },
+        {
+          "document_id": "HR-0415",
+          "status": "failed",
+          "error": null,
+          "input_sha256": "47cc5f61e224f6b7f9ba573370d1ba98dbd779a34221b3049ae3c8fefe63d1a9",
+          "expected": {
+            "language": "en",
+            "primary_topic": "robotics_actuators",
+            "mentioned_platforms": [
+              "arduino"
+            ],
+            "mentioned_interfaces": [],
+            "mentions_sensor": false,
+            "mentions_display": false,
+            "mentions_battery": false,
+            "mentions_motor": true
+          },
+          "actual": null,
+          "field_matches": {
+            "language": false,
+            "primary_topic": false,
+            "mentioned_platforms": false,
+            "mentioned_interfaces": false,
+            "mentions_sensor": false,
+            "mentions_display": false,
+            "mentions_battery": false,
+            "mentions_motor": false
+          },
+          "duplicate_list_values": {}
+        },
+        {
+          "document_id": "HR-0207",
+          "status": "valid",
+          "error": null,
+          "input_sha256": "73346dfb6627121c20bfa5584aecd207a89bfe26e31b9cc77aa14b821debb25e",
+          "expected": {
+            "language": "uk",
+            "primary_topic": "power_batteries",
+            "mentioned_platforms": [],
+            "mentioned_interfaces": [],
+            "mentions_sensor": false,
+            "mentions_display": false,
+            "mentions_battery": true,
+            "mentions_motor": false
+          },
+          "actual": {
+            "language": "uk",
+            "primary_topic": "robotics_actuators",
+            "mentioned_platforms": [],
+            "mentioned_interfaces": [],
+            "mentions_sensor": false,
+            "mentions_display": false,
+            "mentions_battery": false,
+            "mentions_motor": false
+          },
+          "field_matches": {
+            "language": true,
+            "primary_topic": false,
+            "mentioned_platforms": true,
+            "mentioned_interfaces": true,
+            "mentions_sensor": true,
+            "mentions_display": true,
+            "mentions_battery": false,
+            "mentions_motor": true
+          },
+          "duplicate_list_values": {}
+        },
+        {
+          "document_id": "HR-0227",
+          "status": "valid",
+          "error": null,
+          "input_sha256": "76e7c76e2d5848c99b434e0e50f4fc0d618f14ec11ccce50339eed117b5a391a",
+          "expected": {
+            "language": "uk",
+            "primary_topic": "sensors_measurements",
+            "mentioned_platforms": [
+              "arduino",
+              "raspberry_pi"
+            ],
+            "mentioned_interfaces": [],
+            "mentions_sensor": true,
+            "mentions_display": false,
+            "mentions_battery": false,
+            "mentions_motor": false
+          },
+          "actual": {
+            "language": "uk",
+            "primary_topic": "controllers_programming",
+            "mentioned_platforms": [
+              "raspberry_pi",
+              "arduino"
+            ],
+            "mentioned_interfaces": [
+              "bluetooth",
+              "wifi"
+            ],
+            "mentions_sensor": false,
+            "mentions_display": false,
+            "mentions_battery": false,
+            "mentions_motor": false
+          },
+          "field_matches": {
+            "language": true,
+            "primary_topic": false,
+            "mentioned_platforms": true,
+            "mentioned_interfaces": false,
+            "mentions_sensor": false,
+            "mentions_display": true,
+            "mentions_battery": true,
+            "mentions_motor": true
+          },
+          "duplicate_list_values": {}
+        },
+        {
+          "document_id": "HR-0187",
+          "status": "valid",
+          "error": null,
+          "input_sha256": "d771f1223e02817ebdbdbf2b4967d86de451c9a392a73ddb376b3b491858b2dd",
+          "expected": {
+            "language": "uk",
+            "primary_topic": "devices_automation",
+            "mentioned_platforms": [
+              "arduino"
+            ],
+            "mentioned_interfaces": [],
+            "mentions_sensor": true,
+            "mentions_display": false,
+            "mentions_battery": false,
+            "mentions_motor": false
+          },
+          "actual": {
+            "language": "uk",
+            "primary_topic": "robotics_actuators",
+            "mentioned_platforms": [],
+            "mentioned_interfaces": [],
+            "mentions_sensor": true,
+            "mentions_display": false,
+            "mentions_battery": false,
+            "mentions_motor": true
+          },
+          "field_matches": {
+            "language": true,
+            "primary_topic": false,
+            "mentioned_platforms": false,
+            "mentioned_interfaces": true,
+            "mentions_sensor": true,
+            "mentions_display": true,
+            "mentions_battery": true,
+            "mentions_motor": false
+          },
+          "duplicate_list_values": {}
+        }
+      ],
+      "content_accuracy": 0.41428571428571426,
+      "content_field_accuracy": {
+        "primary_topic": 0.3,
+        "mentioned_platforms": 0.3,
+        "mentioned_interfaces": 0.4,
+        "mentions_sensor": 0.4,
+        "mentions_display": 0.6,
+        "mentions_battery": 0.4,
+        "mentions_motor": 0.5
+      },
+      "source_path": "D:\\PycharmProjects\\AiIngeneringKurs\\results\\schema-v2-enums-1\\prompt_v1_llama3.2_3b_t0_20261026T173328975361Z.jsonl",
+      "source_sha256": "836c60884021f51aa68b56021e20f110523f8b11c23226be74e63481e47c9512"
+    },
+    {
+      "configuration": {
+        "schema_version": "v2",
+        "model": "llama3.2:3b",
+        "prompt_version": "v2",
+        "prompt_sha256": "3cb25d5767e00f28c924a8fd198d398b67e5c2ae751a35c3b4a6e3eef8ed8b54",
+        "sampling": {
+          "temperature": 0.0,
+          "top_p": 1.0,
+          "max_tokens": 512
+        },
+        "preparation_version": "schema-v2-initial-metadata-v1",
+        "contract_version": "schema-v2-enums-1",
+        "contract_sha256": "716c3e2eb27595c31177e4a6ea391c370a1e0bd8816940fc98e40ef47284a35f",
+        "provider": "ollama",
+        "requested_model": "llama3.2:3b"
+      },
+      "golden_documents": 10,
+      "present_golden_results": 10,
+      "ignored_non_golden_results": 20,
+      "document_status_counts": {
+        "valid": 7,
+        "missing": 0,
+        "failed": 3,
+        "invalid": 0
+      },
+      "field_correct": {
+        "language": 7,
+        "primary_topic": 3,
+        "mentioned_platforms": 4,
+        "mentioned_interfaces": 1,
+        "mentions_sensor": 6,
+        "mentions_display": 5,
+        "mentions_battery": 6,
+        "mentions_motor": 5
+      },
+      "field_accuracy": {
+        "language": 0.7,
+        "primary_topic": 0.3,
+        "mentioned_platforms": 0.4,
+        "mentioned_interfaces": 0.1,
+        "mentions_sensor": 0.6,
+        "mentions_display": 0.5,
+        "mentions_battery": 0.6,
+        "mentions_motor": 0.5
+      },
+      "aggregate_accuracy": 0.4625,
+      "list_metrics": {
+        "mentioned_platforms": {
+          "tp": 6,
+          "fp": 1,
+          "fn": 4,
+          "precision": 0.8571428571428571,
+          "recall": 0.6,
+          "f1": 0.7058823529411765
+        },
+        "mentioned_interfaces": {
+          "tp": 3,
+          "fp": 16,
+          "fn": 4,
+          "precision": 0.15789473684210525,
+          "recall": 0.42857142857142855,
+          "f1": 0.23076923076923078
+        }
+      },
+      "documents": [
+        {
+          "document_id": "HR-0743",
+          "status": "valid",
+          "error": null,
+          "input_sha256": "fe0b4056f3b8775d07bfa50bea8a812926a3297daaa0953629312734d3fb432d",
+          "expected": {
+            "language": "en",
+            "primary_topic": "power_batteries",
+            "mentioned_platforms": [
+              "arduino",
+              "stm32"
+            ],
+            "mentioned_interfaces": [
+              "wifi",
+              "bluetooth"
+            ],
+            "mentions_sensor": true,
+            "mentions_display": false,
+            "mentions_battery": true,
+            "mentions_motor": false
+          },
+          "actual": {
+            "language": "en",
+            "primary_topic": "devices_automation",
+            "mentioned_platforms": [
+              "arduino"
+            ],
+            "mentioned_interfaces": [
+              "uart",
+              "usb",
+              "wifi",
+              "bluetooth"
+            ],
+            "mentions_sensor": false,
+            "mentions_display": false,
+            "mentions_battery": true,
+            "mentions_motor": false
+          },
+          "field_matches": {
+            "language": true,
+            "primary_topic": false,
+            "mentioned_platforms": false,
+            "mentioned_interfaces": false,
+            "mentions_sensor": false,
+            "mentions_display": true,
+            "mentions_battery": true,
+            "mentions_motor": true
+          },
+          "duplicate_list_values": {}
+        },
+        {
+          "document_id": "HR-0244",
+          "status": "valid",
+          "error": null,
+          "input_sha256": "838b25bea3e8b1acfdda0805afe51191db1dfadd002a428a1febf27218e0b0dd",
+          "expected": {
+            "language": "uk",
+            "primary_topic": "sensors_measurements",
+            "mentioned_platforms": [
+              "esp8266"
+            ],
+            "mentioned_interfaces": [
+              "wifi",
+              "usb"
+            ],
+            "mentions_sensor": true,
+            "mentions_display": false,
+            "mentions_battery": false,
+            "mentions_motor": false
+          },
+          "actual": {
+            "language": "uk",
+            "primary_topic": "devices_automation",
+            "mentioned_platforms": [
+              "esp8266",
+              "esp32"
+            ],
+            "mentioned_interfaces": [
+              "uart",
+              "i2c",
+              "spi"
+            ],
+            "mentions_sensor": true,
+            "mentions_display": true,
+            "mentions_battery": false,
+            "mentions_motor": false
+          },
+          "field_matches": {
+            "language": true,
+            "primary_topic": false,
+            "mentioned_platforms": false,
+            "mentioned_interfaces": false,
+            "mentions_sensor": true,
+            "mentions_display": false,
+            "mentions_battery": true,
+            "mentions_motor": true
+          },
+          "duplicate_list_values": {}
+        },
+        {
+          "document_id": "HR-0385",
+          "status": "failed",
+          "error": null,
+          "input_sha256": "fcfa7fa71480087658d4012b42c2a43fc2060b9892ed40b63020eca338d67b83",
+          "expected": {
+            "language": "en",
+            "primary_topic": "devices_automation",
+            "mentioned_platforms": [
+              "arduino"
+            ],
+            "mentioned_interfaces": [
+              "wifi"
+            ],
+            "mentions_sensor": true,
+            "mentions_display": false,
+            "mentions_battery": true,
+            "mentions_motor": false
+          },
+          "actual": null,
+          "field_matches": {
+            "language": false,
+            "primary_topic": false,
+            "mentioned_platforms": false,
+            "mentioned_interfaces": false,
+            "mentions_sensor": false,
+            "mentions_display": false,
+            "mentions_battery": false,
+            "mentions_motor": false
+          },
+          "duplicate_list_values": {}
+        },
+        {
+          "document_id": "HR-0068",
+          "status": "valid",
+          "error": null,
+          "input_sha256": "d2586bad68a060a134e5ede793c94b93df7e1d784a6ea0874272bdcbf1445d68",
+          "expected": {
+            "language": "ru",
+            "primary_topic": "sensors_measurements",
+            "mentioned_platforms": [
+              "arduino"
+            ],
+            "mentioned_interfaces": [
+              "usb"
+            ],
+            "mentions_sensor": true,
+            "mentions_display": false,
+            "mentions_battery": false,
+            "mentions_motor": false
+          },
+          "actual": {
+            "language": "ru",
+            "primary_topic": "devices_automation",
+            "mentioned_platforms": [
+              "arduino"
+            ],
+            "mentioned_interfaces": [
+              "i2c",
+              "spi"
+            ],
+            "mentions_sensor": true,
+            "mentions_display": false,
+            "mentions_battery": false,
+            "mentions_motor": false
+          },
+          "field_matches": {
+            "language": true,
+            "primary_topic": false,
+            "mentioned_platforms": true,
+            "mentioned_interfaces": false,
+            "mentions_sensor": true,
+            "mentions_display": true,
+            "mentions_battery": true,
+            "mentions_motor": true
+          },
+          "duplicate_list_values": {}
+        },
+        {
+          "document_id": "HR-0254",
+          "status": "valid",
+          "error": null,
+          "input_sha256": "acc4cf45765a3444506216fa08324b92e100278e1743a503cb3ad9f5fcb95714",
+          "expected": {
+            "language": "uk",
+            "primary_topic": "displays_indicators",
+            "mentioned_platforms": [
+              "arduino"
+            ],
+            "mentioned_interfaces": [
+              "i2c"
+            ],
+            "mentions_sensor": false,
+            "mentions_display": true,
+            "mentions_battery": false,
+            "mentions_motor": false
+          },
+          "actual": {
+            "language": "uk",
+            "primary_topic": "displays_indicators",
+            "mentioned_platforms": [
+              "arduino"
+            ],
+            "mentioned_interfaces": [
+              "i2c"
+            ],
+            "mentions_sensor": false,
+            "mentions_display": true,
+            "mentions_battery": false,
+            "mentions_motor": false
+          },
+          "field_matches": {
+            "language": true,
+            "primary_topic": true,
+            "mentioned_platforms": true,
+            "mentioned_interfaces": true,
+            "mentions_sensor": true,
+            "mentions_display": true,
+            "mentions_battery": true,
+            "mentions_motor": true
+          },
+          "duplicate_list_values": {}
+        },
+        {
+          "document_id": "HR-0212",
+          "status": "failed",
+          "error": null,
+          "input_sha256": "40ce53b3c829be8c660abb1fdbc29b074f771152bce922b1df85a9da02030d03",
+          "expected": {
+            "language": "uk",
+            "primary_topic": "power_batteries",
+            "mentioned_platforms": [],
+            "mentioned_interfaces": [],
+            "mentions_sensor": true,
+            "mentions_display": false,
+            "mentions_battery": true,
+            "mentions_motor": false
+          },
+          "actual": null,
+          "field_matches": {
+            "language": false,
+            "primary_topic": false,
+            "mentioned_platforms": false,
+            "mentioned_interfaces": false,
+            "mentions_sensor": false,
+            "mentions_display": false,
+            "mentions_battery": false,
+            "mentions_motor": false
+          },
+          "duplicate_list_values": {}
+        },
+        {
+          "document_id": "HR-0415",
+          "status": "failed",
+          "error": null,
+          "input_sha256": "47cc5f61e224f6b7f9ba573370d1ba98dbd779a34221b3049ae3c8fefe63d1a9",
+          "expected": {
+            "language": "en",
+            "primary_topic": "robotics_actuators",
+            "mentioned_platforms": [
+              "arduino"
+            ],
+            "mentioned_interfaces": [],
+            "mentions_sensor": false,
+            "mentions_display": false,
+            "mentions_battery": false,
+            "mentions_motor": true
+          },
+          "actual": null,
+          "field_matches": {
+            "language": false,
+            "primary_topic": false,
+            "mentioned_platforms": false,
+            "mentioned_interfaces": false,
+            "mentions_sensor": false,
+            "mentions_display": false,
+            "mentions_battery": false,
+            "mentions_motor": false
+          },
+          "duplicate_list_values": {}
+        },
+        {
+          "document_id": "HR-0207",
+          "status": "valid",
+          "error": null,
+          "input_sha256": "73346dfb6627121c20bfa5584aecd207a89bfe26e31b9cc77aa14b821debb25e",
+          "expected": {
+            "language": "uk",
+            "primary_topic": "power_batteries",
+            "mentioned_platforms": [],
+            "mentioned_interfaces": [],
+            "mentions_sensor": false,
+            "mentions_display": false,
+            "mentions_battery": true,
+            "mentions_motor": false
+          },
+          "actual": {
+            "language": "uk",
+            "primary_topic": "power_batteries",
+            "mentioned_platforms": [],
+            "mentioned_interfaces": [
+              "spi",
+              "i2c"
+            ],
+            "mentions_sensor": false,
+            "mentions_display": false,
+            "mentions_battery": true,
+            "mentions_motor": false
+          },
+          "field_matches": {
+            "language": true,
+            "primary_topic": true,
+            "mentioned_platforms": true,
+            "mentioned_interfaces": false,
+            "mentions_sensor": true,
+            "mentions_display": true,
+            "mentions_battery": true,
+            "mentions_motor": true
+          },
+          "duplicate_list_values": {}
+        },
+        {
+          "document_id": "HR-0227",
+          "status": "valid",
+          "error": null,
+          "input_sha256": "76e7c76e2d5848c99b434e0e50f4fc0d618f14ec11ccce50339eed117b5a391a",
+          "expected": {
+            "language": "uk",
+            "primary_topic": "sensors_measurements",
+            "mentioned_platforms": [
+              "arduino",
+              "raspberry_pi"
+            ],
+            "mentioned_interfaces": [],
+            "mentions_sensor": true,
+            "mentions_display": false,
+            "mentions_battery": false,
+            "mentions_motor": false
+          },
+          "actual": {
+            "language": "uk",
+            "primary_topic": "devices_automation",
+            "mentioned_platforms": [
+              "raspberry_pi",
+              "arduino"
+            ],
+            "mentioned_interfaces": [
+              "uart",
+              "spi",
+              "i2c"
+            ],
+            "mentions_sensor": true,
+            "mentions_display": true,
+            "mentions_battery": true,
+            "mentions_motor": true
+          },
+          "field_matches": {
+            "language": true,
+            "primary_topic": false,
+            "mentioned_platforms": true,
+            "mentioned_interfaces": false,
+            "mentions_sensor": true,
+            "mentions_display": false,
+            "mentions_battery": false,
+            "mentions_motor": false
+          },
+          "duplicate_list_values": {}
+        },
+        {
+          "document_id": "HR-0187",
+          "status": "valid",
+          "error": null,
+          "input_sha256": "d771f1223e02817ebdbdbf2b4967d86de451c9a392a73ddb376b3b491858b2dd",
+          "expected": {
+            "language": "uk",
+            "primary_topic": "devices_automation",
+            "mentioned_platforms": [
+              "arduino"
+            ],
+            "mentioned_interfaces": [],
+            "mentions_sensor": true,
+            "mentions_display": false,
+            "mentions_battery": false,
+            "mentions_motor": false
+          },
+          "actual": {
+            "language": "uk",
+            "primary_topic": "devices_automation",
+            "mentioned_platforms": [],
+            "mentioned_interfaces": [
+              "uart",
+              "usb",
+              "i2c",
+              "spi"
+            ],
+            "mentions_sensor": true,
+            "mentions_display": false,
+            "mentions_battery": false,
+            "mentions_motor": true
+          },
+          "field_matches": {
+            "language": true,
+            "primary_topic": true,
+            "mentioned_platforms": false,
+            "mentioned_interfaces": false,
+            "mentions_sensor": true,
+            "mentions_display": true,
+            "mentions_battery": true,
+            "mentions_motor": false
+          },
+          "duplicate_list_values": {}
+        }
+      ],
+      "content_accuracy": 0.42857142857142855,
+      "content_field_accuracy": {
+        "primary_topic": 0.3,
+        "mentioned_platforms": 0.4,
+        "mentioned_interfaces": 0.1,
+        "mentions_sensor": 0.6,
+        "mentions_display": 0.5,
+        "mentions_battery": 0.6,
+        "mentions_motor": 0.5
+      },
+      "source_path": "D:\\PycharmProjects\\AiIngeneringKurs\\results\\schema-v2-enums-1\\prompt_v2_llama3.2_3b_t0_20261026T173328975361Z.jsonl",
+      "source_sha256": "91ebb93320caabb7d9260b8253a3c3f5618b0745821fa2c2f3bc0ef4e768bc4c"
+    },
+    {
+      "configuration": {
+        "schema_version": "v2",
+        "model": "llama3.2:3b",
+        "prompt_version": "v1",
+        "prompt_sha256": "7dc02d743950aa524fe4dc36f0804d433c88617672d2abe14b221fe358dfc5f5",
+        "sampling": {
+          "temperature": 0.7,
+          "top_p": 1.0,
+          "max_tokens": 512
+        },
+        "preparation_version": "schema-v2-initial-metadata-v1",
+        "contract_version": "schema-v2-enums-1",
+        "contract_sha256": "716c3e2eb27595c31177e4a6ea391c370a1e0bd8816940fc98e40ef47284a35f",
+        "provider": "ollama",
+        "requested_model": "llama3.2:3b"
+      },
+      "golden_documents": 10,
+      "present_golden_results": 10,
+      "ignored_non_golden_results": 20,
+      "document_status_counts": {
+        "valid": 10,
+        "missing": 0,
+        "failed": 0,
+        "invalid": 0
+      },
+      "field_correct": {
+        "language": 9,
+        "primary_topic": 3,
+        "mentioned_platforms": 7,
+        "mentioned_interfaces": 4,
+        "mentions_sensor": 6,
+        "mentions_display": 9,
+        "mentions_battery": 6,
+        "mentions_motor": 8
+      },
+      "field_accuracy": {
+        "language": 0.9,
+        "primary_topic": 0.3,
+        "mentioned_platforms": 0.7,
+        "mentioned_interfaces": 0.4,
+        "mentions_sensor": 0.6,
+        "mentions_display": 0.9,
+        "mentions_battery": 0.6,
+        "mentions_motor": 0.8
+      },
+      "aggregate_accuracy": 0.6499999999999999,
+      "list_metrics": {
+        "mentioned_platforms": {
+          "tp": 8,
+          "fp": 1,
+          "fn": 2,
+          "precision": 0.8888888888888888,
+          "recall": 0.8,
+          "f1": 0.8421052631578947
+        },
+        "mentioned_interfaces": {
+          "tp": 2,
+          "fp": 7,
+          "fn": 5,
+          "precision": 0.2222222222222222,
+          "recall": 0.2857142857142857,
+          "f1": 0.25
+        }
+      },
+      "documents": [
+        {
+          "document_id": "HR-0743",
+          "status": "valid",
+          "error": null,
+          "input_sha256": "fe0b4056f3b8775d07bfa50bea8a812926a3297daaa0953629312734d3fb432d",
+          "expected": {
+            "language": "en",
+            "primary_topic": "power_batteries",
+            "mentioned_platforms": [
+              "arduino",
+              "stm32"
+            ],
+            "mentioned_interfaces": [
+              "wifi",
+              "bluetooth"
+            ],
+            "mentions_sensor": true,
+            "mentions_display": false,
+            "mentions_battery": true,
+            "mentions_motor": false
+          },
+          "actual": {
+            "language": "en",
+            "primary_topic": "power_batteries",
+            "mentioned_platforms": [
+              "arduino"
+            ],
+            "mentioned_interfaces": [],
+            "mentions_sensor": false,
+            "mentions_display": false,
+            "mentions_battery": true,
+            "mentions_motor": false
+          },
+          "field_matches": {
+            "language": true,
+            "primary_topic": true,
+            "mentioned_platforms": false,
+            "mentioned_interfaces": false,
+            "mentions_sensor": false,
+            "mentions_display": true,
+            "mentions_battery": true,
+            "mentions_motor": true
+          },
+          "duplicate_list_values": {}
+        },
+        {
+          "document_id": "HR-0244",
+          "status": "valid",
+          "error": null,
+          "input_sha256": "838b25bea3e8b1acfdda0805afe51191db1dfadd002a428a1febf27218e0b0dd",
+          "expected": {
+            "language": "uk",
+            "primary_topic": "sensors_measurements",
+            "mentioned_platforms": [
+              "esp8266"
+            ],
+            "mentioned_interfaces": [
+              "wifi",
+              "usb"
+            ],
+            "mentions_sensor": true,
+            "mentions_display": false,
+            "mentions_battery": false,
+            "mentions_motor": false
+          },
+          "actual": {
+            "language": "uk",
+            "primary_topic": "robotics_actuators",
+            "mentioned_platforms": [
+              "esp8266",
+              "esp32"
+            ],
+            "mentioned_interfaces": [
+              "wifi",
+              "i2c"
+            ],
+            "mentions_sensor": false,
+            "mentions_display": false,
+            "mentions_battery": false,
+            "mentions_motor": false
+          },
+          "field_matches": {
+            "language": true,
+            "primary_topic": false,
+            "mentioned_platforms": false,
+            "mentioned_interfaces": false,
+            "mentions_sensor": false,
+            "mentions_display": true,
+            "mentions_battery": true,
+            "mentions_motor": true
+          },
+          "duplicate_list_values": {}
+        },
+        {
+          "document_id": "HR-0385",
+          "status": "valid",
+          "error": null,
+          "input_sha256": "fcfa7fa71480087658d4012b42c2a43fc2060b9892ed40b63020eca338d67b83",
+          "expected": {
+            "language": "en",
+            "primary_topic": "devices_automation",
+            "mentioned_platforms": [
+              "arduino"
+            ],
+            "mentioned_interfaces": [
+              "wifi"
+            ],
+            "mentions_sensor": true,
+            "mentions_display": false,
+            "mentions_battery": true,
+            "mentions_motor": false
+          },
+          "actual": {
+            "language": "en",
+            "primary_topic": "sensors_measurements",
+            "mentioned_platforms": [
+              "arduino"
+            ],
+            "mentioned_interfaces": [
+              "spi"
+            ],
+            "mentions_sensor": true,
+            "mentions_display": false,
+            "mentions_battery": true,
+            "mentions_motor": false
+          },
+          "field_matches": {
+            "language": true,
+            "primary_topic": false,
+            "mentioned_platforms": true,
+            "mentioned_interfaces": false,
+            "mentions_sensor": true,
+            "mentions_display": true,
+            "mentions_battery": true,
+            "mentions_motor": true
+          },
+          "duplicate_list_values": {}
+        },
+        {
+          "document_id": "HR-0068",
+          "status": "valid",
+          "error": null,
+          "input_sha256": "d2586bad68a060a134e5ede793c94b93df7e1d784a6ea0874272bdcbf1445d68",
+          "expected": {
+            "language": "ru",
+            "primary_topic": "sensors_measurements",
+            "mentioned_platforms": [
+              "arduino"
+            ],
+            "mentioned_interfaces": [
+              "usb"
+            ],
+            "mentions_sensor": true,
+            "mentions_display": false,
+            "mentions_battery": false,
+            "mentions_motor": false
+          },
+          "actual": {
+            "language": "ru",
+            "primary_topic": "sensors_measurements",
+            "mentioned_platforms": [
+              "arduino"
+            ],
+            "mentioned_interfaces": [
+              "lora"
+            ],
+            "mentions_sensor": true,
+            "mentions_display": false,
+            "mentions_battery": false,
+            "mentions_motor": false
+          },
+          "field_matches": {
+            "language": true,
+            "primary_topic": true,
+            "mentioned_platforms": true,
+            "mentioned_interfaces": false,
+            "mentions_sensor": true,
+            "mentions_display": true,
+            "mentions_battery": true,
+            "mentions_motor": true
+          },
+          "duplicate_list_values": {}
+        },
+        {
+          "document_id": "HR-0254",
+          "status": "valid",
+          "error": null,
+          "input_sha256": "acc4cf45765a3444506216fa08324b92e100278e1743a503cb3ad9f5fcb95714",
+          "expected": {
+            "language": "uk",
+            "primary_topic": "displays_indicators",
+            "mentioned_platforms": [
+              "arduino"
+            ],
+            "mentioned_interfaces": [
+              "i2c"
+            ],
+            "mentions_sensor": false,
+            "mentions_display": true,
+            "mentions_battery": false,
+            "mentions_motor": false
+          },
+          "actual": {
+            "language": "uk",
+            "primary_topic": "printing_mechanics",
+            "mentioned_platforms": [
+              "arduino"
+            ],
+            "mentioned_interfaces": [
+              "i2c",
+              "lora",
+              "spi"
+            ],
+            "mentions_sensor": false,
+            "mentions_display": true,
+            "mentions_battery": true,
+            "mentions_motor": false
+          },
+          "field_matches": {
+            "language": true,
+            "primary_topic": false,
+            "mentioned_platforms": true,
+            "mentioned_interfaces": false,
+            "mentions_sensor": true,
+            "mentions_display": true,
+            "mentions_battery": false,
+            "mentions_motor": true
+          },
+          "duplicate_list_values": {}
+        },
+        {
+          "document_id": "HR-0212",
+          "status": "valid",
+          "error": null,
+          "input_sha256": "40ce53b3c829be8c660abb1fdbc29b074f771152bce922b1df85a9da02030d03",
+          "expected": {
+            "language": "uk",
+            "primary_topic": "power_batteries",
+            "mentioned_platforms": [],
+            "mentioned_interfaces": [],
+            "mentions_sensor": true,
+            "mentions_display": false,
+            "mentions_battery": true,
+            "mentions_motor": false
+          },
+          "actual": {
+            "language": "uk",
+            "primary_topic": "robotics_actuators",
+            "mentioned_platforms": [],
+            "mentioned_interfaces": [],
+            "mentions_sensor": false,
+            "mentions_display": false,
+            "mentions_battery": false,
+            "mentions_motor": false
+          },
+          "field_matches": {
+            "language": true,
+            "primary_topic": false,
+            "mentioned_platforms": true,
+            "mentioned_interfaces": true,
+            "mentions_sensor": false,
+            "mentions_display": true,
+            "mentions_battery": false,
+            "mentions_motor": true
+          },
+          "duplicate_list_values": {}
+        },
+        {
+          "document_id": "HR-0415",
+          "status": "valid",
+          "error": null,
+          "input_sha256": "47cc5f61e224f6b7f9ba573370d1ba98dbd779a34221b3049ae3c8fefe63d1a9",
+          "expected": {
+            "language": "en",
+            "primary_topic": "robotics_actuators",
+            "mentioned_platforms": [
+              "arduino"
+            ],
+            "mentioned_interfaces": [],
+            "mentions_sensor": false,
+            "mentions_display": false,
+            "mentions_battery": false,
+            "mentions_motor": true
+          },
+          "actual": {
+            "language": "uk",
+            "primary_topic": "robotics_actuators",
+            "mentioned_platforms": [
+              "arduino"
+            ],
+            "mentioned_interfaces": [],
+            "mentions_sensor": false,
+            "mentions_display": false,
+            "mentions_battery": false,
+            "mentions_motor": true
+          },
+          "field_matches": {
+            "language": false,
+            "primary_topic": true,
+            "mentioned_platforms": true,
+            "mentioned_interfaces": true,
+            "mentions_sensor": true,
+            "mentions_display": true,
+            "mentions_battery": true,
+            "mentions_motor": true
+          },
+          "duplicate_list_values": {}
+        },
+        {
+          "document_id": "HR-0207",
+          "status": "valid",
+          "error": null,
+          "input_sha256": "73346dfb6627121c20bfa5584aecd207a89bfe26e31b9cc77aa14b821debb25e",
+          "expected": {
+            "language": "uk",
+            "primary_topic": "power_batteries",
+            "mentioned_platforms": [],
+            "mentioned_interfaces": [],
+            "mentions_sensor": false,
+            "mentions_display": false,
+            "mentions_battery": true,
+            "mentions_motor": false
+          },
+          "actual": {
+            "language": "uk",
+            "primary_topic": "printing_mechanics",
+            "mentioned_platforms": [],
+            "mentioned_interfaces": [],
+            "mentions_sensor": false,
+            "mentions_display": false,
+            "mentions_battery": false,
+            "mentions_motor": false
+          },
+          "field_matches": {
+            "language": true,
+            "primary_topic": false,
+            "mentioned_platforms": true,
+            "mentioned_interfaces": true,
+            "mentions_sensor": true,
+            "mentions_display": true,
+            "mentions_battery": false,
+            "mentions_motor": true
+          },
+          "duplicate_list_values": {}
+        },
+        {
+          "document_id": "HR-0227",
+          "status": "valid",
+          "error": null,
+          "input_sha256": "76e7c76e2d5848c99b434e0e50f4fc0d618f14ec11ccce50339eed117b5a391a",
+          "expected": {
+            "language": "uk",
+            "primary_topic": "sensors_measurements",
+            "mentioned_platforms": [
+              "arduino",
+              "raspberry_pi"
+            ],
+            "mentioned_interfaces": [],
+            "mentions_sensor": true,
+            "mentions_display": false,
+            "mentions_battery": false,
+            "mentions_motor": false
+          },
+          "actual": {
+            "language": "uk",
+            "primary_topic": "controllers_programming",
+            "mentioned_platforms": [
+              "raspberry_pi",
+              "arduino"
+            ],
+            "mentioned_interfaces": [
+              "bluetooth",
+              "wifi"
+            ],
+            "mentions_sensor": true,
+            "mentions_display": true,
+            "mentions_battery": true,
+            "mentions_motor": true
+          },
+          "field_matches": {
+            "language": true,
+            "primary_topic": false,
+            "mentioned_platforms": true,
+            "mentioned_interfaces": false,
+            "mentions_sensor": true,
+            "mentions_display": false,
+            "mentions_battery": false,
+            "mentions_motor": false
+          },
+          "duplicate_list_values": {}
+        },
+        {
+          "document_id": "HR-0187",
+          "status": "valid",
+          "error": null,
+          "input_sha256": "d771f1223e02817ebdbdbf2b4967d86de451c9a392a73ddb376b3b491858b2dd",
+          "expected": {
+            "language": "uk",
+            "primary_topic": "devices_automation",
+            "mentioned_platforms": [
+              "arduino"
+            ],
+            "mentioned_interfaces": [],
+            "mentions_sensor": true,
+            "mentions_display": false,
+            "mentions_battery": false,
+            "mentions_motor": false
+          },
+          "actual": {
+            "language": "uk",
+            "primary_topic": "robotics_actuators",
+            "mentioned_platforms": [],
+            "mentioned_interfaces": [],
+            "mentions_sensor": false,
+            "mentions_display": false,
+            "mentions_battery": false,
+            "mentions_motor": true
+          },
+          "field_matches": {
+            "language": true,
+            "primary_topic": false,
+            "mentioned_platforms": false,
+            "mentioned_interfaces": true,
+            "mentions_sensor": false,
+            "mentions_display": true,
+            "mentions_battery": true,
+            "mentions_motor": false
+          },
+          "duplicate_list_values": {}
+        }
+      ],
+      "content_accuracy": 0.6142857142857142,
+      "content_field_accuracy": {
+        "primary_topic": 0.3,
+        "mentioned_platforms": 0.7,
+        "mentioned_interfaces": 0.4,
+        "mentions_sensor": 0.6,
+        "mentions_display": 0.9,
+        "mentions_battery": 0.6,
+        "mentions_motor": 0.8
+      },
+      "source_path": "D:\\PycharmProjects\\AiIngeneringKurs\\results\\schema-v2-enums-1\\prompt_v1_llama3.2_3b_t07_20261026T173328975361Z.jsonl",
+      "source_sha256": "e26466615d3ef3c0cd2d3a4b771101d7aeb35c4f10a1e7aabc218dd920d89328"
+    },
+    {
+      "configuration": {
+        "schema_version": "v2",
+        "model": "llama3.2:3b",
+        "prompt_version": "v2",
+        "prompt_sha256": "3cb25d5767e00f28c924a8fd198d398b67e5c2ae751a35c3b4a6e3eef8ed8b54",
+        "sampling": {
+          "temperature": 0.7,
+          "top_p": 1.0,
+          "max_tokens": 512
+        },
+        "preparation_version": "schema-v2-initial-metadata-v1",
+        "contract_version": "schema-v2-enums-1",
+        "contract_sha256": "716c3e2eb27595c31177e4a6ea391c370a1e0bd8816940fc98e40ef47284a35f",
+        "provider": "ollama",
+        "requested_model": "llama3.2:3b"
+      },
+      "golden_documents": 10,
+      "present_golden_results": 10,
+      "ignored_non_golden_results": 20,
+      "document_status_counts": {
+        "valid": 9,
+        "missing": 0,
+        "failed": 1,
+        "invalid": 0
+      },
+      "field_correct": {
+        "language": 7,
+        "primary_topic": 3,
+        "mentioned_platforms": 6,
+        "mentioned_interfaces": 0,
+        "mentions_sensor": 7,
+        "mentions_display": 8,
+        "mentions_battery": 8,
+        "mentions_motor": 8
+      },
+      "field_accuracy": {
+        "language": 0.7,
+        "primary_topic": 0.3,
+        "mentioned_platforms": 0.6,
+        "mentioned_interfaces": 0.0,
+        "mentions_sensor": 0.7,
+        "mentions_display": 0.8,
+        "mentions_battery": 0.8,
+        "mentions_motor": 0.8
+      },
+      "aggregate_accuracy": 0.5874999999999999,
+      "list_metrics": {
+        "mentioned_platforms": {
+          "tp": 8,
+          "fp": 2,
+          "fn": 2,
+          "precision": 0.8,
+          "recall": 0.8,
+          "f1": 0.8
+        },
+        "mentioned_interfaces": {
+          "tp": 4,
+          "fp": 16,
+          "fn": 3,
+          "precision": 0.2,
+          "recall": 0.5714285714285714,
+          "f1": 0.2962962962962963
+        }
+      },
+      "documents": [
+        {
+          "document_id": "HR-0743",
+          "status": "valid",
+          "error": null,
+          "input_sha256": "fe0b4056f3b8775d07bfa50bea8a812926a3297daaa0953629312734d3fb432d",
+          "expected": {
+            "language": "en",
+            "primary_topic": "power_batteries",
+            "mentioned_platforms": [
+              "arduino",
+              "stm32"
+            ],
+            "mentioned_interfaces": [
+              "wifi",
+              "bluetooth"
+            ],
+            "mentions_sensor": true,
+            "mentions_display": false,
+            "mentions_battery": true,
+            "mentions_motor": false
+          },
+          "actual": {
+            "language": "en",
+            "primary_topic": "devices_automation",
+            "mentioned_platforms": [
+              "arduino",
+              "stm32"
+            ],
+            "mentioned_interfaces": [
+              "uart",
+              "i2c",
+              "spi",
+              "wifi",
+              "bluetooth"
+            ],
+            "mentions_sensor": true,
+            "mentions_display": false,
+            "mentions_battery": true,
+            "mentions_motor": false
+          },
+          "field_matches": {
+            "language": true,
+            "primary_topic": false,
+            "mentioned_platforms": true,
+            "mentioned_interfaces": false,
+            "mentions_sensor": true,
+            "mentions_display": true,
+            "mentions_battery": true,
+            "mentions_motor": true
+          },
+          "duplicate_list_values": {}
+        },
+        {
+          "document_id": "HR-0244",
+          "status": "valid",
+          "error": null,
+          "input_sha256": "838b25bea3e8b1acfdda0805afe51191db1dfadd002a428a1febf27218e0b0dd",
+          "expected": {
+            "language": "uk",
+            "primary_topic": "sensors_measurements",
+            "mentioned_platforms": [
+              "esp8266"
+            ],
+            "mentioned_interfaces": [
+              "wifi",
+              "usb"
+            ],
+            "mentions_sensor": true,
+            "mentions_display": false,
+            "mentions_battery": false,
+            "mentions_motor": false
+          },
+          "actual": {
+            "language": "ru",
+            "primary_topic": "devices_automation",
+            "mentioned_platforms": [
+              "esp8266",
+              "esp32"
+            ],
+            "mentioned_interfaces": [
+              "wifi",
+              "uart",
+              "i2c",
+              "spi"
+            ],
+            "mentions_sensor": true,
+            "mentions_display": true,
+            "mentions_battery": false,
+            "mentions_motor": false
+          },
+          "field_matches": {
+            "language": false,
+            "primary_topic": false,
+            "mentioned_platforms": false,
+            "mentioned_interfaces": false,
+            "mentions_sensor": true,
+            "mentions_display": false,
+            "mentions_battery": true,
+            "mentions_motor": true
+          },
+          "duplicate_list_values": {}
+        },
+        {
+          "document_id": "HR-0385",
+          "status": "valid",
+          "error": null,
+          "input_sha256": "fcfa7fa71480087658d4012b42c2a43fc2060b9892ed40b63020eca338d67b83",
+          "expected": {
+            "language": "en",
+            "primary_topic": "devices_automation",
+            "mentioned_platforms": [
+              "arduino"
+            ],
+            "mentioned_interfaces": [
+              "wifi"
+            ],
+            "mentions_sensor": true,
+            "mentions_display": false,
+            "mentions_battery": true,
+            "mentions_motor": false
+          },
+          "actual": {
+            "language": "en",
+            "primary_topic": "devices_automation",
+            "mentioned_platforms": [
+              "arduino"
+            ],
+            "mentioned_interfaces": [
+              "spi"
+            ],
+            "mentions_sensor": true,
+            "mentions_display": false,
+            "mentions_battery": true,
+            "mentions_motor": false
+          },
+          "field_matches": {
+            "language": true,
+            "primary_topic": true,
+            "mentioned_platforms": true,
+            "mentioned_interfaces": false,
+            "mentions_sensor": true,
+            "mentions_display": true,
+            "mentions_battery": true,
+            "mentions_motor": true
+          },
+          "duplicate_list_values": {}
+        },
+        {
+          "document_id": "HR-0068",
+          "status": "valid",
+          "error": null,
+          "input_sha256": "d2586bad68a060a134e5ede793c94b93df7e1d784a6ea0874272bdcbf1445d68",
+          "expected": {
+            "language": "ru",
+            "primary_topic": "sensors_measurements",
+            "mentioned_platforms": [
+              "arduino"
+            ],
+            "mentioned_interfaces": [
+              "usb"
+            ],
+            "mentions_sensor": true,
+            "mentions_display": false,
+            "mentions_battery": false,
+            "mentions_motor": false
+          },
+          "actual": {
+            "language": "ru",
+            "primary_topic": "controllers_programming",
+            "mentioned_platforms": [
+              "arduino"
+            ],
+            "mentioned_interfaces": [
+              "uart",
+              "i2c",
+              "spi"
+            ],
+            "mentions_sensor": true,
+            "mentions_display": false,
+            "mentions_battery": false,
+            "mentions_motor": false
+          },
+          "field_matches": {
+            "language": true,
+            "primary_topic": false,
+            "mentioned_platforms": true,
+            "mentioned_interfaces": false,
+            "mentions_sensor": true,
+            "mentions_display": true,
+            "mentions_battery": true,
+            "mentions_motor": true
+          },
+          "duplicate_list_values": {}
+        },
+        {
+          "document_id": "HR-0254",
+          "status": "valid",
+          "error": null,
+          "input_sha256": "acc4cf45765a3444506216fa08324b92e100278e1743a503cb3ad9f5fcb95714",
+          "expected": {
+            "language": "uk",
+            "primary_topic": "displays_indicators",
+            "mentioned_platforms": [
+              "arduino"
+            ],
+            "mentioned_interfaces": [
+              "i2c"
+            ],
+            "mentions_sensor": false,
+            "mentions_display": true,
+            "mentions_battery": false,
+            "mentions_motor": false
+          },
+          "actual": {
+            "language": "uk",
+            "primary_topic": "devices_automation",
+            "mentioned_platforms": [
+              "arduino"
+            ],
+            "mentioned_interfaces": [
+              "i2c",
+              "uart"
+            ],
+            "mentions_sensor": false,
+            "mentions_display": true,
+            "mentions_battery": false,
+            "mentions_motor": false
+          },
+          "field_matches": {
+            "language": true,
+            "primary_topic": false,
+            "mentioned_platforms": true,
+            "mentioned_interfaces": false,
+            "mentions_sensor": true,
+            "mentions_display": true,
+            "mentions_battery": true,
+            "mentions_motor": true
+          },
+          "duplicate_list_values": {}
+        },
+        {
+          "document_id": "HR-0212",
+          "status": "valid",
+          "error": null,
+          "input_sha256": "40ce53b3c829be8c660abb1fdbc29b074f771152bce922b1df85a9da02030d03",
+          "expected": {
+            "language": "uk",
+            "primary_topic": "power_batteries",
+            "mentioned_platforms": [],
+            "mentioned_interfaces": [],
+            "mentions_sensor": true,
+            "mentions_display": false,
+            "mentions_battery": true,
+            "mentions_motor": false
+          },
+          "actual": {
+            "language": "uk",
+            "primary_topic": "devices_automation",
+            "mentioned_platforms": [
+              "raspberry_pi"
+            ],
+            "mentioned_interfaces": [
+              "spi"
+            ],
+            "mentions_sensor": false,
+            "mentions_display": false,
+            "mentions_battery": true,
+            "mentions_motor": false
+          },
+          "field_matches": {
+            "language": true,
+            "primary_topic": false,
+            "mentioned_platforms": false,
+            "mentioned_interfaces": false,
+            "mentions_sensor": false,
+            "mentions_display": true,
+            "mentions_battery": true,
+            "mentions_motor": true
+          },
+          "duplicate_list_values": {}
+        },
+        {
+          "document_id": "HR-0415",
+          "status": "failed",
+          "error": null,
+          "input_sha256": "47cc5f61e224f6b7f9ba573370d1ba98dbd779a34221b3049ae3c8fefe63d1a9",
+          "expected": {
+            "language": "en",
+            "primary_topic": "robotics_actuators",
+            "mentioned_platforms": [
+              "arduino"
+            ],
+            "mentioned_interfaces": [],
+            "mentions_sensor": false,
+            "mentions_display": false,
+            "mentions_battery": false,
+            "mentions_motor": true
+          },
+          "actual": null,
+          "field_matches": {
+            "language": false,
+            "primary_topic": false,
+            "mentioned_platforms": false,
+            "mentioned_interfaces": false,
+            "mentions_sensor": false,
+            "mentions_display": false,
+            "mentions_battery": false,
+            "mentions_motor": false
+          },
+          "duplicate_list_values": {}
+        },
+        {
+          "document_id": "HR-0207",
+          "status": "valid",
+          "error": null,
+          "input_sha256": "73346dfb6627121c20bfa5584aecd207a89bfe26e31b9cc77aa14b821debb25e",
+          "expected": {
+            "language": "uk",
+            "primary_topic": "power_batteries",
+            "mentioned_platforms": [],
+            "mentioned_interfaces": [],
+            "mentions_sensor": false,
+            "mentions_display": false,
+            "mentions_battery": true,
+            "mentions_motor": false
+          },
+          "actual": {
+            "language": "uk",
+            "primary_topic": "power_batteries",
+            "mentioned_platforms": [],
+            "mentioned_interfaces": [
+              "lora"
+            ],
+            "mentions_sensor": false,
+            "mentions_display": false,
+            "mentions_battery": true,
+            "mentions_motor": false
+          },
+          "field_matches": {
+            "language": true,
+            "primary_topic": true,
+            "mentioned_platforms": true,
+            "mentioned_interfaces": false,
+            "mentions_sensor": true,
+            "mentions_display": true,
+            "mentions_battery": true,
+            "mentions_motor": true
+          },
+          "duplicate_list_values": {}
+        },
+        {
+          "document_id": "HR-0227",
+          "status": "valid",
+          "error": null,
+          "input_sha256": "76e7c76e2d5848c99b434e0e50f4fc0d618f14ec11ccce50339eed117b5a391a",
+          "expected": {
+            "language": "uk",
+            "primary_topic": "sensors_measurements",
+            "mentioned_platforms": [
+              "arduino",
+              "raspberry_pi"
+            ],
+            "mentioned_interfaces": [],
+            "mentions_sensor": true,
+            "mentions_display": false,
+            "mentions_battery": false,
+            "mentions_motor": false
+          },
+          "actual": {
+            "language": "ru",
+            "primary_topic": "controllers_programming",
+            "mentioned_platforms": [
+              "raspberry_pi"
+            ],
+            "mentioned_interfaces": [
+              "uart",
+              "i2c"
+            ],
+            "mentions_sensor": false,
+            "mentions_display": false,
+            "mentions_battery": true,
+            "mentions_motor": false
+          },
+          "field_matches": {
+            "language": false,
+            "primary_topic": false,
+            "mentioned_platforms": false,
+            "mentioned_interfaces": false,
+            "mentions_sensor": false,
+            "mentions_display": true,
+            "mentions_battery": false,
+            "mentions_motor": true
+          },
+          "duplicate_list_values": {}
+        },
+        {
+          "document_id": "HR-0187",
+          "status": "valid",
+          "error": null,
+          "input_sha256": "d771f1223e02817ebdbdbf2b4967d86de451c9a392a73ddb376b3b491858b2dd",
+          "expected": {
+            "language": "uk",
+            "primary_topic": "devices_automation",
+            "mentioned_platforms": [
+              "arduino"
+            ],
+            "mentioned_interfaces": [],
+            "mentions_sensor": true,
+            "mentions_display": false,
+            "mentions_battery": false,
+            "mentions_motor": false
+          },
+          "actual": {
+            "language": "uk",
+            "primary_topic": "devices_automation",
+            "mentioned_platforms": [
+              "arduino"
+            ],
+            "mentioned_interfaces": [
+              "spi"
+            ],
+            "mentions_sensor": true,
+            "mentions_display": false,
+            "mentions_battery": false,
+            "mentions_motor": true
+          },
+          "field_matches": {
+            "language": true,
+            "primary_topic": true,
+            "mentioned_platforms": true,
+            "mentioned_interfaces": false,
+            "mentions_sensor": true,
+            "mentions_display": true,
+            "mentions_battery": true,
+            "mentions_motor": false
+          },
+          "duplicate_list_values": {}
+        }
+      ],
+      "content_accuracy": 0.5714285714285714,
+      "content_field_accuracy": {
+        "primary_topic": 0.3,
+        "mentioned_platforms": 0.6,
+        "mentioned_interfaces": 0.0,
+        "mentions_sensor": 0.7,
+        "mentions_display": 0.8,
+        "mentions_battery": 0.8,
+        "mentions_motor": 0.8
+      },
+      "source_path": "D:\\PycharmProjects\\AiIngeneringKurs\\results\\schema-v2-enums-1\\prompt_v2_llama3.2_3b_t07_20261026T173328975361Z.jsonl",
+      "source_sha256": "e136432610a09fdf4e4926557cf2c99a4d9675546a14394d301ddeaf522d8bbd"
+    }
+  ]
+}

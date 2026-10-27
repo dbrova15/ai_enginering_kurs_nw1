@@ -9,10 +9,15 @@ from pathlib import Path
 
 from pydantic import ValidationError
 
-from main import DevicePosting, GOLDEN, RESULTS, SCHEMA_VERSION
+from main import DevicePosting, GOLDEN, RESULTS, SCHEMA_VERSION, PREPARATION_VERSION, TEXTS, prepare_text
+from schema_contracts import (CONTRACT_VERSION, LEGACY_CONTRACT_VERSION, contract_hash,
+                              record_contract, model_for_contract, single_contract)
 
-EVALUATOR_VERSION = "schema-v2-exact-set-v1"
+LEGACY_EVALUATOR_VERSION = "schema-v2-exact-set-v1"
+EVALUATOR_VERSION = "schema-v2-exact-set-v2"
+SUPPORTED_EVALUATOR_VERSIONS = (LEGACY_EVALUATOR_VERSION, EVALUATOR_VERSION)
 FIELDS = tuple(DevicePosting.model_fields)
+CONTENT_FIELDS = tuple(field for field in FIELDS if field != "language")
 LIST_FIELDS = ("mentioned_platforms", "mentioned_interfaces")
 CONFIG_FIELDS = ("schema_version", "model", "prompt_version", "prompt_sha256",
                  "sampling", "preparation_version")
@@ -84,6 +89,30 @@ def load_run(path: Path) -> list[dict]:
     return records
 
 
+def validate_input_fingerprint(record: dict) -> None:
+    """Для нового контракту звіряє ID, первинний TXT і фактичний підготовлений input.
+
+    Якщо проєкт перенесено, шукає той самий ID у чинній вибірці texts.
+    Іншу версію підготовки не відтворює мовчки поточним алгоритмом.
+    """
+    if record.get("preparation_version") != PREPARATION_VERSION:
+        raise ValueError("Невідома версія підготовки input нового контракту")
+    path = Path(record.get("source_path", ""))
+    if path.suffix.lower() != ".txt" or path.stem != record["document_id"]:
+        raise ValueError("ID документа не відповідає source_path TXT")
+    if not path.is_file():
+        candidates = list(TEXTS.glob(f"*/{record['document_id']}.txt"))
+        if len(candidates) != 1:
+            raise ValueError("Не знайдено однозначного TXT для перевірки input")
+        path = candidates[0]
+    raw = path.read_bytes()
+    if hashlib.sha256(raw).hexdigest() != record.get("source_sha256"):
+        raise ValueError("source_sha256 не відповідає фактичному TXT")
+    prepared = prepare_text(raw.decode("utf-8"))
+    if hashlib.sha256(prepared.encode("utf-8")).hexdigest() != record.get("input_sha256"):
+        raise ValueError("input_sha256 не відповідає підготовленому TXT")
+
+
 def run_configuration(records: list[dict]) -> dict:
     """Перевіряє, що всі записи отримано за однакових умов запуску.
 
@@ -94,7 +123,12 @@ def run_configuration(records: list[dict]) -> dict:
     """
     if not records:
         raise ValueError("Прогін не містить записів")
+    version = single_contract(records)
     configuration = {field: records[0].get(field) for field in CONFIG_FIELDS}
+    if "contract_version" in records[0]:
+        configuration.update(contract_version=version, contract_sha256=contract_hash(version))
+    if version == CONTRACT_VERSION:
+        configuration.update(provider=records[0]["provider"], requested_model=records[0]["requested_model"])
     if any(value is None for value in configuration.values()):
         raise ValueError("Неповні метадані конфігурації прогону")
     if configuration["schema_version"] != SCHEMA_VERSION:
@@ -104,6 +138,8 @@ def run_configuration(records: list[dict]) -> dict:
     for record in records:
         if any(record.get(field) != value for field, value in configuration.items()):
             raise ValueError("В одному JSONL змішані різні конфігурації")
+        if version == CONTRACT_VERSION:
+            validate_input_fingerprint(record)
     return configuration
 
 
@@ -111,8 +147,8 @@ def score_document(document_id: str, golden: dict, record: dict | None) -> dict:
     """Порівнює відповідь моделі на одну статтю з її еталонною відповіддю.
 
     Звіряє відбиток джерела та перевіряє структуру успішної відповіді.
-    Для кожної характеристики записує, чи є точний збіг; у списках порядок
-    і повтори не впливають на збіг, але повтори зберігаються як окрема примітка.
+    Для кожної характеристики записує, чи є точний збіг; порядок у списках
+    не впливає на збіг. Повтори допускає лише legacy; новий контракт їх відхиляє.
     Відсутня, невдала або невалідна відповідь має нуль збігів за всіма полями.
     Повертає очікувані й фактичні дані, збіги, статус і причину помилки.
     Статус valid означає правильну структуру, а не правильність усіх значень.
@@ -128,7 +164,8 @@ def score_document(document_id: str, golden: dict, record: dict | None) -> dict:
         result = record.get("result")
         if isinstance(result, dict) and result.get("ok") is True and result.get("status") == "success":
             try:
-                actual = DevicePosting.model_validate(result.get("data"), strict=True).model_dump()
+                model = model_for_contract(record_contract(record))
+                actual = model.model_validate(result.get("data"), strict=True).model_dump()
                 status = "valid"
             except ValidationError as validation_error:
                 status, error = "invalid", str(validation_error)
@@ -177,7 +214,7 @@ def list_metrics(documents: list[dict], field: str) -> dict:
     }
 
 
-def evaluate_run(records: list[dict], golden: dict[str, dict]) -> dict:
+def evaluate_run(records: list[dict], golden: dict[str, dict], *, include_content: bool = True) -> dict:
     """Підсумовує якість одного запуску на всьому наборі еталонних статей.
 
     Знаходить відповіді за ID та порівнює їх з еталонами. Для кожного поля
@@ -194,7 +231,7 @@ def evaluate_run(records: list[dict], golden: dict[str, dict]) -> dict:
     count = len(documents)
     correct = {field: sum(document["field_matches"][field] for document in documents) for field in FIELDS}
     accuracy = {field: value / count for field, value in correct.items()}
-    return {
+    report = {
         "configuration": configuration,
         "golden_documents": count,
         "present_golden_results": len(golden.keys() & indexed.keys()),
@@ -206,6 +243,10 @@ def evaluate_run(records: list[dict], golden: dict[str, dict]) -> dict:
         "list_metrics": {field: list_metrics(documents, field) for field in LIST_FIELDS},
         "documents": documents,
     }
+    if include_content:
+        report["content_accuracy"] = sum(accuracy[field] for field in CONTENT_FIELDS) / len(CONTENT_FIELDS)
+        report["content_field_accuracy"] = {field: accuracy[field] for field in CONTENT_FIELDS}
+    return report
 
 
 def verify_same_inputs(runs: list[dict]) -> None:
@@ -216,6 +257,7 @@ def verify_same_inputs(runs: list[dict]) -> None:
     оцінювання, адже умови експериментів відрізнялися. Відсутні відповіді
     пропускає; якщо суперечностей немає, завершується без результату.
     """
+    single_contract([run["configuration"] for run in runs], require_envelope=False)
     inputs = {}
     for run in runs:
         for document in run["documents"]:
@@ -228,6 +270,27 @@ def verify_same_inputs(runs: list[dict]) -> None:
             inputs[document_id] = digest
 
 
+def select_run_files(files: list[Path], contract: str | None = None) -> tuple[list[Path], str]:
+    """Обирає один контракт; два набори без явного --contract не змішуються."""
+    candidates = files or sorted([*RESULTS.glob("*.jsonl"), *(RESULTS / CONTRACT_VERSION).glob("*.jsonl")])
+    selected, versions = [], set()
+    for path in candidates:
+        rows = load_run(path)
+        index_records(rows, str(path))
+        version = single_contract(rows)
+        if contract is not None and version != contract:
+            if files:
+                raise ValueError(f"{path}: контракт не відповідає --contract {contract}")
+            continue
+        selected.append(path)
+        versions.add(version)
+    if not selected:
+        raise ValueError("Не знайдено JSONL для вибраного контракту")
+    if len(versions) != 1:
+        raise ValueError("Змішані контракти: використайте --contract для окремого порівняння")
+    return selected, versions.pop()
+
+
 def parse_args(argv: list[str] | None = None) -> argparse.Namespace:
     """Читає вибрані користувачем шляхи з команди запуску.
 
@@ -236,16 +299,17 @@ def parse_args(argv: list[str] | None = None) -> argparse.Namespace:
     Повертає налаштування для main; самі файли ще не відкриває.
     """
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("files", nargs="*", type=Path, help="JSONL; типово всі results/*.jsonl")
+    parser.add_argument("files", nargs="*", type=Path, help="JSONL; типово results/*.jsonl і папка нового контракту")
     parser.add_argument("--golden", type=Path, default=GOLDEN)
     parser.add_argument("--output", type=Path, help="Новий JSON-файл метрик і розбіжностей")
+    parser.add_argument("--contract", choices=(CONTRACT_VERSION, LEGACY_CONTRACT_VERSION))
     return parser.parse_args(argv)
 
 
 def main(argv: list[str] | None = None) -> None:
     """Керує повним оцінюванням: від вибору файлів до збереження звіту.
 
-    Читає golden та вибрані JSONL; без списку файлів бере всі results/*.jsonl.
+    Читає golden та JSONL; без шляхів шукає стару й нову папки за --contract.
     Оцінює кожен запуск, звіряє входи й записує новий JSON із метриками,
     розбіжностями, умовами оцінювання та відбитками використаних файлів.
     Якщо хоча б один еталон не approved, позначає висновки як попередні.
@@ -253,9 +317,7 @@ def main(argv: list[str] | None = None) -> None:
     Працює зі збереженими даними, без запитів до моделей.
     """
     args = parse_args(argv)
-    files = args.files or sorted(RESULTS.glob("*.jsonl"))
-    if not files:
-        raise ValueError("Не знайдено JSONL для оцінювання")
+    files, version = select_run_files(args.files, args.contract)
     golden = load_golden(args.golden)
     runs = []
     for path in files:
@@ -266,20 +328,23 @@ def main(argv: list[str] | None = None) -> None:
     timestamp = datetime.now(timezone.utc)
     report = {
         "evaluator_version": EVALUATOR_VERSION,
+        "contract_version": version, "contract_sha256": contract_hash(version),
         "timestamp": timestamp.isoformat(),
         "golden_path": str(args.golden.resolve()),
         "golden_sha256": hashlib.sha256(args.golden.read_bytes()).hexdigest(),
         "provisional": any(row.get("annotation_status") != "approved" for row in golden.values()),
         "method": {
-            "scalars": "exact", "lists": "exact-set; order and duplicates ignored",
+            "scalars": "exact", "lists": ("exact-set; order ignored; duplicates invalidate result"
+                                              if version == CONTRACT_VERSION else "exact-set; order and duplicates ignored"),
             "normalization": "none", "aggregate": "macro mean of all 8 field accuracies",
             "denominator": "all golden documents; missing/failed/invalid score zero for all fields",
             "list_prf": "micro counts across golden; undefined ratios are null",
             "prediction": "final result after optional repair",
+            "content_accuracy": "macro mean of 7 field accuracies, excluding language",
         },
         "runs": runs,
     }
-    output = args.output or RESULTS / "evaluation" / f"golden_{timestamp.strftime('%Y%m%dT%H%M%S%fZ')}.json"
+    output = args.output or RESULTS / "evaluation" / version / f"golden_{timestamp.strftime('%Y%m%dT%H%M%S%fZ')}.json"
     output.parent.mkdir(parents=True, exist_ok=True)
     with output.open("x", encoding="utf-8") as destination:
         json.dump(report, destination, ensure_ascii=False, indent=2, allow_nan=False)
@@ -289,7 +354,7 @@ def main(argv: list[str] | None = None) -> None:
     for run in runs:
         config = run["configuration"]
         print(f"{config['model']} | {config['prompt_version']} | "
-              f"{json.dumps(config['sampling'], sort_keys=True)} | aggregate={run['aggregate_accuracy']:.4f}")
+              f"{json.dumps(config['sampling'], sort_keys=True)} | aggregate={run['aggregate_accuracy']:.4f} | content={run['content_accuracy']:.4f}")
         print("  " + " | ".join(f"{field}={value:.3f}" for field, value in run["field_accuracy"].items()))
     print(f"Метрики й розбіжності: {output}")
 
