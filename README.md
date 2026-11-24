@@ -319,7 +319,7 @@ Evaluator не обчислює latency p50/p95, вартість або пер�
 
 Додано окремий пакет `hardware_rag/`: HTML/PDF → структурні блоки → чанки → локальний Qdrant + BM25/RRF + multilingual reranker → відповідь із перевіреними citation IDs. Старі команди ДЗ1 і `DevicePosting` збережені. Кореневий `REPORT.md` не переписується; матеріали ДЗ2 — в [evals/hw2](evals/hw2/README.md).
 
-Поточний корпус: **36 унікальних документів, 31 HTML і 5 PDF**; `sources.json` містить погоджені URLs, raw hashes і версії, де вони підтверджені оригіналом. Відсутні дати залишаються невідомими. 9 недоступних Arduino Blog URLs не зараховані до корпусу. Source-backed тестсет із 20 питань лишається **draft** до ручної перевірки; це не затверджений golden set.
+Поточний корпус: **37 документів, 32 HTML і 5 PDF**, зокрема локальна [довідка про компоненти робота](data/hw2/supplements/hr-0164-linked-components.html) із перевіреними посиланнями статті. `sources.json` містить URLs, raw hashes, відомі дати й версії. Дев’ять недоступних Arduino Blog URLs виключено з корпусу. Користувач вручну перевірив і затвердив тестсет із 20 питань.
 
 ### Підготовка й запуск
 
@@ -356,9 +356,9 @@ Heading-стратегію порівняно з fixed-вікнами таког
 ### Перевірка якості
 
 ```powershell
-# Пошук на 15 draft-питаннях; без платних API, результат provisional.
-.\.venv\Scripts\python.exe main.py rag eval --stage retrieval --provisional
-# Після ручного затвердження reference та калібрування судді:
+# Пошук на 15 затверджених питаннях без платних API.
+.\.venv\Scripts\python.exe main.py rag eval --stage retrieval
+# Після калібрування судді й погодження платного прогону.
 .\.venv\Scripts\python.exe main.py rag eval --stage full --gate --config .rag/paid-run.json
 ```
 
