@@ -1,0 +1,28 @@
+name: HardwareResearch offline checks
+
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  offline:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: pip
+          cache-dependency-path: requirements-rag.txt
+      - run: python -m pip install -r requirements-rag.txt
+      - run: python -m pip check
+      - name: Unit and integration checks without model APIs
+        run: python -m unittest discover -s tests
+      - name: Lazy CLI smoke check
+        run: python main.py rag --help
+
+# Цей workflow не передає corpus до моделей, не читає API secrets і не є R16 quality gate.

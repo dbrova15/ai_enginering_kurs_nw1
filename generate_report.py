@@ -3,6 +3,7 @@
 import argparse
 import hashlib
 import json
+import math
 from datetime import datetime, timezone
 from pathlib import Path
 
@@ -12,6 +13,28 @@ from evaluator import (LEGACY_EVALUATOR_VERSION, SUPPORTED_EVALUATOR_VERSIONS, F
 from main import ROOT
 from report_rendering import render_report
 from schema_contracts import record_contract, report_contract
+
+# Python 3.12 змінив точність sum(float); один ULP не означає зміну якості.
+# Допуск лише абсолютний і лише для float-метрик, без послаблення SHA/структури.
+REPORT_FLOAT_ABS_TOLERANCE = 1e-12
+
+
+def equivalent_metrics(expected, actual) -> bool:
+    """Порівнює збережені й обчислені метрики з урахуванням округлення float.
+
+    Python 3.11/3.12 можуть дати різний останній біт суми. Вкладені dict/list
+    мають однакові ключі, порядок і довжину; finite float допускає тільки
+    absolute 1e-12. Строки, SHA, counts та решта значень не округлюються,
+    а NaN/Infinity відхиляються навіть при їх збігу в обох структурах.
+    """
+    if isinstance(expected, dict) and isinstance(actual, dict):
+        return expected.keys() == actual.keys() and all(equivalent_metrics(expected[k], actual[k]) for k in expected)
+    if isinstance(expected, list) and isinstance(actual, list):
+        return len(expected) == len(actual) and all(equivalent_metrics(a, b) for a, b in zip(expected, actual))
+    if type(expected) is float and type(actual) is float:
+        return math.isfinite(expected) and math.isfinite(actual) and math.isclose(
+            expected, actual, rel_tol=0, abs_tol=REPORT_FLOAT_ABS_TOLERANCE)
+    return expected == actual
 
 
 def digest(path: Path) -> str:
@@ -59,7 +82,7 @@ def validate_evaluation(report: dict) -> tuple[dict, dict, dict]:
         if record_contract(rows[0]) != version:
             raise ValueError("Контракт evaluator-звіту не відповідає його JSONL")
         verified = evaluate_run(rows, golden, include_content=not historical)
-        if any(run.get(field) != value for field, value in verified.items()):
+        if any(not equivalent_metrics(run.get(field), value) for field, value in verified.items()):
             raise ValueError(f"Оцінки не відповідають первинним даним: {path}")
         indexed[path], records[path] = run, rows
     verify_same_inputs(list(indexed.values()))
@@ -88,7 +111,7 @@ def match_reports(evaluation: dict, metrics: dict) -> tuple[list[dict], dict, di
     combined, seen = [], set()
     for group in metrics["groups"]:
         key = configuration_key(group["configuration"])
-        if key in seen or group != verified_groups.get(key):
+        if key in seen or not equivalent_metrics(group, verified_groups.get(key)):
             raise ValueError("Метрики/тарифи не відповідають джерелам або чинній версії агрегатора; повторіть агрегацію")
         seen.add(key)
         runs = [quality[Path(source["path"]).resolve()] for source in group["sources"]]

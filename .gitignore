@@ -73,8 +73,11 @@ service-account*.json
 /.neurotrace/
 /.codex/
 /.ollama/
+/.rag/
 
 # Системні файли Windows і macOS
 Thumbs.db
 Desktop.ini
 .DS_Store
+
+ai-engineeering-2

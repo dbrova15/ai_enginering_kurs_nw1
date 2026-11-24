@@ -315,6 +315,61 @@ Evaluator не обчислює latency p50/p95, вартість або пер�
 
 **До завершеного звіту автор має:** прочитати приклади й пояснити причини, сформулювати висновки, обрати production-конфігурацію та умови перегляду рішення. Ці місця позначені `[ЗАПОВНЮЄ АВТОР]`. Provisional-оцінки лишаються позначеними; програма не затверджує golden чи production-рішення й не створює `REPORT.md` замість автора. Перевірену та доповнену чернетку можна використати як основу `REPORT.md`.
 
+## ДЗ2: RAG на власних даних та evals
+
+Додано окремий пакет `hardware_rag/`: HTML/PDF → структурні блоки → чанки → локальний Qdrant + BM25/RRF + multilingual reranker → відповідь із перевіреними citation IDs. Старі команди ДЗ1 і `DevicePosting` збережені. Кореневий `REPORT.md` не переписується; матеріали ДЗ2 — в [evals/hw2](evals/hw2/README.md).
+
+Поточний корпус: **36 унікальних документів, 31 HTML і 5 PDF**; `sources.json` містить погоджені URLs, raw hashes і версії, де вони підтверджені оригіналом. Відсутні дати залишаються невідомими. 9 недоступних Arduino Blog URLs не зараховані до корпусу. Source-backed тестсет із 20 питань лишається **draft** до ручної перевірки; це не затверджений golden set.
+
+### Підготовка й запуск
+
+```powershell
+.\.venv\Scripts\python.exe -m pip install -r requirements-rag.txt
+# Явна підготовка погоджених локальних моделей; це завантаження приблизно 1 ГБ, не API.
+.\.venv\Scripts\python.exe main.py rag prepare-models --download
+# Потрібно лише коли локальних originals немає; змінені байти відхиляються за SHA-256.
+.\.venv\Scripts\python.exe data/hw2/download_sources.py
+.\.venv\Scripts\python.exe main.py rag ingest
+.\.venv\Scripts\python.exe main.py rag index
+```
+
+Після одноразової підготовки RAG запускається однією командою:
+
+```powershell
+.\.venv\Scripts\python.exe main.py rag ask --question "Яке призначення L293D?" --config .rag/paid-run.json
+```
+
+`config/hw2.json` типово **вимикає платні API**. Наявний ключ у `.env` не відкриває paid profile автоматично. Локальний профіль `.rag/paid-run.json` потребує явно погоджених `paid_enabled`, `budget_usd`, input/output тарифів і дати. `LLM_PROVIDER` лишається спільним, а `RAG_MODEL`/`RAG_JUDGE_MODEL` — окремими змінними; для перевіреного прямого профілю використовується `openai` + `gpt-4o-mini`. CLI ніколи не завантажує ваги або перебудовує індекс приховано під час `ask`.
+
+Для цього прямого профілю перед запуском у поточній PowerShell-сесії задайте `$env:LLM_PROVIDER = "openai"` та `$env:RAG_MODEL = "gpt-4o-mini"`. `pricing_provider` і `price_source` обов'язково відповідають активному провайдеру: тарифи OpenAI не переносяться автоматично на OpenRouter. Секретів у JSON-профілі немає.
+
+Підтримка іншої генеративної моделі потребує перевіреного tokenizer/schema profile. Початковий клієнт не видає OpenAI tokenizer за точний лічильник Ollama. Embeddings `intfloat/multilingual-e5-small` та reranker `BAAI/bge-reranker-v2-m3-int8` працюють локально на CPU; exact files/revisions зафіксовані в [config/hw2-models.json](config/hw2-models.json).
+
+### Чому такий chunking
+
+Основна стратегія зберігає заголовки й абзаци, поділяє довгі секції та повторює справжні заголовки таблиць у частинах. Код ділиться насамперед на межах рядків. Кожна частина має точні spans нормалізованих блоків і сторінки PDF; доданий для моделі заголовок походить із документа, не з LLM.
+
+Початковий target — **320 токенів повного passage**, hard cap — **384**, query cap — **96**. Це резерв для metadata/prefix і pair input двох різних tokenizer у межах 512; не перенесений із туторіала розмір «бо так прийнято». Обидва tokenizer перевіряються без hidden truncation. Розмір ще не доведено оптимальним за якістю.
+
+Heading-стратегію порівняно з fixed-вікнами такого самого target та overlap=48 на двох HTML і одному PDF. Реальні counts/token statistics і приклади поточного extraction — [chunking-comparison-extract6.json](evals/hw2/chunking-comparison-extract6.json). Структурний QA залишається окремою перевіркою. PDF-діаграми з нерозкодованими glyphs `(cid:...)` позначаються в manifest warnings і не перетворюються на вигадані факти; повну візуальну точність extraction це не гарантує.
+
+### Перевірка якості
+
+```powershell
+# Пошук на 15 draft-питаннях; без платних API, результат provisional.
+.\.venv\Scripts\python.exe main.py rag eval --stage retrieval --provisional
+# Після ручного затвердження reference та калібрування судді:
+.\.venv\Scripts\python.exe main.py rag eval --stage full --gate --config .rag/paid-run.json
+```
+
+Три retrieval-конфігурації використовують однакові documents/questions/filters: vector, hybrid, hybrid+rerank. Рахуються recall@5 та MRR@5. Для відповідей розділено correctness, relevant/formal citations, faithfulness і правильну відмову. Failed/invalid і хибні відмови не вилучаються зі знаменника. Порожній знаменник або unknown judge не дають 100%.
+
+Суддя потребує ≥10 незалежних ручних оцінок **обох класів** correctness/faithfulness; workflow не призначає їх сам. Усі нові класи й методи мають українські пояснювальні docstring; константи — коментарі, це перевіряє AST-тест. Докладні кроки розмітки й відомі обмеження — [evals/hw2/README.md](evals/hw2/README.md).
+
+CI `.github/workflows/hw2-offline.yml` запускає кодові перевірки без API, ключів і передавання corpus. Автоматичний платний CI відхилено automatic approval review; офлайн-workflow не вважається виконанням повного R16. Фактичний GitHub Actions-run без user commit/push тут не заявляється.
+
+Оригінали в `.rag/` локальні. Право публічного поширення повних originals/chunks не підтверджено; перед ручним додаванням `data/hw2/processed` у публічний Git це потрібно перевірити. Ваги й індекси Git ігнорує.
+
 ## Тести
 
 ```powershell

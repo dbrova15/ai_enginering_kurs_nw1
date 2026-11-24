@@ -1,0 +1,41 @@
+{
+  "checks": [
+    {
+      "checked_sample": "NE555N: ціна 1.36, кількість 1, сума 1.36; заголовки колонок збережені",
+      "headings": [
+        "Робот Sumo на Arduino Nano"
+      ],
+      "list_count": 9,
+      "raw_sha256": "a27717e6ad9cf23212ad0e444af3080715e26e93a468a4fe33a403f58e98f622",
+      "source_id": "HR-0001",
+      "table_rows": 38
+    },
+    {
+      "all_sketch_rows_typed_code": true,
+      "code_paragraphs": 114,
+      "headings": [
+        "Ящик для сушіння трав або пилку"
+      ],
+      "list_count": 12,
+      "literal_four_spaces_preserved": true,
+      "prose_after_sketch_stays_paragraph": true,
+      "raw_sha256": "9e8df0637811a1d61b2a21d1dcdc03b8ca2bf5ec9110065192b1e68be049cb6b",
+      "source_id": "HR-0038"
+    },
+    {
+      "checks": [
+        "Заголовки й одиниці збережені",
+        "Умови IOH відновлені для CPU/RTC/SDIO лише за merged bbox",
+        "Типові струми 40/40/20 mA відповідають оригінальній таблиці"
+      ],
+      "full_pdf_visual_qa": false,
+      "page": 52,
+      "review": "Візуальний огляд агента й звірка нормалізованої таблиці",
+      "source_id": "DS-ESP32"
+    }
+  ],
+  "extraction_version": "rag-extract-6",
+  "human_golden_approval": false,
+  "resource_check": "Повторний ingestion після звільнення page caches відтворив ті самі dataset/chunks SHA",
+  "reviewer": "agent"
+}

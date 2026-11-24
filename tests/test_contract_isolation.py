@@ -5,7 +5,7 @@ import hashlib
 import json
 import tempfile
 import unittest
-from pathlib import Path
+from pathlib import Path, PureWindowsPath
 from unittest.mock import patch
 
 import aggregate_runs
@@ -124,8 +124,32 @@ class ContractIsolationTests(unittest.TestCase):
                 evaluator.evaluate_run([record], self.golden)
 
     def test_original_reports_reproduce_without_using_strict_validation(self):
+        """Відтворює історичні метрики після перенесення workspace на іншу ОС.
+
+        Лише metadata-шляхи fixture зіставляються з поточним коренем у
+        пам'яті. Файли звітів, primary JSONL, golden та їхні контрольні
+        хеші незмінні; match_reports повторно перевіряє всі 240 записів.
+        """
         quality = json.loads((main.RESULTS / "evaluation/golden_20261026T095934403348Z.json").read_text(encoding="utf-8"))
         metrics = json.loads((main.RESULTS / "metrics/runs_20261026T101448227707Z.json").read_text(encoding="utf-8"))
+        original_root = PureWindowsPath(quality["golden_path"]).parents[3]
+
+        def relocated(value):
+            """Зіставляє fixture-шлях під історичним коренем із поточним ROOT.
+
+            PureWindowsPath однаково розбирає збережені backslashes на
+            обох ОС. relative_to відхиляє сторонній шлях, а digest після
+            перенесення перевіряє байти саме потрібного файлу.
+            """
+            relative = PureWindowsPath(value).relative_to(original_root)
+            return str(main.ROOT.joinpath(*relative.parts))
+
+        quality["golden_path"] = relocated(quality["golden_path"])
+        for run in quality["runs"]:
+            run["source_path"] = relocated(run["source_path"])
+        for group in metrics["groups"]:
+            for source in group["sources"]:
+                source["path"] = relocated(source["path"])
         combined, _, _ = generate_report.match_reports(quality, metrics)
         self.assertEqual(len(combined), 8)
         self.assertEqual(sum(item["metrics"]["document_observations"] for item in combined), 240)

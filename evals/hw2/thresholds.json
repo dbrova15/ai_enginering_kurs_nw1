@@ -1,0 +1,1 @@
+{"review_status":"approved","source":"Виконання користувачем специфікації 2026-11-17; це власні пороги HardwareResearch, не числові вимоги викладача","metrics":{"recall_at_5":0.8,"correct":0.8,"cited":0.9,"faithful":0.9,"abstain":1.0,"formal_citations":1.0,"agreement":0.8}}

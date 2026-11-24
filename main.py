@@ -11,20 +11,33 @@ from datetime import datetime, timezone
 from dotenv import load_dotenv
 from openai import OpenAI
 from pydantic import ValidationError
+from provider_config import get_provider, load_model
 
 from schema_contracts import DevicePosting, HardwarePlatform, Interface, CONTRACT_VERSION, CONTRACT_SHA256
 
+# Корінь проєкту незалежний від cwd; це зберігає правильні шляхи старого CLI.
 ROOT = Path(__file__).resolve().parent
 
 load_dotenv(ROOT / ".env")
+# Промпти extraction ДЗ1; RAG має окреме дерево prompts/rag.
 PROMPTS = ROOT / "prompts"
+# Затверджений еталон extraction використовується для metadata, не як LLM input.
 GOLDEN = ROOT / "data" / "sourses" / "hm1" / "golden.json"
+# Вихідні 30 TXT незмінні; їх не замінює новий корпус HTML/PDF.
 TEXTS = GOLDEN.parent / "texts"
+# Історичні JSONL ДЗ1 лишаються у цьому каталозі й не перезаписуються.
 RESULTS = ROOT / "results"
+# Єдиний підтримуваний контракт нової extraction-генерації.
 SCHEMA_VERSION = "v2"
+# Версія детермінованого видалення тільки початкового блоку метаданих.
 PREPARATION_VERSION = "schema-v2-initial-metadata-v1"
 
 def get_text_files() -> list[Path]:
+    """Повертає стабільно впорядковані TXT вибірки ДЗ1 за мовами en/ru/uk.
+
+    Не читає вмісту й не змінює originals. Фіксований порядок потрібний
+    для порівняння тих самих документів у різних експериментах.
+    """
     return [
         path
         for language in ("en", "ru", "uk")
@@ -33,13 +46,21 @@ def get_text_files() -> list[Path]:
     ]
 
 def get_text_from_file(file_paths: list[Path] | None = None) -> list[str]:
-    """Збирає тексти з англійської, російської та української вибірок."""
+    """Читає передані TXT як UTF-8 або бере стандартну вибірку ДЗ1.
+
+    Повертає тексти в тому самому порядку, не нормалізуючи байти тихцем.
+    Помилка кодування/відсутності файла поширюється до caller.
+    """
     paths = get_text_files() if file_paths is None else file_paths
     return [path.read_bytes().decode("utf-8") for path in paths]
 
 
 def prepare_text(text: str) -> str:
-    """Видаляє лише повний початковий блок метаданих, зберігаючи заголовок."""
+    """Видаляє лише повний початковий блок Автори/Категорії/Плати ДЗ1.
+
+    Зберігає заголовок і решту змісту/коду; якщо структура не відповідає
+    шаблону, повертає вихідний текст без змін. Це не ingestion RAG.
+    """
     lines = text.splitlines(keepends=True)
     start = 0 if lines and lines[0].startswith("Автори:") else 1
     index = start
@@ -51,6 +72,7 @@ def prepare_text(text: str) -> str:
         index += 1
     return "".join(lines[:start] + lines[index:])
 
+# Wire JSON Schema для API extraction; локальна валідація додає суворі правила.
 RESPONSE_FORMAT = {
     "type": "json_schema",
     "json_schema": {
@@ -59,10 +81,16 @@ RESPONSE_FORMAT = {
         "schema": DevicePosting.model_json_schema(),
     },
 }
+# Одна первинна відповідь плюс максимум один repair, без нескінченних циклів.
 MAX_EXTRACTION_ATTEMPTS = 2
 
 
 def _response_record(response, seconds: float) -> dict:
+    """Відділяє content/usage/status одного extraction-виклику від SDK-об'єкта.
+
+    Не вигадує відсутні токени; визначає refusal, обрив та порожній content
+    до Pydantic parsing. Час передається caller як виміряна latency.
+    """
     choice = response.choices[0] if response.choices else None
     message = choice.message if choice else None
     usage = response.usage
@@ -82,6 +110,12 @@ def _response_record(response, seconds: float) -> dict:
 
 
 def _validate_extraction_response(record: dict, text: str) -> DevicePosting:
+    """Перевіряє завершення відповіді й строгий DevicePosting-контракт ДЗ1.
+
+    Refusal, обрив або порожній content відхиляються до JSON-валідації.
+    text передається як validation context, але сам по собі не доводить
+    фактичну правильність полів відповіді.
+    """
     if record["refusal"]:
         raise ValueError(f"Модель відмовилася: {record['refusal']}")
     if record["finish_reason"] != "stop":
@@ -162,34 +196,12 @@ def extract(client: OpenAI, messages: list[dict], text: str, model: str,
     return result
 
 
-def get_provider() -> str:
-    """Обирає провайдера з оточення/.env та перевіряє його до мережевого запиту."""
-    provider = os.getenv("LLM_PROVIDER", "openrouter").strip().lower()
-    if provider not in ("openai", "openrouter", "ollama"):
-        raise ValueError(f"Невідомий LLM_PROVIDER: {provider}")
-    return provider
-
-
-def load_model() -> tuple[str, str, str]:
-    provider = get_provider()
-    if provider == "openrouter":
-        base_url = "https://openrouter.ai/api/v1"
-        api_key = os.getenv("OPENROUTER_API_KEY", "").strip()
-        model = os.getenv("OPENROUTER_MODEL", "").strip() or "openai/gpt-4o-mini"
-    elif provider == "openai":
-        base_url = "https://api.openai.com/v1"
-        api_key = os.getenv("OPENAI_API_KEY", "").strip()
-        model = os.getenv("OPENAI_MODEL", "").strip() or "gpt-4o-mini"
-    elif provider == "ollama":
-        server = os.getenv("OLLAMA_BASE_URL", "http://localhost:11434").strip().rstrip("/")
-        base_url = server if server.endswith("/v1") else server + "/v1"
-        api_key = "ollama"
-        model = os.getenv("OLLAMA_MODEL", "").strip() or "llama3.2:3b"
-    if not api_key:
-        raise ValueError(f"Не задано API-ключ для {provider}")
-    return base_url, api_key, model
-
 def load_prompt(version: str) -> tuple[str, str]:
+    """Читає незмінний versioned extraction prompt і повертає його SHA-256.
+
+    Приймає лише v1/v2, зберігає UTF-8 байтову ідентичність для журналу.
+    Не читає prompt-файли RAG і не підганяє їх за golden feedback.
+    """
     if version == "v1":
         prompt = (PROMPTS / "v1.txt").read_text(encoding="utf-8")
     elif version == "v2":
@@ -201,6 +213,11 @@ def load_prompt(version: str) -> tuple[str, str]:
     return prompt, prompt_hash
 
 def parse_args(argv: list[str] | None = None) -> argparse.Namespace:
+    """Розбирає старі аргументи ДЗ1 без зміни їхніх defaults чи контракту.
+
+    Перевіряє додатний --limit до API. Нову групу rag обробляє лише
+    script dispatch, тому прямі виклики main(argv) залишаються сумісними.
+    """
     parser = argparse.ArgumentParser(description="Витягування даних із технічних статей")
     parser.add_argument("prompt_version", nargs="?", choices=("v1", "v2"), default="v1")
     parser.add_argument("--limit", type=int, help="Обробити лише перші N статей")
@@ -212,6 +229,12 @@ def parse_args(argv: list[str] | None = None) -> argparse.Namespace:
 
 
 def main(argv: list[str] | None = None) -> None:
+    """Організовує extraction ДЗ1 від читання TXT до окремого JSONL.
+
+    Завантажує provider/prompt, обмежує вибірку й журналює кожен документ.
+    Може викликати платний API згідно з налаштуванням; офлайн-тести
+    підміняють клієнт. Існуючий result-файл не перезаписується.
+    """
     args = parse_args(argv)
     base_url, api_key, model = load_model()
     provider = get_provider()
@@ -269,4 +292,9 @@ def main(argv: list[str] | None = None) -> None:
 
 
 if __name__ == "__main__":
+    # Лінивий dispatch не додає ML-залежностей до звичайного запуску ДЗ1.
+    import sys
+    if sys.argv[1:2] == ["rag"]:
+        from hardware_rag.cli import main as rag_main
+        raise SystemExit(rag_main(sys.argv[2:]))
     main()

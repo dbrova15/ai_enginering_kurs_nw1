@@ -19,6 +19,19 @@ from test_run_metrics import metric_record
 
 
 class ReportTests(unittest.TestCase):
+    def test_float_roundoff_does_not_allow_metric_or_hash_tampering(self):
+        """Один ULP між Python 3.11/3.12 допустимий; реальна підміна — ні.
+
+        Перевіряє вкладені структури, точність SHA/довжин та відмову для
+        NaN, щоб переносність звіту не приховувала пошкодження артефактів.
+        """
+        expected = {"accuracy": [0.7625000000000002], "sha256": "a"}
+        self.assertTrue(generate_report.equivalent_metrics(expected, {"accuracy": [0.7625000000000001], "sha256": "a"}))
+        self.assertFalse(generate_report.equivalent_metrics(expected, {"accuracy": [0.763], "sha256": "a"}))
+        self.assertFalse(generate_report.equivalent_metrics(expected, {"accuracy": [0.7625000000000002], "sha256": "b"}))
+        self.assertFalse(generate_report.equivalent_metrics([1.0], [1.0, 1.0]))
+        self.assertFalse(generate_report.equivalent_metrics(float("nan"), float("nan")))
+
     def setUp(self):
         self.temporary = tempfile.TemporaryDirectory()
         self.addCleanup(self.temporary.cleanup)
