@@ -158,7 +158,7 @@ class IngestionTests(unittest.TestCase):
 
         31 синтетичний original дає dataset; після двох hash failures
         лишається 29 і новий current не публікується. Попередній запис
-        залишається читабельним, failed manifest зберігає причини.
+        залишається читабельним. Перевіряє LF, версію запису й хеші байтів.
         """
         with tempfile.TemporaryDirectory() as tmp:
             root = Path(tmp)
@@ -174,14 +174,23 @@ class IngestionTests(unittest.TestCase):
             config = RagConfig(sources="sources.json", processed="processed")
             first = ingest(config, Words(), root)
             self.assertEqual(first["documents"], 31)
+            self.assertEqual(first["fingerprint"]["artifact_serialization"], "utf8-lf")
+            directory = root / "processed" / first["dataset_id"]
+            for name in ("chunks.jsonl", "blocks.json", "manifest.json", "complete.json"):
+                with self.subTest(artifact=name):
+                    payload = (directory / name).read_bytes()
+                    self.assertNotIn(b"\r", payload)
+                    self.assertTrue(payload.endswith(b"\n"))
+            self.assertEqual(first["chunks_sha256"], file_digest(directory / "chunks.jsonl"))
+            self.assertEqual(read_json(directory / "complete.json")["manifest_sha256"],
+                             file_digest(directory / "manifest.json"))
             self.assertEqual(first["dataset_id"], ingest(config, Words(), root)["dataset_id"])
-            self.assertIn("chunks_sha256", ingest(config, Words(), root))
             for i in (0, 1):
                 (root / f"doc{i}.html").write_text("changed", encoding="utf-8")
             with self.assertRaisesRegex(ValueError, "corpus_incomplete"):
                 ingest(config, Words(), root)
             self.assertEqual(read_json(root / "processed/current.json")["dataset_id"], first["dataset_id"])
-            self.assertEqual(load_dataset(root / "processed" / first["dataset_id"])[0]["documents"], 31)
+            self.assertEqual(load_dataset(directory)[0]["documents"], 31)
             audits = list((root / "processed/failed").glob("*/manifest.json"))
             self.assertEqual(len(audits), 1)
             self.assertEqual(sum(e["status"] == "error" for e in read_json(audits[0])["entries"]), 2)

@@ -1,0 +1,4 @@
+# Хеші артефактів ingestion залежать від байтів, які відновлює Git.
+/data/hw2/processed/**/*.json text eol=lf
+/data/hw2/processed/**/*.jsonl text eol=lf
+/data/hw2/supplements/*.html text eol=lf

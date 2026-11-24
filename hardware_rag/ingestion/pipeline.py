@@ -13,6 +13,8 @@ from .chunking import CHUNKING_VERSION, make_chunks
 # code, щоб prose cleanup не змінював string literals. Попередні PDF fixes
 # лишаються; зміна гарантує нові dataset/index fingerprints.
 EXTRACTION_VERSION = "rag-extract-6"
+# Версія серіалізації відрізняє нові LF-артефакти від історичних CRLF-хешів.
+ARTIFACT_SERIALIZATION = "utf8-lf"
 
 
 def source_records(path: Path) -> list[Source]:
@@ -33,11 +35,12 @@ def source_records(path: Path) -> list[Source]:
 
 
 def ingest(config, tokens, root: Path) -> dict:
-    """Публікує повністю перевірений dataset і переключає current pointer.
+    """Обробляє джерела з конфігурації в межах root і повертає manifest.
 
-    Обробляє всі джерела, записує помилки й exact duplicates. Менше
-    30 ok-документів або один формат не приймаються: повертається audit,
-    а попередній current зберігається. Історичні каталоги не видаляються.
+    Витягує й дедуплікує документи, нарізає їх за допомогою tokens.
+    Менше 30 придатних документів або менше двох форматів спричиняють
+    запис audit і ValueError. Версія серіалізації входить в ID набору.
+    Записує UTF-8 з LF, рахує хеші з диска й оновлює current pointer.
     """
     sources = source_records(config.path("sources", root))
     documents, entries = _extract_sources(sources, root)
@@ -49,6 +52,7 @@ def ingest(config, tokens, root: Path) -> dict:
         raise ValueError(f"corpus_incomplete: {len(documents)} унікальних; формати={sorted(formats)}; "
                          f"помилки={[(e['source_id'], e.get('error')) for e in entries if e['status'] == 'error']}")
     fingerprint = {"sources": [s.model_dump(mode="json") for s in sources],
+                   "artifact_serialization": ARTIFACT_SERIALIZATION,
                    "normalization": NORMALIZATION_VERSION, "extraction": EXTRACTION_VERSION, "chunking": CHUNKING_VERSION,
                    "chunk_config": {key: getattr(config, key) for key in ("target_tokens", "chunk_cap", "overlap")},
                    "assets": tokens.metadata, "entries": entries}
@@ -64,7 +68,7 @@ def ingest(config, tokens, root: Path) -> dict:
         manifest = existing
     else:
         directory.mkdir(parents=True)
-        with (directory / "chunks.jsonl").open("x", encoding="utf-8") as stream:
+        with (directory / "chunks.jsonl").open("x", encoding="utf-8", newline="\n") as stream:
             stream.write("\n".join(c.model_dump_json() for c in chunks) + "\n")
         manifest["chunks_sha256"] = file_digest(directory / "chunks.jsonl")
         write_json(directory / "blocks.json", block_records)

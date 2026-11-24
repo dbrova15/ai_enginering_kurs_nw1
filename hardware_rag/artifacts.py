@@ -58,18 +58,18 @@ def read_json(path: Path) -> Any:
 
 
 def write_json(path: Path, value: Any, *, replace: bool = False) -> None:
-    """Публікує JSON атомарно; immutable-артефакт не можна перезаписати.
+    """Записує об'єкт у канонічний UTF-8 JSON із завершальним LF.
 
-    replace=True призначено для current pointer. Тимчасовий файл у
-    тому самому каталозі забезпечує атомарність; помилка прибирає лише
-    цей тимчасовий файл і не видаляє попередній результат користувача.
+    Явний LF дає однакові байти й хеші на Windows і Linux. Запис іде
+    через тимчасовий файл у тому самому каталозі для атомарної публікації.
+    Наявний файл викликає FileExistsError, якщо replace=False.
     """
     path.parent.mkdir(parents=True, exist_ok=True)
     if path.exists() and not replace:
         raise FileExistsError(path)
     temporary = None
     try:
-        with tempfile.NamedTemporaryFile(mode="w", encoding="utf-8", dir=path.parent, delete=False) as stream:
+        with tempfile.NamedTemporaryFile(mode="w", encoding="utf-8", newline="\n", dir=path.parent, delete=False) as stream:
             temporary = Path(stream.name)
             stream.write(canonical_json(value) + "\n")
             stream.flush()
