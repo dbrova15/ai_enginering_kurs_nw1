@@ -2,3 +2,14 @@
 /data/hw2/processed/**/*.json text eol=lf
 /data/hw2/processed/**/*.jsonl text eol=lf
 /data/hw2/supplements/*.html text eol=lf
+
+# Історичні звіти ДЗ1 містять SHA-256 цих файлів у поданні CRLF.
+/data/sourses/hm1/golden.json text eol=crlf
+/results/prompt_v1_gpt-4o-mini_20261026T091241044332Z.jsonl text eol=crlf
+/results/prompt_v1_gpt-4o-mini_20261026T095749559447Z.jsonl text eol=crlf
+/results/prompt_v1_llama3.2_3b_20261026T091050926409Z.jsonl text eol=crlf
+/results/prompt_v1_llama3.2_3b_20261026T095447552257Z.jsonl text eol=crlf
+/results/prompt_v2_gpt-4o-mini_20261026T091323235173Z.jsonl text eol=crlf
+/results/prompt_v2_gpt-4o-mini_20261026T095830791187Z.jsonl text eol=crlf
+/results/prompt_v2_llama3.2_3b_20261026T091124238077Z.jsonl text eol=crlf
+/results/prompt_v2_llama3.2_3b_20261026T095513809612Z.jsonl text eol=crlf
