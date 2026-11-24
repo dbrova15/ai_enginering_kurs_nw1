@@ -25,4 +25,40 @@ jobs:
       - name: Lazy CLI smoke check
         run: python main.py rag --help
 
-# Цей workflow не передає corpus до моделей, не читає API secrets і не є R16 quality gate.
+  rag-retrieval:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: pip
+          cache-dependency-path: requirements-rag.txt
+      - run: python -m pip install -r requirements-rag.txt
+      - name: Prepare local retrieval models
+        run: python main.py rag prepare-models --download
+      - name: Build search index
+        run: python main.py rag index
+      - name: Evaluate retrieval and enforce Recall@5
+        shell: bash
+        run: |
+          python main.py rag eval --stage retrieval > .rag/ci-retrieval-result.json
+          python - <<'PY'
+          import json
+          from pathlib import Path
+
+          result = json.loads(Path(".rag/ci-retrieval-result.json").read_text(encoding="utf-8"))
+          thresholds = json.loads(Path("evals/hw2/thresholds.json").read_text(encoding="utf-8"))
+          actual = result["metrics"]["recall_at_5"]
+          minimum = thresholds["metrics"]["recall_at_5"]
+          if thresholds["review_status"] != "approved":
+              raise SystemExit("Retrieval thresholds must be approved")
+          if any(type(value) not in (int, float) or not 0 <= value <= 1 for value in (actual, minimum)):
+              raise SystemExit("Recall@5 and its threshold must be numbers between 0 and 1")
+          print(f"Run {result['run_id']}: Recall@5 {actual:.4f}, threshold {minimum:.4f}")
+          if actual < minimum:
+              raise SystemExit("Recall@5 is below the approved threshold")
+          PY
