@@ -366,7 +366,24 @@ Heading-стратегію порівняно з fixed-вікнами таког
 
 Суддя потребує ≥10 незалежних ручних оцінок **обох класів** correctness/faithfulness; workflow не призначає їх сам. Усі нові класи й методи мають українські пояснювальні docstring; константи — коментарі, це перевіряє AST-тест. Докладні кроки розмітки й відомі обмеження — [evals/hw2/README.md](evals/hw2/README.md).
 
-CI `.github/workflows/hw2-offline.yml` на push і pull request запускає тести та живе оцінювання пошуку. Job `rag-retrieval` готує публічні ваги, будує локальний індекс і порівнює Recall@5 на 15 затверджених питаннях із порогом у `evals/hw2/thresholds.json`. Якщо результат нижчий за поріг, job завершується помилкою. Для цих перевірок ключі API не потрібні. Автоматичну генерацію й оцінювання нових відповідей у CI ще не підключено.
+На push і pull request [офлайн-workflow](.github/workflows/hw2-offline.yml) запускає тести й перевіряє пошук без ключів API. Job `rag-retrieval` готує моделі, будує індекс і порівнює Recall@5 на 15 затверджених питаннях із порогом у [thresholds.json](evals/hw2/thresholds.json). Результат нижче порога завершує job помилкою.
+
+### Повне оцінювання відповідей у CI
+
+[Workflow оцінювання відповідей](.github/workflows/hw2-answer-gate.yml) очікує результат для кожного push у `main` після активації. Локальний runner сам читає підтверджені запуски з GitHub, готує чисту копію потрібного коміту й виконує `rag eval --stage full --gate` із затвердженим тестсетом і калібруванням. GitHub отримує лише кінцевий статус. Обидва ключі зберігаються в локальному `.env`.
+
+1. На довіреній Linux-машині встановіть залежності з `requirements-rag.txt` у `.venv`. Підготуйте ваги й токенізатори командою `.venv/bin/python main.py rag prepare-models --download`, якщо їх ще немає. Створіть локальний `.rag/paid-run.json` на основі [шаблону](config/hw2-paid.example.json) і звірте тарифи OpenAI та дату. Локальний runner задає ліміт платного прогону в тимчасовій копії профілю.
+2. Заповніть `OPENAI_API_KEY` та `HW2_CI_GITHUB_TOKEN` у локальному `.env` за [прикладом](.env.example). GitHub token має належати власнику репозиторію. Виберіть `Only select repositories` і надайте доступ лише до `ai_enginering_kurs_nw1`. Для `Actions` виберіть `Read-only`, а для `Commit statuses` — `Read and write`. [Створення fine-grained token](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/managing-your-personal-access-tokens#creating-a-fine-grained-personal-access-token)
+3. Після публікації workflow у `main` виконайте першу команду, поки оцінювання вимкнено. Параметр `--once` робить один цикл опитування GitHub. Друга команда запускає безперервне опитування.
+
+   ```bash
+   .venv/bin/python -m hardware_rag.ci.runner --once
+   .venv/bin/python -m hardware_rag.ci.runner
+   ```
+
+4. У GitHub відкрийте **Settings → Secrets and variables → Actions → Variables** і додайте змінну репозиторію `HW2_PAID_CI_ENABLED` зі значенням `true`. Наступний push у `main` запустить перевірку. Щоб призупинити нові запуски, задайте `false`. [Змінні GitHub Actions](https://docs.github.com/en/actions/how-tos/write-workflows/choose-what-workflows-do/use-variables#creating-configuration-variables-for-a-repository)
+
+Runner резервує **$0,10 на запуск** у межах **$1,00 на місяць UTC**. SQLite-журнал і сирі результати залишаються в приватному каталозі `~/.local/state/hardware-rag-ci`. Запускайте один екземпляр runner для цього репозиторію й зберігайте той самий каталог стану між запусками. Деталі оцінювання наведено в [evals/hw2/README.md](evals/hw2/README.md#ci).
 
 Оригінали в `.rag/` локальні. Право публічного поширення повних originals/chunks не підтверджено; перед ручним додаванням `data/hw2/processed` у публічний Git це потрібно перевірити. Ваги й індекси Git ігнорує.
 

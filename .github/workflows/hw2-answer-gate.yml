@@ -1,0 +1,69 @@
+name: RAG answer quality
+
+on:
+  push:
+    branches: [main]
+
+permissions:
+  statuses: write
+
+jobs:
+  answer-gate:
+    if: github.repository == 'dbrova15/ai_enginering_kurs_nw1' && vars.HW2_PAID_CI_ENABLED == 'true'
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - name: Wait for local RAG evaluation
+        env:
+          STATUS_TOKEN: ${{ github.token }}
+        shell: bash
+        run: |
+          python3 - <<'PY'
+          import json
+          import os
+          import time
+          from urllib.request import Request, urlopen
+
+          repo = os.environ["GITHUB_REPOSITORY"]
+          sha = os.environ["GITHUB_SHA"]
+          run_id = os.environ["GITHUB_RUN_ID"]
+          owner = os.environ["GITHUB_REPOSITORY_OWNER"]
+          context = f"hw2/answer-gate/{run_id}"
+          run_url = f"https://github.com/{repo}/actions/runs/{run_id}"
+          api = f"https://api.github.com/repos/{repo}"
+          headers = {
+              "Authorization": f"Bearer {os.environ['STATUS_TOKEN']}",
+              "Accept": "application/vnd.github+json",
+              "Content-Type": "application/json",
+          }
+
+          def request(path, body=None):
+              """Читає або записує статус цього коміту через GitHub REST."""
+              data = json.dumps(body).encode() if body is not None else None
+              with urlopen(Request(f"{api}/{path}", data=data, headers=headers), timeout=20) as response:
+                  return json.load(response)
+
+          def current_status():
+              """Повертає останній статус лише для поточного запуску й адреси."""
+              return next((
+                  item for item in request(f"commits/{sha}/statuses?per_page=100")
+                  if item["context"] == context and item["target_url"] == run_url
+              ), None)
+
+          if current_status() is None:
+              request(f"statuses/{sha}", {
+                  "state": "pending", "context": context,
+                  "description": "Waiting for the local RAG runner", "target_url": run_url,
+              })
+          deadline = time.monotonic() + 55 * 60
+          while time.monotonic() < deadline:
+              status = current_status()
+              if status and status["creator"]["login"] == owner and status["state"] != "pending":
+                  if status["state"] == "success":
+                      print("Local RAG evaluation passed the quality gate")
+                      break
+                  raise SystemExit("Local RAG evaluation failed the quality gate")
+              time.sleep(30)
+          else:
+              raise SystemExit("Local RAG runner did not finish before the deadline")
+          PY
